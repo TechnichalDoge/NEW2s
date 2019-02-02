@@ -1,0 +1,23 @@
+@name Grapher
+@inputs EGP:wirelink GraphicalValuable:number
+@persist Frequency:number Curframe:number TableValues:array
+
+#[
+
+
+comments and howto and creds
+
+]#
+
+if(first()|dupefinished()){
+ #horz and vert res
+ #color
+ #setup array    
+ #freq
+}
+#interval(Frequency)
+
+#Curframe = Curframe % HorzRes
+#TableValues[Curframe, number] = GraphicalValuable
+
+#Curframe++
