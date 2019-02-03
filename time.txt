@@ -1,0 +1,8 @@
+@name time
+@inputs 
+@outputs Time
+@persist 
+@trigger 
+
+interval(10)
+Time = curtime()

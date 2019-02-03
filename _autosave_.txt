@@ -1,7 +1,9 @@
 @name Grapher
 @inputs EGP:wirelink GraphicalValuable:number
-@persist Frequency:number TableValues:array
-
+@outputs Frequency:number TableValues:array EGPSIZE:vector2
+@outputs HorzRes:number VertRes:number
+@outputs Amt
+@outputs PrevX1 PrevY1 NowX1 NowY1 ActuPX ActuNX ActuPY ActuNY
 #[
 
 
@@ -12,35 +14,45 @@ comments and howto and creds
 if(first()|dupefinished()){
  #resolutions
     #horz res
+    HorzRes = 512
     #vert res
+    VertRes = 200
  #colors
     #backgroundcolor
     #0y line color
     #graph color
  #setup array   
-    #TableValues[1,number] = 0
+    TableValues[1,number] = 0
  #freq
-    #Frequency = 1000/  25 #basically using frames per second.
+    Frequency = 1000/  0.1 #basically using frames per second.
  # include mapfunction
  #include "/mapfunction"
 }
-#interval(Frequency)
-#TableValue:pushNumber(GraphicalValuable)
-#if(TableValues:count()>HorzRes){
-    #TableValues:shiftNumber()
-#}
+if(!(EGP == nowirelink())){
+EGPSIZE = EGP:egpSize()
+interval(Frequency)
+TableValues:pushNumber(GraphicalValuable)
+if(TableValues:count()>HorzRes){
+    TableValues:shiftNumber()
+}
 
 ##loop through and display the stuff on egp
-#EGP:egpClear()
-#timer("show",11.5)
-#if(clk("show")){
-    #for(K=2,TableValues:count()){
-        #local PrevX1 = K-1
-        #local PrevY1 = TableValues[K-1,number]
-        #local NowX1 = K
-        #local NowY1 = TableValues[K,number]
+EGP:egpClear()
+timer("show",11.5)
+if(clk("show")){
+    for(K=2,HorzRes){
+        if(!perf()){break}
+        PrevX1 = K-1
+        PrevY1 = TableValues[K-1,number]
+        NowX1 = K
+        NowY1 = TableValues[K,number]
+        ActuPX = mapNum(PrevX1,0,HorzRes,0,EGPSIZE[1],1)+250
+        ActuNX = mapNum(NowX1,0,HorzRes,0,EGPSIZE[1],1)+250
+        ActuPY = mapNum(PrevY1,-VertRes/2,VertRes/2,0,EGPSIZE[2],1)
+        ActuNY = mapNum(NowY1,-VertRes/2,VertRes/2,0,EGPSIZE[2],1)
         #maybe use the beizer function in a for to make it curved
-        #EGP:egpLine(K,
-        #
-    #}
-#}
+        EGP:egpLine(K,vec2(ActuPX,ActuPY),vec2(ActuNX,ActuNY))  
+    }
+} 
+Amt = TableValues:count()
+}
