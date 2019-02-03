@@ -1,6 +1,6 @@
 @name Grapher
 @inputs EGP:wirelink GraphicalValuable:number
-@persist Frequency:number Curframe:number TableValues:array
+@persist Frequency:number TableValues:array
 
 #[
 
@@ -10,18 +10,37 @@ comments and howto and creds
 ]#
 
 if(first()|dupefinished()){
- #horz and vert res
- #color
- #setup array    
+ #resolutions
+    #horz res
+    #vert res
+ #colors
+    #backgroundcolor
+    #0y line color
+    #graph color
+ #setup array   
+    #TableValues[1,number] = 0
  #freq
+    #Frequency = 1000/  25 #basically using frames per second.
  # include mapfunction
  #include "/mapfunction"
 }
 #interval(Frequency)
-
-#Curframe = Curframe % HorzRes
-#TableValues[Curframe, number] = GraphicalValuable
-
-#Curframe++
+#TableValue:pushNumber(GraphicalValuable)
+#if(TableValues:count()>HorzRes){
+    #TableValues:shiftNumber()
+#}
 
 ##loop through and display the stuff on egp
+#EGP:egpClear()
+#timer("show",11.5)
+#if(clk("show")){
+    #for(K=2,TableValues:count()){
+        #local PrevX1 = K-1
+        #local PrevY1 = TableValues[K-1,number]
+        #local NowX1 = K
+        #local NowY1 = TableValues[K,number]
+        #maybe use the beizer function in a for to make it curved
+        #EGP:egpLine(K,
+        #
+    #}
+#}
