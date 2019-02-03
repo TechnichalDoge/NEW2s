@@ -14,6 +14,7 @@ if(first()|dupefinished()){
  #color
  #setup array    
  #freq
+ # include mapfunction
 }
 #interval(Frequency)
 
@@ -21,3 +22,5 @@ if(first()|dupefinished()){
 #TableValues[Curframe, number] = GraphicalValuable
 
 #Curframe++
+
+##loop through and display the stuff on egp

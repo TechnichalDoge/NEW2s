@@ -1,21 +1,26 @@
-@name mapfunction
+@name Grapher
+@inputs EGP:wirelink GraphicalValuable:number
+@persist Frequency:number Curframe:number TableValues:array
+
 #[
-    Code from p5.js
-        https://github.com/processing/p5.js/blob/master/src/math/calculation.js#L465
-    Converted to E2 by Logica
-        https://steamcommunity.com/id/GetLogical/
+
+
+comments and howto and creds
+
 ]#
-function number map(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
-    local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
-    if (!StayinBounds) {
-        return Newval
-    }
-    else{
-        if (LowerBounds2 < UpperBounds2) {
-            return clamp(Newval, LowerBounds2, UpperBounds2)
-        } 
-        else {
-            return clamp(Newval, UpperBounds2, LowerBounds2)
-        }
-    }
+
+if(first()|dupefinished()){
+ #horz and vert res
+ #color
+ #setup array    
+ #freq
+ # include mapfunction
 }
+#interval(Frequency)
+
+#Curframe = Curframe % HorzRes
+#TableValues[Curframe, number] = GraphicalValuable
+
+#Curframe++
+
+##loop through and display the stuff on egp
