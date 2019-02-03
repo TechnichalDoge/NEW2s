@@ -15,6 +15,7 @@ if(first()|dupefinished()){
  #setup array    
  #freq
  # include mapfunction
+ #include "/mapfunction"
 }
 #interval(Frequency)
 
