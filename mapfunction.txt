@@ -5,16 +5,18 @@
     Converted to E2 by Logica
     https://steamcommunity.com/id/GetLogical/
 ]#
-
-function number map(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, stop2, withinBounds) {
-  p5._validateParameters('map', arguments);
-  local Newval = (n - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (stop2 - LowerBounds2) + LowerBounds2;
-  if (!withinBounds) {
-    return newval;
-  }
-  if (start2 < stop2) {
-    return this.constrain(newval, start2, stop2);
-  } else {
-    return this.constrain(newval, stop2, start2);
-  }
-};
+function number map(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+#p5._validateParameters('map', arguments)
+local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+if (!StayinBounds) {
+return Newval
+}
+else{
+if (LowerBounds2 < UpperBounds2) {
+return clamp(Newval, LowerBounds2, UpperBounds2)
+} else {
+return clamp(Newval, UpperBounds2, LowerBounds2)
+}
+}
+}
+print(map(1,0,2,0,6,0))
