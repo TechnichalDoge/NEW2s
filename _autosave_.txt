@@ -1,10 +1,33 @@
-@name spinner
-@inputs Entity:entity
-@persist I
-interval(10)
-if(Entity != noentity()){
-    Entity:setAng( ang(0 , I , 0) )
-    I+= 250  
-    I = I % 360
+@name Console Screen
+@inputs EGP:wirelink TextInput:string Input:number
+@outputs Clear
+@persist Lines:number TextLines:array
+@trigger 
+
+runOnTick(1)
+
+if(first()){
+    Lines = 10   
+}
+if(EGP != nowirelink()){
+EGP:egpDrawTopLeft(1)
+local EGPSIZE = EGP:egpSize()
+local BOTTOMTEXT = EGPSIZE[2]*0.1+EGPSIZE[2]*0.8
+local BOTTOMTEXTSIZE = EGPSIZE[2]*0.1
+EGP:egpBoxOutline(0,vec2(0,BOTTOMTEXT),vec2(EGPSIZE[1],BOTTOMTEXTSIZE))
+for(I = Lines,0,-1){
+    
+}
+if(Input & TextInput:length() != 0){
+    TextLines:pushString(TextInput)    
+    timer("clrk",20)
 }
 
+}
+if(clk("clrk")){
+    Clear = 1    
+    timer("uclrk",20) 
+}
+if(clk("uclrk")){
+    Clear = 0    
+}
