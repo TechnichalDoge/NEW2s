@@ -1,5 +1,5 @@
 @name Sniper Explosive
-@persist SpawnPos:table Weapons:array Pew:entity
+@persist SpawnPos:table Weapons:array
 
 if(first()|dupefinished()){
     holoCreate(0,vec(0,0,0))    
@@ -16,7 +16,7 @@ holoAng(0,owner():eyeAngles()+ang(-90,0,0))
 SpawnPos["position",vector] = holoEntity(1):pos()
 
 if(Owner:keyAttack1()){
-    Pew = pewCreate("","",
+        
 }
 }
 else{
