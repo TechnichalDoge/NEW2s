@@ -1,0 +1,21 @@
+@name mapfunction
+#[
+    Code from p5.js
+        https://github.com/processing/p5.js/blob/master/src/math/calculation.js#L465
+    Converted to E2 by Logica
+        https://steamcommunity.com/id/GetLogical/
+]#
+function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+    local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+    if (!StayinBounds) {
+        return Newval
+    }
+    else{
+        if (LowerBounds2 < UpperBounds2) {
+            return clamp(Newval, LowerBounds2, UpperBounds2)
+        } 
+        else {
+            return clamp(Newval, UpperBounds2, LowerBounds2)
+        }
+    }
+}
