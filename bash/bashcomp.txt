@@ -1,33 +1,49 @@
 @name Console Screen
-@inputs EGP:wirelink TextInput:string Input:number
+@inputs EGP:wirelink TextInput:string
 @outputs Clear
 @persist Lines:number TextLines:array
-@trigger 
+@persist NormFontSize LineNumbered
+@persist FromLeft
 
-interval(1000/25)
+interval(1000/10)
 if(first()){
-    Lines = 10   
+    Lines = 15   
+    NormFontSize = 21
+    LineNumbered = 0
+    FromLeft = 10
     #include "mapfunction"
+    if(EGP != nowirelink()){
+        EGP:egpClear()
+    }
 }
 if(EGP != nowirelink()){
 EGP:egpDrawTopLeft(1)
 local EGPSIZE = EGP:egpSize()
-EGP:egpBox(0,vec2(0,0),EGPSIZE)
+#EGP:egpBox(0,vec2(0,0),EGPSIZE)
 local BOTTOMTEXT = EGPSIZE[2]*0.1+EGPSIZE[2]*0.8
 local BOTTOMTEXTSIZE = EGPSIZE[2]*0.1
+
+EGP:egpSize(100,2)
 EGP:egpBoxOutline(100,vec2(0,BOTTOMTEXT),vec2(EGPSIZE[1],BOTTOMTEXTSIZE))
-for(I = Lines,0,-1){
-    local Linestr = TextLines[I,string]
-    EGP:egpText(I+1,"hi"+I:toString(),vec2(0,mapNum(I,Lines,0,0,BOTTOMTEXT-BOTTOMTEXTSIZE,1)))
+EGP:egpDrawTopLeft(0)
+EGP:egpSize(0,32)
+EGP:egpText(0,TextInput,vec2(FromLeft,BOTTOMTEXT+BOTTOMTEXTSIZE/3))
+for(I = Lines,1,-1){
+    local Linestr = TextLines:reversed()[I,string]
+    if(LineNumbered){
+    EGP:egpText(I+1,I+ " : " +Linestr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
+    }
+    else{
+    EGP:egpText(I+1,Linestr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
+    }
+    EGP:egpSize(I+1,NormFontSize)
 }
-if(Input & TextInput:length() != 0){
+if(TextInput:find("\n") & TextInput:length() > 1){
     TextLines:pushString(TextInput)    
-    timer("clrk",20)
-}
-}
-if(clk("clrk")){
-    Clear = 1    
+    Clear = 1  
     timer("uclrk",20) 
+}
+EGP:egpDrawTopLeft(1)
 }
 if(clk("uclrk")){
     Clear = 0    
