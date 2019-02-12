@@ -1,0 +1,249 @@
+@name Modern ARt 2
+@inputs 
+@outputs HoloI
+@persist EP:vector HoloI Scale Color1:vector [HoloGate1,HoloGate2,HoloGate3,HoloGate4]:number
+@persist Status:string TimeScaleFactor
+@persist Target:entity LaunchedAt Missile PewPew:entity PewWire:wirelink
+@persist PewPewSpeed TravelDir:vector TravelTime Destination:vector PrevDestination:vector
+@trigger 
+
+Scale = 1
+Color1 = vec(25,25,220)
+if (first()){
+    runOnChat(1)
+    propSpawnUndo(0)
+    function number createHolo(HoloModel:string){
+        HoloI += 1
+        holoCreate(HoloI)
+        holoModel(HoloI, HoloModel)
+        
+        return HoloI
+    }
+    
+    Status = "opening"
+    TimeScaleFactor = 1
+    
+    PewPew = pewCreate("Homing Missile - Normal","models/props_junk/PopCan01a.mdl",entity():pos(),entity():heading(vec(entity():pos():x(),entity():pos():y(),entity():pos():z()+10000))+ang(-90,0,0),"up")
+    PewWire = PewPew:wirelink()
+    weld(entity(),PewPew)
+    
+    PewPewSpeed = 4500
+}
+
+EP=entity():pos()
+interval(25)
+
+if (first()){
+    Holo = createHolo("hq_cylinder")
+    holoPos(Holo, EP)
+    holoScaleUnits(Holo,vec(120*Scale,120*Scale,2*Scale))
+    holoMaterial(Holo,"phoenix_storms/concrete0")
+    #holoParent(Holo,entity())
+    
+    for(I=1,4){
+        local B = vec(0,0,0) * Scale
+        if(I==1){
+            B = vec(4,0,0) * Scale        
+        }
+        if(I==2){
+            B = vec(0,4,0) * Scale    
+        }
+        if(I==3){
+            B = vec(-4,0,0) * Scale
+        }
+        if(I==4){
+            B = vec(0, -4, 0) * Scale
+        }
+        
+        Holo = createHolo("hq_tube")
+        holoPos(Holo, EP +B)
+        holoScaleUnits(Holo, vec(80*Scale,80*Scale,25*Scale))
+        holoAng(Holo,ang(0,90*I,-25))
+        holoMaterial(Holo,"phoenix_storms/concrete0")
+        #holoParent(Holo,entity())
+    }
+    Holo = createHolo("hq_tube")
+    holoPos(Holo, EP)
+    holoScaleUnits(Holo, vec(90*Scale,90*Scale,10*Scale))
+    holoMaterial(Holo,"phoenix_storms/concrete0")
+    #holoParent(Holo,entity())
+    
+    Holo = createHolo("hq_tube")
+    holoPos(Holo, EP+(vec(0,0,25)*Scale))
+    holoScaleUnits(Holo, vec(71*Scale,71*Scale,6*Scale))    
+    holoMaterial(Holo,"phoenix_storms/concrete0")
+    #holoParent(Holo,entity())
+    
+    Holo = createHolo("hq_torus_thin")
+    holoPos(Holo, EP+(vec(0,0,28)*Scale))
+    holoScaleUnits(Holo, vec(66*Scale,66*Scale,8*Scale))    
+    holoMaterial(Holo,"phoenix_storms/concrete0")  
+    holoColor(Holo,Color1)
+    #holoParent(Holo,entity())
+    
+    HoloGate1 = createHolo("models/hunter/tubes/circle2x2d.mdl")
+    holoPos(HoloGate1, EP+(vec(0,0,27)*Scale))
+    holoScaleUnits(HoloGate1, vec(66*Scale,66*Scale,8*Scale))    
+    holoMaterial(HoloGate1,"phoenix_storms/concrete0")  
+    holoColor(HoloGate1,Color1)        
+    #holoParent(HoloGate1,entity())
+    
+    HoloGate2 = createHolo("models/hunter/tubes/circle2x2d.mdl")
+    holoPos(HoloGate2, EP+(vec(0,0,27)*Scale))
+    holoScaleUnits(HoloGate2, vec(66*Scale,66*Scale,8*Scale))    
+    holoMaterial(HoloGate2,"phoenix_storms/concrete0")  
+    holoColor(HoloGate2,Color1)   
+    holoAng(HoloGate2, ang(0,180,0))
+    #holoParent(HoloGate2,entity())
+    
+    HoloGate3 = createHolo("models/hunter/tubes/circle2x2d.mdl")
+    holoPos(HoloGate3, EP+(vec(0,0,27)*Scale))
+    holoScaleUnits(HoloGate3, vec(66*Scale,66*Scale,8*Scale))    
+    holoMaterial(HoloGate3,"phoenix_storms/concrete0")  
+    holoColor(HoloGate3,Color1)   
+    holoAng(HoloGate3, ang(0,90,0))
+    #holoParent(HoloGate3,entity())
+    
+    HoloGate4 = createHolo("models/hunter/tubes/circle2x2d.mdl")
+    holoPos(HoloGate4, EP+(vec(0,0,27)*Scale))
+    holoScaleUnits(HoloGate4, vec(66*Scale,66*Scale,8*Scale))    
+    holoMaterial(HoloGate4,"phoenix_storms/concrete0")  
+    holoColor(HoloGate4,Color1)   
+    holoAng(HoloGate4, ang(0,-90,0))
+    #holoParent(HoloGate4,entity())
+}
+
+HoloGateBoxSize = holoEntity(HoloGate1):boxSize()*0.65
+
+if (Status == "closing"){    
+    if (TimeScaleFactor < 1){
+        TimeScaleFactor += 0.01
+    }else{
+        Status = "idle"
+    }
+}elseif(Status == "opening"){
+    if (TimeScaleFactor > 0){
+        TimeScaleFactor -= 0.01
+    }else{
+        Status = "idle"
+    }
+}elseif(Status == "launching"){
+    TravelHeight = 4000
+    TravelDir = vec(0,0,1) #straight up
+    TravelTime = TravelHeight/PewPewSpeed #time we will spend traveling in this direction
+    Status = "travelling straight up"
+    PrevDestination = EP
+    Destination = PrevDestination + TravelDir*TravelTime*PewPewSpeed
+    PewWire["XYZ",vector] = Destination  
+    #DebugHolo = createHolo("")
+    #holoPos(DebugHolo, Destination)
+    #holoColor(DebugHolo, vec(255, 0, 0))
+}elseif(Status == "travelling straight up"){
+    ElapsedTime = curtime() - LaunchedAt
+    if (ElapsedTime < TravelTime){
+        PewPewCurPos = PrevDestination + TravelDir*ElapsedTime*PewPewSpeed
+    }else{
+        Status = "aligning to target"
+        LaunchedAt = curtime()
+        NextDestination = Target:pos():setZ(Destination:z())
+        TravelDir = (NextDestination - Destination):normalized()
+        TravelTime = (NextDestination - Destination):length()/PewPewSpeed
+        PrevDestination = Destination
+        Destination = PrevDestination + TravelDir*TravelTime*PewPewSpeed
+        PewWire["XYZ",vector] = Destination
+        #DebugHolo = createHolo("")
+        #holoPos(DebugHolo, Destination)
+        #holoColor(DebugHolo, vec(0, 255, 0))
+    }
+}elseif(Status == "aligning to target"){
+    ElapsedTime = curtime() - LaunchedAt
+    if (ElapsedTime < TravelTime){
+        PewPewCurPos = PrevDestination + TravelDir*ElapsedTime*PewPewSpeed
+        holoPos(Missile, PewPewCurPos)
+    }else{
+        Status = "falling on target"
+        LaunchedAt = curtime()
+        NextDestination = Target:pos()
+        TravelDir = (NextDestination - Destination):normalized()
+        TravelTime = (NextDestination - Destination):length()/PewPewSpeed
+        PrevDestination = Destination
+        Destination = PrevDestination + TravelDir*TravelTime*PewPewSpeed
+        PewWire["XYZ",vector] = Destination  
+        #DebugHolo = createHolo("")
+        #holoPos(DebugHolo, Destination)
+        #holoColor(DebugHolo, vec(0, 0, 255))
+    }
+}elseif(Status == "falling on target"){
+    ElapsedTime = curtime() - LaunchedAt
+    PewWire["XYZ",vector] = Target:pos()  
+    if (ElapsedTime < TravelTime){
+        PewPewCurPos = PrevDestination + TravelDir*ElapsedTime*PewPewSpeed
+        holoPos(Missile, PewPewCurPos)
+    }else{
+        Status = "idle"
+        #explode the pewpew
+    }
+}else{
+    if (chatClk(owner())){
+        LastSaid = owner():lastSaid()
+        
+        if (LastSaid[1] == "/"){
+            LastSaidArr = LastSaid:sub(2):explode(" ")
+            Command = LastSaidArr:shiftString()
+            
+            if (Command == "open"){
+                Status = "opening"
+            }elseif (Command == "close"){
+                Status = "closing"
+            }elseif (Command == "launch"){
+                Target = findPlayerByName(LastSaidArr:concat(" "))
+                LaunchedAt = curtime()
+                Status = "launching"
+                Missile = createHolo("")
+                PewWire["Fire",number] = 1
+                timer("unfire",100)
+                hideChat(1)
+            }
+        }
+    }
+}
+
+holoScaleUnits(HoloGate1, (HoloGateBoxSize*TimeScaleFactor):setZ(HoloGateBoxSize:z()))
+holoScaleUnits(HoloGate2, (HoloGateBoxSize*TimeScaleFactor):setZ(HoloGateBoxSize:z()))
+holoScaleUnits(HoloGate3, (HoloGateBoxSize*TimeScaleFactor):setZ(HoloGateBoxSize:z()))
+holoScaleUnits(HoloGate4, (HoloGateBoxSize*TimeScaleFactor):setZ(HoloGateBoxSize:z()))
+
+#holoPos(HoloGate1, EP+(vec(0,0.68,27)*Scale))
+Pos = EP + vec(0, 0.68, 27)*Scale
+Pos = Pos - holoEntity(HoloGate1):boxSize():setZ(0)*0.5 + holoEntity(HoloGate1):boxSize():setZ(0)*TimeScaleFactor*0.5
+holoPos(HoloGate1, Pos)
+
+#holoPos(HoloGate1, EP+(vec(0,0.68,27)*Scale))
+Pos = EP + vec(0, 0.68, 27)*Scale
+Pos = Pos + holoEntity(HoloGate2):boxSize():setZ(0)*0.5 - holoEntity(HoloGate2):boxSize():setZ(0)*TimeScaleFactor*0.5
+holoPos(HoloGate2, Pos)
+
+Pos = EP + vec(0, 0.68, 27)*Scale
+Pos = Pos + holoEntity(HoloGate3):boxSize():setZ(0)*0.5*vec(1,-1,1) - holoEntity(HoloGate3):boxSize():setZ(0)*TimeScaleFactor*0.5*vec(1,-1,1)
+holoPos(HoloGate3, Pos)
+
+#holoPos(HoloGate1, EP+(vec(0,0.68,27)*Scale))
+Pos = EP + vec(0, 0.68, 27)*Scale
+Pos = Pos - holoEntity(HoloGate4):boxSize():setZ(0)*0.5*vec(1,-1,1) + holoEntity(HoloGate4):boxSize():setZ(0)*TimeScaleFactor*0.5*vec(1,-1,1)
+holoPos(HoloGate4, Pos)
+
+
+if(clk("unfire")){
+    PewWire["Fire",number] = 0
+    holoDelete(Missile)
+}
+
+
+
+
+
+
+
+
+
+

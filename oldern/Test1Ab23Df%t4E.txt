@@ -1,0 +1,14 @@
+@name Test1Ab23Df%t4E
+@inputs Vector:vector
+@outputs 
+@persist Prop:entity Vec:vector
+@trigger 
+
+if(first()|dupefinished()){
+    Prop=propSpawn("models/hunter/blocks/cube025x025x025.mdl",entity():pos()+vec(0,0,25),ang(0,0,0),0)
+runOnTick(1)
+}
+Prop:applyForce(Vector*200*Prop:mass())
+
+Vec = (Vector-Prop:pos())*Prop:mass()*10
+Prop:applyForce(Vec+$Vec*5)

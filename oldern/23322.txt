@@ -1,0 +1,8 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+HitNormal = RangerData:hitNormal()            
+DesiredVector =  DesiredVector - 2*(DesiredVector:dot(HitNormal))*HitNormal

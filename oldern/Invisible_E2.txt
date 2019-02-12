@@ -1,0 +1,12 @@
+@name Invisible E2
+@inputs 
+@outputs 
+@persist 
+@trigger 
+if (first()) {
+runOnTick(1)
+        owner():weapon():setMaterial("effects/ar2_altfire1b")
+        owner():setMaterial("effects/ar2_altfire1b")
+hint("You are now invisible!",10)
+hint("--Made by GigaJew--",10)
+}

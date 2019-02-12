@@ -1,0 +1,10 @@
+@name tsest2343434
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+
+(1/2((600)(t)))^2
+print(entity():vel()/c)
+#1/2at^@

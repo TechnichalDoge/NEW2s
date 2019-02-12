@@ -1,0 +1,40 @@
+@name 34545test3Bd
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(100)
+function holo (Ent:entity,Ang:angle,I:number){
+    local Pos = Ent:pos()
+    local Length = 90
+    holoCreate(I,Pos)
+    holoAng(I,Ang+(ang(90,0,0)))
+    holoModel(I,"models/props_lab/cactus.mdl")
+    holoScaleUnits(I,vec(Length/3,Length/3,Length))
+    holoClip(I,Pos,-Ent:forward(),1)
+    holoParent(I,Ent)
+    
+}
+    findIncludeClass("crossbow_bolt")
+    findIncludeClass("prop_combine_ball")
+    findIncludeClass("grenade_ar2")
+    findIncludeClass("rpg_missile")
+    findInSphere(entity():pos(),30000)
+Array=findToArray()
+
+    holoCreate(2)
+    holoCreate(3)
+    holoCreate(4)
+    
+    
+    for(I=1,Array:count()){
+    local TempEnt = Array[I,entity]        
+    local TempPewPewVector = Array[I,entity]:pos()
+    local Vel = Array[I,entity]:vel()/16
+    holo(TempEnt,TempEnt:angles(),I)
+#    timer("del",7500)
+    }
+    if(Array:count()==0|clk("del")){
+     holoDeleteAll()   
+    }
+    

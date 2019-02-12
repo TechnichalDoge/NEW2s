@@ -1,0 +1,7 @@
+@name 23343434
+@inputs 
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+concmd("say :")

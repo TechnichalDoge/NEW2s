@@ -1,0 +1,58 @@
+@name Automatic Eyereader PropDoor v2
+@inputs Door:entity
+@outputs Open Close 
+@persist Ep:vector E:entity Range
+if(first()|dupefinished()){
+    #Size itll detect
+    Range=20
+}
+interval(25)
+Ep=entity():pos()
+holoCreate(1,Ep, vec(1,1,1), ang(vec(entity():angles())),vec(15,255,15),"models/props_phx/gears/spur9.mdl")
+holoCreate(2,Ep, vec(1.5,1.5,2.5), ang(vec(entity():angles())),vec(255,15,15),"models/sprops/geometry/sphere_6.mdl")
+"models/sprops/geometry/sphere_6.mdl"
+entity():setNoCollideAll()
+Door:setColor(vec(255,255,255))
+findInSphere(Ep,Range)
+findIncludeClass("player")
+E=find()
+if(E:name()==owner():name()){
+    Open=1
+    Close=0
+Door:setNoCollideAll()
+Door:setAlpha(15)
+}
+elseif(E:name()=="Spero"){
+    Open=1
+    Close=0
+Door:setNoCollideAll()
+Door:setAlpha(15)
+    holoAlpha(1,15)
+    holoAlpha(2,15)
+}
+elseif(E:steamID()=="STEAM_0:1:66811114"){
+    Open=1
+    Close=0
+Door:setNoCollideAll()
+Door:setAlpha(15)
+    holoAlpha(1,15)
+    holoAlpha(2,15)
+}
+elseif(E:steamID()=="STEAM_0:0:193201409"){
+    Open=1
+    Close=0
+Door:setNoCollideAll()
+Door:setAlpha(15)
+    holoAlpha(1,15)
+    holoAlpha(2,15)
+}
+
+
+else{
+    Open=0
+    Close=1
+    Door:removeNoCollideAll()
+    Door:setAlpha(255)
+    holoAlpha(1,255)
+    holoAlpha(2,255)
+}

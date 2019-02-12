@@ -1,0 +1,25 @@
+@name Findinsphertracker
+@inputs 
+@outputs Target:vector  Eu:vector Tarep:entity Number
+@persist Ep:vector Eu:vector Tarep:entity
+interval(20)
+Ep=entity():pos()
+Eu=entity():up()
+Number=findInSphere(Ep,2000)
+findIncludeClass("player")
+findExcludePlayer("Logica")
+
+local Players = findToArray()
+for(I=1,Players:count())
+{
+    local P = Players[I,entity]
+    if(!P:plyHasGod())
+    {
+        Tarep=P
+        Target=(Tarep:pos()+vec(0,0,40))
+        break
+    }
+}
+
+
+

@@ -1,0 +1,22 @@
+@name Grapher 3
+@inputs GraphicalValue EGP:wirelink Range:vector2
+@trigger GraphicalValue
+@persist Array:array
+@persist
+
+if(first()|dupefinished()){
+    EGP:egpClear()
+    #include "mapfunction"    
+}
+if(EGP != nowirelink()){
+    Array:unshiftNumber(GraphicalValue)
+    foreach(K,I:number=Array){
+        if(!perf()){break}
+        EGP:egpCircle(K,vec2(K,mapNum(I,Range[1],Range[2],0,EGP:egpSize()[2],1)),vec2(5,5))  
+        
+        
+    }
+    if(Array:count()>(EGP:egpSize()[1]/6)){
+        Array:pop()   
+    }
+}

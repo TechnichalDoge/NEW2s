@@ -1,0 +1,23 @@
+@name Brightness
+@inputs A B
+@outputs Value1
+@persist Value
+runOnTick(1)
+
+local Max = 10
+local Changer = 1
+
+if(A){
+    Value+Changer
+
+}elseif(B){
+    Value-Changer
+}
+if(Value<0){
+    Value = Max    
+}elseif(Value>Max){
+    Value = 0
+    print("f")
+}
+Value1 = Value
+

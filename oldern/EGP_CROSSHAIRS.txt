@@ -1,0 +1,8 @@
+@name EGP CROSSHAIRS
+@inputs EGP:wirelink
+@persist 
+
+interval(25)
+EGP:egpLine(1,vec2(0,0),vec2(0,5))
+EGP:egpPos(1,vec2(0,0))
+EGP:egpParentToCursor(1)

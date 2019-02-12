@@ -1,0 +1,10 @@
+@name calculatro test me ver 1
+@inputs Number
+@outputs First Second Screen
+@persist 
+
+First=9
+
+Second=10
+    
+Number=Screen

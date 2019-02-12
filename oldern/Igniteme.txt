@@ -1,0 +1,9 @@
+@name Igniteme
+@inputs Input Entity:entity
+@outputs 
+@persist 
+@trigger 
+runOnTick()
+if(Input==1){
+Entity:ignite()
+}

@@ -1,0 +1,27 @@
+@name Explosive Crossbow v2
+@persist Bolts:entity Count
+
+interval(30)
+findByClass("crossbow_bolt")
+findExcludePlayerProps("*")
+findIncludePlayerProps(owner())
+Bolts = find()
+
+rangerFilter(Bolts)
+rangerFilter(owner())
+    if(changed(Count)) {
+    Bolts:setTrails(1000, 1, 1 , "trails/laser", vec(100, 255, 100), 255, 0, 0)   
+    }
+    
+    if(Bolts:isValid()) { 
+        Rangers = rangerOffset(150,Bolts:pos(),Bolts:forward())
+    }
+    if(changed(Rangers:hit())& Rangers:hit()) {
+        if(Rangers:entity():isPlayer()) {
+            hint("Crossbow hit: "+Rangers:entity():name(), 10)   
+        }
+        Explosion = propSpawn("models/props_phx/amraam.mdl",Rangers:pos(),1)
+        Explosion:propBreak()
+        
+    }   
+

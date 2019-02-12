@@ -1,0 +1,53 @@
+@name anti car field
+@persist E:entity R
+
+if(first()){
+    runOnTick(1)
+    runOnLast(1)
+    
+    function entity:moveTo(Position:vector){
+        This:applyForce(((Position-This:massCenter())*10-This:vel())*This:mass())
+    }
+    
+    R = 200
+    holoCreate(1)
+        holoModel(1, "hq_sphere")
+        holoScaleUnits(1, vec(R*2))
+        holoColor(1, vec4(255,0,0,100))
+        holoMaterial(1, "models/wireframe")
+        
+    holoCreate(2)
+        holoModel(2, "hq_sphere")
+        holoScaleUnits(2, -vec(R*2))
+        holoColor(2, vec4(255,0,0,100))
+        holoMaterial(2, "models/wireframe")
+    
+    E = propSpawn("models/props_c17/FurnitureWashingmachine001a.mdl", 0)
+}
+
+function array getVehicles(Radius){
+    local Plys = players()
+    local A = array()
+    
+    for(I=1, Plys:count()){
+        local D = entity():pos():distance(Plys[I,entity]:pos())
+        if(Plys[I,entity]:inVehicle() & D < Radius){
+            A:pushEntity(Plys[I,entity]:vehicle())
+        }
+    }
+    return A
+}
+
+P = getVehicles(R)
+
+if(P:count() > 0){
+    for(I=1, P:count()){
+        E:moveTo(P[I,entity]:pos())
+    }
+}else{
+    E:moveTo(entity():pos()+vec(0,0,50))
+}
+
+if(last()){
+    propDeleteAll()
+}

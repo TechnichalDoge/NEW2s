@@ -1,0 +1,8 @@
+@name Vehicle Controller
+@inputs W A S D Base:entity
+runOnTick(1)
+
+Base:applyForce(Base:right()*(W-S))
+Base:applyAngForce(ang(0,50*(A-D),0))
+
+Base:applyForce(-Base:vel()*100)

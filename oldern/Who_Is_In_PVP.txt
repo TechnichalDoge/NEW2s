@@ -1,0 +1,30 @@
+@name Who Is In PVP
+@inputs 
+@outputs Output:array
+@persist R:array E:entity 
+#Made by Logica with massive help from Bleck.
+interval(100)
+
+if(first()){
+    runOnChat(1)
+}
+
+findByClass("player")
+R = findToArray()
+
+if(chatClk(owner())){
+    for(I=1,players():count()) {
+        Ply = players()[I,entity]
+        
+        if(!Ply:plyHasGod()){
+            Output:pushEntity(Ply)
+        }
+    }
+    
+    if(owner():lastSaid():lower() == "/p"){
+        printTable(Output)
+    }
+}
+
+
+

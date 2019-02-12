@@ -1,0 +1,40 @@
+@name Killer Hover Cube
+@persist Vec:vector Ang:angle
+@model models/hunter/blocks/cube025x025x025.mdl 
+#@model changes the model of the E2 chip. In this case the smallest PHX cube.
+
+runOnTick(1) #Executes the code every server tick.
+
+E = entity()    #Defines 'E' as the E2 chip.
+O = owner()     #Defines 'O' as the owner of the E2 chip.
+
+P = E:elevation(O:aimPos())   #Finds the elevation (pitch) from the chip to where the owner is aiming.
+Y = E:bearing(O:aimPos())     #Finds the bearing (yaw) from the chip to the aim position of the owner.
+R = E:angles():roll()         #Ensures the roll of the chip is 0. Any non-zero roll value will cause a corrective angular force.
+Ang = ang(P,Y,R) * 3   #Defines the angular force to be applied.
+
+
+E:setMass(5000)     #Sets the mass of the chip to 5000 for deadliness.
+
+
+if(O:keyAttack2() == 0)     #Sends the cube out to attack when Attack2 (usually the right mouse button) is pressed.
+{
+    Vec = (O:pos() - E:pos() + vec(0,0,150))*10     #When not pressed, the force vector for the chip is towards 150 units above the owner's position.
+}
+else                                                #If attack 2 is pressed...
+{
+    if(O:pos():distance(E:pos()) < 150)             #...and the cube is less than 150 units away from the Owner...
+    {
+        Vec = (E:pos() - O:pos())*10                #The force vector will push the chip away from the Owner. Prevents suicide.
+    }
+    else
+    {
+        Vec = (O:aimPos() - E:pos() + vec(0,0,25))*10       #When the chip is a safe distance away, the force vector will push the chip towards the Owner's aim position.
+    }
+}
+
+
+E:applyForce((Vec + $Vec*5)*E:mass())           #Apply force towards force vector. The '$' basically acts as derivative (I think) to slow the chip as it approaches its target to prevent oscillations.
+
+E:applyAngForce(-(Ang + $Ang*5) * E:mass())     #Apply angular force so that the chip faces where the Owner is looking. Just for fun really. None of the angle stuff is important, but I wanted to play with it. :)
+                                                #I'm probably going to add lasers or guns or explosions later. :D

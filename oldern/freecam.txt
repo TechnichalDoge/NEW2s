@@ -1,0 +1,51 @@
+@name freecam
+@inputs Angle:angle W A S D Shift Cntrl Driver:entity EGP:wirelink Entity:entity
+@outputs Position2:vector
+@persist Position:vector Multiplier String:string
+runOnTick(1)              
+
+if(first()|dupefinished()){
+    Position = entity():pos()                                                                                                                                                                                                                                                                                                       setName("Freecam\nBy Logica")                                                           
+    holoCreate(1,entity():pos())
+    holoModel(1,"models/dav0r/camera.mdl")
+}    
+if(changed(Driver)){
+    timer("TM",100)    
+}
+
+if(clk("TM")&Driver:name()!="(null)"){
+    Entity:hintDriver("Controls:\nW - Forward\nS - Back\nA - Left\nD - Right\nShift - Faster\nCtrl - Toggle Slow\nMouse - Aim\n \nMade By Logica",4)        
+}
+ 
+#holoCreate(1,owner():eyeAngles():forward()*400+owner():shootPos()) 
+#print(owner():eyeAngles():forward()*400+owner():shootPos())
+
+if(Shift){
+    Multiplier = 100
+    String = "Fast"
+}elseif(Cntrl){
+    Multiplier = 10
+    String = "Slow - Toggled"
+}else{  
+    Multiplier = 25
+    String = "Normal"
+}    
+holoPos(1,Position)
+holoAng(1,Angle)
+holoVisible(1,players(),1)
+holoVisible(1,Driver,0)
+if(W){
+Position = (Angle:forward()*Multiplier+Position)
+}
+elseif(S){
+Position = (-Angle:forward()*Multiplier+Position)   
+}
+elseif(A){
+Position = (-Angle:right()*Multiplier+Position)     
+}
+elseif(D){
+Position = (Angle:right()*Multiplier+Position)     
+}
+Position2 = Position
+
+EGP:egpText(1,String,vec2(10,200))

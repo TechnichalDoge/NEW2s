@@ -1,0 +1,19 @@
+@name FApper 9000
+@persist 
+@model models/props_phx/rocket1.mdl
+
+if(first()){
+    holoCreate(1,entity():boxCenterW())
+    holoCreate(2,entity():boxCenterW()+vec(0,0,20))
+    holoCreate(3,entity():boxCenterW()+vec(0,0,-20))
+    for(I=2,3){holoAng(I,ang(0,150,0))}
+    holoModel(1,"models/hunter/tubes/tube2x2x2b.mdl")
+    holoModel(2,"models/hunter/tubes/tube2x2x05d.mdl")
+    holoModel(3,"models/hunter/tubes/tube2x2x05d.mdl")
+    holoParent(3,1)
+    holoParent(2,1)    
+}
+interval(25)
+
+holoPos(1,entity():boxCenterW()+entity():up()*sin(curtime()*1000)*125)
+holoAng(1,entity():angles())

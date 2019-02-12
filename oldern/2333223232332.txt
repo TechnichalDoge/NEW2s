@@ -1,0 +1,21 @@
+@name 
+@inputs 
+@outputs Players2:array
+@persist Players1:array Players2:array
+@trigger 
+interval(250)
+for(P=0,players():count()){
+    if(!players()[P,entity]:plyHasGod()){
+        Players1:pushEntity(players()[P,entity])
+    }
+    if(!perf()){break}
+}
+for(P2=0,Players1:count()){
+    findIncludeEntities(players())
+    findInCone(Players1[P2,entity]:shootPos(),Players1[P2,entity]:aimPos(),Players1[P2,entity]:shootPos():distance(Players1[P2,entity]:aimPos()),7.5)
+    local Pplinrange = find()
+    if(Pplinrange==owner()){
+        Players2:pushEntity(Players1[P2,entity])
+    } 
+    if(!perf()){break}
+}

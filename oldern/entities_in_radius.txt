@@ -1,0 +1,16 @@
+@name entities in radius
+@persist Ent:array Array:array
+
+interval(255)
+if(findCanQuery())
+{
+    findInSphere(entity():pos(),2000)
+    Array = findToArray()
+    local Str_out = "" 
+    for(I=1,Array:count()){
+
+        local Pers = Array[I,entity] 
+        Str_out+=Pers:type()+", "
+    }
+    print(_HUD_PRINTCONSOLE,Str_out)
+}

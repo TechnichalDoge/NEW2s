@@ -1,0 +1,15 @@
+@name 
+@inputs 
+@outputs Out
+@persist 
+@trigger 
+if(first()|dupefinished()){
+    Out = 1
+}
+interval(500)
+
+if(Out == 1){
+    Out = 0    
+}else{  
+    Out = 1
+}

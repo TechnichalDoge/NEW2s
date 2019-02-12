@@ -1,0 +1,132 @@
+@name Fusion for Hazard
+@inputs On Open
+@outputs 
+@persist HoloI:number Color:vector HoloFront
+@trigger 
+
+if(first()|dupefinished()){
+    #color
+    Color = vec(0,225,255)
+    
+    Open = 1
+    
+    runOnTick(1)
+    
+    function number createHolo(HoloModel:string){
+        HoloI += 1
+        holoCreate(HoloI)
+        holoModel(HoloI, HoloModel)
+        
+        return HoloI
+    }
+    
+    Holo = createHolo("models/props_phx/construct/metal_angle360.mdl")
+    holoPos(Holo,entity():pos()) 
+    
+    holoParent(Holo,entity())    
+    
+    Holo = createHolo("models/props_phx/construct/metal_angle360.mdl")
+    holoPos(Holo,entity():pos()) 
+    holoScale(Holo,vec(2,2,1))
+    holoParent(Holo,entity()) 
+    
+    HoloFront = createHolo("models/props_phx/construct/metal_plate_curve180x2.mdl")
+    holoPos(HoloFront,entity():pos()) 
+    holoMaterial(HoloFront,"phoenix_storms/futuristictrackramp_1-2")
+    holoScale(HoloFront,vec(2,2,1.5))
+    holoParent(HoloFront,entity())
+
+    Holo = createHolo("models/props_phx/construct/metal_plate_curve360.mdl")
+    holoPos(Holo,entity():pos()) 
+    holoMaterial(Holo,"phoenix_storms/futuristictrackramp_1-2")
+    holoParent(Holo,entity())
+    
+    Holo = createHolo("models/props_phx/construct/metal_plate_curve360.mdl")
+    holoPos(Holo,entity():pos()+vec(0,0,47.5))
+    holoMaterial(Holo,"models/wireframe")  
+    holoColor(Holo,Color)
+    holoParent(Holo,entity())
+    
+    Holo = createHolo("models/props_phx/construct/metal_plate_curve180x2.mdl")
+    holoPos(Holo,entity():pos()) 
+    holoMaterial(Holo,"phoenix_storms/futuristictrackramp_1-2")
+    holoScale(Holo,vec(2,2,1.5))
+    holoAng(Holo,entity():angles()+ang(0,180,0))
+    holoParent(Holo,entity())
+    
+    Holo = createHolo("models/props_phx/construct/metal_dome360.mdl")
+    holoPos(Holo,entity():pos()+vec(0,0,95)) 
+    holoMaterial(Holo,"phoenix_storms/futuristictrackramp_1-2")
+    holoParent(Holo,entity())
+    
+    Holo = createHolo("models/props_phx/construct/metal_angle360.mdl")
+    holoPos(Holo,entity():pos()+vec(0,0,95)) 
+    holoMaterial(Holo,"phoenix_storms/futuristictrackramp_1-2")
+    holoParent(Holo,entity())    
+
+}
+
+if( Open == 1 ) {
+    holoAlpha(HoloFront,50)      
+}
+else{
+    holoAlpha(HoloFront,255)    
+}
+
+if (clk("sound1")){
+    
+}else{
+    if (changed(Open) & Open){
+        entity():soundPlay(0,0,"ambient/alarms/klaxon1.wav")  
+        timer("sound1",soundDuration("ambient/alarms/klaxon1.wav")*1000+1)
+    }
+    
+    if (changed(On) & On){
+        entity():soundPlay(4,0,"ambient/machines/thumper_startup1.wav")    
+        timer("sound1",soundDuration("ambient/machines/thumper_startup1.wav")*1000+1)
+    }
+}
+
+if(changed(On)){
+    if (On){
+        timer("sound2",soundDuration("ambient/machines/thumper_startup1.wav")*1000+1)     
+    }else{
+        timer("offsound",10)
+        stoptimer("sound2") 
+        soundStop(2)  
+    }
+}
+
+if(clk("sound2")){
+    entity():soundPlay(2,0,"ambient/machines/thumper_amb.wav") 
+    timer("sound2",soundDuration("ambient/machines/thumper_amb.wav")*1000+50)      
+} 
+if(clk("offsound")){
+    soundPlay(3,0,"ambient/machines/thumper_shutdown1.wav")    
+}
+
+#[
+if(changed(Open)&!clk("sound1")&Open){
+    entity():soundPlay(0,0,"ambient/alarms/klaxon1.wav")  
+    timer("sound1",soundDuration("ambient/alarms/klaxon1.wav")*1000+1)
+}  
+if(changed(On)&!clk("sound1")&On){
+    entity():soundPlay(4,0,"ambient/machines/thumper_startup1.wav")    
+    timer("sound1",soundDuration("ambient/machines/thumper_startup1.wav")*1000+1)
+}  
+if(changed(On)&On){
+    timer("sound2",soundDuration("ambient/machines/thumper_startup1.wav")*1000+1)     
+}
+if(clk("sound2")){
+    entity():soundPlay(2,0,"ambient/machines/thumper_amb.wav") 
+    timer("sound2",soundDuration("ambient/machines/thumper_amb.wav")*1000+1)      
+} 
+if(changed(On)&!On){
+    timer("offsound",10)
+    stoptimer("sound2") 
+    soundStop(2)  
+}
+if(clk("offsound")){
+    soundPlay(3,0,"ambient/machines/thumper_shutdown1.wav")    
+}
+]#

@@ -1,0 +1,169 @@
+@name 
+@inputs CornerA:vector CornerB:vector
+@outputs Creation LastI
+@persist FillPercent NumFish Warned SwimSpeed FishEyeChange UseTank
+@persist TankPos:vector TankBox:vector TankCenterFloor:vector WaterBox:vector WaterPos:vector
+@persist SwimmableWater:vector SwimmableMin:vector SwimmableMax:vector
+@persist LastI Creation
+@trigger 
+
+interval(10)
+
+if (first()){
+    FillPercent = 0.8
+    NumFish = 50 #25 seems to be about the point where the ticks get close to the edge
+    #but because I'm a crazy person you pretty much can set the numfish to whatever you have as the maxholos - 3
+    FishEyeChange = 5 #probably between 5 and 15
+    SwimSpeed = 6 #recommended between 1 and 10
+    UseTank = 1
+}
+
+if (first()){
+    
+    if (NumFish + 3 > holoRemainingSpawns()){
+        NumFish = holoRemainingSpawns() - 3
+    }
+    
+    function number isBetween(X, NumberA, NumberB){
+        if (X > NumberA){
+            if (X < NumberB){
+                return 1
+            }
+        }
+        if (X < NumberA){
+            if (X > NumberB){
+                return 1
+            }
+        }
+        return 0
+    }
+    
+    function number vector:isBetween(VectorA:vector, VectorB:vector){
+        if (isBetween(This:x(), VectorA:x(), VectorB:x()) == 1){
+            if (isBetween(This:y(), VectorA:y(), VectorB:y()) == 1){
+                if (isBetween(This:z(), VectorA:z(), VectorB:z()) == 1){
+                    return 1
+                }
+            }
+        }
+        return 0
+    }
+
+    TankPos = (CornerA + CornerB)/2
+    TankBox = CornerA - CornerB
+    TankBox = vec(abs(TankBox:x()), abs(TankBox:y()), abs(TankBox:z()))
+    TankCenterFloor = TankPos:setZ(TankPos:z() - TankBox:z()*0.5)
+    
+    #x and y should be scaled by 0.9 but are scaled by 0.899 to reduce the clipping render error between holos
+    WaterBox = TankBox:setZ(TankBox:z()*FillPercent):setX(TankBox:x()*0.899):setY(TankBox:y()*0.899)
+    WaterPos = TankPos + vec(0, 0, 2.5*1.5 - (TankBox:z() - WaterBox:z())/2)
+    
+    SwimmableWater = WaterBox - vec(20, 20, 20)
+    SwimmableMin = WaterPos - SwimmableWater/2
+    SwimmableMax = WaterPos + SwimmableWater/2
+    
+    if ((SwimmableWater:x() <= 0) | (SwimmableWater:x() <= 0) | (SwimmableWater:x() <= 0)){
+        if (Warned == 0){
+            hint("The tank is too small...", 15)
+            Warned = 1
+        }
+    }else{
+        Warned = 0
+    }
+}
+
+if (first()){
+    if (UseTank){
+        #tank
+        holoCreate(1)
+        holoAng(1, ang(0,0,0))
+        holoModel(1, "hq_stube_thin")
+        holoPos(1, TankPos)
+        holoScaleUnits(1, TankBox*-1)
+        holoAlpha(1, 80)
+        holoColor(1, vec(150, 150, 150))
+        
+        #tank base
+        holoCreate(2)
+        holoAng(2, ang(0,0,0))
+        holoPos(2, TankCenterFloor + vec(0, 0, 2.5))
+        holoScaleUnits(2, TankBox:setZ(5))
+        holoColor(2, vec(0,0,0))
+        
+        #tank water
+        holoCreate(3)
+        holoAng(3, ang(0,0,0))
+        holoPos(3, WaterPos)
+        holoScaleUnits(3, WaterBox)
+        holoAlpha(3, 30)
+        holoColor(3, vec(25, 15, 200))
+        #holoMaterial(3, "models/props_combine/com_shield001a") #possibly best but fracturing feels mechanical
+        holoMaterial(3, "models/props_combine/stasisshield_sheet") #aquamarine tinted distortion not bad but pretty blurry
+        holoMaterial(3, "models/props_combine/tpballglow") #blue tinted rave
+        #holoMaterial(3, "models/props_lab/cornerunit_cloud") #dirty water
+        #holoMaterial(3, "models/spawn_effect") #very blurry but not terrible
+    }   
+    
+    Creation = 0
+    LastI = 1
+}
+
+if (Creation == 0){
+    #create fishies
+    for(I = LastI, NumFish){
+        if (minquota() < 500 || !holoCanCreate()){ #madness
+            LastI = I
+            break
+        }else{
+            LastI = 1
+        }
+        holoCreate(I + 3)
+        holoAng(I + 3, ang(0,0,0))
+        holoPos(I + 3, WaterPos)
+        Model = random(0,10)
+        if (Model <= 4){
+            holoModel(I + 3, "models/props/de_inferno/goldfish.mdl") #goldfish
+        }elseif(Model <= 8){
+            holoModel(I + 3, "models/props/cs_militia/fishriver01.mdl") #bluegil
+        }else{
+            holoModel(I + 3, "models/props/de_inferno/goldfish.mdl") #goldfish
+        }
+        #holoModel(I + 3, "models/food/hotdog.mdl") #hot dogs
+        #holoModel(I + 3, "models/props/cs_office/Snowman_face.mdl") #it's beginning to feel a lot like christmas
+        #holoModel(I + 3, "models/weapons/w_pist_deagle.mdl") #dark rp (deagle)
+        #holoModel(I + 3, "models/props_lab/monitor02.mdl") #monitor
+        #holoModel(I + 3, "models/headcrabblack.mdl") #headcrab
+        #holoModel(I + 3, "models/props_c17/doll01.mdl") #creepy doll
+        #holoModel(I + 3, "models/props_lab/huladoll.mdl") #hulu girl
+        #holoModel(I + 3, "models/props/de_tides/vending_turtle.mdl") #turtle
+        #holoModel(I + 3, "models/props/de_inferno/goldfish.mdl") #goldfish
+        #holoModel(I + 3, "models/Zombie/Poison.mdl") #creepy zombie
+    }
+    Creation = 1
+}else{
+
+    #swim fishies
+    for(I = LastI, NumFish){
+        if (minquota() < 500){ #madness
+            LastI = I
+            break
+        }else{
+            LastI = 1
+        }
+        Fish = holoEntity(I + 3)
+        
+        NewPos = Fish:pos() + Fish:eye()*random()*SwimSpeed
+        if (NewPos:isBetween(SwimmableMin, SwimmableMax) == 1){
+            holoPos(I + 3, NewPos)
+        }else{
+            #holoAng(I + 3, Fish:angles() + ang(180, 0, 0))
+            #did this so that they bounce back and forth less often
+            holoAng(I + 3, Fish:angles() + ang(90*sign(random() - 0.5), 0, 0))
+        }
+        
+        EyeAdjustment = ang(randint(-FishEyeChange, FishEyeChange), randint(-FishEyeChange, FishEyeChange), randint(-FishEyeChange, FishEyeChange))
+        NewAngles = Fish:angles() + EyeAdjustment
+        
+        holoAng(I + 3, NewAngles)
+    }
+}

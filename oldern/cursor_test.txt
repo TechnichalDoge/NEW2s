@@ -1,0 +1,8 @@
+@name cursor test
+@inputs EGP:wirelink 
+@persist 
+local Size = 1.5
+local Center = egpScrSize(owner())/2
+EGP:egpCircleOutline(1,Center,vec2(10,10)*Size)
+EGP:egpLine(2,vec2(Center:x(),Center:y()-10*Size),vec2(Center:x(),Center:y()+10*Size))
+EGP:egpLine(3,vec2(Center:x()-10*Size,Center:y()),vec2(Center:x()+10*Size,Center:y()))

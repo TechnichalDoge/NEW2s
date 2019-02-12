@@ -1,0 +1,13 @@
+@name Chat+
+@inputs 
+@outputs 
+@persist 
+@trigger 
+if(first() | dupefinished())
+{
+    runOnChat(1)
+}
+if(chatClk())
+{
+    print(_HUD_PRINTCONSOLE,lastSpoke():name()+":"+lastSaid())
+}

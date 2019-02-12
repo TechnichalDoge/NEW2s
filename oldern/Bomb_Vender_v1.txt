@@ -1,0 +1,172 @@
+@name Bomb Vender v1
+
+@inputs Run:number
+
+@inputs Center:vector FrontRight:vector BottomLeft:vector Lid:entity Tool:vector
+
+@inputs LeftTop:wirelink LeftBottom:wirelink RightTop:wirelink RightBottom:wirelink
+@inputs MiddleLeft:wirelink MiddleRight:wirelink Grabber:wirelink
+@inputs LeftGrabber:wirelink RightGrabber:wirelink
+@inputs 
+
+@outputs AmmrammSpawn:number SmartSpawn:number
+
+
+@persist C:vector2 FR:vector2 BL:vector2 Tl:vector2
+@persist TargetPos:vector2
+@persist Status:string Start:number
+
+@persist 
+
+if(first()){
+    Grabber["Grab",number] = 0      
+    RightGrabber["Grab",number] = 0    
+    LeftGrabber["Grab",number] = 0   
+    
+    
+    
+}
+C = vec2(Lid:toLocal(Center))
+FR = vec2(Lid:toLocal(FrontRight))
+BL = vec2(Lid:toLocal(BottomLeft))
+Tl = vec2(Lid:toLocal(Tool))
+
+Grabber["Strength",number] = 9999
+LeftGrabber["Strength",number] = 9999
+RightGrabber["Strength",number] = 9999
+
+
+if(Run){
+    Start = 1 
+}
+if(changed(Start)&Start){
+    Status = "Grab Ammramm"
+}    
+elseif(Start==0){
+    Status = "Center" 
+}
+
+if(Status == "Center"){
+    MiddleRight["Length",number] = 68.5
+    MiddleLeft["Length",number] = 68.5   
+    
+    LeftTop["Length",number] = 88
+    RightTop["Length",number] = 88
+    
+    LeftBottom["Length",number] = 88
+    RightBottom["Length",number] = 88
+         
+    
+}
+elseif(Status == "Grab Ammramm"){
+    timer("spawnammramm",100)
+    MiddleRight["Length",number] = 66
+    MiddleLeft["Length",number] = 71
+    
+    LeftTop["Length",number] = 88
+    RightTop["Length",number] = 88
+    
+    LeftBottom["Length",number] = 88
+    RightBottom["Length",number] = 88    
+    
+    
+    timer("grab",500)
+    timer("Bring Ammramm",1000)
+} 
+elseif(Status == "Bring Ammramm"){
+    LeftTop["Length",number] = 38
+    RightTop["Length",number] = 38
+    
+    LeftBottom["Length",number] = 133
+    RightBottom["Length",number] = 133
+
+    MiddleRight["Length",number] = 66
+    MiddleLeft["Length",number] = 71    
+    
+    timer("Rgrab",500)
+    timer("release",2000)
+    timer("Get Smart",2500)
+    
+}
+elseif(Status == "Get Smart"){
+    timer("spawnsmart",500)
+    LeftTop["Length",number] = 124
+    RightTop["Length",number] = 124
+    
+    LeftBottom["Length",number] = 47
+    RightBottom["Length",number] = 47
+
+    MiddleRight["Length",number] = 66
+    MiddleLeft["Length",number] = 71    
+
+    timer("grab",1500)
+    timer("Bring Smart",3000)
+}
+elseif(Status == "Bring Smart"){
+    LeftTop["Length",number] = 47
+    RightTop["Length",number] = 47
+    
+    LeftBottom["Length",number] = 133
+    RightBottom["Length",number] = 133
+
+    MiddleRight["Length",number] = 129
+    MiddleLeft["Length",number] = 9  
+ 
+    timer("Lgrab",500)
+    timer("release",2000)
+    timer("Weld",2500)   
+}
+
+
+   
+if(clk("Bring Ammramm")){
+    Status = "Bring Ammramm"
+}
+
+if(clk("Get Smart")){
+    Status = "Get Smart"    
+}
+if(clk("Bring Smart")){
+    Status = "Bring Smart"    
+}
+
+
+
+
+
+if(clk("Lgrab")){
+    LeftGrabber["Grab",number] = 1   
+}
+if(clk("Lrelease")){
+    LeftGrabber["Grab",number] = 0
+}
+if(clk("Rgrab")){
+    RightGrabber["Grab",number] = 1    
+}
+if(clk("Rrelease")){
+    RightGrabber["Grab",number] = 0
+}
+if(clk("grab")){
+    Grabber["Grab",number] = 1
+}
+if(clk("release")){
+    Grabber["Grab",number] = 0    
+}
+
+
+if(clk("spawnammramm")){
+    AmmrammSpawn = 1
+    timer("resetammramm",100)    
+}
+if(clk("resetammramm")){
+    AmmrammSpawn = 0    
+}
+
+if(clk("spawnsmart")){
+    SmartSpawn = 1
+    timer("resetsmart",100)    
+}
+if(clk("resetsmart")){
+    SmartSpawn = 0    
+}
+

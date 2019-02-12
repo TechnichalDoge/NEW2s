@@ -1,0 +1,18 @@
+@name Thruster e2 Controller
+@inputs [T1_mul]:number
+@outputs 
+@persist Force
+@trigger 
+if(first())
+{
+    #T1_mul T2_mul... are the multiplier (-1 goes back 1 goes forward, 2 would be faster than 1)
+    #T1 T2... would be wired to the thruster prop
+    runOnTick(1)
+    Force = 100000
+
+}
+local T1 = entity()
+if(T1_mul!=0)
+{
+   T1:applyForce(-T1:up()*T1_mul*Force)
+}

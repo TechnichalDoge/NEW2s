@@ -1,0 +1,25 @@
+@name Findinconeguidance custom2
+@inputs Gun:entity
+@outputs Target Eu:vector Tarep:entity Number Number2
+@persist Ep:vector Eu:vector Tarep:entity Entity2:entity Entity:entity
+interval(20)
+Ep=Gun:pos()
+Eu=entity():up()
+Number=findInCone(Ep,Eu,4500,5)
+findIncludeClass("Player")
+findExcludePlayer("Logia")
+local Players = findToArray()
+for(I=1,Players:count())
+{
+    local P = Players[I,entity]
+    if(!P:plyHasGod())
+    {
+        Target=1
+    }
+    else{
+        Target=0
+    }
+}
+
+
+

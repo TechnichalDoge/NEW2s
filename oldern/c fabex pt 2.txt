@@ -1,0 +1,339 @@
+@name Paper Clip Fabricator
+@inputs Power Cleanup Nailer:entity Spawner:entity Design:array Width Height Depth Repeat
+@outputs Spawn Undo NailZ NailD NailL State HoldListIndex HoldList1:array HoldList2:array HoldList3:array HoldList4:array HoldList5:array HoldList6:array Distance
+@persist LTime Scale NailList:array DesPosition:vector CurBlock:entity State BuildPosition:vector Index
+@trigger Power Design
+Dt = curtime()-LTime
+LTime = curtime()
+
+if( first() | duped() )
+{
+    HoldListIndex = 1
+    
+    State = 0
+    Index = 0
+    Scale = 12.2
+}
+
+if( !Power ){ State = 0 }
+elseif( Power & State == 0 ) {State = 1}
+if( Cleanup == 1 )
+{
+    Undo = !Undo
+    interval(10)
+    exit()
+}
+
+if( State == 0 )
+{
+    HoldList1 = array()
+    HoldList2 = array()
+    HoldList3 = array()
+    HoldList4 = array()
+    HoldList5 = array()
+    HoldList6 = array()
+    BuildPosition = entity():pos()+entity():forward()*500
+    Index = 0
+    interval(500)
+}elseif( State == 1 )
+{
+    # Spawn a new cube
+    Spawn = 1
+    State = 2
+    Nailer:setMass(5001)
+    interval(500)
+}elseif( State == 2 )
+{
+    Spawn = 0
+    # Load the cube id
+    findExcludeEntity(Spawner)
+    findByModel(Spawner:model())
+    CurBlock = findClosest(Spawner:pos())
+    if( CurBlock & ( CurBlock:mass() != 21 & CurBlock:mass() != 5001 ) )
+    {
+        interval(50)
+        CurBlock:setMass(21)
+        IntBlkPos = 0
+        State = 2.5
+    }else{
+        interval(500)
+        State = 1
+    }
+}elseif( State == 2.5 )
+{
+    # PREALIGNMENT
+    # Position the cube near where it should be
+    
+    # Load the desired position for the cube
+    X = mod(Index,Width)
+    Y = mod(floor(Index/Width),Height)
+    Z = floor(Index/(Width*Height))
+    if( Z >= Depth )
+    {print("brick"),interval(10), State = 7, exit()}
+    TmpInd = 0
+    while( Design[Y+1+Z*Height,string]:index(X+1) != "x" )
+    {
+        Index++
+        X = mod(Index,Width)
+        Y = mod(floor(Index/Width),Height)
+        Z = floor(Index/(Width*Height))
+        if( Z >= Depth )
+        {print("brick"),interval(10), State = 7, exit()}
+    
+        TmpInd++
+        if( TmpInd > 50 )
+        {interval(10),exit()}
+    }
+    
+    DesPosition = BuildPosition + X*entity():right()*Scale + Y*vec(0,0,1)*Scale + Scale*Z*entity():right():cross(vec(0,0,1)) + 4*Scale*entity():right() + 4*Scale*entity():up()
+    
+    # Position the cube
+    CurBlock:applyForce( (DesPosition - CurBlock:pos())* 2000/100 - (CurBlock:vel())* 1000/100 + CurBlock:mass()*gravity()*Dt*vec(0,0,1) )
+    
+    # Angle the cube
+    CurBlock:applyAngForce( -(CurBlock:angles()-Spawner:angles())*100/100 - 5000/100*(CurBlock:angVel())*Dt )
+    
+    # Check to see if it is in place
+    if( CurBlock:pos():distance(DesPosition) < 15 & abs((CurBlock:angles()-Spawner:angles()):pitch())<1 & abs((CurBlock:angles()-Spawner:angles()):yaw())<1 & abs((CurBlock:angles()-Spawner:angles()):roll())< 10 )
+    {
+        # Block in pre-placement
+        State = 3
+    }
+
+    interval(10)
+}elseif( State == 3 )
+{
+    # POSITIONING
+    # Position the cube
+    
+    # Load the desired position for the cube
+    X = mod(Index,Width)
+    Y = mod(floor(Index/Width),Height)
+    Z = floor(Index/(Width*Height))
+    
+    DesPosition = BuildPosition + X*entity():right()*Scale + Y*vec(0,0,1)*Scale + Scale*Z*entity():right():cross(vec(0,0,1))
+    
+    # Position the cube
+    CurBlock:applyForce( (DesPosition - CurBlock:pos())* 2000/100 - (CurBlock:vel())* 1000/100 + CurBlock:mass()*gravity()*Dt*vec(0,0,1) )
+    
+    # Angle the cube
+    CurBlock:applyAngForce( -angnorm(CurBlock:angles()-Spawner:angles())*100/100 - 5000/100*(CurBlock:angVel())*Dt )
+    LstBlkAng = CurBlock:angles()
+    
+    # Check to see if it is in place
+    if( CurBlock:pos():distance(DesPosition) < 1 & abs((CurBlock:angles()-Spawner:angles()):pitch())<1 & abs((CurBlock:angles()-Spawner:angles()):yaw())<1 & abs((CurBlock:angles()-Spawner:angles()):roll())<1 )
+    {
+        # Block in place
+        State = 4
+    }
+
+    interval(10)
+}elseif( State == 4){
+    interval(1)
+    # Create the nailing array
+    X = mod(Index,Width)
+    Y = mod(floor(Index/Width),Height)
+    Z = floor(Index/(Width*Height))
+    
+    NailIndex = 0
+    while( NailIndex < 3 )
+    {
+        if( NailIndex == 0 )
+        {
+            # Check down
+            if( Y - 1 >= 0 & Design[Y-1+1+Z*Height,string]:index(X+1) == "x" )
+            {
+                # Order this weld
+                print("Weld Down X Y " + X + " " + Y)
+                NailList:pushVector(vec(X,Y,Z))
+                NailList:pushNumber(0)
+            }
+        }elseif( NailIndex == 1 )
+        {
+            # Check left
+            if( X - 1 >= 0 & Design[Y+1+Z*Height,string]:index(X-1+1) == "x" )
+            {
+                print("Weld Left X Y " + X + " " + Y)
+                # Order this weld
+                NailList:pushVector(vec(X,Y,Z))
+                NailList:pushNumber(1)
+            }
+        }elseif( NailIndex == 2 )
+        {
+            # Check deep
+            if( Z - 1 >= 0 & Design[Y+1+(Z-1)*Height,string]:index(X+1) == "x" )
+            {
+                print("Weld Deep X Y " + X + " " + Y)
+                # Order this weld
+                NailList:pushVector(vec(X,Y,Z))
+                NailList:pushNumber(2)
+            }
+        }
+        
+        NailIndex++
+    }
+    
+    # Add this brick to the hold list
+    DesPosition = BuildPosition + X*entity():right()*Scale + (Y*Scale)*vec(0,0,1) + Scale*Z*entity():right():cross(vec(0,0,1))
+    if( HoldListIndex == 0 )
+    {HoldList1:pushEntity(CurBlock),HoldList1:pushVector(DesPosition)}
+    elseif( HoldListIndex == 1 )
+    {HoldList2:pushEntity(CurBlock),HoldList2:pushVector(DesPosition)}
+    elseif( HoldListIndex == 2 )
+    {HoldList3:pushEntity(CurBlock),HoldList3:pushVector(DesPosition)}
+    elseif( HoldListIndex == 3 )
+    {HoldList4:pushEntity(CurBlock),HoldList4:pushVector(DesPosition)}
+    elseif( HoldListIndex == 4 )
+    {HoldList5:pushEntity(CurBlock),HoldList5:pushVector(DesPosition)}
+    elseif( HoldListIndex == 5 )
+    {HoldList6:pushEntity(CurBlock),HoldList6:pushVector(DesPosition)}
+    HoldListIndex = mod(HoldListIndex + 1,6)
+    
+    
+    
+    
+    if( NailList:count() == 0 )
+    {
+        print("No nailing for this block")
+        # Can't weld it to anything
+        Index = Index + 1
+        State = 1
+    }else{
+        # Order the welds
+        State = 6
+    }
+}elseif( State == 6){
+    # Position the nailer to the top right of the brick
+    Tmp = NailList[1,vector]
+    X = Tmp:x()
+    Y = Tmp:y()
+    Z = Tmp:z()
+    DesPosition = BuildPosition + X*entity():right()*Scale + (Y*Scale)*vec(0,0,1) + 4*Scale*entity():right() + 4*Scale*entity():up() + Scale*Z*entity():right():cross(vec(0,0,1))
+    Nailer:applyForce( (DesPosition - Nailer:pos())* 2000 - (Nailer:vel())* 1000 + Nailer:mass()*gravity()*Dt*vec(0,0,1) )
+    Nailer:applyAngForce( -(Nailer:angles()-Spawner:angles())*100 - 5000*(Nailer:angVel())*Dt )
+    if( Nailer:pos():distance(DesPosition) < 15 & abs((Nailer:angles()-Spawner:angles()):yaw())<10 )
+    {
+        # Start welding this block
+        State = 5
+    }
+    interval(10)
+
+}elseif( State == 5){
+    
+    # Perform the welding
+    if( NailList:count() > 0 )
+    {
+        # Load the current nail request
+        Tmp = NailList[1,vector]
+        X = Tmp:x()
+        Y = Tmp:y()
+        Z = Tmp:z()
+        Dir = NailList[2,number]
+        
+        if( Dir == 0 )
+        {
+            # Weld down
+            DesPosition = BuildPosition + X*entity():right()*Scale + (Y*Scale+50)*vec(0,0,1) + Scale*Z*entity():right():cross(vec(0,0,1))
+        }elseif( Dir == 1 ){
+            # Weld left
+            DesPosition = BuildPosition + (X*Scale+50)*entity():right() + (Y)*vec(0,0,1)*Scale + Scale*Z*entity():right():cross(vec(0,0,1))
+        }elseif( Dir == 2 ){
+            # Weld deep
+            DesPosition = BuildPosition + X*Scale*entity():right() + (Y)*vec(0,0,1)*Scale + (Scale*Z+50)*entity():right():cross(vec(0,0,1))
+        }else{
+            print("Dir = " + Dir + " error.")
+        }
+        
+        # Continue positioning the nailer
+        Nailer:applyForce( (DesPosition - Nailer:pos())* 2000 - (Nailer:vel())* 1000 + Nailer:mass()*gravity()*Dt*vec(0,0,1) )
+        Nailer:applyAngForce( -angnorm(Nailer:angles()-Spawner:angles())*300 - 5000*(Nailer:angVel())*Dt )
+        
+        # Check whether it is positioned properly
+        if( Nailer:pos():distance(DesPosition) < 0.5 & abs((Nailer:angles()-Spawner:angles()):yaw())<1 )
+        {
+            # Fire the nailer
+            if( Dir == 0 & NailD == 0 )
+            {
+                # Fire
+                NailD = 1
+            }elseif( Dir == 0 ){
+                # Done nailing
+                NailD = 0
+                NailList:shiftNumber()
+                NailList:shiftVector()
+            }elseif( Dir == 1 & NailL == 0 )
+            {
+                # Fire
+                NailL = 1
+            }elseif( Dir == 1 ){
+                # Done nailing
+                NailL = 0
+                NailList:shiftNumber()
+                NailList:shiftVector()
+            }elseif( Dir == 2 & NailZ == 0 )
+            {
+                # Fire
+                NailZ = 1
+            }elseif( Dir == 2 ){
+                # Done nailing
+                NailZ = 0
+                NailList:shiftNumber()
+                NailList:shiftVector()
+            }
+        }
+    }else{
+        Index = Index + 1
+        State = 5.5
+    }
+    
+
+    interval(10)
+}elseif( State == 5.5){
+    # Position the nailer to the top right of the brick
+    X = mod(Index,Width)
+    Y = mod(floor(Index/Width),Height)
+    Z = floor(Index/(Width*Height))
+    DesPosition = BuildPosition + X*entity():right()*Scale + (Y*Scale)*vec(0,0,1) + 4*Scale*entity():right() + 4*Scale*entity():up() + Scale*Z*entity():right():cross(vec(0,0,1))
+    Nailer:applyForce( (DesPosition - Nailer:pos())* 2000 - (Nailer:vel())* 1000 + Nailer:mass()*gravity()*Dt*vec(0,0,1) )
+    Nailer:applyAngForce( -angnorm(Nailer:angles()-Spawner:angles())*100 - 5000*(Nailer:angVel())*Dt )
+    if( Nailer:pos():distance(DesPosition) < 15 & abs((Nailer:angles()-Spawner:angles()):yaw())<10 )
+    {
+        # Move onto the next brick
+        State = 1
+    }
+    interval(10)
+
+}elseif( State == 7){
+    # Done
+    interval(50)
+    print("Done!")
+    if( Repeat == 1 )
+    {
+        print("Repeating")
+        HoldList1 = array()
+        HoldList2 = array()
+        HoldList3 = array()
+        HoldList4 = array()
+        HoldList5 = array()
+        HoldList6 = array()
+        BuildPosition = entity():pos()+entity():forward()*500
+        Index = 0
+    
+        State = 0
+    }
+}else{
+    interval(1000)
+}
+
+if( State != 0 & State != 5 & State != 6 & State != 5.5 )
+{
+    # Hold the nailer
+    
+    # Position the nailer to the top right of the brick
+    X = mod(Index,Width)
+    Y = mod(floor(Index/Width),Height)
+    Z = floor(Index/(Width*Height))
+    DesPosition = BuildPosition + X*entity():right()*Scale + (Y*Scale)*vec(0,0,1) + 7*Scale*entity():right() + 7*Scale*entity():up() + Scale*Z*entity():right():cross(vec(0,0,1))
+    Nailer:applyForce( (DesPosition - Nailer:pos())* 2000 - (Nailer:vel())* 1000 + Nailer:mass()*gravity()*Dt*vec(0,0,1) )
+    Nailer:applyAngForce( -angnorm(Nailer:angles()-Spawner:angles())*100 - 5000*(Nailer:angVel())*Dt )
+}

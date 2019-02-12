@@ -1,0 +1,24 @@
+@name PropWeldAll
+@inputs 
+@outputs 
+@persist  P1:entity P2:entity Props:array
+findIncludePlayerProps(owner())
+holoCreate(1,entity():pos())
+holoScaleUnits(1,vec(2000,2000,2000))
+holoModel(1,"hq_sphere")
+
+findInSphere(entity():pos(),2000)
+findIncludeClass("prop_physics")
+findIncludeClass("entity")
+#findClipToSphere(entity():pos(),2000)
+Props = findToArray()
+for(I=1,Props:count())
+{
+    P1 = Props[I,entity]
+    P2 = Props[I+1,entity]
+    weld(P2,P1)
+    noCollide(P2,P1)
+    if(I == Props:count()){
+        selfDestruct()    
+    }
+}

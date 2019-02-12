@@ -1,0 +1,5 @@
+@name up1test
+@outputs Up:vector
+@persist 
+runOnTick(1)
+Up=entity():up()

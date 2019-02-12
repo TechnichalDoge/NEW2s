@@ -1,0 +1,139 @@
+@name StreamcoreTest v2 
+@inputs Back Shuffle Stop EGP:wirelink Owner
+@outputs Song:number
+@persist Songs:table  Entity:entity Curse:vector2
+@trigger 
+#print(EGP)
+interval(25)
+if(first()|dupefinished()){
+Songs = table()
+Songs[1, string] = "01 - Kiss And Not Tell|https://www.dropbox.com/s/y9hy52f3l2szat8/01%20-%20La%20Roux%20-%20Kiss%20And%20Not%20Tell.mp3?dl=1"
+Songs[2, string] = "02 - Cruel Sexuality|https://www.dropbox.com/s/equ3xguvu7d6f34/02%20-%20Cruel%20Sexuality.mp3?dl=1"
+Songs[3, string] = "03 - Paradise Is You|https://www.dropbox.com/s/h126l6vkirifu9q/03%20-%20Paradise%20Is%20You.mp3?dl=1"
+Songs[4, string] = "04 - Sexotheque|https://www.dropbox.com/s/samz76bvfeq6wo2/04%20-%20Sexotheque.mp3?dl=1"
+Songs[5, string] = "05 - Tropical Chancer|https://www.dropbox.com/s/774khelaiprvvm7/05%20-%20Tropical%20Chancer.mp3?dl=1"
+Songs[6, string] = "06 - Silent Partner|https://www.dropbox.com/s/zj9aodk0y5mwwr2/06%20-%20Silent%20Partner.mp3?dl=1"
+Songs[7, string] = "07 - Let Me Down Gently|https://www.dropbox.com/s/p4hc3uw85sc0edt/07%20-%20Let%20Me%20Down%20Gently.mp3?dl=1"
+Songs[8, string] = "08 - The Feeling|https://www.dropbox.com/s/wjw36klrdz8xvhh/08%20-%20The%20Feeling.mp3?dl=1"
+Songs[9, string] = "09 - Tigerlily|https://www.dropbox.com/s/nhfut6plsa5wj77/09%20-%20Tigerlily%20-%20La%20Roux.mp3?dl=1"
+Songs[10, string] = "10 - In For The Kill - La Roux|https://www.dropbox.com/s/adt3dzvglqbqze5/10%20-%20In%20For%20The%20Kill%20-%20La%20Roux.mp3?dl=1"
+Songs[11, string] = "11 - Quicksand - La Roux|https://www.dropbox.com/s/fzlcemd314q8pvc/11%20-%20Quicksand%20-%20La%20Roux.mp3?dl=1"
+
+
+
+local FirstS = "01 - Kiss And Not Tell"
+Song = 1
+
+
+    function vector2 vecL(X:number,Y:number){
+        local Offset = vec2(X,-Y)
+        local Res = EGP:egpSize()/2
+        local Pos = Res+Offset
+        return Pos    
+    }
+
+local Col = vec(125,125,125)
+EGP:egpBox(2,vecL(0,0),EGP:egpSize())
+EGP:egpRoundedBox(3,vecL(0,0),EGP:egpSize())
+EGP:egpRadius(3,100)
+EGP:egpColor(2,Col)
+EGP:egpColor(3,Col+vec(-25,-25,-25))
+EGP:egpOrderBelow(2,3)
+EGP:egpText(1,"Logica StreamCore Radio"+"Now playing:",vec2(20,100))
+#EGP:egpText(55, FirstS,vec2(20,180))
+#EGP:egpOrderBelow(1,2)
+setName("Logica StreamCore Radio" +"\n"+"Now playing; \n" + FirstS)
+EGP:egpCircle(5,vec2(0,0),vec2(10,10))
+EGP:egpParentToCursor(5)
+} if(changed(EGP)){reset()}
+Curse = EGP:egpCursor(owner())
+
+EGP:egpText(6,EGP:egpCursor(owner()):toString(),vecL(0,0))
+
+
+EGP:egpRoundedBox(7,vecL(-10,-50),vec2(100,40))
+EGP:egpText(8,"Play",vecL(-50,-25))
+EGP:egpFont(8,"",45)
+if(Curse:x() > vecL(-60,0):x()&Curse:x() < vecL(40,0):x()& Curse:y() < vecL(0,-70):y()& Curse:y() > vecL(0,-30):y() & changed(owner():keyUse()) & owner():keyUse()){
+    EGP:egpColor(7,vec(125,125,125)-vec(20,20,20))
+    timer("play",10)
+}else{
+    EGP:egpColor(7,vec(125,125,125))
+}
+
+EGP:egpRoundedBox(66,vecL(-10,-100),vec2(100,40))
+EGP:egpText(67,"Next",vecL(-50,-75))
+EGP:egpFont(67,"",45)
+if(Curse:x() > vecL(-60,0):x()&Curse:x() < vecL(40,0):x()& Curse:y() < vecL(0,-110):y()& Curse:y() > vecL(0,-90):y() & changed(owner():keyUse()) & owner():keyUse()){
+    EGP:egpColor(66,vec(125,125,125)-vec(20,20,20))
+    timer("Next",10)
+}else{
+    EGP:egpColor(66,vec(125,125,125))
+}
+#[EGP:egpRoundedBox(10,vecL(-10,-100),vec2(100,40))
+EGP:egpText(11,"Stop",vecL(-50,-75))
+EGP:egpFont(11,"",45)
+if(Curse:x() > vecL(-60,0):x()&Curse:x() < vecL(40,0):x()& Curse:y() < vecL(0,-120):y()& Curse:y() > vecL(0,-80):y() & owner():keyUse()){
+    EGP:egpColor(10,vec(125,125,125)-vec(20,20,20))
+    timer("stop",10)
+}else{
+    EGP:egpColor(10,vec(125,125,125))
+}]#
+
+
+
+
+streamDisable3D(1)
+if(clk("Next")|changed(Back)){
+    local Shuffles = randint(0,Songs:count())
+    if(clk("Next")&!Shuffle){
+        Song++
+        timer("play",1)
+    }
+    elseif(changed(Back)&Back&!Shuffle){
+        Song--
+        timer("play",1)    
+    }
+    elseif(clk("Next")&Shuffle){
+        Song = Shuffles
+        timer("play",1)
+    }
+    elseif(changed(Back)&Back&Shuffle){
+        Song = Shuffles
+        timer("play",1)    
+    }
+    if(Song>Songs:count()){
+        Song=1
+        timer("play",1)
+    }
+    elseif(Song<=0){
+        Song=1
+        timer("play",1)    
+    }
+    #print(Song)
+    if(clk("Next")|changed(Back)&Back){
+        local SongN = Songs[Song,string]:explode("|")[1,string]
+        setName("Logica StreamCore Radio" +"\n"+"Now playing; \n "+ SongN)
+        EGP:egpText(55, SongN,vec2(20,180)) 
+    }
+}
+if(Owner){
+    Entity = owner()
+}
+else{
+    Entity = entity()   
+}
+if(clk("play")){
+    #hint("",1)
+    #streamStop(1)
+    local SongL = Songs[Song,string]:explode("|")[2,string]
+    local SongN = Songs[Song,string]:explode("|")[1,string]
+    Entity:streamStart(1,SongL)
+    EGP:egpText(55, SongN,vec2(20,180)) 
+}
+
+#[if(clk("stop")){
+    streamStop(1)
+    streamVolume(1,0)
+    EGP:egpText(1,"Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Music Stopped",vec2(20,200))
+}]#

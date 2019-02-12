@@ -1,0 +1,15 @@
+@name grenade Control
+@outputs O:entity E:entity
+if (first()) {O = owner()}
+runOnTick(1)
+timer("find",500)
+
+if (O:weapon():type() == "weapon_frag" & clk("find")) {
+findIncludePlayerProps(O)
+findByClass("npc_grenade_frag")
+E = find()
+}
+
+if (E) {
+E:applyForce(( (O:aimPos() - E:pos())*20 - E:vel())*E:mass())
+}

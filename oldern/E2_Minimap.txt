@@ -1,0 +1,44 @@
+@name E2 Minimap
+@inputs 
+@outputs 
+@persist Plys:array Props:array All:array
+@trigger 
+runOnTick(1)
+
+findByClass("prop_physics")
+findIncludeClass("Entity")
+findIncludeClass("Vehicle")
+Props = findToArray()
+Plys = players()
+All = Plys:add(Props)
+
+if(perf()){
+    foreach(I,K:entity=All){
+        local Scale = (1/128)    
+        local No = (K:pos() - entity():pos())*Scale + entity():pos()
+        
+        holoCreate(I,vec(No:x(),No:y(),clamp(No:z(),entity():pos():z(),inf())))
+        holoPos(I,vec(No:x(),No:y(),clamp(No:z(),entity():pos():z(),inf())))
+        holoAng(I,K:angles())
+        holoModel(I,K:model())
+        holoScaleUnits(I,K:boxSize()*Scale)
+      #  holoAnim(I,K:getAnimation())
+        holoAlpha(I,K:getAlpha())
+        holoMaterial(I,K:getMaterial())
+        holoColor(I,K:getColor())
+        if(!perf()){
+            break    
+        }
+        if(I>=All:count()){
+            All = array()
+        }
+    }
+}
+
+#[
+1. determine new origin (Obj - MapBase)(edited)
+2. scale the input (Obj - MapBase)*(1/12)(edited)
+3. reposition for rendering (Obj - MapBase)*(1/12) + MapBase(edited)
+Mapbase =probably the location of your emitter/e2
+should be the center of your map (minimap that is)(edited)
+Obj is object you displaying

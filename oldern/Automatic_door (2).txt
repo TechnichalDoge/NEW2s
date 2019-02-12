@@ -1,0 +1,26 @@
+@name Automatic door
+@outputs Open Close 
+@persist Ep:vector E:entity
+runOnTick(20)
+Ep=entity():pos()
+findInSphere(Ep,55)
+findIncludeClass("player")
+E=find()
+if(E==owner()){
+    Open=1
+    Close=0
+}
+#elseif(E:name()=="BRUCE WAYNE"){
+#    Open=1
+#    Close=0
+#}
+
+elseif(E:type()=="player"){
+    Open=1
+    Close=0
+}
+else{
+    Open=0
+    Close=1
+}
+#print(E:type())

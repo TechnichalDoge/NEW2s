@@ -1,0 +1,24 @@
+@name 
+@inputs 
+@outputs 
+@persist Props:array PCX:array PCY:array PCZ:array Vector:vector
+@trigger 
+
+interval(100)
+Props = entity():getConstraints()
+#if(first()){
+    foreach(I,K:entity=Props){
+        if(K:owner() == owner()& K != entity()){
+            PCX[I,number]=K:toWorld(K:massCenterL()):x()
+            PCY[I,number]=K:toWorld(K:massCenterL()):y()
+            PCZ[I,number]=K:toWorld(K:massCenterL()):z()
+        }
+    }
+#}
+
+Vector = vec(PCX:average(),PCY:average(),PCZ:average())
+holoCreate(1,Vector)
+holoModel(1,"hq_sphere")
+holoScale(1,vec(10,10,10))
+#print(Vector)
+#print(Props:count() + "    dsadsdada    " + PCX:count())

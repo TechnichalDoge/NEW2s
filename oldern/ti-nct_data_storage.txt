@@ -1,0 +1,7 @@
+@name TI-NCT Data Storage
+@inputs InputDesign:table
+@outputs OutputDesign:table
+
+if (!(InputDesign==table()) && ~InputDesign){
+    OutputDesign=InputDesign
+}

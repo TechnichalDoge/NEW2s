@@ -1,0 +1,19 @@
+@name 23233232 map test
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(400)
+findByClass("prop_physics")
+Arr=findToArray()
+if(perf()){
+for(I=1,Arr:count()){
+ScaleFactor=1/24
+Offset = Arr[I,entity]:pos() - entity():pos()
+HoloPos = Offset*ScaleFactor + entity():pos()
+
+holoCreate(I,HoloPos)
+holoModel(I,Arr[I,entity]:model())
+holoScale(I,Arr[I,entity]:boxSize()*ScaleFactor)
+}
+}

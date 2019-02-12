@@ -1,0 +1,17 @@
+@name teset2A23
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(250)
+
+if(owner():keyAttack1() & owner():weapon():type()=="pac_crossbow"){
+    Pew = pewCreate("Medium Laser","models/props_wasteland/prison_lamp001c.mdl",owner():shootPos()+vec(0,0,10),(owner():eyeAngles()-ang(-90,0,0)))
+    local PewWire = Pew:wirelink()           
+    PewWire["Fire",number] = 1
+    timer("undo",100)
+}
+if(clk("undo")& !(first())&!(dupefinished()))
+    {
+    concmd("gmod_undo")      
+    }

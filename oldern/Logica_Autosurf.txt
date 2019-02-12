@@ -1,0 +1,11 @@
+@name Logica Autosurf
+interval(10)
+runOnKeys(owner(),1)
+
+Space = owner():keyPressed("space")
+
+if(changed(Space)&Space){
+    propDeleteAll()
+    E = propSpawn("models/hunter/plates/plate2x2.mdl",owner():toWorld(vec(0,0,-7)),owner():angles(),1)
+    E:setAlpha(0)
+}

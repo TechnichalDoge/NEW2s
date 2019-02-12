@@ -1,0 +1,27 @@
+@name Sitter
+@inputs 
+@outputs 
+@persist P:entity Chair:entity
+@trigger 
+if(first())
+{
+   # runOnTick(1)
+    P = findPlayerByName("phatso")
+    local ParentPos = P:shootPos()+vec(0,0,30)
+    Chair = seatSpawn("models/props_c17/lampShade001a.mdl", ParentPos, ang(0), 0)
+
+    Chair:setAlpha(0)    
+
+    holoCreate(1)
+    holoPos(1, ParentPos)
+    holoAlpha(1, 0)
+    Chair:setPos(ParentPos)
+    
+    holoParentAttachment(1, P, "hips")
+    Chair:use()
+    Chair:parentTo(holoEntity(1))
+
+}
+
+#Chair:setAng(ang(0))
+#Chair:setPos(P:pos()+vec(0,0,100))

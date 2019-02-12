@@ -1,0 +1,103 @@
+@name pullout
+@inputs 
+@outputs 
+@persist [O XP X1]:entity W:string OFF:vector M1 M2 CR T CH UP CONST:array HC
+@trigger 
+
+if(first()){
+    runOnTick(1)
+    O=owner()    
+    W="weapon_physcannon"
+    
+    OFF=vec(1550,0,50)
+}
+M1=O:keyAttack2()
+M2=O:keyAttack1()
+OAE=O:aimEntity()
+OAP=O:aimPos()
+if(OAE:owner():isPlayer()&M1&$M1&OAE:isValid()){
+    
+    if(X1:isValid()){X1:propDelete(),holoDeleteAll(),HC=0}
+    
+    XP=OAE
+    CR=2
+    CONST=XP:getConstraints()  
+    
+    propSpawnEffect(0)
+    
+    X1=propSpawn(XP,XP:pos()+OFF,XP:angles(),1)
+    X1:setMass(XP:mass())
+    X1:setColor(XP:getColor())
+    X1:setAlpha(150)
+    X1:setMaterial(XP:getMaterial()) 
+    X1:propNotSolid(1)
+    
+    #rangerFilter(X1)
+    #rangerFilter(CONST)
+    if(X1:isValid()){
+        
+        rangerHitEntities(1)
+        UP_RD=rangerOffset(1000,X1:pos(),vec(0,0,-1))
+        UP=60#UP_RD:distance()
+        
+        print(floor(X1:pos(),2):toString()+"\n"+floor(UP_RD:pos(),2):toString())
+}else{print("dd")}
+    T=curtime()+1
+}
+
+if(CR==2){
+    
+    X1:setPos(OAP+vec(0,0,UP))
+    
+    if(holoCanCreate()&HC<=CONST:count()){
+        HC++
+        TPR=CONST[HC,entity]
+        
+        POS=XP:toLocal(TPR:pos())
+        ANG=XP:toLocal(TPR:angles())
+        
+        holoCreate(HC,X1:toWorld(POS),vec(1,1,1),X1:toWorld(ANG))
+        holoModel(HC,TPR:model())
+        holoColor(HC,TPR:getColor())
+        holoAlpha(HC,150)
+        holoMaterial(HC,TPR:getMaterial())
+        holoParent(HC,X1)
+        holoVisible(HC,players(),0)
+        holoVisible(HC,owner(),1)
+            
+    }
+    
+    if(M2&$M2){
+        CR=1  
+        X1:propNotSolid(0)
+        X1:setAlpha(XP:getAlpha())
+    }    
+}
+
+if(CR==1&T<curtime()){
+    
+    CH++
+    
+    propSpawnEffect(0)
+    
+    TPR=CONST[CH,entity]
+    
+    POS=XP:toLocal(TPR:pos())
+    ANG=XP:toLocal(TPR:angles())
+    
+    X=propSpawn(TPR,X1:toWorld(POS),X1:toWorld(ANG),1)
+    X:setMass(TPR:mass())
+    X:setColor(TPR:getColor())
+    X:setAlpha(TPR:getAlpha())
+    X:setMaterial(TPR:getMaterial())  
+    
+    #X:weldTo(X1,1)
+    X:parentTo(X1)
+    
+    if(CH>=CONST:count()){CR=0,selfDestruct()}   
+    T=curtime()+0.26 
+}
+
+#####
+#Uke#
+#####

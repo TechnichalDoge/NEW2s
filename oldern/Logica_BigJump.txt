@@ -1,0 +1,17 @@
+@name Logica BigJump
+interval(100)
+if(changed(owner():keyJump())&&owner():keyJump()&&!owner():inNoclip()){
+    Prop=propSpawn("models/hunter/misc/shell2x2a.mdl",owner():pos(),ang(0,0,0),1)
+       
+}
+if(!(owner():keyJump())&&changed(owner():keyJump())&&!owner():inNoclip()){
+    Prop2=propSpawn("models/props_phx/construct/metal_angle360.mdl",owner():pos()+owner():vel()/12,ang(0,0,0),1)
+    timer("pda",200)
+}
+Prop:setAlpha(0)
+Prop2:setAlpha(0)
+if(clk("pda")){
+    propDeleteAll()
+}
+
+

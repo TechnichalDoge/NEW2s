@@ -1,0 +1,8 @@
+@name Transistor c5
+@inputs Toggle Input:vector
+@outputs Output:vector
+if(Toggle==1){
+Output=Input}
+else{
+ Output=vec(0,0,0)
+}

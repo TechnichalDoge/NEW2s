@@ -1,0 +1,64 @@
+@name Radar 0.3 version'()'
+@inputs 
+@outputs 
+@persist Anv A B
+@trigger 
+interval(100)
+entity():setAlpha(0)
+if(first()){
+Anv = 1
+B = 2
+}
+foreach(K,V:entity = players()){
+
+Entity = V
+Pos = Entity:pos()
+MiniPos = entity():pos() + Pos / 150 + vec(0,0,100)
+Pos = Entity:pos()
+Ang = Entity:angles()
+MiniPos2 = entity():pos() + Pos / 150 + vec(0,0,115)
+holoCreate(K+1,MiniPos,vec(0.15),ang(0,0,0),vec(255),"models/gman_high.mdl")
+#holoColor(P+1,teamColor(Entity:team()))
+holoAnim(K+1,"lineidle03")
+holoAng(K+1,Ang)
+holoDisableShading(K+1,1)
+if(Entity:keyForward()){
+holoAnim(K+1,"walk_all")
+}
+if(Entity:keyBack()){
+holoAnim(K+1,"walk_all")
+}
+if(Entity:keyLeft()){
+holoAnim(K+1,"walk_all")
+}
+if(Entity:keyRight()){
+holoAnim(K+1,"walk_all")
+}
+if(Entity:keyDuck()){
+holoAnim(K+1,"crouchidle_panicked4")
+}
+if(Entity:keyDuck() && Entity:keyForward()){
+holoAnim(K+1,"crouch_walk_all")
+}
+if(Entity:keyDuck() && Entity:keyBack()){
+holoAnim(K+1,"crouch_walk_all")
+}
+if(Entity:keyDuck() && Entity:keyLeft()){
+holoAnim(K+1,"crouch_walk_all")
+}
+if(Entity:keyDuck() && Entity:keyRight()){
+holoAnim(K+1,"crouch_walk_all")
+}
+holoCreate(K+5,MiniPos2,vec(0.16),Ang,vec(255),"hqsphere")
+holoColor(K+5,teamColor(Entity:team()))
+holoDisableShading(K+5,1)
+if(Entity == owner()){
+Anv +=2
+A += 3
+holoCreate(K+9,MiniPos2+vec(0,0,3),vec(0.2),ang(0,Anv,180),teamColor(Entity:team()),"models/sprops/misc/alphanum/alphanum_arrow_b.mdl")
+holoDelete(K+5)
+holoPos(K+9,holoEntity(K+9):pos()+vec(0,0,cos(A)*B))
+}
+
+#Thx Neko-Sama
+}

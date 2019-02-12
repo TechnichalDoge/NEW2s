@@ -1,0 +1,54 @@
+@name Lagmograph By Logica V1
+@inputs Egp:wirelink
+@outputs Sp
+@persist Hi Abs CD Table:table CDMAX Speed 
+@trigger 
+
+if(first()){
+    #Egp:egpClear()
+    # Speed vs Detail, lower the number the faster it to go left right but higher it will be slower but more detail
+    Speed = 256
+    
+    Sp = 512/Speed
+}
+
+
+interval(25)                                                                                                                                                                                                                        setName("Lagmograph by \n Logica")
+if(Egp != nowirelink()){
+local Ori = Egp:egpOrigin()
+
+Abs = (realtime()-curtime())
+
+Hi = $Abs*30000
+
+Hi = clamp(Hi,-248,248)
+#print(Hi)
+
+if(first()|CD == 0){
+CD = Speed
+CDMAX = CD
+}
+CD--
+
+#deco
+if(first()){
+
+    Egp:egpClear()
+    Egp:egpText(CDMAX+9999,"Made by logica",Ori)
+    Egp:egpRoundedBox(CDMAX+1,Ori,Egp:egpSize())
+    Egp:egpColor(CDMAX+1,vec()) 
+    Egp:egpRoundedBox(CDMAX+2,Ori-vec2(0,124),vec2(Egp:egpSize():x(),15))   
+    Egp:egpColor(CDMAX+2,vec4(255,0,0,125))
+    Egp:egpRoundedBox(CDMAX+3,Ori+vec2(0,124),vec2(Egp:egpSize():x(),15))   
+    Egp:egpColor(CDMAX+3,vec4(255,0,0,125))
+}
+
+
+#/deco
+
+Table[CD,number] = Hi
+Egp:egpLine(CD,vec2(CD*Sp,Ori:y()+Hi),vec2((CD+1)*Sp,Ori:y()+Table[CD+1,number]))
+Egp:egpLine(-11,vec2(CD*Sp,0),vec2(CD*Sp,Egp:egpSize():y()))
+Egp:egpColor(-11,vec(0,255,0))
+}
+else{reset()}

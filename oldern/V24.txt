@@ -1,0 +1,16 @@
+@name V24
+@inputs Ent:entity 
+@outputs Vec:vector Ang:angle 
+@persist 
+@trigger 
+if(changed(Ent)){
+    Ent:setMass(100000000)
+}
+runOnTick(1)
+
+Vec = (entity():pos() - Ent:pos() + vec(0,0,50))*Ent:mass()*10
+
+Ent:applyForce(Vec+$Vec*5+vec(0,0,sin(randint(-10,10)*100000000)))
+
+Ang= ang(Ang:pitch()+1,Ang:yaw()+1,Ang:roll()+1)
+Ent:applyAngForce(Ang+$Ang*5)

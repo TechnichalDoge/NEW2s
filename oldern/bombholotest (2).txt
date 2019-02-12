@@ -1,0 +1,9 @@
+@name bombholotest
+@inputs 
+@outputs 
+@persist Ep:vector Ea:angle
+interval(100)
+Ep=entity():pos()
+Ea=entity():pos():toAngle(entity():up())
+"models/props_phx/mk-82.mdl"
+holoCreate(1,Ep,vec(1,1,1),Ea,vec(255,255,255),"models/peniscolada/torp.mdl")

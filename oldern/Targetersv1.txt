@@ -1,0 +1,15 @@
+@name Targetersv1
+@inputs Target:entity Driver:entity
+@outputs 
+@persist 
+@trigger 
+interval(3000)
+if(first()|dupefinished()){
+    holoCreate(1,Target:pos())
+    holoVisible(1,Driver,1)
+    holoVisible(1,players(),0)
+    holoModel(1,"hq_sphere")
+    holoMaterial(1,"hlmv/debugmrmwireframe")
+    timer("reset",3000)
+}
+ reset()  

@@ -1,0 +1,19 @@
+@name Automatic trap v1 gates v1.5
+@inputs Door:entity Input:number
+@outputs Open Close
+interval(25)
+entity():setNoCollideAll()
+
+
+if(Input>0){
+    Open=0
+    Close=1
+    Door:removeNoCollideAll()
+    Door:setAlpha(255)
+}
+elseif(Input==0){
+    Open=1
+    Close=0
+    Door:setNoCollideAll()
+    Door:setAlpha(0)
+}

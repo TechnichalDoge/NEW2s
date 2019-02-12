@@ -1,0 +1,10 @@
+@name 33433434
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(250)
+if(owner():keyAttack1()){
+fileWrite(">e2shared/moneieses.txt",owner():aimEntity():getMaterial())
+}
+fileAppend()

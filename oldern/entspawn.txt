@@ -1,0 +1,7 @@
+@name entspawn
+@inputs 
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+Entity=entSpawn("gmod_wire_pod",entity():pos())

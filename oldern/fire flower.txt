@@ -1,0 +1,150 @@
+@name FireFlower v1.6
+@persist Fireballs:array Player:entity Origin Index Timer:array
+
+runOnTick(1)
+
+if(first()){
+    Player = noentity()
+    Index = 1
+    #=====Holo Creation=====#
+    N = 1
+    #[      Format:
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(0,0,30)))
+    holoAng(N, entity():toWorld(ang(0,0,0)))
+    holoModel(N, "")
+    holoColor(N, vec(255,255,255))
+    holoScale(N, vec(1,1,1))
+    N++
+    ]#
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(0,0,6)))
+    holoAng(N, entity():toWorld(ang(0,0,0)))
+    holoModel(N, "hq_cylinder")
+    holoColor(N, vec(0,255,0))
+    holoScale(N, vec(0.2,0.2,1))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(-3,0,2)))
+    holoAng(N, entity():toWorld(ang(45,0,0)))
+    holoModel(N, "hq_dome")
+    holoColor(N, vec(0,255,0))
+    holoScale(N, vec(0.7,0.3,0.2))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(3,0,2)))
+    holoAng(N, entity():toWorld(ang(-45,0,0)))
+    holoModel(N, "hq_dome")
+    holoColor(N, vec(0,255,0))
+    holoScale(N, vec(0.7,0.3,0.2))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(0,0,15)))
+    holoAng(N, entity():toWorld(ang(0,0,-65)))
+    holoModel(N, "hq_torus_thick")
+    holoColor(N, vec(255,25,0))
+    holoScale(N, vec(1.5,1,1))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(0,0,15)))
+    holoAng(N, entity():toWorld(ang(0,0,-65)))
+    holoModel(N, "hq_torus_thick")
+    holoColor(N, vec(255,255,0))
+    holoScale(N, vec(1,0.6,1))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(0,0,15)))
+    holoAng(N, entity():toWorld(ang(0,0,-65)))
+    holoModel(N, "hq_sphere")
+    holoColor(N, vec(255,255,255))
+    holoScale(N, vec(1,0.6,0.3))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(2,1.6,15.5)))
+    holoAng(N, entity():toWorld(ang(0,0,-65)))
+    holoModel(N, "hq_sphere")
+    holoColor(N, vec(0,0,0))
+    holoScale(N, vec(0.1,0.3,0.1))
+    N++
+    
+    holoCreate(N)
+    holoPos(N, entity():toWorld(vec(-2,1.6,15.5)))
+    holoAng(N, entity():toWorld(ang(0,0,-65)))
+    holoModel(N, "hq_sphere")
+    holoColor(N, vec(0,0,0))
+    holoScale(N, vec(0.1,0.3,0.1))
+    
+    for(I = 1, N){
+        holoParent(N-I+1,1)
+    }
+}
+
+if(Player == noentity()){
+    Closest = noentity()
+    for(I = 1, players():count()){
+        if(players()[I,entity]:pos():distance(entity():pos()) < 25){
+            Player = players()[I,entity]
+            holoCreate(-1)
+            holoPos(-1,Player:shootPos())
+            holoShadow(-1,0)
+            holoAlpha(-1,0)
+            holoParent(-1,Player)
+            holoDelete(1)
+            break
+        } elseif(Closest:pos():distance(entity():pos()) > players()[I,entity]:pos():distance(entity():pos())){
+            Closest = players()[I,entity]
+        }
+    }
+    holoAng(1,ang(0,((entity():pos() - Closest:pos()):toAngle()+ang(0,90,0)):yaw(),0))
+} elseif(changed(Player:keyReload()) & Player:keyReload() & Fireballs:count() <= 15){
+    holoCreate(Index)
+    holoModel(Index, "hq_sphere")
+    holoMaterial(Index,"models/effects/splode_sheet")
+    holoPos(Index,Player:shootPos())
+    holoAng(Index,Player:eyeAngles():setRoll(0))
+    holoEntity(Index):setTrails(10,1,0.2,"effects/beam_generic01",vec(255,100,0),150)
+    Fireballs:pushEntity(holoEntity(Index))
+    holoEntity(-1):soundPlay(Index,soundDuration("buttons/button16.wav"),"buttons/button16.wav")
+    Timer:pushNumber(0)
+    Index++
+} elseif(changed(Player:keyReload()) & Player:keyReload() & Fireballs:count() > 15){
+    holoEntity(-1):soundPlay(Index,soundDuration("resource/warning.wav"),"resource/warning.wav = 1, Fireballs:count()){
+    Timer[I,number] = Timer[I,number] + 1
+    rangerReset()
+    rangerHitWater(1)
+    rangerIgnoreWorld(0)
+    rangerHitEntities(1)
+    rangerFilter(Player)
+    RD = rangerOffsetHull(99999999,Fireballs[I,entity]:pos(),vec(0,0,-1),vec(1,1,1))
+    if(RD:distance() < 10){
+        Fireballs[I,entity]["Up",number] = 1
+    }elseif(RD:distance() > 70){
+        Fireballs[I,entity]["Up",number] = 0
+    }
+    if(Fireballs[I,entity]["Up",number] == 1){
+        holoPos(holoIndex(Fireballs[I,entity]),Fireballs[I,entity]:toWorld(vec(10,0,5)))
+    }else{
+        holoPos(holoIndex(Fireballs[I,entity]),Fireballs[I,entity]:toWorld(vec(10,0,-5)))
+    }
+    
+    rangerReset()
+    rangerHitWater(1)
+    rangerIgnoreWorld(0)
+    rangerHitEntities(1)
+    rangerFilter(Player)
+    RD = rangerOffsetHull(1,Fireballs[I,entity]:pos(),Fireballs[I,entity]:forward(),vec(1,1,1))
+    if(RD:hit() | Timer[I,number] >= 500){
+        Ent = propSpawn("models/props_junk/gascan001a.mdl",Fireballs[I,entity]:pos(),0)
+        holoDelete(holoIndex(Fireballs[I,entity]))
+        Ent:propBreak()
+        Fireballs:removeEntity(I)
+        Timer:removeNumber(I)
+    }
+}

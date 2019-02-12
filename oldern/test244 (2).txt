@@ -1,0 +1,13 @@
+@name test244
+@inputs 
+@outputs Out1 Tele:vector
+@persist 
+@trigger 
+interval(15)
+if(Out1==0){
+    Out1=1   
+}
+else{
+    Out1=0   
+}
+Tele=owner():massCenter()

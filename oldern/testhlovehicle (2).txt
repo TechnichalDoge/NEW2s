@@ -1,0 +1,10 @@
+@name testhlovehicle
+@inputs Vehicle:entity
+@outputs 
+@persist Vp:vector Va:angle
+@trigger 
+
+interval(100)
+Vp=Vehicle:pos()
+Va=Vp:toAngle(Vehicle:forward())
+holoCreate(1,Vp,vec(10,10,10),Va,vec(255,255,255),"")

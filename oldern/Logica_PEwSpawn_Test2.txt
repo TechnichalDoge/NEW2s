@@ -1,0 +1,60 @@
+@name Logica PEwSpawn Test2
+@inputs Input Target:vector Base:entity Pos:vector
+@outputs 
+@persist Pewpew:entity PewpewWire:wirelink Position Position2
+@trigger Input
+Position = 100
+#Position = 0
+#if(Base:pos():z() > Target:pos():z() ){
+        Position2= -Position
+    
+#}
+#else{
+    Position2= Position    
+    
+#}
+interval(10)
+
+if (first()|dupefinished()) {
+holoCreate(1)
+holoModel(1,"hqcylinder2")
+holoVisible(1,players(),0)  
+}
+
+        
+    if((dupefinished()))
+        {
+            reset()
+        }
+        if(changed(Input)&Input){
+            ##local Ang = (entity():pos()-Target:boxCenterW()+vec(0,0,-50)):toAngle()+ang(-90,0,0)
+            #local Ang = (entity():pos()-Pos):toAngle()+ang(-90,0,0)
+            local Ang = (entity():pos()-Target):toAngle()+ang(-90,0,0)
+            Pewpew=pewCreate("Homing Missile - Normal","models/props_c17/canister02a.mdl",entity():pos()+vec(0,0,Position2),Ang)        
+            PewpewWire=Pewpew:wirelink()
+            PewpewWire["Fire",number]=1
+            holoVisible(1,players(),1)
+        }
+        if(changed(Input)& !(first())&!(dupefinished())){
+#           print(Input)
+            if(!Input & !(first())){
+                timer("undo",10)      
+            }
+        }
+
+        if(clk("undo")& !(first())&!(dupefinished()))
+        {
+            concmd("gmod_undo")
+            holoVisible(1,players(),0)          
+        }
+    
+TargetPos = Target+vec(0,0,-Position-15)#owner():aimPos() #Get the target position (change this if you want)
+CurrentPos = Pewpew:pos()#entity():pos() #Get the current position (change this if you want)
+Diff = TargetPos-CurrentPos #Subtract them to make a direction
+Dist = Diff:length() #Gets the distance (its the same as TargetPos:distance(CurrentPos))
+#[holoPos(1,CurrentPos+Diff:normalized()*Dist/2) #Move the holo the center of them (can also be done like this: (TargetPos+CurrentPos)/2
+holoAng(1,Diff:toAngle()+ang(90,0,0)) #Angle it. adding 90 to pitch because it is a cylinder, so I want to scale its Z, not its X.
+holoScale(1,vec(2,2,Dist)/12) #Scale it to make it as long as the distance
+holoColor(1,vec(255,150,25))
+holoAlpha(1,200)
+

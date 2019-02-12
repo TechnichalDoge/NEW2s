@@ -1,0 +1,24 @@
+@name Paper Brick Holder
+@inputs List:array Spawner:entity
+@outputs DifAng:angle
+@persist LTime
+@trigger none
+interval(10)
+Dt = curtime() - LTime
+LTime = curtime()
+BrickIndex = 1
+while( BrickIndex <= List:count() )
+{
+    CurBlock = List[BrickIndex,entity]
+    DesPosition = List[BrickIndex+1,vector]
+    
+    
+    # Position the cube
+    CurBlock:applyForce( (DesPosition - CurBlock:pos())* 30000/10 * Dt - (CurBlock:vel())* 10000/10 * Dt + CurBlock:mass()*gravity()*Dt*vec(0,0,1) )
+    # Angle the cube
+    #CurBlock:applyAngForce( -(CurBlock:angles()-Spawner:angles())*100 - 5000*(CurBlock:angVel())*Dt )
+    DifAng = angnorm(CurBlock:angles()-Spawner:angles())
+    CurBlock:applyAngForce( -DifAng*20000/100*Dt - 5000/100*(CurBlock:angVel())*Dt )
+    
+    BrickIndex = BrickIndex + 2
+}

@@ -1,0 +1,32 @@
+@name Findinconeguidance
+@inputs 
+@outputs Target:vector  Eu:vector Tarep:entity Number Number2
+@persist Ep:vector Eu:vector Tarep:entity Entity2:entity Entity:entity
+runOnTick(1)
+Ep=entity():pos()
+Eu=entity():up()
+Number2=findInSphere(entity():pos(),999999)
+findIncludeClass("player")
+findExcludePlayer("Logica")
+Entity=find()
+if(!Entity:plyHasGod()){Entity2=Entity}
+Number=findInCone(Ep,Eu,4500,15)
+findIncludeClass("player")
+findExcludePlayer("Logica")
+findExcludeEntity(Entity)
+rangerFilter(find())
+Ranger=rangerOffset(999999,entity():pos(),entity():up())
+local Players = findToArray()
+for(I=1,Players:count())
+{
+    local P = Players[I,entity]
+    if(!P:plyHasGod())
+    {
+        Tarep=P
+        Target=Tarep:pos()
+        break
+    }
+}
+
+
+

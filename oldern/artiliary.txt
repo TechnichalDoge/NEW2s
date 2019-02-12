@@ -1,0 +1,38 @@
+@name artiliary
+@inputs Ent:entity Active
+@outputs Reload
+@persist E:entity V:vector R:ranger Pos:vector Posu:vector
+interval(10)
+
+#create aiming holo
+if(first())
+{
+    holoCreate(1)
+    holoAng(1,ang(0,90,0))
+    holoModel(1,"hq_torus_thin")
+}
+#various varible setting
+holoPos(1,Pos)
+holoColor(1,vec(50,100,255),0)
+R=rangerOffset(500,entity():pos(),entity():up())
+#make sure that you arent ammo its annoying to have a trail trust me
+if(R:entity() != owner())
+{ 
+    E=R:entity()
+}
+#more varible things
+V=entity():up()
+Pos=owner():aimPos()
+Posu=Pos-Ent:pos()
+#firing and setting trails
+if(owner():keyAttack2() & Active)
+{
+    E:setMass(50000)
+    E:setTrails(20,20,20,"trails/smoke",vec(200,200,200),150)   
+    E:applyForce(V*10000000000000)
+    Ent:applyForce(Posu*1000)
+    holoColor(1,vec(255,80,80),200)
+    holoScale(1,vec(25,25,10))
+}
+#reloading
+Reload=owner():keyUse() * Active

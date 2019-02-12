@@ -1,0 +1,11 @@
+@name Flak testing
+@inputs Canon:wirelink Target:entity
+@outputs 
+@persist Target:entity
+@trigger 
+if(first())
+{
+    runOnTick(1)
+}
+Canon["Lifetime",number] = (Canon:entity():pos():distance(Target:pos()))/(135/tickInterval())
+

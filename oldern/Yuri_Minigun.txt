@@ -1,0 +1,278 @@
+@name Yuri Minigun
+@inputs T1:wirelink T2:wirelink
+@outputs Find F:entity Y YI T1E:entity T2E:entity P Ro On
+@persist Dead:array
+@trigger 
+runOnTick(1)
+runOnChat(1)
+if (first()){
+    holoCreate(1)
+    holoCreate(2)
+    holoCreate(3)
+    holoCreate(4)
+    
+    holoCreate(5)
+    holoCreate(6)
+    holoCreate(7)
+    
+    holoCreate(8)
+    holoCreate(9)
+    
+    holoCreate(10)
+    holoCreate(11)
+    
+    holoCreate(12)
+    holoCreate(13)
+    holoCreate(14)
+    holoCreate(15)
+    holoCreate(16)
+    holoCreate(17)
+    
+    holoCreate(18)
+    holoCreate(19)
+    holoCreate(20)
+    holoCreate(21)
+    holoCreate(22)
+    holoCreate(23)
+    
+    
+    holoModel(3,"hq_cylinder")
+    holoModel(4,"hq_cylinder")
+    
+    holoModel(5,"models/hunter/misc/shell2x2c.mdl")
+    holoModel(6,"models/hunter/misc/shell2x2c.mdl")
+    holoModel(7,"models/hunter/tubes/tube2x2x025c.mdl")
+    
+    holoModel(10,"hq_cylinder")
+    holoModel(11,"hq_cylinder")
+    
+    holoModel(12,"hq_cylinder")
+    holoModel(13,"hq_cylinder")
+    holoModel(14,"hq_cylinder")
+    holoModel(15,"hq_cylinder")
+    holoModel(16,"hq_cylinder")
+    holoModel(17,"hq_cylinder")
+    
+    holoModel(18,"hq_cylinder")
+    holoModel(19,"hq_cylinder")
+    holoModel(20,"hq_cylinder")
+    holoModel(21,"hq_cylinder")
+    holoModel(22,"hq_cylinder")
+    holoModel(23,"hq_cylinder")    
+    
+    
+    holoScale(1,vec(13,4,1.6))
+    holoScale(2,vec(13,4,1.6))
+    holoScale(3,vec(4,4,20))
+    holoScale(4,vec(5,5,0.3))
+    
+    holoScale(5,vec(0.7,0.8,0.7))
+    holoScale(6,vec(0.7,0.8,0.7))
+    holoScale(7,vec(0.65,0.65,1))
+    
+    holoScale(8,vec(3,1.5,0.5))
+    holoScale(9,vec(3,1.5,0.5))
+    
+    holoScale(10,vec(1.5,1.5,3))
+    holoScale(11,vec(1.5,1.5,3))
+    
+    holoScale(12,vec(0.2,0.2,7))
+    holoScale(13,vec(0.2,0.2,7))
+    holoScale(14,vec(0.2,0.2,7))
+    holoScale(15,vec(0.2,0.2,7))
+    holoScale(16,vec(0.2,0.2,7))
+    holoScale(17,vec(0.2,0.2,7))
+    
+    holoScale(18,vec(0.2,0.2,7))
+    holoScale(19,vec(0.2,0.2,7))
+    holoScale(20,vec(0.2,0.2,7))
+    holoScale(21,vec(0.2,0.2,7))
+    holoScale(22,vec(0.2,0.2,7))
+    holoScale(23,vec(0.2,0.2,7))
+    
+    
+    holoAng(1,entity():toWorld(ang(0,45,0)))
+    holoAng(2,entity():toWorld(ang(0,-45,0)))
+    holoAng(3,entity():toWorld(ang(0,0,0)))
+    holoAng(4,entity():toWorld(ang(0,0,0)))
+    
+    holoAng(5,entity():toWorld(ang(0,180,0)))
+    holoAng(6,entity():toWorld(ang(0,0,0)))
+    holoAng(7,entity():toWorld(ang(90,0,0)))
+    
+    holoAng(8,entity():toWorld(ang(0,0,0)))
+    holoAng(9,entity():toWorld(ang(0,0,0)))
+    
+    holoAng(10,entity():toWorld(ang(0,0,90)))
+    holoAng(11,entity():toWorld(ang(0,0,90)))
+    
+    holoAng(12,entity():toWorld(ang(0,0,90)))
+    holoAng(13,entity():toWorld(ang(0,0,90)))
+    holoAng(14,entity():toWorld(ang(0,0,90)))
+    holoAng(15,entity():toWorld(ang(0,0,90)))
+    holoAng(16,entity():toWorld(ang(0,0,90)))
+    holoAng(17,entity():toWorld(ang(0,0,90)))
+    
+    holoAng(18,entity():toWorld(ang(0,0,90)))
+    holoAng(19,entity():toWorld(ang(0,0,90)))
+    holoAng(20,entity():toWorld(ang(0,0,90)))
+    holoAng(21,entity():toWorld(ang(0,0,90)))
+    holoAng(22,entity():toWorld(ang(0,0,90)))
+    holoAng(23,entity():toWorld(ang(0,0,90)))   
+    
+    
+    holoPos(1,entity():toWorld(vec(0,0,5)))
+    holoPos(2,entity():toWorld(vec(0,0,5)))
+    holoPos(3,entity():toWorld(vec(0,0,0)))
+    holoPos(4,entity():toWorld(vec(0,0,100)))
+    
+    holoPos(5,entity():toWorld(vec(5,0,110)))
+    holoPos(6,entity():toWorld(vec(-5,0,110)))
+    holoPos(7,entity():toWorld(vec(0,0,110)))
+    
+    holoPos(8,entity():toWorld(vec(45,0,125)))
+    holoPos(9,entity():toWorld(vec(-45,0,125)))
+    
+    holoPos(10,entity():toWorld(vec(40,0,114)))
+    holoPos(11,entity():toWorld(vec(-40,0,114)))
+    
+    holoPos(12,entity():toWorld(vec(40,-40,120)))
+    holoPos(13,entity():toWorld(vec(40,-40,110)))
+    holoPos(14,entity():toWorld(vec(45,-40,112.5)))
+    holoPos(15,entity():toWorld(vec(35,-40,112.5)))
+    holoPos(16,entity():toWorld(vec(45,-40,117.5)))
+    holoPos(17,entity():toWorld(vec(35,-40,117.5)))
+        
+    holoPos(18,entity():toWorld(vec(-40,-40,120)))
+    holoPos(19,entity():toWorld(vec(-40,-40,110)))
+    holoPos(20,entity():toWorld(vec(-45,-40,112.5)))
+    holoPos(21,entity():toWorld(vec(-35,-40,112.5)))
+    holoPos(22,entity():toWorld(vec(-45,-40,117.5)))
+    holoPos(23,entity():toWorld(vec(-35,-40,117.5)))   
+    
+    
+    holoMaterial(1,"models/props_pipes/pipemetal001a")
+    holoMaterial(2,"models/props_pipes/pipemetal001a")
+    holoMaterial(3,"models/props_pipes/pipemetal001a")
+    holoMaterial(4,"models/props_pipes/pipemetal001a")
+    holoMaterial(5,"models/props_pipes/pipemetal001a")
+    holoMaterial(6,"models/props_pipes/pipemetal001a")
+    holoMaterial(7,"models/props_pipes/pipemetal001a")
+    holoMaterial(8,"models/props_pipes/pipemetal001a")
+    holoMaterial(9,"models/props_pipes/pipemetal001a")
+    holoMaterial(10,"models/props_pipes/pipemetal001a")
+    holoMaterial(11,"models/props_pipes/pipemetal001a")
+    holoMaterial(12,"models/props_pipes/pipemetal001a")
+    holoMaterial(13,"models/props_pipes/pipemetal001a")
+    holoMaterial(14,"models/props_pipes/pipemetal001a")
+    holoMaterial(15,"models/props_pipes/pipemetal001a")
+    holoMaterial(16,"models/props_pipes/pipemetal001a")
+    holoMaterial(17,"models/props_pipes/pipemetal001a")
+    holoMaterial(18,"models/props_pipes/pipemetal001a")
+    holoMaterial(19,"models/props_pipes/pipemetal001a")
+    holoMaterial(20,"models/props_pipes/pipemetal001a")
+    holoMaterial(21,"models/props_pipes/pipemetal001a")
+    holoMaterial(22,"models/props_pipes/pipemetal001a")
+    holoMaterial(23,"models/props_pipes/pipemetal001a")
+        
+    
+    holoParent(1,entity())
+    holoParent(2,entity())
+    holoParent(3,entity())
+    holoParent(4,entity())
+    
+    holoParent(5,4)
+    holoParent(6,4)
+    holoParent(7,4)
+    holoParent(8,4)
+    holoParent(9,4)
+    
+    holoParent(10,8)
+    holoParent(11,9)
+    
+    holoParent(12,10)
+    holoParent(13,10)
+    holoParent(14,10)
+    holoParent(15,10)
+    holoParent(16,10)
+    holoParent(17,10)
+    
+    holoParent(18,11)
+    holoParent(19,11)
+    holoParent(20,11)
+    holoParent(21,11)
+    holoParent(22,11)
+    holoParent(23,11)
+    timer("on",500)
+}
+if(clk("on")){On=1}
+if(first()|changed(players():count())){
+    for(I=1,players():count()){
+        Dead:pushEntity(entity())
+    }
+}
+if(On==1){
+findByClass("player")
+findSortByDistance(entity():pos())
+findExcludePlayer(owner())
+findExcludePlayer("tbom")
+findExcludePlayer("Dylan")
+#findExcludeEntities(Dead)
+for(I=1,players():count()){
+    if (players()[I,entity]:health()<=0){
+    Dead[I,entity]=players()[I,entity]
+}
+if (players()[I,entity]:health()>0){
+    Dead[I,entity]=entity()
+}
+}
+F=find()
+if (find():pos():distance(entity():pos())<2500){Find=1
+YI+=0.1}
+if (find():pos():distance(entity():pos())>2500){Find=0
+    YI-=0.1}
+if(YI>=50){YI=50}
+if(YI<=0){YI=0}
+if(P<=0){P=0}
+if(P>=200){P=200}
+if (Find==1)
+{
+    holoAng(4,entity():toWorld(ang(0,(find():pos()-entity():pos()):toAngle():yaw()-90,0)))
+    holoAng(8,entity():toWorld(ang(0,(find():pos()-holoEntity(4):pos()):toAngle():yaw()+90,(find():pos()-holoEntity(4):pos()):toAngle():pitch())))
+    holoAng(9,entity():toWorld(ang(0,(find():pos()-holoEntity(4):pos()):toAngle():yaw()+90,(find():pos()-holoEntity(4):pos()):toAngle():pitch())))
+    T1["Fire",number]=1
+    T2["Fire",number]=1
+    P+=0.25
+    soundPitch(3,P+100)
+}
+else{
+    T1["Fire",number]=0
+    T2["Fire",number]=0
+    P-=1
+    holoAng(4,entity():toWorld(ang(0,Ro,0)))
+    Ro+=0.5
+}
+Y+=YI
+holoAng(10,holoEntity(8):toWorld(ang(Y,0,90)))
+holoAng(11,holoEntity(9):toWorld(ang(Y,0,90)))
+T1E=T1:entity()
+T2E=T2:entity()
+T1E:setPos(holoEntity(10):toWorld(vec(0,0,80)))
+T2E:setPos(holoEntity(11):toWorld(vec(0,0,80)))
+T1E:setAng((find():pos()-T1E:pos()):toAngle())
+T2E:setAng((find():pos()-T2E:pos()):toAngle())
+T1E:setAlpha(0)
+T2E:setAlpha(0)
+
+if (chatClk(owner())&owner():lastSaid()=="/pns"){entity():propNotSolid(1)}
+if (chatClk(owner())&owner():lastSaid()=="/ps"){entity():propNotSolid(0)}
+
+if (changed(Find)&Find==1){soundPlay(1,1,"/mvm/giant_heavy/giant_heavy_gunspin.wav")
+    soundPlay(3,9999,"/weapons/minigun_shoot.wav")
+    }
+if (changed(Find)&Find==0){
+    soundPlay(2,3,"/mvm/giant_heavy/giant_heavy_gunwinddown.wav")
+    soundPitch(2,80)
+    soundStop(3)
+    }
+}

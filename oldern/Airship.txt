@@ -1,0 +1,9 @@
+@name Airship
+@inputs Airship:entity
+@outputs 
+@persist AP:vector
+@trigger 
+runOnTick(5)
+AP=Airship:pos()
+holoCreate(1,AP)
+holoScale(1,vec(1,1,1))

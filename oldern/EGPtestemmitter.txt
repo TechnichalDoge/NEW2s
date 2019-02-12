@@ -1,0 +1,36 @@
+@name EGP
+@inputs EGP:wirelink
+@persist Text:string TColor:vector BColor:vector AMPM:string TimeH:number
+#link EGP to your EGP screen/emitter
+interval(100)
+if((time("hour")/12)<1){
+    AMPM="AM"
+}
+elseif((time("hour")/12)>=1){
+AMPM="PM"    
+}
+
+if((time("hour")>12)){
+TimeH=(time("hour")-12)-6
+}
+elseif((time("hour")<12)){
+TimeH=((time("hour"))-6)
+}
+    Text=TimeH:toString()+":"+time("min"):toString()+" "+AMPM
+    #You can also give it a function that outputs a string
+if(first()|dupefinished()){
+    #configure
+    TColor=vec(255,15,15)
+    #TextColor (in RGB)
+    
+    BColor=vec(0,0,0) 
+    #BackgroundColor (in RGB)
+    
+}
+EGP:egpText(1,Text,vec2(256-(Text:length()*7.25),0))
+EGP:egpSize(1,30)
+EGP:egpColor(1,TColor)
+EGP:egpRoundedBox(2,vec2(256,16),vec2(125,25))
+EGP:egpColor(2,BColor)
+EGP:egpAlpha(2,255)
+EGP:egpOrder(2,1)

@@ -1,0 +1,243 @@
+# Smart Door created by Gawdl3y AKA Avalon Centrifuge of The Phoenix Servers
+@name Smart Door
+@inputs Open
+@outputs OpenDoor DoorID
+@persist Whitelist:table [Corner Offset]:array DoorID ChatOpened InputOpened Holos
+
+if(clk("search")) {
+    if(!ChatOpened & !InputOpened) {
+        Players = findInBox(Corner[1, vector], Corner[2, vector])
+        if(Players == 0) { OpenDoor = 0 }
+        
+        # Check if any of the players are allowed through
+        for(P = 1, Players) {
+            Player = findResult(P)
+            
+            if(Player == owner()) {
+                # They're the owner! Open up!
+                OpenDoor = 1
+                break
+            } else {
+                if(Whitelist:exists(Player:steamID())) {
+                    OpenDoor = 1
+                    break
+                } else {
+                    OpenDoor = 0
+                }
+            }
+        }
+    }
+    
+    timer("search", 200)
+} elseif(chatClk(owner())) {
+    Arguments = lastSaid():lower():explode(" ")
+    
+    # Add a user to the whitelist
+    if(Arguments[1, string] == "!add") {
+        # Handle the different formats (!add DoorID Player, or !add Player)
+        if(Arguments[3, string])  {
+            D = Arguments[2, string]:toNumber()
+            User = findPlayerByName(Arguments[3, string])
+        } else {
+            D = -1
+            User = findPlayerByName(Arguments[2, string])
+        }
+        
+        if(D == DoorID | D == -1) {
+            if(User) {
+                # Add them or show a notice
+                if(Whitelist:exists(User:steamID())) {
+                    hint(User:name() + " is already on Smart Door " + DoorID:toString() + "'s whitelist.", 8)
+                } else {
+                    Whitelist[User:steamID(), entity] = User
+                    hint("Added " + User:name() + " to Smart Door " + DoorID:toString() + "'s whitelist.", 8)
+                }
+            } else {
+                hint("Player not found.", 5)
+            }
+        }
+    }
+    
+    
+    # Remove a user from the whitelist
+    elseif(Arguments[1, string] == "!delete" | Arguments[1, string] == "!remove" | Arguments[1, string] == "!del" | Arguments[1, string] == "!rem" | Arguments[1, string] == "!rm") {
+        # Handle the different formats (!del DoorID Player, or !del Player)
+        if(Arguments[3, string])  {
+            D = Arguments[2, string]:toNumber()
+            User = findPlayerByName(Arguments[3, string])
+        } else {
+            D = -1
+            User = findPlayerByName(Arguments[2, string])
+        }
+        
+        if(D == DoorID | D == -1) {
+            if(User) {
+                # Delete them or show a notice if they're not whitelisted
+                if(!Whitelist:exists(User:steamID())) {
+                    hint(User:name() + " isn't on Smart Door " + DoorID:toString() + "'s whitelist.", 8)
+                } else {
+                    Whitelist:remove(User:steamID())
+                    hint("Removed " + User:name() + " from Smart Door " + DoorID:toString() + "'s whitelist.", 8)
+                }
+            } else {
+                hint("Player not found.", 5)
+            }
+        }
+    }
+    
+    
+    # Toggle door
+    elseif(Arguments[1, string] == "!toggle" | Arguments[1, string] == "!t") {
+        if(Arguments[2, string]) { D = Arguments[2, string]:toNumber() } else { D = -1 }
+        
+        if(D == DoorID | D == -1) {
+            if(!InputOpened) {
+                # Switch state of ChatOpened
+                ChatOpened = !ChatOpened
+                
+                # Open or close the door
+                if(ChatOpened) {
+                    OpenDoor = 1
+                    hint("Smart Door " + DoorID:toString() + " opened.", 3)
+                    print("Smart Door " + DoorID:toString() + " opened.")
+                } else {
+                    OpenDoor = 0
+                    hint("Smart Door " + DoorID:toString() + " closed.", 3)
+                    print("Smart Door " + DoorID:toString() + " closed.")
+                }
+            } else {
+                hint("Input is overriding your chat command for Smart Door " + DoorID:toString() + ".", 6)
+            }
+        }
+    }
+    
+    
+    # Open door
+    elseif(Arguments[1, string] == "!open" | Arguments[1, string] == "!o") {
+        if(Arguments[2, string]) { D = Arguments[2, string]:toNumber() } else { D = -1 }
+        
+        if(D == DoorID | D == -1) {
+            if(!InputOpened) {
+                OpenDoor = 1
+                ChatOpened = 1
+                hint("Smart Door " + DoorID:toString() + " opened.", 3)
+                print("Smart Door " + DoorID:toString() + " opened.")
+            } else {
+                hint("Input is overriding your chat command for Smart Door " + DoorID:toString() + ".", 6)
+            }
+        }
+    }
+    
+    
+    # Close door
+    elseif(Arguments[1, string] == "!close" | Arguments[1, string] == "!c") {
+        if(Arguments[2, string]) { D = Arguments[2, string]:toNumber() } else { D = -1 }
+        
+        if(D == DoorID | D == -1) {
+            if(!InputOpened) {
+                OpenDoor = 0
+                ChatOpened = 0
+                hint("Smart Door " + DoorID:toString() + " closed.", 3)
+                print("Smart Door " + DoorID:toString() + " closed.")
+            } else {
+                hint("Input is overriding your chat command for Smart Door " + DoorID:toString() + ".", 6)
+            }
+        }
+    }
+    
+    
+    # Set range corner positions
+    elseif(Arguments[1, string] == "!range" | Arguments[1, string] == "!corner") {
+        if(Arguments[2, string]:toNumber() == DoorID) {
+            # Get the corner we're operating on
+            C = Arguments[3, string]:toNumber()
+            
+            if(C == 1 | C == 2) {
+                # Set the position of the corner
+                Corner[C, vector] = owner():aimPos()
+                Offset[C, vector] = Corner[C, vector] - entity():pos()
+                
+                # Update holo positions
+                if(Holos) {
+                    holoPos(1, Corner[1, vector])
+                    holoPos(2, Corner[2, vector])
+                }
+                
+                hint("Set the search box bounding corner " + C:toString() + " of Smart Door " + DoorID:toString() + " to your aim position.", 6)
+            } else {
+                # Invalid corner number
+                hint("Invalid corner number. Must be either 1 or 2. Format: !range DoorID Corner", 6)
+            }
+        }
+    }
+    
+    
+    # Update range
+    elseif(Arguments[1, string] == "!update" | Arguments[1, string] == "!u") {
+        if(Arguments[2, string]) { D = Arguments[2, string]:toNumber() } else { D = -1 }
+        
+        if(D == DoorID | D == -1) {
+            Corner[1, vector] = entity():pos() + Offset[1, vector]
+            Corner[2, vector] = entity():pos() + Offset[2, vector]
+            
+            # Update holo positions
+            if(Holos) {
+                holoPos(1, Corner[1, vector])
+                holoPos(2, Corner[2, vector])
+            }
+            
+            hint("Updated the trigger area for Smart Door " + DoorID:toString() + ".", 6)
+        }
+    }
+    
+    
+    # Toggle range holos
+    elseif(Arguments[1, string] == "!holos" | Arguments[1, string] == "!h") {
+        if(Arguments[2, string]) { D = Arguments[2, string]:toNumber() } else { D = -1 }
+        
+        if(D == DoorID | D == -1) {
+            Holos = !Holos
+            
+            if(Holos) {
+                holoCreate(1, Corner[1, vector], vec(0.4, 0.4, 0.4))
+                holoModel(1, "sphere3")
+                holoColor(2, vec(255, 255, 255))
+                holoDisableShading(1, 1)
+                
+                holoCreate(2, Corner[2, vector], vec(0.4, 0.4, 0.4))
+                holoModel(2, "sphere3")
+                holoColor(2, vec(0, 0, 0))
+                holoDisableShading(2, 1)
+                
+                hint("Displaying range holos for Smart Door " + DoorID:toString() + ".", 6)
+            } else {
+                holoDeleteAll()
+                hint("Deleted range holos for Smart Door " + DoorID:toString() + ".", 6)
+            }
+        }
+    }
+} elseif(~Open) {
+    if(Open) { InputOpened = 1 } else { InputOpened = 0 }
+} elseif(first()) {
+    # First execution, set default values
+    Offset[1, vector] = vec(40, 50, 0)
+    Offset[2, vector] = vec(-40, -50, 50)
+    Corner[1, vector] = entity():pos() + Offset[1, vector]
+    Corner[2, vector] = entity():pos() + Offset[2, vector]
+    
+    # Get a new Door ID
+    DoorID = gGetNum("SmartDoors")
+    gSetNum("SmartDoors", DoorID + 1)
+    
+    # Make sure we only search for player entities
+    findIncludeClass("player")
+    
+    # Trigger on chat, and start the search timer
+    runOnChat(1)
+    timer("search", 200)
+    
+    # Output info and Door ID
+    hint("Smart Door created by Gawdl3y AKA Avalon Centrifuge of The Phoenix Servers", 6)
+    hint("This door is ID " + DoorID:toString() + ".", 8)
+    print("This door is ID " + DoorID:toString() + ".")
+}

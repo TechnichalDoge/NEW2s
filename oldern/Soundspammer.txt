@@ -1,0 +1,9 @@
+@name Soundspammer
+@inputs 
+@outputs 
+@persist Num
+@trigger 
+runOnTick(10)
+
+Num=concmd("ulx sounds")
+Num=concmd("ulx decals")

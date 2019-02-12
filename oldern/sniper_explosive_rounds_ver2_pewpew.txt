@@ -1,0 +1,47 @@
+@name sniper explosive rounds ver2 pewpew
+@outputs Exploded:array
+@persist Ranger:ranger Dist Pew:entity
+#[if(first()|dupefinished()){
+    Dist = 50
+    holoCreate(1,entity():pos()#[+vec(Dist,0,0)) 
+    holoModel(1,"hq_cube")
+    holoScaleUnits(1,vec(Dist,Dist,2)*2)
+    holoParent(1,entity())
+    holoCreate(2,entity():pos())
+    holoModel(2,"")
+    holoScaleUnits(2,entity():boxSize()+vec(0,0,10))
+    holoParent(2,entity())   
+
+}]#
+interval(25)
+
+#print(Pew:toString())
+Eye = owner():eyeTrace()
+N = owner():shootPos()-owner():aimPos()#Eye:hitNormal() 
+P = Eye:pos() + N/(owner():shootPos():distance(Eye:pos())/175)
+B = P + N
+#[
+holoCreate(3,P)
+beamColor(1, vec(255))
+beamPoint(1, P )
+beamPoint(2, B ) ]# #testing holo
+#print(owner():weapon():toString())
+     Exploded = owner():weapon():toString():explode("[")
+        if(Exploded[3,string] == "m9k_barret_m82]" &changed(owner():keyAttack1())&owner():keyAttack1()){
+        #if(Exploded[3,string] == "m9k_luger]" &changed(owner():keyAttack1())&owner():keyAttack1()&(entity():pos():distance(owner():pos())<Dist)){
+                local KillTarget = P
+                #hint("",2)
+                local Ang = owner():eyeAngles()+ang(90,0,0)
+                #print(Ang)
+                #Pew = pewCreate("Medium Laser","models/props_wasteland/prison_lamp001c.mdl",KillTarget,Ang,"up")
+                Pew = pewCreate("Flak Cannon","models/props_wasteland/prison_lamp001c.mdl",KillTarget,Ang,"up")
+                
+                local PewWire = Pew:wirelink()
+                PewWire["Fire",number] = 1
+                timer("undo",100)
+ 
+            }
+        if(clk("undo")& !(first())&!(dupefinished())&(Pew:toString()!="(null)"))
+        {
+            Pew:propDelete()         
+        }  

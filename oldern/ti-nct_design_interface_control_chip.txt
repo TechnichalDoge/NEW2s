@@ -1,0 +1,70 @@
+@name TI-NCT Design Interface Control Chip
+@inputs Screen:wirelink Storage:wirelink Up Down Transfer User:entity
+@outputs Level:table Design:table
+@persist X Y Z DoneDrawingSquares 
+@trigger 
+
+if (first()) {
+    Screen:egpClear()
+}        
+
+interval(100)
+
+if (!DoneDrawingSquares) {
+    #while(minquota()){
+        if(X==8){
+            X=0
+            Y++
+        }
+        Screen:egpBox((X+Y*8)+1,vec2(X*64+32,Y*64+32),vec2(64,64))
+        X++ 
+        if (Y==9) {
+            X=0
+            Y=0
+            DoneDrawingSquares=1
+            for (T=1,65){
+                Screen:egpColor(T,vec(64,64,64))
+            }
+        }
+    #}
+} else {
+    if (User!=noentity() && ~User && Screen:egpCursor(User)!=vec2(-1,-1)) {
+        CursorPos=Screen:egpCursor(User)
+        PixelX=floor(CursorPos:x()/64)
+        PixelY=floor(CursorPos:y()/64)
+        #print("X: "+PixelX+" Y: "+PixelY+" Index: "+((PixelX+PixelY*8)+1))
+        if (Screen:egpColor((PixelX+PixelY*8)+1)==vec(64,64,64)) {
+            Screen:egpColor((PixelX+PixelY*8)+1,vec(255,255,255))
+            Level[PixelX+PixelY*8,normal]=1
+        } else {
+            Screen:egpColor((PixelX+PixelY*8)+1,vec(64,64,64))
+            Level[PixelX+PixelY*8,normal]=0
+        }
+    } elseif (Up && ~Up) {
+        Design[Z,table]=Level:clone()
+        Z++
+        Level=Design[Z,table]:clone()
+        for (T=0,63){
+            if (Level[T,normal]){
+                Screen:egpColor(T+1,vec(255,255,255))
+            } else {
+                Screen:egpColor(T+1,vec(64,64,64))
+            }
+        }
+    } elseif (Down && ~Down) {
+        Design[Z,table]=Level:clone()
+        Z--
+        Level=Design[Z,table]:clone()
+        for (T=0,63){
+            if (Level[T,normal]){
+                Screen:egpColor(T+1,vec(255,255,255))
+            } else {
+                Screen:egpColor(T+1,vec(64,64,64))
+            }
+        }
+    } elseif (Transfer && ~Transfer) {
+        Design[Z,table]=Level:clone()
+        Storage["InputDesign",table]=Design
+    }
+}
+

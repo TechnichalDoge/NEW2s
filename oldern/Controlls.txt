@@ -1,0 +1,42 @@
+@name Controlls v2
+@inputs W A S D 
+@outputs Go Go2 Stopped
+@persist 
+interval(250)
+
+local Forward = W - S
+local Sideways = A - D
+
+
+#print(Dist)
+if(W&!A&!S&!D){
+    Go = 1
+    Go2 = 1
+    Stopped = 0
+}elseif(!W&A&!S&!D){
+    Go = -1
+    Go2 = 1
+    Stopped = 0
+}elseif(!W&!A&S&!D){
+    Go = -1
+    Go2 = -1
+    Stopped = 0
+}elseif(!W&!A&!S&D){
+    Go = 1
+    Go2 = -1
+    Stopped = 0
+}elseif(W&A&!S&!D){
+    Go = 0
+    Go2 = 1
+    Stopped = 0
+}elseif(W&!A&!S&D){
+    Go = 1
+    Go2 = 0
+    Stopped = 0    
+}else{
+    Go = 0
+    Go2 = 0
+    Stopped = 1
+}
+
+

@@ -1,0 +1,61 @@
+@name HoloTurret
+@inputs 
+@outputs 
+@persist  HI Dome RingTurr
+interval(25)
+
+#while(perf()){
+
+if(first()|dupefinished()){
+    
+    local Color = vec(25,25,25)
+    local Accent = vec(25,25,200) 
+    local MainMat = "models/XQM/CellShadedCamo_diffuse"
+    local AccentMat = "models/XQM//WoodTexture_1"
+    local Size = 1
+    local DiffBD = vec(-10*Size,-10*Size,0)
+    
+    local E = entity()
+    local Angle = E:angles()
+    local BSize = vec(100*Size,100*Size,10*Size)
+    local DSize = (BSize * vec(1,1,5)) + DiffBD
+    local R1Size = DSize + vec(-5*Size,100*Size,-20*Size)
+    
+function number createHolo(HoloModel:string){
+        HI += 1
+        holoCreate(HI)
+        holoModel(HI, HoloModel)
+        
+        return HI
+    }
+
+    HI = createHolo("hq_cylinder")
+    holoColor(HI,Accent)
+    holoMaterial(HI,AccentMat)
+    holoScaleUnits(HI,BSize)
+    holoAng(HI,Angle)
+    holoPos(HI,E:pos())
+    
+    Dome = createHolo("hq_dome")
+    holoScaleUnits(Dome,DSize)
+    holoColor(Dome,Color)
+    holoMaterial(Dome,MainMat)
+    holoAng(Dome,Angle)
+        
+    RingTurr = createHolo("hq_torus_thin")
+    holoScaleUnits(RingTurr,R1Size)
+    holoColor(RingTurr,Color)
+    holoMaterial(RingTurr,MainMat)
+    holoAng(RingTurr,Angle+ang(0,90,90))
+
+    HI = createHolo("hq_torus_thin")
+    holoScaleUnits(HI,R1Size*vec(1.02,1.02,0.5*Size))
+    holoColor(HI,Accent)
+    holoMaterial(HI,MainMat)
+    holoAng(HI,Angle+ang(0,90,90))
+    holoParent(HI,RingTurr)
+}
+    #print(-(holoEntity(RingTurr):pos():toAngle(owner():pos())):roll()+45)
+#    print(ang(90,-(holoEntity(RingTurr):pos():toAngle(owner():pos())):roll()+45,0))
+    holoAng(RingTurr,ang(0,-(holoEntity(RingTurr):pos():toAngle(owner():pos())):roll()-22.5,90))
+#}

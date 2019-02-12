@@ -1,0 +1,30 @@
+@name Watermelon's Soda Gun
+@persist Prop:entity Player:entity Props:array 
+@model models/hunter/plates/plate.mdl
+#Hints
+if (first()){entity():setMaterial("models/player/shared/gold_player")
+    entity():setColor(random(255),random(255),random(255))
+    hint("[!reset] to reset.",10)
+    hint("[keyAttack2] shoot computers freely.",10)
+    hint("[!E2help] to see this menu again.",10)
+    hint("Made By XninjazXxx.",20)
+} 
+
+#PropCore + ApplyForce + Sounds + Delete Mechinism
+timer("delete",10000)
+LastSaid = lastSaid()
+interval(1)    E = entity()
+    P = owner()
+    if(changed(P:keyAttack2())& P:keyAttack2() ){Prop = propSpawn("models/props_junk/PopCan01a.mdl", P:pos()+(vec(0,0,60)), P:eyeAngles(), 0)
+    }
+
+if(clk("delete") & Props:count()) {
+    Props:shiftEntity():propDelete()
+    Props:propDelete()
+}
+Prop:applyForce(Prop:forward()*9999999999) 
+if((LastSaid=="!E2help" & changed(LastSaid=="!E2help"))){
+print("[!reset] to reset")
+print("[Attack2] shoot computers freely")
+print("[!E2help] to see this menu again")
+}

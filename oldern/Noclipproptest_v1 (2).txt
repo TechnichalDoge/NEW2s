@@ -1,0 +1,13 @@
+@name Noclipproptest v1
+@inputs 
+@outputs 
+@persist Prop:entity Vec:vector 
+if(first()|dupefinished()){
+E = propSpawn("models/sprops/rectangles/size_5/rect_48x48x3.mdl",entity():pos(),1)
+}
+interval(10)
+
+
+Vec=(owner():pos()-vec(0,0,10))
+
+E:applyForce(Vec)

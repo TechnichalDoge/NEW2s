@@ -1,0 +1,12 @@
+@name field of watchers
+@inputs 
+@outputs Model:entity Number
+@persist Modelrandom:number
+interval(30000)
+Number=holoModelAny()
+for(I=1,300){
+    Model=holoCreate(I)
+    holoPos(I,entity():pos()+(vec(randint(25,1500),randint(25,1500),0)))
+    holoModel(I,"models/gman.mdl")
+    holoAng(I,ang(0,-90,0))
+}

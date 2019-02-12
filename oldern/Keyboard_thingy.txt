@@ -1,0 +1,22 @@
+@name Keyboard thingy
+@inputs KBInput:string EGP:wirelink
+@persist 
+
+interval(100)
+
+if (changed(KBInput)) {
+
+    if (KBInput) {
+
+        M = KBInput:explode(" ")
+
+        if (M[1,string] == "shutdown") {
+            reset()
+        }elseif (M[1,string] == "example1") {
+            print("example 1")
+        }
+
+    }
+}
+
+EGP:egpText(1,KBInput,vec2(0,0))

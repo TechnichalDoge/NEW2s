@@ -1,0 +1,20 @@
+@name V1222tewst
+@inputs 
+@outputs 
+@persist Prop:entity Vec:vector Target:vector Whitelist:array
+@trigger 
+#E2 by PCL (or HMM) http://steamcommunity.com/profiles/76561198115172591
+if(first())
+{
+
+    Prop = propSpawn("models/hunter/blocks/cube025x025x025.mdl",entity():pos(),1)
+    interval(10)
+}
+local Ent=Prop
+    
+    findInSphere(entity():pos(),10000000) 
+    findByName("Logica")
+    Target=find():pos()
+Vec = (Target-Ent:pos())*Ent:mass()*10
+Ent:applyForce(Vec+$Vec*5)
+

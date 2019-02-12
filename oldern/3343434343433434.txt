@@ -1,0 +1,28 @@
+@name 3343434343433434
+@inputs 
+@outputs 
+@persist Array:array
+@trigger 
+interval(100)
+findByClass("prop_combine_ball")
+Array=findToArray()
+
+for(I=1,Array:count()){
+VectorA = (Array[I,entity]:pos() - entity():pos()):normalized()
+Angle = VectorA:toAngle() + ang(90,0,0)
+holoAng(3, Angle)
+
+VectorB = (findPlayerByName("logica"):pos() - entity():pos()):normalized()
+Angle = VectorB:toAngle() + ang(90,0,0)
+holoAng(5, Angle)
+
+BallVel = (entity():pos() - Array[I,entity]:pos()):normalized()
+DirToTarget = (findPlayerByName("logica"):pos() - entity():pos()):normalized()
+
+Vector = (BallVel - DirToTarget)/2
+Angle = (-Vector):toAngle() + ang(90,0,0)
+hint(Array[I,entity]:vel():toString(),5)
+propSpawn("models/hunter/plates/plate1x1.mdl",Array[I,entity]:pos()+Array[I,entity]:vel(),Angle,1)
+}
+
+

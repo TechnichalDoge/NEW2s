@@ -1,0 +1,49 @@
+@name Target finder airship v1
+@inputs [Pilot Bomber Left Right]:entity [LC RC]:number
+@outputs Target:entity TargetPos:vector Number
+@persist BeforeSort:array AfterSort:array Ply:entity 
+
+interval(150)
+if(first()) {
+    findExcludeEntity(Pilot)
+    findExcludeEntity(Bomber)
+    findExcludeEntity(Left)
+    findExcludeEntity(Right)
+
+}
+if(lastSaid()=="!pvp"|lastSaid()=="!pvpon"|lastSaid()=="!pvpoff"|lastSaid()=="!build"){
+    AfterSort = array()
+}
+if(findCanQuery()){
+    findByClass("player")
+    
+    DebugTargetingArrayBeforeSort = findToArray()
+    
+    BeforeSort = DebugTargetingArrayBeforeSort
+    
+    for(I=1,BeforeSort:count()){
+        if(!perf()) { break }
+        
+        Ply = players()[I,entity]
+        
+        #if(Ply:pos():distance(entity():pos()) <= 10000) {
+            if(!Ply:plyHasGod()){
+                AfterSort:pushEntity(Ply)
+            }
+        #}
+    }
+    
+    DebugTargetingArrayAfterSort=AfterSort
+    if((changed(LC)&LC)){
+        Number--
+    }
+    elseif((changed(RC)&RC)){
+        Number++
+    }
+    elseif(Number==AfterSort:count()|Number>players():count()|Number<=0){
+        Number=1       
+    }
+
+    Target=AfterSort[Number,entity]
+    TargetPos=Target:pos()
+}

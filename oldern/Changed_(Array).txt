@@ -1,0 +1,10 @@
+@name Changed (Array)
+@inputs Array:array
+@outputs Changed:number
+@model models/bull/gates/microcontroller1_mini.mdl
+interval(100)
+if(changed(Array:count())&&Array:count()!=0){
+    Changed = 1   
+}else{
+    Changed = 0
+}

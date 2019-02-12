@@ -1,0 +1,7 @@
+@name SETANG21test
+@inputs Bear Axis:entity
+@outputs Ang
+@persist 
+
+runOnTick(1)
+Axis:setAng(ang(0,Bear,0))

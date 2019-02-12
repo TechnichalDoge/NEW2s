@@ -1,0 +1,14 @@
+@name Apply Force Test
+@inputs Ent:entity 
+@outputs Vec:vector Ang:angle 
+@persist 
+@trigger 
+runOnTick(1)
+Ent:setMass(50000)
+Vec = (entity():pos() - Ent:pos() + vec(0,0,50))*Ent:mass()*10
+
+Ent:applyForce(Vec+$Vec*5)
+
+local Ang2 = owner():eyeAngles()
+Ang = (Ang2 - Ent:angles())*(Ent:mass()*10)
+Ent:applyAngForce(Ang+$Ang*5)

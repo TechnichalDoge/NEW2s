@@ -1,0 +1,15 @@
+@name spectator e2
+Ply = findPlayerByName("haxor")
+
+        if (Ply) 
+        {
+            printColor(vec(255,0,255),"Now spectating: " + Ply:name())
+            Cam["Activated",number] = 1
+            Cam["Position",vector] = Ply:pos() + vec(0,0,64)
+            Cam["Parent",entity] = Ply
+            Spectating = 1
+            EGP:egpAlpha(2667,255)
+            EGP:egpColor(2667,vec(0,255,0))
+        }else{
+            printColor(vec(200,50,50),"Player '" + M[2,string] + "' not found.")
+        }

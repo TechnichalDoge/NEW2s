@@ -1,0 +1,27 @@
+@name Eye pod Spec Test
+@inputs Count
+@outputs EyeAngles:angle EyePos:vector Player:entity PC ViewDir:vector
+@persist
+if(first()|dupefinished()){
+
+}
+
+runOnTick(1)
+    Player = players()[Count,entity]
+    EyeAngles = Player:eyeAngles()    
+    EyePos = Player:shootPos()
+    PC = players():count()
+    ViewDir = Player:eye()
+    
+    
+    
+    
+    
+
+    
+
+
+Aim = ent:aimPos()
+Shoot = ent:shootPos()
+
+V = Aim - Shoot

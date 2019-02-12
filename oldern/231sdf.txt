@@ -1,0 +1,8 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+print(owner():getAnimation())
+interval(100)

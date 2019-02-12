@@ -1,0 +1,16 @@
+@name 
+@inputs 
+@outputs Yes
+@persist 
+@trigger 
+runOnTick(1)
+Am = 100
+Pos = entity():pos()
+
+for(I=0,Am){        
+    Max = vec(randint(0,100),randint(0,100),randint(0,100))
+    holoCreate(I,Pos+Max)    
+    holoModel(I,"")
+    
+    if(!perf()){break}
+}

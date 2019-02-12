@@ -1,0 +1,8 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+for(I=0,teams():count()){
+print(teamName((teams()[I,number])))
+}

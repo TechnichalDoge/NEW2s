@@ -1,0 +1,10 @@
+@name 
+@inputs Bomb:entity
+@outputs 
+@persist E:vector N:number
+E=entity():pos()
+N=findInSphere(E,250)
+if(N>0){
+    Bomb:ignite()
+}
+

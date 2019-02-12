@@ -1,0 +1,7 @@
+@name X+1=X 
+@inputs 
+@outputs X
+@persist 
+
+
+X=0

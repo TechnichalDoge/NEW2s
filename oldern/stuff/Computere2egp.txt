@@ -1,0 +1,6524 @@
+@name Computer E2, made by Captain Diogo
+@inputs CS:wirelink
+@outputs Target:entity Snakegameap Snakegame Textnotepad:string Pos:vector2 Notepad Notepadminimized Urbanminimized Use Urban Musicplayminimize Page Musicplayon TeamFortress2playlist Portalplaylist Halflife2playlist Halflife1playlist Radioplaylist Musicplay Rchangecomputer Calculator Rcalculmini Button Computer Range
+@persist Title:string Page Num1 Num2 Op Fin:string Temp:string R1 G1 B1 R2 G2 B2 R3 G3 B3 R4 G4 B4 R5 G5 B5 R6 G6 B6 R7 G7 B7 R8 G8 B8 R9 G9 B9
+
+#E2 Made by Captain Diogo, with some help of Other Lexi
+
+R = random(0,255)
+G = random(0,255)
+B= random(0,255)
+
+Harddrive=1
+
+GMT = -5
+
+CMD = Target:lastSaid():explode(" ")
+if(Notepad ==1)
+{
+
+    CS:egpColor(169,vec(R1,G1,B1))
+    CS:egpColor(170,vec(R2,G2,B2))
+    CS:egpColor(171,vec(R3,G3,B3))
+    CS:egpColor(172,vec(R4,G4,B4))
+    CS:egpColor(173,vec(R5,G5,B5))
+    CS:egpColor(174,vec(R6,G6,B6))
+    CS:egpColor(175,vec(R7,G7,B7))
+    CS:egpColor(176,vec(R8,G8,B8))
+    CS:egpColor(177,vec(R9,G9,B9))
+    CS:egpSize(169,20)
+    CS:egpSize(170,20)
+    CS:egpSize(171,20)
+    CS:egpSize(172,20)
+    CS:egpSize(173,20)
+    CS:egpSize(174,20)
+    CS:egpSize(175,20)
+    CS:egpSize(176,20)
+    CS:egpSize(177,20)
+    
+#Settext
+if(chatClk(Target) & CMD[1,string]=="!settext")
+{
+    if(CMD[2,string]=="1")
+    {
+        Textnotepad=Target:lastSaid():sub(12)
+        CS:egpTextLayout(169,Textnotepad,vec2(75,230),vec2(285,30))
+    }
+    if(CMD[2,string]=="2")
+    {
+        Textnotepad2=Target:lastSaid():sub(12)
+        CS:egpTextLayout(170,Textnotepad2,vec2(75,245),vec2(285,30))
+    }
+    if(CMD[2,string]=="3")
+    {
+        Textnotepad3=Target:lastSaid():sub(12)
+        CS:egpTextLayout(171,Textnotepad3,vec2(75,260),vec2(285,30))
+    }
+    if(CMD[2,string]=="4")
+    {
+        Textnotepad4=Target:lastSaid():sub(12)
+        CS:egpTextLayout(172,Textnotepad4,vec2(75,275),vec2(285,30))
+    }
+    if(CMD[2,string]=="5")
+    {
+        Textnotepad5=Target:lastSaid():sub(12)
+        CS:egpTextLayout(173,Textnotepad5,vec2(75,290),vec2(285,30))
+    }
+    if(CMD[2,string]=="6")
+    {
+        Textnotepad6=Target:lastSaid():sub(12)
+        CS:egpTextLayout(174,Textnotepad6,vec2(75,305),vec2(285,30))
+    }
+    if(CMD[2,string]=="7")
+    {
+        Textnotepad7=Target:lastSaid():sub(12)
+        CS:egpTextLayout(175,Textnotepad7,vec2(75,320),vec2(285,30))
+    }
+    if(CMD[2,string]=="8")
+    {
+        Textnotepad8=Target:lastSaid():sub(12)
+        CS:egpTextLayout(176,Textnotepad8,vec2(75,335),vec2(285,30))
+    }
+    if(CMD[2,string]=="9")
+    {
+        Textnotepad9=Target:lastSaid():sub(12)
+        CS:egpTextLayout(177,Textnotepad9,vec2(75,350),vec2(285,30))
+    }
+}
+
+#Setcolor
+if(CMD[1,string]=="!setcolor") 
+{
+    if(chatClk(Target)&CMD[2,string]=="list")
+    { 
+    print(":::---Colours:---:::")
+    print("red, blue, green, white, yellow")
+    print("purple, orange, pink, lightblue, darkblue, darkred")
+    print("darkgreen, indigo, crimson, emerald, limegreen")
+    print("gold, maroon, dusk")
+    }
+    if(chatClk(Target)&CMD[2,string]=="1")
+    { 
+    if(CMD[3,string]=="red") { R1=255 G1=0 B1=0 }
+    if(CMD[3,string]=="black") { R1=20 G1=20 B1=20 }
+    if(CMD[3,string]=="blue") { R1=0 G1=0 B1=255 }
+    if(CMD[3,string]=="green") { R1=0 G1=255 B1=0 }
+    if(CMD[3,string]=="white") { R1=255 G1=255 B1=255 }
+    if(CMD[3,string]=="yellow") { R1=255 G1=255 B1=0 }
+    if(CMD[3,string]=="purple") { R1=128 G1=0 B1=128 }
+    if(CMD[3,string]=="orange") { R1=255 G1=153 B1=0 }
+    if(CMD[3,string]=="pink") { R1=255 G1=125 B1=125 }
+    if(CMD[3,string]=="lightblue") { R1=0 G1=255 B1=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G1=0 B1=128 }
+    if(CMD[3,string]=="darkred") { R1=128 G1=0 B1=0 }
+    if(CMD[3,string]=="darkgreen") { R1=0 G1=128 B1=0 }
+    if(CMD[3,string]=="indigo") { R1=75 G1=0 B1=130 }
+    if(CMD[3,string]=="crimson") { R1=220 G1=20 B1=60 }
+    if(CMD[3,string]=="emerald") { R1=0 G1=201 B1=87 }
+    if(CMD[3,string]=="limegreen") { R1=50 G1=205 B1=50 }
+    if(CMD[3,string]=="gold") { R1=255 G1=215 B1=0 }
+    if(CMD[3,string]=="dusk") { R1=150 G1=100 B1=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="2")
+    { 
+    if(CMD[3,string]=="red") { R2=255 G2=0 B2=0 }
+    if(CMD[3,string]=="black") { R2=20 G2=20 B2=20 }
+    if(CMD[3,string]=="blue") { R2=0 G2=0 B2=255 }
+    if(CMD[3,string]=="green") { R2=0 G2=255 B2=0 }
+    if(CMD[3,string]=="white") { R2=255 G2=255 B2=255 }
+    if(CMD[3,string]=="yellow") { R2=255 G2=255 B2=0 }
+    if(CMD[3,string]=="purple") { R2=128 G2=0 B2=128 }
+    if(CMD[3,string]=="orange") { R1=255 G1=153 B1=0 }
+    if(CMD[3,string]=="pink") { R2=255 G2=125 B2=125 }
+    if(CMD[3,string]=="lightblue") { R2=0 G2=255 B2=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G2=0 B2=128 }
+    if(CMD[3,string]=="darkred") { R2=128 G2=0 B2=0 }
+    if(CMD[3,string]=="darkgreen") { R2=0 G2=128 B2=0 }
+    if(CMD[3,string]=="indigo") { R2=75 G2=0 B2=130 }
+    if(CMD[3,string]=="crimson") { R2=220 G2=20 B2=60 }
+    if(CMD[3,string]=="emerald") { R2=0 G2=201 B2=87 }
+    if(CMD[3,string]=="limegreen") { R2=50 G2=205 B2=50 }
+    if(CMD[3,string]=="gold") { R2=255 G2=215 B2=0 }
+    if(CMD[3,string]=="dusk") { R2=150 G2=100 B2=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="3")
+    { 
+    if(CMD[3,string]=="red") { R3=255 G3=0 B3=0 }
+    if(CMD[3,string]=="black") { R3=20 G3=20 B3=20 }
+    if(CMD[3,string]=="blue") { R3=0 G3=0 B3=255 }
+    if(CMD[3,string]=="green") { R3=0 G3=255 B3=0 }
+    if(CMD[3,string]=="white") { R3=255 G3=255 B3=255 }
+    if(CMD[3,string]=="yellow") { R3=255 G3=255 B3=0 }
+    if(CMD[3,string]=="purple") { R3=128 G3=0 B3=128 }
+    if(CMD[3,string]=="orange") { R3=250 G3=125 B3=125 }
+    if(CMD[3,string]=="pink") { R3=255 G3=125 B3=125 }
+    if(CMD[3,string]=="lightblue") { R3=0 G3=255 B3=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G3=0 B3=128 }
+    if(CMD[3,string]=="darkred") { R3=128 G3=0 B3=0 }
+    if(CMD[3,string]=="darkgreen") { R3=0 G3=128 B3=0 }
+    if(CMD[3,string]=="indigo") { R3=75 G3=0 B3=130 }
+    if(CMD[3,string]=="crimson") { R3=220 G3=20 B3=60 }
+    if(CMD[3,string]=="emerald") { R3=0 G3=201 B3=87 }
+    if(CMD[3,string]=="limegreen") { R3=50 G3=205 B3=50 }
+    if(CMD[3,string]=="gold") { R3=255 G3=215 B3=0 }
+    if(CMD[3,string]=="dusk") { R3=150 G3=100 B3=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="4")
+    { 
+    if(CMD[3,string]=="red") { R4=255 G4=0 B4=0 }
+    if(CMD[3,string]=="black") { R4=20 G4=20 B4=20 }
+    if(CMD[3,string]=="blue") { R4=0 G4=0 B4=255 }
+    if(CMD[3,string]=="green") { R4=0 G4=255 B4=0 }
+    if(CMD[3,string]=="white") { R4=255 G4=255 B4=255 }
+    if(CMD[3,string]=="yellow") { R4=255 G4=255 B4=0 }
+    if(CMD[3,string]=="purple") { R4=128 G4=0 B4=128 }
+    if(CMD[3,string]=="orange") { R4=250 G4=125 B4=125 }
+    if(CMD[3,string]=="pink") { R4=255 G4=125 B4=125 }
+    if(CMD[3,string]=="lightblue") { R4=0 G4=255 B4=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G4=0 B4=128 }
+    if(CMD[3,string]=="darkred") { R4=128 G4=0 B4=0 }
+    if(CMD[3,string]=="darkgreen") { R4=0 G4=128 B4=0 }
+    if(CMD[3,string]=="indigo") { R4=75 G4=0 B4=130 }
+    if(CMD[3,string]=="crimson") { R4=220 G4=20 B4=60 }
+    if(CMD[3,string]=="emerald") { R4=0 G4=201 B4=87 }
+    if(CMD[3,string]=="limegreen") { R4=50 G4=205 B4=50 }
+    if(CMD[3,string]=="gold") { R4=255 G4=215 B4=0 }
+    if(CMD[3,string]=="dusk") { R4=150 G4=100 B4=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="5")
+    { 
+    if(CMD[3,string]=="red") { R5=255 G5=0 B5=0 }
+    if(CMD[3,string]=="black") { R5=20 G5=20 B5=20 }
+    if(CMD[3,string]=="blue") { R5=0 G5=0 B5=255 }
+    if(CMD[3,string]=="green") { R5=0 G5=255 B5=0 }
+    if(CMD[3,string]=="white") { R5=255 G5=255 B5=255 }
+    if(CMD[3,string]=="yellow") { R5=255 G5=255 B5=0 }
+    if(CMD[3,string]=="purple") { R5=128 G5=0 B5=128 }
+    if(CMD[3,string]=="orange") { R5=250 G5=125 B5=125 }
+    if(CMD[3,string]=="pink") { R5=255 G5=125 B5=125 }
+    if(CMD[3,string]=="lightblue") { R5=0 G5=255 B5=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G5=0 B5=128 }
+    if(CMD[3,string]=="darkred") { R5=128 G5=0 B5=0 }
+    if(CMD[3,string]=="darkgreen") { R5=0 G5=128 B5=0 }
+    if(CMD[3,string]=="indigo") { R5=75 G5=0 B5=130 }
+    if(CMD[3,string]=="crimson") { R5=220 G5=20 B5=60 }
+    if(CMD[3,string]=="emerald") { R5=0 G5=201 B5=87 }
+    if(CMD[3,string]=="limegreen") { R5=50 G5=205 B5=50 }
+    if(CMD[3,string]=="gold") { R5=255 G5=215 B5=0 }
+    if(CMD[3,string]=="dusk") { R5=150 G5=100 B5=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="6")
+    { 
+    if(CMD[3,string]=="red") { R6=255 G6=0 B6=0 }
+    if(CMD[3,string]=="black") { R6=20 G6=20 B6=20 }
+    if(CMD[3,string]=="blue") { R6=0 G6=0 B6=255 }
+    if(CMD[3,string]=="green") { R6=0 G6=255 B6=0 }
+    if(CMD[3,string]=="white") { R6=255 G6=255 B6=255 }
+    if(CMD[3,string]=="yellow") { R6=255 G6=255 B6=0 }
+    if(CMD[3,string]=="purple") { R6=128 G6=0 B6=128 }
+    if(CMD[3,string]=="orange") { R6=250 G6=125 B6=125 }
+    if(CMD[3,string]=="pink") { R6=255 G6=125 B6=125 }
+    if(CMD[3,string]=="lightblue") { R6=0 G6=255 B6=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G6=0 B6=128 }
+    if(CMD[3,string]=="darkred") { R6=128 G6=0 B6=0 }
+    if(CMD[3,string]=="darkgreen") { R6=0 G6=128 B6=0 }
+    if(CMD[3,string]=="indigo") { R6=75 G6=0 B6=130 }
+    if(CMD[3,string]=="crimson") { R6=220 G6=20 B6=60 }
+    if(CMD[3,string]=="emerald") { R6=0 G6=201 B6=87 }
+    if(CMD[3,string]=="limegreen") { R6=50 G6=205 B6=50 }
+    if(CMD[3,string]=="gold") { R6=255 G6=215 B6=0 }
+    if(CMD[3,string]=="dusk") { R6=150 G6=100 B6=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="7")
+    { 
+    if(CMD[3,string]=="red") { R7=255 G7=0 B7=0 }
+    if(CMD[3,string]=="black") { R7=20 G7=20 B7=20 }
+    if(CMD[3,string]=="blue") { R7=0 G7=0 B7=255 }
+    if(CMD[3,string]=="green") { R7=0 G7=255 B7=0 }
+    if(CMD[3,string]=="white") { R7=255 G7=255 B7=255 }
+    if(CMD[3,string]=="yellow") { R7=255 G7=255 B7=0 }
+    if(CMD[3,string]=="purple") { R7=128 G7=0 B7=128 }
+    if(CMD[3,string]=="orange") { R7=250 G7=125 B7=125 }
+    if(CMD[3,string]=="pink") { R7=255 G7=125 B7=125 }
+    if(CMD[3,string]=="lightblue") { R7=0 G7=255 B7=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G7=0 B7=128 }
+    if(CMD[3,string]=="darkred") { R7=128 G7=0 B7=0 }
+    if(CMD[3,string]=="darkgreen") { R7=0 G7=128 B7=0 }
+    if(CMD[3,string]=="indigo") { R7=75 G7=0 B7=130 }
+    if(CMD[3,string]=="crimson") { R7=220 G7=20 B7=60 }
+    if(CMD[3,string]=="emerald") { R7=0 G7=201 B7=87 }
+    if(CMD[3,string]=="limegreen") { R7=50 G7=205 B7=50 }
+    if(CMD[3,string]=="gold") { R7=255 G7=215 B7=0 }
+    if(CMD[3,string]=="dusk") { R7=150 G7=100 B7=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="8")
+    { 
+    if(CMD[3,string]=="red") { R8=255 G8=0 B8=0 }
+    if(CMD[3,string]=="black") { R8=20 G8=20 B8=20 }
+    if(CMD[3,string]=="blue") { R8=0 G8=0 B8=255 }
+    if(CMD[3,string]=="green") { R8=0 G8=255 B8=0 }
+    if(CMD[3,string]=="white") { R8=255 G8=255 B8=255 }
+    if(CMD[3,string]=="yellow") { R8=255 G8=255 B8=0 }
+    if(CMD[3,string]=="purple") { R8=128 G8=0 B8=128 }
+    if(CMD[3,string]=="orange") { R8=250 G8=125 B8=125 }
+    if(CMD[3,string]=="pink") { R8=255 G8=125 B8=125 }
+    if(CMD[3,string]=="lightblue") { R8=0 G8=255 B8=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G8=0 B8=128 }
+    if(CMD[3,string]=="darkred") { R8=128 G8=0 B8=0 }
+    if(CMD[3,string]=="darkgreen") { R8=0 G8=128 B8=0 }
+    if(CMD[3,string]=="indigo") { R8=75 G8=0 B8=130 }
+    if(CMD[3,string]=="crimson") { R8=220 G8=20 B8=60 }
+    if(CMD[3,string]=="emerald") { R8=0 G8=201 B8=87 }
+    if(CMD[3,string]=="limegreen") { R8=50 G8=205 B8=50 }
+    if(CMD[3,string]=="gold") { R8=255 G8=215 B8=0 }
+    if(CMD[3,string]=="dusk") { R8=150 G8=100 B8=50}
+    }
+    if(chatClk(Target)&CMD[2,string]=="9")
+    { 
+    if(CMD[3,string]=="red") { R9=255 G9=0 B9=0 }
+    if(CMD[3,string]=="black") { R9=20 G9=20 B9=20 }
+    if(CMD[3,string]=="blue") { R9=0 G9=0 B9=255 }
+    if(CMD[3,string]=="green") { R9=0 G9=255 B9=0 }
+    if(CMD[3,string]=="white") { R9=255 G9=255 B9=255 }
+    if(CMD[3,string]=="yellow") { R9=255 G9=255 B9=0 }
+    if(CMD[3,string]=="purple") { R9=128 G9=0 B9=128 }
+    if(CMD[3,string]=="orange") { R9=250 G9=125 B9=125 }
+    if(CMD[3,string]=="pink") { R9=255 G9=125 B9=125 }
+    if(CMD[3,string]=="lightblue") { R9=0 G9=255 B9=255 }
+    if(CMD[3,string]=="darkblue") { R=10 G9=0 B9=128 }
+    if(CMD[3,string]=="darkred") { R9=128 G9=0 B9=0 }
+    if(CMD[3,string]=="darkgreen") { R9=0 G9=128 B9=0 }
+    if(CMD[3,string]=="indigo") { R9=75 G9=0 B9=130 }
+    if(CMD[3,string]=="crimson") { R9=220 G9=20 B9=60 }
+    if(CMD[3,string]=="emerald") { R9=0 G9=201 B9=87 }
+    if(CMD[3,string]=="limegreen") { R9=50 G9=205 B9=50 }
+    if(CMD[3,string]=="gold") { R9=255 G9=215 B9=0 }
+    if(CMD[3,string]=="dusk") { R9=150 G9=100 B9=50}
+    }
+}
+
+}
+
+if(Calculator ==1)
+{
+    if(chatClk(Target)){
+    A = Target:lastSaid():explode(" ")
+    if(A[1,string]:toNumber()){
+        Num1 = A[1,string]:toNumber()
+    }
+    if(A[2,string]=="+"){
+        Op = 1
+    }elseif(A[2,string]=="-"){
+        Op = 2
+    }elseif(A[2,string]=="*"){
+        Op = 3
+    }elseif(A[2,string]=="/"){
+        Op = 4
+    }
+    if(A[3,string]:toNumber()){
+        Num2 = A[3,string]:toNumber()
+    }
+    if(Num1 & Num2 & Op){
+        hideChat(1)
+        if(Op==1){
+            Range=(Num1+Num2)
+            Range2 = Range:toString()
+    CS:egpText(90,Range2,vec2(90,285))
+    CS:egpColor(90,vec(20,20,20))
+        }elseif(Op==2){
+            Range=(Num1-Num2)
+            Range2 = Range:toString()
+    CS:egpText(90,Range2,vec2(90,285))
+    CS:egpColor(90,vec(20,20,20))
+        }elseif(Op==3){
+            Range=(Num1*Num2)
+            Range2 = Range:toString()
+    CS:egpText(90,Range2,vec2(90,285))
+    CS:egpColor(90,vec(20,20,20))
+        }elseif(Op==4){
+            Range=(Num1/Num2)
+            Range2 = Range:toString()
+    CS:egpText(90,Range2,vec2(90,285))
+    CS:egpColor(90,vec(20,20,20))
+        }
+        Num1 = 0
+        Num2 = 0
+        Op = 0
+    }
+}
+}
+
+if(Urban ==1){
+if(chatClk(Target))
+    {
+    local Chat = Target:lastSaid():explode(" ")
+        
+    if(Chat[1, string] == "-define") 
+    { 
+        local Text = ""
+            
+        for(I = 3,Chat:count())
+        {
+            Text+= " "+Chat[I,string]
+        }
+            
+        if(httpCanRequest()) 
+        { 
+            httpRequest("http://www.urbandictionary.com/define.php?term="+Chat[2,string]+Text)
+            
+            Temp = Chat[2,string]+Text
+            
+        } 
+        else
+        {    
+            hint("[DanBot]Failed to request, please try again.",1)
+        }
+    }
+}
+
+
+if(httpClk()) 
+{
+    Data = httpData()
+    
+    local Start = Data:findRE("xml'>")
+    
+    local End = Data:findRE("' ",Start)
+    
+    local Finished = Data:sub(Start,End)
+    
+    Start = Finished:findRE("=' ")
+    
+    Fin = Finished:sub(Start+22,End)
+    
+    Fin = Fin:replaceRE("'","'")
+    
+    Fin = Fin:replaceRE("'","")
+    
+    if(Fin == Temp)
+    {
+        Fin = "Failed to find defenition, please try again."
+    }
+    timer("start",500)
+}
+
+if(clk("start"))
+{
+    CS:egpTextLayout(85,Temp,vec2(217.21,243.02),vec2(125,15))
+    CS:egpColor(85,vec(20,20,20))
+    CS:egpSize(85,15)
+    CS:egpTextLayout(84,Fin,vec2(98,269),vec2(230,75))
+    CS:egpColor(84,vec(20,20,20))
+    CS:egpSize(84,15)
+}
+}
+
+
+
+if (first()) {
+    #cursor
+    Page = 1
+    hint("Type (wire_expression2_concmd 1) for the e2 to work",20)
+    runOnChat(1)
+    runOnHTTP(1)
+    timer("curpos",500)
+    CS:egpClear()
+    CS:egpRoundedBox(4,vec2(-1,-1),vec2(1100,1100))
+    CS:egpColor(4,vec(20,200,20)) 
+    CS:egpBox(3,vec2(0,0),vec2(10,10))
+    Title = "Diogo BIOS"
+    TitleRGB = 999
+}
+
+if(clk("curpos")){
+    Pos = CS:egpCursor(Target) 
+    findByClass("player")
+    Target = findClosest(entity():pos())
+    timer("curpos",500)}
+
+CS:egpParentToCursor(3)
+
+function string currentTime(){
+    Time = time("hour")+GMT+":"+time("min")+":"+time("sec")
+    return Time
+}
+function string currentTime2(){
+    Time = time("hour")+GMT+":"+time("min")
+    return Time
+}
+function string currentDate(){
+    Time = time("day")+"-"+time("month")+"-"+time("year")
+    return Time
+}
+Day1 = time("day")
+Month2 = time("month")
+
+
+        
+Use = Target:keyUse()
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 1, boot windows screen
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+if(Page == 1){
+    CS:egpRemove(1)
+    CS:egpRemove(2)
+    CS:egpRemove(5)
+    CS:egpRemove(6)
+    CS:egpRemove(7)
+    CS:egpRemove(8)
+    CS:egpRemove(26)
+    CS:egpText(5,"======Diogo BIOS======",vec2(-1,5))
+    CS:egpColor(5,vec(255,255,255))
+    CS:egpSize(5,40)
+    CS:egpText(6,"-=Start Windows=-",vec2(115,60))
+    CS:egpColor(6,vec(255,255,255))
+    CS:egpSize(6,35)
+    if (inrange(Pos, vec2(110.84,71.97) , vec2(415.41,97.15))) {
+    CS:egpColor(6,vec(255,0,0))
+    if (changed(Use) & Use) {
+    Page = 2
+    }
+    }
+    CS:egpText(7,"-=Shut down Computer=-",vec2(65,120))
+    CS:egpColor(7,vec(255,255,255))
+    CS:egpSize(7,35)
+    if (inrange(Pos, vec2(59.10,126.66) , vec2(458.86,157.61))) {
+    CS:egpColor(7,vec(255,0,0))
+    if (changed(Use) & Use) {
+    Page = 8
+    }
+    }
+    CS:egpText(8,currentTime(),vec2(200,180))
+    CS:egpColor(8,vec(R,G,B))
+    CS:egpSize(8,30)
+}
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 1
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Start of page 2, loading windows screen
+
+if(Page == 2){
+    CS:egpRemove(6)
+    CS:egpRemove(7)
+    CS:egpRemove(8)
+if(Harddrive == 1){
+    CS:egpText(9,"Starting windows",vec2(145,80))
+    CS:egpColor(9,vec(9,0,255))
+    CS:egpSize(9,30)
+    timer("text",3000)
+    if(clk("text")){
+    Page = 4
+    }
+}
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 2
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 4, loading files screen 1
+
+if(Page == 4){    
+    CS:egpText(10,"Loading system32",vec2(145,110))
+    CS:egpColor(10,vec(9,0,255))
+    CS:egpSize(10,30)
+    timer("text2",2000)
+    if(clk("text2")){
+    Page = 5
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 4
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 5, loading files screen 2
+
+
+if(Page == 5){    
+    CS:egpText(11,"Loading files",vec2(145,140))
+    CS:egpColor(11,vec(9,0,255))
+    CS:egpSize(11,30)
+    timer("text3",1000)
+    if(clk("text3")){
+    Page = 6
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 5
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Start of page 6, loading files screen 3
+
+
+if(Page == 6){
+    CS:egpText(12,"Loading porn",vec2(145,170))
+    CS:egpColor(12,vec(9,0,255))
+    CS:egpSize(12,30)
+    timer("text4",2000)
+    if(clk("text4")){
+    Page = 7
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 6
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 7, loading files screen completed
+
+
+if(Page == 7){
+    CS:egpText(13,"Loading completed",vec2(145,200))
+    CS:egpColor(13,vec(9,0,255))
+    CS:egpSize(13,30)
+    timer("text5",3000)
+    if(clk("text5")){
+    Page = 9
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 7
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 9 (welcome screen)
+
+
+if(Page == 9){
+    CS:egpRemove(9)
+    CS:egpRemove(10)
+    CS:egpRemove(11)
+    CS:egpRemove(12)
+    CS:egpRemove(13)
+    CS:egpText(14,"-=Welcolme=-",vec2(165,80))
+    CS:egpColor(14,vec(9,0,255))
+    CS:egpSize(14,30)
+    CS:egpText(15,currentTime(),vec2(205,190.40))
+    CS:egpColor(15,vec(R,G,B))
+    CS:egpSize(15,30)
+    timer("text6",5000)
+    if(clk("text6")){
+    Page = 10
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 9
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 10 (default windows screen)
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+if(Page == 10){
+    CS:egpRemove(14)
+    CS:egpRemove(15)
+    CS:egpRemove(20)
+    CS:egpRemove(21)
+    CS:egpRemove(22)
+    CS:egpRemove(24)
+    CS:egpRemove(25)
+    CS:egpRemove(26)
+    CS:egpRemove(230)
+    CS:egpRemove(231)
+    CS:egpRemove(70)
+    CS:egpRemove(71)
+    CS:egpRemove(80)
+    CS:egpRemove(81)
+    CS:egpRemove(150)
+    CS:egpRemove(151)
+    CS:egpRoundedBox(4,vec2(-1,-1),vec2(1100,1100))
+    CS:egpColor(4,vec(20,200,20)) 
+    CS:egpText(5,"======Diogo BIOS======",vec2(-1,5))
+    CS:egpColor(5,vec(255,255,255))
+    CS:egpSize(5,40)
+    CS:egpBox(16,vec2(60,500.09),vec2(1100,40))
+    CS:egpColor(16,vec(0,179,255)) 
+    CS:egpBox(17,vec2(5,500.09),vec2(120,40))
+    CS:egpColor(17,vec(9,0,255))
+    CS:egpBox(290,vec2(30.00,57.38),vec2(40,40))
+    CS:egpColor(290,vec(92,203,250))
+    CS:egpBox(291,vec2(30.00,55.38),vec2(30,20))
+    CS:egpColor(291,vec(240,230,140))  
+    
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Start game application (mouse over my computer taskbar icon)
+
+    if (inrange(Pos, vec2(6.60,35.10) , vec2(53.31,81.28))){
+    CS:egpColor(291,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRoundedBox(292,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(292,vec(60,60,60))    
+    CS:egpBox(293,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(293,vec(213,210,215))
+    CS:egpBox(181,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(181,vec(255,0,0))    
+    CS:egpText(295,"X",vec2(354,149))
+    CS:egpBox(298,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(299,"Snake Game",vec2(80,147))  
+    CS:egpColor(299,vec(20,20,20))
+    CS:egpText(300,"!start to play",vec2(60,170))  
+    CS:egpColor(300,vec(20,20,20))
+    CS:egpText(180,"!stop to close",vec2(60,200))  
+    CS:egpColor(180,vec(20,20,20))
+    CS:egpText(188,"Use arrow keys to move",vec2(60,230))  
+    CS:egpColor(188,vec(20,20,20))
+    CS:egpText(189,"Closing game = all apps close",vec2(60,260))  
+    CS:egpColor(189,vec(20,20,20))
+    Snakegameap=1
+    Snakegame=0
+    }
+    } 
+    else {
+    CS:egpColor(291,vec(240,230,140))
+    }
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close snake game application
+
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33)) & Snakegameap ==1){
+    CS:egpColor(295,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(292)
+    CS:egpRemove(293)
+    CS:egpRemove(294)
+    CS:egpRemove(295)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(300)
+    CS:egpRemove(180)
+    CS:egpRemove(181)
+    CS:egpRemove(188)
+    CS:egpRemove(189)
+    Snakegameap=0
+    Snakegame=0
+    }
+    } 
+    else {
+    CS:egpColor(295,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Current time, bottom right, minutes only
+	
+    CS:egpText(18,currentTime2(),vec2(450.61,482.74))
+    CS:egpColor(18,vec(255,255,255))
+    CS:egpSize(18,15)
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Current date bottom right
+
+    CS:egpText(19,currentDate(),vec2(445.61,498))
+    CS:egpColor(19,vec(255,255,255))
+    CS:egpSize(19,15)
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Open start menu
+
+    if (inrange(Pos, vec2(6.10,487.60) , vec2(57.57,509.36))) {
+    CS:egpColor(17,vec(68,0,146))
+    if (changed(Use) & Use) {
+        Page=18
+    }
+    }
+    else {
+    CS:egpColor(17,vec(9,0,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close my computer application
+
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33))){
+    CS:egpColor(30,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(28)
+    CS:egpRemove(27)
+    CS:egpRemove(29)
+    CS:egpRemove(30)
+    CS:egpRemove(31)
+    CS:egpRemove(32)
+    CS:egpRemove(33)
+    CS:egpRemove(34)
+    CS:egpRemove(35)
+    CS:egpRemove(36)
+    CS:egpRemove(38)
+    CS:egpRemove(39)
+    CS:egpRemove(40)
+    Rchangecomputer=0
+    Computer=0
+    }
+    } 
+    else {
+    CS:egpColor(30,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Minimize my computer application
+	
+    if (inrange(Pos, vec2(318.05,146.43) , vec2(343.42,169.69)) & Computer ==1){
+    CS:egpColor(33,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRemove(28)
+    CS:egpRemove(27)
+    CS:egpRemove(29)
+    CS:egpRemove(30)
+    CS:egpRemove(31)
+    CS:egpRemove(32)
+    CS:egpRemove(33)
+    CS:egpRemove(34)
+    CS:egpRemove(38)
+    CS:egpRemove(39)
+    CS:egpRemove(40)
+    Rchangecomputer=1
+    Computer=0
+    }
+    } 
+    else {
+    CS:egpColor(33,vec(185,185,185))
+    }
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Maximize my computer application (mouse over my computer taskbar icon)
+
+    if (inrange(Pos, vec2(106.88,477.29) , vec2(153.88,509.20)) & Rchangecomputer ==1){
+    CS:egpColor(36,vec(173,216,230))
+    CS:egpText(37,"My Computer",vec2(126.88,420.29))
+    CS:egpColor(37,vec(20,20,20)) 
+    if (changed(Use) & Use & Rchangecomputer ==1) {
+    CS:egpRoundedBox(28,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(28,vec(60,60,60))    
+    CS:egpBox(27,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(27,vec(213,210,215))
+    CS:egpBox(29,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(29,vec(255,0,0))    
+    CS:egpText(30,"X",vec2(354,149))
+    CS:egpBox(33,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(33,vec(185,185,185))
+    CS:egpText(34,"-",vec2(328,149))
+    CS:egpBox(31,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(32,"My Computer",vec2(80,147))  
+    CS:egpColor(32,vec(20,20,20))    
+    CS:egpText(38,"Processor: Intel(R) Core(TM) i7 20GHz",vec2(60,170))  
+    CS:egpColor(38,vec(20,20,20))  
+    CS:egpText(39,"Memory: 64,00 GB",vec2(60,200))  
+    CS:egpColor(39,vec(20,20,20))  
+    CS:egpText(40,"Graphics Card: AMD Radeon HD 7770",vec2(60,230))  
+    CS:egpColor(40,vec(20,20,20))
+	Computer=1
+	Rchangecomputer=0
+    }
+    } 
+    else {
+    CS:egpRemove(37)
+    CS:egpColor(36,vec(240,230,140))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Open time screen, bottom right
+
+    if (inrange(Pos, vec2(444.87,481.12) , vec2(511.45,511.81))) {
+    CS:egpColor(18,vec(111,159,179))
+    CS:egpColor(19,vec(111,159,179))
+    if (changed(Use) & Use) {
+    Page=12
+     }
+    }
+    else {
+    CS:egpColor(18,vec(255,255,255))
+    CS:egpColor(19,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Some page settings for cursor
+
+    CS:egpRemove(3)
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Minimize calculator
+
+
+    if (inrange(Pos, vec2(287.07,148.16) , vec2(313.45,169.57)) & Calculator ==1){
+    CS:egpColor(48,vec(173,216,230))
+    if (changed(Use) & Use & Calculator ==1) {
+    CS:egpRemove(44)
+    CS:egpRemove(45)
+    CS:egpRemove(46)
+    CS:egpRemove(47)
+    CS:egpRemove(48)
+    CS:egpRemove(49)
+    CS:egpRemove(50)
+    CS:egpRemove(51)
+    CS:egpRemove(54)
+    CS:egpRemove(55)
+    CS:egpRemove(56)
+    CS:egpRemove(57)
+    CS:egpRemove(58)
+    CS:egpRemove(59)
+    CS:egpRemove(100)
+    CS:egpRemove(90)
+    Rcalculmini=1
+    Calculator=0
+    }
+    } 
+    else {
+    CS:egpColor(48,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close calculator
+
+    if (inrange(Pos, vec2(317.91,145.47) , vec2(342.05,168.61)) & Calculator ==1){
+    CS:egpColor(47,vec(255,0,0))
+    if (changed(Use) & Use & Calculator ==1) {
+    CS:egpRemove(44)
+    CS:egpRemove(45)
+    CS:egpRemove(46)
+    CS:egpRemove(47)
+    CS:egpRemove(48)
+    CS:egpRemove(49)
+    CS:egpRemove(50)
+    CS:egpRemove(51)
+    CS:egpRemove(52)
+    CS:egpRemove(53)
+    CS:egpRemove(54)
+    CS:egpRemove(55)
+    CS:egpRemove(56)
+    CS:egpRemove(57)
+    CS:egpRemove(58)
+    CS:egpRemove(59)
+    CS:egpRemove(100)
+    CS:egpRemove(90)
+    Rcalculmini=0
+    Calculator=0
+    }
+    } 
+    else {
+    CS:egpColor(47,vec(255,255,255))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Maximize calculator (mouse over calculator taskbar icon)
+
+    if (inrange(Pos, vec2(160.49,474.84) , vec2(210.09,511.63)) & Rcalculmini ==1){
+    CS:egpColor(53,vec(173,216,230))
+    CS:egpText(60,"Calculator",vec2(176.88,420.29))
+    CS:egpColor(60,vec(20,20,20)) 
+    if (changed(Use) & Use & Rcalculmini ==1) {
+    CS:egpRoundedBox(44,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(44,vec(60,60,60))    
+    CS:egpBox(45,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(45,vec(213,210,215))
+    CS:egpBox(46,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(46,vec(255,0,0))    
+    CS:egpText(47,"X",vec2(324,149))
+    CS:egpBox(48,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(48,vec(185,185,185))
+    CS:egpText(49,"-",vec2(298,149))
+    CS:egpBox(50,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(51,"Calculator",vec2(80,147))  
+    CS:egpColor(51,vec(20,20,20)) 
+    CS:egpText(54,"To use it,",vec2(80,180))
+    CS:egpText(57,"write on your chat the equation",vec2(80,195))
+    CS:egpText(55,"Example:",vec2(80,210))  
+    CS:egpText(58,"2 + 2 or 3 - 3 or 3 / 3 or -2 * 3",vec2(80,225))
+    CS:egpText(56,"Dont forget the spaces",vec2(80,240))
+    CS:egpText(59,"between each symbol",vec2(80,255))
+    CS:egpBox(100,vec2(155,295),vec2(170,15))
+    Calculator=1
+    Rcalculmini=0
+}
+    
+    }
+    else {
+    CS:egpColor(53,vec(139,163,240))
+    CS:egpRemove(60)
+    }
+    
+    if (Radioplaylist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Radio",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/piano1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/piano2.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/guit1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/flamenco.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/mirame_radio_thru_wall.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/looping_radio_mix.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/opera.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/country_rock_am_radio_loop.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/cubanmusic1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/latin.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/bongo.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic2.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic3.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/radio1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"test/temp/soundscape_test/tv_music.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    }
+    
+    
+    #///////////////////////////////////////////////////
+    #Half-Life1 music
+    
+    
+    if (Halflife1playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Half-Life 1",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song17.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song19.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song20.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song21.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song24.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song25_remix3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song26.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song5.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    }
+    
+    #//////////////////////////////////////////////////////////////  
+    
+    #Half life 2 Play list music
+    
+    if (Halflife2playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Half-Life 2",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_intro.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song0.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song12_long.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song13.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song16.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song17.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song19.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song20_submix4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song23_suitsong3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song25_teleporter.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    
+    CS:egpText(265,"17",vec2(165,220))  
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpSize(265,15)  
+    
+    if (inrange(Pos, vec2(163.38,221.66) , vec2(185.58,236.66))){
+    CS:egpColor(265,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song26.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(265,vec(20,20,20))
+    }
+    
+    CS:egpText(266,"18",vec2(165,240))  
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpSize(266,15)  
+    
+    if (inrange(Pos, vec2(163.38,240.62) , vec2(185.58,256.61))){
+    CS:egpColor(266,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song26_trainstation1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(266,vec(20,20,20))
+    }
+    
+    CS:egpText(267,"19",vec2(165,260))  
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpSize(267,15)  
+    
+    if (inrange(Pos, vec2(163.38,260.80) , vec2(185.58,276.97))){
+    CS:egpColor(267,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song27_trainstation2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(267,vec(20,20,20))
+    }
+    
+    CS:egpText(268,"20",vec2(165,280))  
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpSize(268,15)  
+    
+    if (inrange(Pos, vec2(163.38,281.37) , vec2(185.58,296.67))){
+    CS:egpColor(268,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song28.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(268,vec(20,20,20))
+    }
+    
+    CS:egpText(269,"21",vec2(190,200))  
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpSize(269,15)  
+    
+    if (inrange(Pos, vec2(187.69,199.46) , vec2(210.83,217.20))){
+    CS:egpColor(269,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song29.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(269,vec(20,20,20))
+    }
+    
+    CS:egpText(270,"22",vec2(190,220))  
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpSize(270,15)  
+    
+    if (inrange(Pos, vec2(187.69,221.66) , vec2(210.83,236.66))){
+    CS:egpColor(270,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(270,vec(20,20,20))
+    }
+    
+    CS:egpText(271,"23",vec2(190,240))  
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpSize(271,15)  
+    
+    if (inrange(Pos, vec2(187.69,240.62) , vec2(210.83,256.61))){
+    CS:egpColor(271,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song30.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(271,vec(20,20,20))
+    }
+    
+    CS:egpText(272,"24",vec2(190,260))  
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpSize(272,15)  
+    
+    if (inrange(Pos, vec2(187.69,260.80) , vec2(210.83,276.97))){
+    CS:egpColor(272,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song31.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(272,vec(20,20,20))
+    }
+    
+    CS:egpText(273,"25",vec2(190,280))  
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpSize(273,15)  
+    
+    if (inrange(Pos, vec2(187.69,281.37) , vec2(210.83,296.67))){
+    CS:egpColor(273,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song32.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(273,vec(20,20,20))
+    }
+    
+    CS:egpText(274,"26",vec2(220,200))  
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpSize(274,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,199.46) , vec2(240.01,217.20))){
+    CS:egpColor(274,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song33.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(274,vec(20,20,20))
+    }
+    
+    CS:egpText(275,"27",vec2(220,220))  
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpSize(275,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,221.66) , vec2(240.01,236.66))){
+    CS:egpColor(275,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(275,vec(20,20,20))
+    }
+    
+    CS:egpText(276,"28",vec2(220,240))  
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpSize(276,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,240.62) , vec2(240.01,256.61))){
+    CS:egpColor(276,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(276,vec(20,20,20))
+    }
+    
+    CS:egpText(277,"29",vec2(220,260))  
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpSize(277,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,260.80) , vec2(240.01,276.97))){
+    CS:egpColor(277,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song7.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(277,vec(20,20,20))
+    }
+    
+    CS:egpText(278,"30",vec2(220,280))  
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpSize(278,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,281.37) , vec2(240.01,296.67))){
+    CS:egpColor(278,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song8.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(279,vec(20,20,20))
+    }
+    
+    CS:egpText(279,"31",vec2(220,300))  
+    CS:egpColor(279,vec(20,20,20))
+    CS:egpSize(279,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,299.00) , vec2(240.01,319.00))){
+    CS:egpColor(279,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/ravenholm_1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(279,vec(20,20,20))
+    }
+}
+    
+    #//////////////////////////////////////////////////////////////  
+    
+    #Portal Play list music
+    
+    if (Portalplaylist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Portal",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_4000_degrees_kelvin.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_android_hell.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_no_cake_for_you.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_party_escort.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_procedural_jiggle_bone.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_self_esteem_fund.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_still_alive.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_stop_what_you_are_doing.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_subject_name_here.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_taste_of_blood.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_you_cant_escape_you_know.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_youre_not_a_good_person.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+}
+
+#////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    #Team Fortress 2 Play list music
+    
+    if (TeamFortress2playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Team Fortress 2",vec2(230,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/fortress_reel.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"items/tf_music_upgrade_machine.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/mvm_start_wave.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup12.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup13.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup16.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    
+    CS:egpText(265,"17",vec2(165,220))  
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpSize(265,15)  
+    
+    if (inrange(Pos, vec2(163.38,221.66) , vec2(185.58,236.66))){
+    CS:egpColor(265,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup5.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(265,vec(20,20,20))
+    }
+    
+    CS:egpText(266,"18",vec2(165,240))  
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpSize(266,15)  
+    
+    if (inrange(Pos, vec2(163.38,240.62) , vec2(185.58,256.61))){
+    CS:egpColor(266,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(266,vec(20,20,20))
+    }
+    
+    CS:egpText(267,"19",vec2(165,260))  
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpSize(267,15)  
+    
+    if (inrange(Pos, vec2(163.38,260.80) , vec2(185.58,276.97))){
+    CS:egpColor(267,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup7.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(267,vec(20,20,20))
+    }
+    
+    CS:egpText(268,"20",vec2(165,280))  
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpSize(268,15)  
+    
+    if (inrange(Pos, vec2(163.38,281.37) , vec2(185.58,296.67))){
+    CS:egpColor(268,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup8.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(268,vec(20,20,20))
+    }
+    
+    CS:egpText(269,"21",vec2(190,200))  
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpSize(269,15)  
+    
+    if (inrange(Pos, vec2(187.69,199.46) , vec2(210.83,217.20))){
+    CS:egpColor(269,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(269,vec(20,20,20))
+    }
+    
+    CS:egpText(270,"22",vec2(190,220))  
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpSize(270,15)  
+    
+    if (inrange(Pos, vec2(187.69,221.66) , vec2(210.83,236.66))){
+    CS:egpColor(270,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(270,vec(20,20,20))
+    }
+    
+    CS:egpText(271,"23",vec2(190,240))  
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpSize(271,15)  
+    
+    if (inrange(Pos, vec2(187.69,240.62) , vec2(210.83,256.61))){
+    CS:egpColor(271,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/holiday/gamestartup_saxxy.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(271,vec(20,20,20))
+    }
+}
+
+#//////////////////////////////////////////////
+    
+    if (inrange(Pos, vec2(59.84,199.22) , vec2(100.00,215.03)) & Musicplay ==1){
+    CS:egpColor(243,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Radioplaylist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(57.05,220.47) , vec2(127.25,237.18)) & Musicplay ==1){
+    CS:egpColor(244,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Halflife1playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    if (inrange(Pos, vec2(59.01,237.55) , vec2(126.37,258.07)) & Musicplay ==1){
+    CS:egpColor(245,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Halflife2playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(59.01,259.04) , vec2(100.46,276.86)) & Musicplay ==1){
+    CS:egpColor(246,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Portalplaylist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(59.98,280.12) , vec2(161.71,299.90)) & Musicplay ==1){
+    CS:egpColor(247,vec(87,87,92))
+    if (changed(Use) & Use) {
+        TeamFortress2playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    if (inrange(Pos, vec2(243.40,220.32) , vec2(290.85,237.58))){
+    CS:egpColor(249,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+    CS:egpRemove(242)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpText(243,"",vec2(60,200))
+    CS:egpText(250,"",vec2(95,200))
+    CS:egpText(251,"",vec2(95,220))
+    CS:egpText(252,"",vec2(95,240))
+    CS:egpText(253,"",vec2(95,260))
+    CS:egpText(254,"",vec2(95,280))
+    CS:egpText(255,"",vec2(130,200))
+    CS:egpText(256,"",vec2(130,220))
+    CS:egpText(257,"",vec2(130,240))
+    CS:egpText(258,"",vec2(130,260))
+	   CS:egpText(259,"",vec2(130,280))
+    CS:egpText(260,"",vec2(165,260))
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpText(265,"",vec2(165,260))
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpText(266,"",vec2(165,260))
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpText(267,"",vec2(165,260))
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpText(268,"",vec2(165,260))
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpText(269,"",vec2(165,260))
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpText(270,"",vec2(165,260))
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpText(271,"",vec2(165,260))
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpText(272,"",vec2(165,260))
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpText(273,"",vec2(165,260))
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpText(274,"",vec2(165,260))
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpText(275,"",vec2(165,260))
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpText(276,"",vec2(165,260))
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpText(277,"",vec2(165,260))
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpText(278,"",vec2(165,260))
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpText(279,"",vec2(165,260))
+    CS:egpColor(279,vec(20,20,20))
+    soundPlay(0,0,"")
+    Radioplaylist=0 
+    Halflife1playlist=0 
+    Halflife2playlist=0 
+    Portalplaylist=0 
+    TeamFortress2playlist=0 
+    Page=10
+    Musicplay=1  
+    CS:egpText(243,"Radio",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    CS:egpText(244,"Half-Life 1",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    CS:egpText(245,"Half-Life 2",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    CS:egpSize(245,15)
+    CS:egpText(246,"Portal",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    CS:egpText(247,"Team Fortress 2",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    CS:egpText(242,"Select Audio Playlist:",vec2(60,170))  
+    CS:egpColor(242,vec(20,20,20))
+    }
+    
+    }
+    else {
+    CS:egpColor(249,vec(20,20,20))
+    }
+    
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Minimize music player application
+
+    if (inrange(Pos, vec2(318.05,146.43) , vec2(343.42,169.69)) & Musicplayon ==1){
+    CS:egpColor(236,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRemove(232)
+    CS:egpRemove(233)
+    CS:egpRemove(234)
+    CS:egpRemove(235)
+    CS:egpRemove(236)
+    CS:egpRemove(237)
+    CS:egpRemove(238)
+    CS:egpRemove(239)
+    CS:egpRemove(242)
+    CS:egpRemove(243)
+    CS:egpRemove(244)
+    CS:egpRemove(245)
+    CS:egpRemove(246)
+    CS:egpRemove(247)
+    CS:egpRemove(250)
+    CS:egpRemove(251)
+    CS:egpRemove(252)
+    CS:egpRemove(253)
+    CS:egpRemove(254)
+    CS:egpRemove(255)
+    CS:egpRemove(256)
+    CS:egpRemove(257)
+    CS:egpRemove(258)
+    CS:egpRemove(260)
+    CS:egpRemove(259)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpRemove(260)
+    CS:egpRemove(265)
+    CS:egpRemove(266)
+    CS:egpRemove(267)
+    CS:egpRemove(268)
+    CS:egpRemove(269)
+    CS:egpRemove(270)
+    CS:egpRemove(271)
+    CS:egpRemove(272)
+    CS:egpRemove(273)
+    CS:egpRemove(274)
+    CS:egpRemove(275)
+    CS:egpRemove(276)
+    CS:egpRemove(277)
+    CS:egpRemove(278)
+    CS:egpRemove(279)
+    Musicplay=0
+    Musicplayon=0
+    Musicplayminimize=1
+    }
+    } 
+    else {
+    CS:egpColor(236,vec(185,185,185))
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close music player application
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33)) & Musicplayon ==1){
+    CS:egpColor(235,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(232)
+    CS:egpRemove(233)
+    CS:egpRemove(234)
+    CS:egpRemove(235)
+    CS:egpRemove(236)
+    CS:egpRemove(237)
+    CS:egpRemove(238)
+    CS:egpRemove(239)
+    CS:egpRemove(240)
+    CS:egpRemove(241)
+    CS:egpRemove(242)
+    CS:egpRemove(243)
+    CS:egpRemove(244)
+    CS:egpRemove(245)
+    CS:egpRemove(246)
+    CS:egpRemove(247)
+    CS:egpRemove(250)
+    CS:egpRemove(251)
+    CS:egpRemove(252)
+    CS:egpRemove(253)
+    CS:egpRemove(254)
+    CS:egpRemove(255)
+    CS:egpRemove(256)
+    CS:egpRemove(257)
+    CS:egpRemove(258)
+    CS:egpRemove(260)
+    CS:egpRemove(259)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpRemove(260)
+    CS:egpRemove(265)
+    CS:egpRemove(266)
+    CS:egpRemove(267)
+    CS:egpRemove(268)
+    CS:egpRemove(269)
+    CS:egpRemove(270)
+    CS:egpRemove(271)
+    CS:egpRemove(272)
+    CS:egpRemove(273)
+    CS:egpRemove(274)
+    CS:egpRemove(275)
+    CS:egpRemove(276)
+    CS:egpRemove(277)
+    CS:egpRemove(278)
+    CS:egpRemove(279)
+    Musicplay=0
+    Musicplayon=0
+    Musicplayminimize=0
+    Radioplaylist=0
+    Halflife2playlist=0
+    Halflife1playlist=0
+    TeamFortress2playlist=0
+    Portalplaylist=0
+    soundPlay(0,0,"")
+    }
+    } 
+    else {
+    CS:egpColor(235,vec(255,255,255))
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over music player icon on taskbar (Maximize music player application)
+
+    if (inrange(Pos, vec2(216.50,476.23) , vec2(264.81,509.90)) & Musicplayminimize ==1){
+    CS:egpColor(241,vec(250,209,4))
+    CS:egpText(262,"Music Player",vec2(196.88,420.29))
+    CS:egpColor(262,vec(20,20,20)) 
+    if (changed(Use) & Use & Musicplayminimize ==1) {
+    CS:egpRoundedBox(232,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(232,vec(60,60,60))    
+    CS:egpBox(233,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(233,vec(213,210,215))
+    CS:egpBox(234,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(234,vec(255,0,0))    
+    CS:egpText(235,"X",vec2(354,149))
+    CS:egpBox(236,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(236,vec(185,185,185))
+    CS:egpText(237,"-",vec2(328,149))
+    CS:egpBox(238,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(239,"Music Player",vec2(80,147))  
+    CS:egpColor(239,vec(20,20,20))
+    CS:egpText(242,"Select Audio Playlist:",vec2(60,170))  
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(243,"Radio",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    Musicplay=1
+    Musicplayon=1
+    Musicplayminimize=0
+    CS:egpText(244,"Half-Life 1",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    CS:egpText(245,"Half-Life 2",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    CS:egpSize(245,15)
+    CS:egpText(246,"Portal",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    CS:egpText(247,"Team Fortress 2",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    CS:egpText(250,"",vec2(95,200))
+    CS:egpText(251,"",vec2(95,220))
+    CS:egpText(252,"",vec2(95,240))
+    CS:egpText(253,"",vec2(95,260))
+    CS:egpText(254,"",vec2(95,280))
+    CS:egpText(255,"",vec2(130,200))
+    CS:egpText(256,"",vec2(130,220))
+    CS:egpText(257,"",vec2(130,240))
+    CS:egpText(258,"",vec2(130,260))
+	   CS:egpText(259,"",vec2(130,280))
+    CS:egpText(260,"",vec2(165,200))
+    CS:egpText(248,"",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    CS:egpText(260,"",vec2(165,260))
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpText(265,"",vec2(165,260))
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpText(266,"",vec2(165,260))
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpText(267,"",vec2(165,260))
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpText(268,"",vec2(165,260))
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpText(269,"",vec2(165,260))
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpText(270,"",vec2(165,260))
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpText(271,"",vec2(165,260))
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpText(272,"",vec2(165,260))
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpText(273,"",vec2(165,260))
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpText(274,"",vec2(165,260))
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpText(275,"",vec2(165,260))
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpText(276,"",vec2(165,260))
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpText(277,"",vec2(165,260))
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpText(278,"",vec2(165,260))
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpText(279,"",vec2(165,260))
+    CS:egpColor(279,vec(20,20,20))
+    }
+}
+    else {
+    CS:egpColor(241,vec(250,152,4))
+    CS:egpRemove(262)
+    }
+
+
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Minimize urban dictionary software
+
+
+
+
+    if (inrange(Pos, vec2(287.07,148.16) , vec2(313.45,169.57)) & Urban ==1){
+    CS:egpColor(289,vec(173,216,230))
+    if (changed(Use) & Use & Urban ==1) {
+    CS:egpRemove(285)
+    CS:egpRemove(286)
+    CS:egpRemove(287)
+    CS:egpRemove(288)
+    CS:egpRemove(289)
+    CS:egpRemove(290)
+    CS:egpRemove(291)
+    CS:egpRemove(292)
+    CS:egpRemove(295)
+    CS:egpRemove(296)
+    CS:egpRemove(297)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(82)
+    CS:egpRemove(83)
+    CS:egpRemove(84)
+    CS:egpRemove(85)
+    CS:egpRemove(89)
+    Urbanminimized=1
+    Urban=0
+    }
+    } 
+    else {
+    CS:egpColor(289,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Close urban dictionary software
+
+
+    if (inrange(Pos, vec2(317.91,145.47) , vec2(342.05,168.61)) & Urban ==1){
+    CS:egpColor(288,vec(255,0,0))
+    if (changed(Use) & Use & Urban ==1) {
+    CS:egpRemove(285)
+    CS:egpRemove(286)
+    CS:egpRemove(287)
+    CS:egpRemove(288)
+    CS:egpRemove(289)
+    CS:egpRemove(290)
+    CS:egpRemove(291)
+    CS:egpRemove(292)
+    CS:egpRemove(293)
+    CS:egpRemove(294)
+    CS:egpRemove(295)
+    CS:egpRemove(296)
+    CS:egpRemove(297)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(82)
+    CS:egpRemove(83)
+    CS:egpRemove(84)
+    CS:egpRemove(85)
+    CS:egpRemove(89)
+    Urbanminimized=0
+    Urban=0
+    }
+    } 
+    else {
+    CS:egpColor(288,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over urban dictionary icon on taskbar (Maximize urban dictionary application)
+
+    if (inrange(Pos, vec2(272.12,476.05) , vec2(320.98,511.44)) & Urbanminimized ==1){
+    CS:egpColor(294,vec(173,216,230))
+    CS:egpText(88,"Urban Dictionary",vec2(216.88,420.29))
+    CS:egpColor(88,vec(20,20,20)) 
+    if (changed(Use) & Use & Urbanminimized ==1) {
+    Urban=1
+    Urbanminimized=0
+    CS:egpRoundedBox(285,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(285,vec(60,60,60))    
+    CS:egpBox(286,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(286,vec(213,210,215))
+    CS:egpBox(287,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(287,vec(255,0,0))    
+    CS:egpText(288,"X",vec2(324,149))
+    CS:egpBox(289,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(289,vec(185,185,185))
+    CS:egpText(290,"-",vec2(298,149))
+    CS:egpBox(291,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(292,"Urban Dictionary",vec2(80,147))  
+    CS:egpColor(292,vec(20,20,20))
+    CS:egpText(295,"To use it,",vec2(80,180))
+    CS:egpSize(295,12)
+    CS:egpText(296,"write on your chat -define +word",vec2(80,195))
+    CS:egpSize(296,12)
+    CS:egpText(297,"Example:",vec2(80,210))  
+    CS:egpSize(297,12)
+    CS:egpText(298,"-define test , -define FTW",vec2(80,225))
+    CS:egpSize(298,12)
+    CS:egpText(299,"Dont forget the space",vec2(80,240))
+    CS:egpSize(299,12)
+    CS:egpText(82,"between -define and word",vec2(80,255))
+    CS:egpSize(82,12)
+    CS:egpBox(83,vec2(210,305),vec2(230,78))
+    CS:egpBox(89,vec2(273.91,250.79),vec2(125,15))
+}
+    }
+    else {
+    CS:egpColor(294,vec(139,0,139))
+    CS:egpRemove(88)
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Minimize notepad software
+
+
+
+
+    if (inrange(Pos, vec2(287.89,106.61) , vec2(311.82,128.91)) & Notepad ==1){
+    CS:egpColor(156,vec(173,216,230))
+    if (changed(Use) & Use & Notepad ==1) {
+    CS:egpRemove(152)
+    CS:egpRemove(153)
+    CS:egpRemove(154)
+    CS:egpRemove(155)
+    CS:egpRemove(156)
+    CS:egpRemove(157)
+    CS:egpRemove(158)
+    CS:egpRemove(159)
+    CS:egpRemove(162)
+    CS:egpRemove(163)
+    CS:egpRemove(164)
+    CS:egpRemove(165)
+    CS:egpRemove(166)
+    CS:egpRemove(167)
+    CS:egpRemove(168)
+    CS:egpRemove(169)
+    CS:egpRemove(170)
+    CS:egpRemove(171)
+    CS:egpRemove(172)
+    CS:egpRemove(173)
+    CS:egpRemove(174)
+    CS:egpRemove(175)
+    CS:egpRemove(176)
+    CS:egpRemove(177)
+    Notepadminimized=1
+    Notepad=0
+    }
+    } 
+    else {
+    CS:egpColor(156,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Close notepad software
+
+
+    if (inrange(Pos, vec2(317.05,105.88) , vec2(340.23,129.34)) & Notepad ==1){
+    CS:egpColor(155,vec(255,0,0))
+    if (changed(Use) & Use & Notepad ==1) {
+    CS:egpRemove(152)
+    CS:egpRemove(153)
+    CS:egpRemove(154)
+    CS:egpRemove(155)
+    CS:egpRemove(156)
+    CS:egpRemove(157)
+    CS:egpRemove(158)
+    CS:egpRemove(159)
+    CS:egpRemove(160)
+    CS:egpRemove(161)
+    CS:egpRemove(162)
+    CS:egpRemove(163)
+    CS:egpRemove(164)
+    CS:egpRemove(165)
+    CS:egpRemove(166)
+    CS:egpRemove(167)
+    CS:egpRemove(168)
+    CS:egpRemove(169)
+    CS:egpRemove(170)
+    CS:egpRemove(171)
+    CS:egpRemove(172)
+    CS:egpRemove(173)
+    CS:egpRemove(174)
+    CS:egpRemove(175)
+    CS:egpRemove(176)
+    CS:egpRemove(177)
+    Notepadminimized=0
+    Notepad=0
+    }
+    } 
+    else {
+    CS:egpColor(155,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over notepad icon on taskbar (Maximize notepad application)
+
+    if (inrange(Pos, vec2(325.74,478.20) , vec2(374.55,511.13)) & Notepadminimized ==1){
+    CS:egpColor(161,vec(181,180,180))
+    CS:egpText(178,"Notepad",vec2(286.88,420.29))
+    if (changed(Use) & Use & Notepadminimized ==1) {
+    Notepad=1
+    Notepadminimized=0
+    CS:egpRoundedBox(152,vec2(200,250.33),vec2(360,350))
+    CS:egpColor(152,vec(60,60,60))    
+    CS:egpBox(153,vec2(205,240.33),vec2(325,290))
+    CS:egpColor(153,vec(213,210,215))
+    CS:egpBox(154,vec2(329.17,116.73),vec2(15,15))
+    CS:egpColor(154,vec(255,0,0))    
+    CS:egpText(155,"X",vec2(324,107))
+    CS:egpBox(156,vec2(301.17,116.73),vec2(15,15))   
+    CS:egpColor(156,vec(185,185,185))
+    CS:egpText(157,"-",vec2(298,107))
+    CS:egpBox(158,vec2(150,116.73),vec2(200,15))  
+    CS:egpText(159,"Notepad",vec2(60,107))  
+    CS:egpColor(159,vec(20,20,20))
+    CS:egpBox(160,vec2(350,500.09),vec2(40,40))
+    CS:egpColor(160,vec(92,203,250))
+    CS:egpBox(161,vec2(350,497.09),vec2(20,20))
+    CS:egpColor(161,vec(255,255,255))
+    CS:egpText(162,"To use it, write on your chat:",vec2(60,130))
+    CS:egpSize(162,12)
+    CS:egpText(163,"!settext [line] [text] - To set the text.",vec2(60,145))
+    CS:egpSize(163,12)
+    CS:egpText(164,"!setcolor set [line] [color] - To set the color of the text.",vec2(60,160))  
+    CS:egpSize(164,12)
+    CS:egpText(165,"Colors:black, red, blue, green, white, yellow, darkgreen,",vec2(60,175))
+    CS:egpSize(165,12)
+    CS:egpText(166,"indigo, crimson, emerald, limegreen, maroon, dusk",vec2(60,190))
+    CS:egpSize(166,12)
+    CS:egpText(167,"purple, orange, pink, lightblue, darkblue, darkred, gold",vec2(60,205))
+    CS:egpSize(167,12)
+    CS:egpBox(168,vec2(210,300),vec2(300,150))
+    CS:egpTextLayout(169,Textnotepad,vec2(75,230),vec2(285,30))
+    CS:egpTextLayout(170,Textnotepad2,vec2(75,245),vec2(285,30))
+    CS:egpTextLayout(171,Textnotepad3,vec2(75,260),vec2(285,30))
+    CS:egpTextLayout(172,Textnotepad4,vec2(75,275),vec2(285,30))
+    CS:egpTextLayout(173,Textnotepad5,vec2(75,290),vec2(285,30))
+    CS:egpTextLayout(174,Textnotepad6,vec2(75,305),vec2(285,30))
+    CS:egpTextLayout(175,Textnotepad7,vec2(75,320),vec2(285,30))
+    CS:egpTextLayout(176,Textnotepad8,vec2(75,335),vec2(285,30))
+    CS:egpTextLayout(177,Textnotepad9,vec2(75,350),vec2(285,30))
+}
+    }
+    else {
+    CS:egpColor(161,vec(255,255,255))
+    CS:egpRemove(178)
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    CS:egpBox(23,vec2(0,0),vec2(10,10))
+    CS:egpParentToCursor(23) 
+    
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 10
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#Start of page 12 (Time screen)
+
+if(Page == 12){
+    CS:egpRemove(14)
+    CS:egpRemove(15)
+    CS:egpRemove(25)
+    CS:egpRemove(26)
+    CS:egpRemove(70)
+    CS:egpRemove(71)
+    CS:egpRemove(230)
+    CS:egpRemove(231)
+    CS:egpRemove(20)
+    CS:egpRemove(21)
+    CS:egpRemove(24)
+    CS:egpRemove(80)
+    CS:egpRemove(81)
+    CS:egpRemove(150)
+    CS:egpRemove(151)
+    CS:egpBox(17,vec2(5,500.09),vec2(120,40))
+    CS:egpColor(17,vec(9,0,255))
+    CS:egpBox(41,vec2(432.51,430.14),vec2(158.93,99.02)) 
+    CS:egpText(42,currentTime(),vec2(440.61,440.74))
+    CS:egpColor(42,vec(R,G,B))
+    CS:egpSize(42,15)
+    CS:egpText(43,currentDate(),vec2(400.61,400.74))
+    CS:egpColor(43,vec(20,20,20))
+    CS:egpSize(43,15)
+    if (inrange(Pos, vec2(444.87,481.12) , vec2(511.45,511.81))) {
+    CS:egpColor(18,vec(111,159,179))
+    CS:egpColor(19,vec(111,159,179))
+    if (changed(Use) & Use) {
+    Page=10
+    CS:egpRemove(41)
+    CS:egpRemove(42)
+    CS:egpRemove(43)
+     }
+    }
+    else {
+    CS:egpColor(18,vec(255,255,255))
+    CS:egpColor(19,vec(255,255,255))
+    }
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Open start menu
+
+    if (inrange(Pos, vec2(6.10,487.60) , vec2(57.57,509.36))) {
+    CS:egpColor(17,vec(68,0,146))
+    if (changed(Use) & Use) {
+        Page=18
+    }
+    }
+    else {
+    CS:egpColor(17,vec(9,0,255))
+    }
+    
+    
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+#End of page 12
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+#Start of page 18
+
+
+
+
+if(Page == 18){
+    CS:egpRemove(23)
+    CS:egpRemove(17)
+    CS:egpBox(24,vec2(5,500.09),vec2(120,40))
+    CS:egpColor(24,vec(68,0,146))
+    CS:egpRoundedBox(20,vec2(4.99,350.60),vec2(370,268.60))
+    CS:egpColor(20,vec(60,60,60))
+    CS:egpRoundedBox(21,vec2(55,360.60),vec2(145,250.60))
+    CS:egpColor(21,vec(213,210,215))
+    CS:egpRemove(3)
+    CS:egpBox(80,vec2(3.64,344),vec2(250,30))
+    CS:egpColor(80,vec(173,162,185))
+    CS:egpText(81,"Urban Dictionary",vec2(1,337))
+    CS:egpColor(81,vec(20,20,20))
+    CS:egpBox(150,vec2(3.64,390),vec2(125,30))
+    CS:egpColor(150,vec(173,162,185))
+    CS:egpText(151,"Notepad",vec2(1,383))
+    CS:egpColor(151,vec(20,20,20))
+    CS:egpBox(290,vec2(30.00,57.38),vec2(40,40))
+    CS:egpColor(290,vec(92,203,250))
+    CS:egpBox(291,vec2(30.00,55.38),vec2(30,20))
+    CS:egpColor(291,vec(240,230,140))
+    
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Shut down button on start menu
+	
+	
+    CS:egpText(25,"Shut Down",vec2(134.61,461.33))
+    CS:egpColor(25,vec(255,255,255))
+    CS:egpSize(25,10)
+
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+
+
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Start game application (mouse over my computer taskbar icon)
+
+    if (inrange(Pos, vec2(6.60,35.10) , vec2(53.31,81.28))){
+    CS:egpColor(291,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRoundedBox(292,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(292,vec(60,60,60))    
+    CS:egpBox(293,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(293,vec(213,210,215))
+    CS:egpBox(181,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(181,vec(255,0,0))    
+    CS:egpText(295,"X",vec2(354,149))
+    CS:egpBox(298,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(299,"Snake Game",vec2(80,147))  
+    CS:egpColor(299,vec(20,20,20))
+    CS:egpText(300,"!start to play",vec2(60,170))  
+    CS:egpColor(300,vec(20,20,20))
+    CS:egpText(180,"!stop to close",vec2(60,200))  
+    CS:egpColor(180,vec(20,20,20))
+    CS:egpText(188,"Use arrow keys to move",vec2(60,230))  
+    CS:egpColor(188,vec(20,20,20))
+    CS:egpText(189,"Closing game = all apps close",vec2(60,260))  
+    CS:egpColor(189,vec(20,20,20))
+    Snakegameap=1
+    Snakegame=0
+    }
+    } 
+    else {
+    CS:egpColor(291,vec(240,230,140))
+    }
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close snake game application
+
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33)) & Snakegameap ==1){
+    CS:egpColor(295,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(292)
+    CS:egpRemove(293)
+    CS:egpRemove(294)
+    CS:egpRemove(295)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(300)
+    CS:egpRemove(180)
+    CS:egpRemove(181)
+    CS:egpRemove(188)
+    CS:egpRemove(189)
+    Snakegameap=0
+    Snakegame=0
+    }
+    } 
+    else {
+    CS:egpColor(295,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Computer button on start menu
+	
+	
+	
+    CS:egpText(26,"Computer",vec2(128.61,320.33))
+    CS:egpColor(26,vec(255,255,255))
+    CS:egpSize(26,15)    
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Start my computer application
+	
+	
+    if (inrange(Pos, vec2(132.73,318.47) , vec2(184.45,337.84))) {
+    CS:egpColor(26,vec(20,20,20))
+    if (changed(Use) & Use) {   
+    Page=10
+    CS:egpRoundedBox(28,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(28,vec(60,60,60))    
+    CS:egpBox(27,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(27,vec(213,210,215))
+    CS:egpBox(29,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(29,vec(255,0,0))    
+    CS:egpText(30,"X",vec2(354,149))
+    CS:egpBox(33,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(33,vec(185,185,185))
+    CS:egpText(34,"-",vec2(328,149))
+    CS:egpBox(31,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(32,"My Computer",vec2(80,147))  
+    CS:egpColor(32,vec(20,20,20)) 
+    CS:egpBox(35,vec2(130,500.09),vec2(40,40))
+    CS:egpColor(35,vec(92,203,250))
+    CS:egpBox(36,vec2(131,497.09),vec2(30,20))
+    CS:egpColor(36,vec(240,230,140))    
+    CS:egpText(38,"Processor: Intel(R) Core(TM) i7 20GHz",vec2(60,170))  
+    CS:egpColor(38,vec(20,20,20))  
+    CS:egpText(39,"Memory: 64,00 GB",vec2(60,200))  
+    CS:egpColor(39,vec(20,20,20))  
+    CS:egpText(40,"Graphics Card: AMD Radeon HD 7770",vec2(60,230))  
+    CS:egpColor(40,vec(20,20,20))
+	Computer=1
+    }
+    }
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Calculator name on start menu
+	
+	
+    CS:egpBox(70,vec2(3.64,252.59),vec2(150,30))
+    CS:egpColor(70,vec(173,162,185)) 
+    CS:egpText(71,"Calculator",vec2(1,247))
+    CS:egpColor(71,vec(20,20,20))
+	
+
+#/////////////////////////
+
+
+#Open time screen, bottom right
+
+    if (inrange(Pos, vec2(444.87,481.12) , vec2(511.45,511.81))) {
+    CS:egpColor(18,vec(111,159,179))
+    CS:egpColor(19,vec(111,159,179))
+    if (changed(Use) & Use) {
+    Page=12
+     }
+    }
+    else {
+    CS:egpColor(18,vec(255,255,255))
+    CS:egpColor(19,vec(255,255,255))
+    }
+    
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Open calculator software
+
+
+	
+    if (inrange(Pos, vec2(3.65,252.59) , vec2(122.26,278.01))) {
+    CS:egpColor(70,vec(73,110,255)) 
+    if (changed(Use) & Use) {
+    Page=10
+    Rcalculmini=0
+    CS:egpRoundedBox(44,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(44,vec(60,60,60))    
+    CS:egpBox(45,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(45,vec(213,210,215))
+    CS:egpBox(46,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(46,vec(255,0,0))    
+    CS:egpText(47,"X",vec2(324,149))
+    CS:egpBox(48,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(48,vec(185,185,185))
+    CS:egpText(49,"-",vec2(298,149))
+    CS:egpBox(50,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(51,"Calculator",vec2(80,147))  
+    CS:egpColor(51,vec(20,20,20)) 
+    CS:egpBox(52,vec2(185,500.09),vec2(40,40))
+    CS:egpColor(52,vec(92,203,250))
+    CS:egpBox(53,vec2(185,497.09),vec2(20,20))
+    CS:egpColor(53,vec(139,163,240))
+    CS:egpText(54,"To use it,",vec2(80,180))
+    CS:egpText(57,"write on your chat the equation",vec2(80,195))
+    CS:egpText(55,"Example:",vec2(80,210))  
+    CS:egpText(58,"2 + 2 or 3 - 3 or 3 / 3 or -2 * 3",vec2(80,225))
+    CS:egpText(56,"Dont forget the spaces",vec2(80,240))
+    CS:egpText(59,"between each symbol",vec2(80,255))
+    CS:egpBox(100,vec2(155,295),vec2(170,15))
+    Calculator=1
+     }
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Open notepad software
+
+
+	
+    if (inrange(Pos, vec2(2.88,374.25) , vec2(67.64,407.80))) {
+    CS:egpColor(150,vec(73,110,255)) 
+    if (changed(Use) & Use) {
+    Page=10
+    Notepad=1
+    Notepadminimized=0
+    CS:egpRoundedBox(152,vec2(200,250.33),vec2(360,350))
+    CS:egpColor(152,vec(60,60,60))    
+    CS:egpBox(153,vec2(205,240.33),vec2(325,290))
+    CS:egpColor(153,vec(213,210,215))
+    CS:egpBox(154,vec2(329.17,116.73),vec2(15,15))
+    CS:egpColor(154,vec(255,0,0))    
+    CS:egpText(155,"X",vec2(324,107))
+    CS:egpBox(156,vec2(301.17,116.73),vec2(15,15))   
+    CS:egpColor(156,vec(185,185,185))
+    CS:egpText(157,"-",vec2(298,107))
+    CS:egpBox(158,vec2(150,116.73),vec2(200,15))  
+    CS:egpText(159,"Notepad",vec2(60,107))  
+    CS:egpColor(159,vec(20,20,20))
+    CS:egpBox(160,vec2(350,500.09),vec2(40,40))
+    CS:egpColor(160,vec(92,203,250))
+    CS:egpBox(161,vec2(350,497.09),vec2(20,20))
+    CS:egpColor(161,vec(255,255,255))
+    CS:egpText(162,"To use it, write on your chat:",vec2(60,130))
+    CS:egpSize(162,12)
+    CS:egpText(163,"!settext [line] [text] - To set the text.",vec2(60,145))
+    CS:egpSize(163,12)
+    CS:egpText(164,"!setcolor set [line] [color] - To set the color of the text.",vec2(60,160))  
+    CS:egpSize(164,12)
+    CS:egpText(165,"Colors:black, red, blue, green, white, yellow, darkgreen,",vec2(60,175))
+    CS:egpSize(165,12)
+    CS:egpText(166,"indigo, crimson, emerald, limegreen, maroon, dusk",vec2(60,190))
+    CS:egpSize(166,12)
+    CS:egpText(167,"purple, orange, pink, lightblue, darkblue, darkred, gold",vec2(60,205))
+    CS:egpSize(167,12)
+    CS:egpBox(168,vec2(210,300),vec2(300,150))
+     }
+    }
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Minimize notepad software
+
+
+
+
+    if (inrange(Pos, vec2(287.89,106.61) , vec2(311.82,128.91)) & Notepad ==1){
+    CS:egpColor(156,vec(173,216,230))
+    if (changed(Use) & Use & Notepad ==1) {
+    CS:egpRemove(152)
+    CS:egpRemove(153)
+    CS:egpRemove(154)
+    CS:egpRemove(155)
+    CS:egpRemove(156)
+    CS:egpRemove(157)
+    CS:egpRemove(158)
+    CS:egpRemove(159)
+    CS:egpRemove(162)
+    CS:egpRemove(163)
+    CS:egpRemove(164)
+    CS:egpRemove(165)
+    CS:egpRemove(166)
+    CS:egpRemove(167)
+    CS:egpRemove(168)
+    CS:egpRemove(169)
+    CS:egpRemove(170)
+    CS:egpRemove(171)
+    CS:egpRemove(172)
+    CS:egpRemove(173)
+    CS:egpRemove(174)
+    CS:egpRemove(175)
+    CS:egpRemove(176)
+    CS:egpRemove(177)
+    Notepadminimized=1
+    Notepad=0
+    }
+    } 
+    else {
+    CS:egpColor(156,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Close notepad software
+
+
+    if (inrange(Pos, vec2(317.05,105.88) , vec2(340.23,129.34)) & Notepad ==1){
+    CS:egpColor(155,vec(255,0,0))
+    if (changed(Use) & Use & Notepad ==1) {
+    CS:egpRemove(152)
+    CS:egpRemove(153)
+    CS:egpRemove(154)
+    CS:egpRemove(155)
+    CS:egpRemove(156)
+    CS:egpRemove(157)
+    CS:egpRemove(158)
+    CS:egpRemove(159)
+    CS:egpRemove(160)
+    CS:egpRemove(161)
+    CS:egpRemove(162)
+    CS:egpRemove(163)
+    CS:egpRemove(164)
+    CS:egpRemove(165)
+    CS:egpRemove(166)
+    CS:egpRemove(167)
+    CS:egpRemove(168)
+    CS:egpRemove(169)
+    CS:egpRemove(170)
+    CS:egpRemove(171)
+    CS:egpRemove(172)
+    CS:egpRemove(173)
+    CS:egpRemove(174)
+    CS:egpRemove(175)
+    CS:egpRemove(176)
+    CS:egpRemove(177)
+    Notepadminimized=0
+    Notepad=0
+    }
+    } 
+    else {
+    CS:egpColor(155,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over notepad icon on taskbar (Maximize notepad application)
+
+    if (inrange(Pos, vec2(325.74,478.20) , vec2(374.55,511.13)) & Notepadminimized ==1){
+    CS:egpColor(161,vec(181,180,180))
+    CS:egpText(178,"Notepad",vec2(286.88,420.29))
+    if (changed(Use) & Use & Notepadminimized ==1) {
+    Notepad=1
+    Notepadminimized=0
+    CS:egpRoundedBox(152,vec2(200,250.33),vec2(360,350))
+    CS:egpColor(152,vec(60,60,60))    
+    CS:egpBox(153,vec2(205,240.33),vec2(325,290))
+    CS:egpColor(153,vec(213,210,215))
+    CS:egpBox(154,vec2(329.17,116.73),vec2(15,15))
+    CS:egpColor(154,vec(255,0,0))    
+    CS:egpText(155,"X",vec2(324,107))
+    CS:egpBox(156,vec2(301.17,116.73),vec2(15,15))   
+    CS:egpColor(156,vec(185,185,185))
+    CS:egpText(157,"-",vec2(298,107))
+    CS:egpBox(158,vec2(150,116.73),vec2(200,15))  
+    CS:egpText(159,"Notepad",vec2(60,107))  
+    CS:egpColor(159,vec(20,20,20))
+    CS:egpBox(160,vec2(350,500.09),vec2(40,40))
+    CS:egpColor(160,vec(92,203,250))
+    CS:egpBox(161,vec2(350,497.09),vec2(20,20))
+    CS:egpColor(161,vec(255,255,255))
+    CS:egpText(162,"To use it, write on your chat:",vec2(60,130))
+    CS:egpSize(162,12)
+    CS:egpText(163,"!settext [line] [text] - To set the text.",vec2(60,145))
+    CS:egpSize(163,12)
+    CS:egpText(164,"!setcolor set [line] [color] - To set the color of the text.",vec2(60,160))  
+    CS:egpSize(164,12)
+    CS:egpText(165,"Colors:black, red, blue, green, white, yellow, darkgreen,",vec2(60,175))
+    CS:egpSize(165,12)
+    CS:egpText(166,"indigo, crimson, emerald, limegreen, maroon, dusk",vec2(60,190))
+    CS:egpSize(166,12)
+    CS:egpText(167,"purple, orange, pink, lightblue, darkblue, darkred, gold",vec2(60,205))
+    CS:egpSize(167,12)
+    CS:egpBox(168,vec2(210,300),vec2(300,150))
+    CS:egpTextLayout(169,Textnotepad,vec2(75,230),vec2(285,30))
+    CS:egpTextLayout(170,Textnotepad2,vec2(75,245),vec2(285,30))
+    CS:egpTextLayout(171,Textnotepad3,vec2(75,260),vec2(285,30))
+    CS:egpTextLayout(172,Textnotepad4,vec2(75,275),vec2(285,30))
+    CS:egpTextLayout(173,Textnotepad5,vec2(75,290),vec2(285,30))
+    CS:egpTextLayout(174,Textnotepad6,vec2(75,305),vec2(285,30))
+    CS:egpTextLayout(175,Textnotepad7,vec2(75,320),vec2(285,30))
+    CS:egpTextLayout(176,Textnotepad8,vec2(75,335),vec2(285,30))
+    CS:egpTextLayout(177,Textnotepad9,vec2(75,350),vec2(285,30))
+}
+    }
+    else {
+    CS:egpColor(161,vec(255,255,255))
+    CS:egpRemove(178)
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Open urban dictionary software
+
+
+	
+    if (inrange(Pos, vec2(0.70,326.61) , vec2(128.30,367.50))) {
+    CS:egpColor(80,vec(73,110,255)) 
+    if (changed(Use) & Use) {
+    Page=10
+    Urban=1
+    Urbanminimized=0
+    CS:egpRoundedBox(285,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(285,vec(60,60,60))    
+    CS:egpBox(286,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(286,vec(213,210,215))
+    CS:egpBox(287,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(287,vec(255,0,0))    
+    CS:egpText(288,"X",vec2(324,149))
+    CS:egpBox(289,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(289,vec(185,185,185))
+    CS:egpText(290,"-",vec2(298,149))
+    CS:egpBox(291,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(292,"Urban Dictionary",vec2(80,147))  
+    CS:egpColor(292,vec(20,20,20))
+    CS:egpBox(293,vec2(295,500.09),vec2(40,40))
+    CS:egpColor(293,vec(92,203,250))
+    CS:egpBox(294,vec2(295,497.09),vec2(20,20))
+    CS:egpColor(294,vec(139,0,139))
+    CS:egpText(295,"To use it,",vec2(80,180))
+    CS:egpSize(295,12)
+    CS:egpText(296,"write on your chat -define +word",vec2(80,195))
+    CS:egpSize(296,12)
+    CS:egpText(297,"Example:",vec2(80,210))  
+    CS:egpSize(297,12)
+    CS:egpText(298,"-define test , -define FTW",vec2(80,225))
+    CS:egpSize(298,12)
+    CS:egpText(299,"Dont forget the space",vec2(80,240))
+    CS:egpSize(299,12)
+    CS:egpText(82,"between -define and word",vec2(80,255))
+    CS:egpSize(82,12)
+    CS:egpBox(83,vec2(210,305),vec2(230,78))
+    CS:egpBox(89,vec2(273.91,250.79),vec2(125,15))
+     }
+    }
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Minimize urban dictionary software
+
+
+
+
+    if (inrange(Pos, vec2(287.07,148.16) , vec2(313.45,169.57)) & Urban ==1){
+    CS:egpColor(289,vec(173,216,230))
+    if (changed(Use) & Use & Urban ==1) {
+    CS:egpRemove(285)
+    CS:egpRemove(286)
+    CS:egpRemove(287)
+    CS:egpRemove(288)
+    CS:egpRemove(289)
+    CS:egpRemove(290)
+    CS:egpRemove(291)
+    CS:egpRemove(292)
+    CS:egpRemove(295)
+    CS:egpRemove(296)
+    CS:egpRemove(297)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(82)
+    CS:egpRemove(83)
+    CS:egpRemove(84)
+    CS:egpRemove(85)
+    CS:egpRemove(89)
+    Urbanminimized=1
+    Urban=0
+    }
+    } 
+    else {
+    CS:egpColor(289,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Close urban dictionary software
+
+
+    if (inrange(Pos, vec2(317.91,145.47) , vec2(342.05,168.61)) & Urban ==1){
+    CS:egpColor(288,vec(255,0,0))
+    if (changed(Use) & Use & Urban ==1) {
+    CS:egpRemove(285)
+    CS:egpRemove(286)
+    CS:egpRemove(287)
+    CS:egpRemove(288)
+    CS:egpRemove(289)
+    CS:egpRemove(290)
+    CS:egpRemove(291)
+    CS:egpRemove(292)
+    CS:egpRemove(293)
+    CS:egpRemove(294)
+    CS:egpRemove(295)
+    CS:egpRemove(296)
+    CS:egpRemove(297)
+    CS:egpRemove(298)
+    CS:egpRemove(299)
+    CS:egpRemove(82)
+    CS:egpRemove(83)
+    CS:egpRemove(84)
+    CS:egpRemove(85)
+    CS:egpRemove(89)
+    Urbanminimized=0
+    Urban=0
+    }
+    } 
+    else {
+    CS:egpColor(288,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over urban dictionary icon on taskbar (Maximize urban dictionary application)
+
+    if (inrange(Pos, vec2(272.12,476.05) , vec2(320.98,511.44)) & Urbanminimized ==1){
+    CS:egpColor(294,vec(173,216,230))
+    CS:egpText(88,"Urban Dictionary",vec2(216.88,420.29))
+    CS:egpColor(88,vec(20,20,20)) 
+    if (changed(Use) & Use & Urbanminimized ==1) {
+    Urban=1
+    Urbanminimized=0
+    CS:egpRoundedBox(285,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(285,vec(60,60,60))    
+    CS:egpBox(286,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(286,vec(213,210,215))
+    CS:egpBox(287,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(287,vec(255,0,0))    
+    CS:egpText(288,"X",vec2(324,149))
+    CS:egpBox(289,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(289,vec(185,185,185))
+    CS:egpText(290,"-",vec2(298,149))
+    CS:egpBox(291,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(292,"Urban Dictionary",vec2(80,147))  
+    CS:egpColor(292,vec(20,20,20))
+    CS:egpText(295,"To use it,",vec2(80,180))
+    CS:egpSize(295,12)
+    CS:egpText(296,"write on your chat -define +word",vec2(80,195))
+    CS:egpSize(296,12)
+    CS:egpText(297,"Example:",vec2(80,210))  
+    CS:egpSize(297,12)
+    CS:egpText(298,"-define test , -define FTW",vec2(80,225))
+    CS:egpSize(298,12)
+    CS:egpText(299,"Dont forget the space",vec2(80,240))
+    CS:egpSize(299,12)
+    CS:egpText(82,"between -define and word",vec2(80,255))
+    CS:egpSize(82,12)
+    CS:egpBox(83,vec2(210,305),vec2(230,78))
+    CS:egpBox(89,vec2(273.91,250.79),vec2(125,15))
+}
+    }
+    else {
+    CS:egpColor(294,vec(139,0,139))
+    CS:egpRemove(88)
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Minimize calculator software
+
+
+
+
+    if (inrange(Pos, vec2(287.07,148.16) , vec2(313.45,169.57)) & Calculator ==1){
+    CS:egpColor(48,vec(173,216,230))
+    if (changed(Use) & Use & Calculator ==1) {
+    CS:egpRemove(44)
+    CS:egpRemove(45)
+    CS:egpRemove(46)
+    CS:egpRemove(47)
+    CS:egpRemove(48)
+    CS:egpRemove(49)
+    CS:egpRemove(50)
+    CS:egpRemove(51)
+    CS:egpRemove(54)
+    CS:egpRemove(55)
+    CS:egpRemove(56)
+    CS:egpRemove(57)
+    CS:egpRemove(58)
+    CS:egpRemove(59)
+    CS:egpRemove(100)
+    CS:egpRemove(90)
+    Rcalculmini=1
+    Calculator=0
+    }
+    } 
+    else {
+    CS:egpColor(48,vec(185,185,185))
+    }
+	
+	
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Close calculator software
+
+
+    if (inrange(Pos, vec2(317.91,145.47) , vec2(342.05,168.61)) & Calculator ==1){
+    CS:egpColor(47,vec(255,0,0))
+    if (changed(Use) & Use & Calculator ==1) {
+    CS:egpRemove(44)
+    CS:egpRemove(45)
+    CS:egpRemove(46)
+    CS:egpRemove(47)
+    CS:egpRemove(48)
+    CS:egpRemove(49)
+    CS:egpRemove(50)
+    CS:egpRemove(51)
+    CS:egpRemove(52)
+    CS:egpRemove(53)
+    CS:egpRemove(54)
+    CS:egpRemove(55)
+    CS:egpRemove(56)
+    CS:egpRemove(57)
+    CS:egpRemove(58)
+    CS:egpRemove(59)
+    CS:egpRemove(100)
+    CS:egpRemove(90)
+    Rcalculmini=0
+    Calculator=0
+    }
+    } 
+    else {
+    CS:egpColor(47,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over calculator icon on taskbar (Maximize calculator application)
+
+    if (inrange(Pos, vec2(160.49,474.84) , vec2(210.09,511.63)) & Rcalculmini ==1){
+    CS:egpColor(53,vec(173,216,230))
+    CS:egpText(60,"Calculator",vec2(176.88,420.29))
+    CS:egpColor(60,vec(20,20,20)) 
+    if (changed(Use) & Use & Rcalculmini ==1) {
+    CS:egpRoundedBox(44,vec2(200,250.33),vec2(290,210))
+    CS:egpColor(44,vec(60,60,60))    
+    CS:egpBox(45,vec2(205,240.33),vec2(270,150))
+    CS:egpColor(45,vec(213,210,215))
+    CS:egpBox(46,vec2(329.17,158.73),vec2(15,15))
+    CS:egpColor(46,vec(255,0,0))   
+    CS:egpText(47,"X",vec2(324,149))
+    CS:egpBox(48,vec2(301.17,158.73),vec2(15,15))   
+    CS:egpColor(48,vec(185,185,185))
+    CS:egpText(49,"-",vec2(298,149))
+    CS:egpBox(50,vec2(170,156.73),vec2(200,15))  
+    CS:egpText(51,"Calculator",vec2(80,147))  
+    CS:egpColor(51,vec(20,20,20)) 
+    CS:egpText(54,"To use it,",vec2(80,180))
+    CS:egpText(57,"write on your chat the equation",vec2(80,195))
+    CS:egpText(55,"Example:",vec2(80,210))  
+    CS:egpText(58,"2 + 2 or 3 - 3 or 3 / 3 or -2 * 3",vec2(80,225))
+    CS:egpText(56,"Dont forget the spaces",vec2(80,240))
+    CS:egpText(59,"between each symbol",vec2(80,255))
+    CS:egpBox(100,vec2(155,295),vec2(170,15))
+    Calculator=1
+    Rcalculmini=0
+}
+    }
+    else {
+    CS:egpColor(53,vec(139,163,240))
+    CS:egpRemove(60)
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Maximize my computer application (mouse over my computer taskbar icon)
+	
+	
+    if (inrange(Pos, vec2(106.88,477.29) , vec2(153.88,509.20)) & Rchangecomputer ==1){
+    CS:egpColor(36,vec(173,216,230))
+    CS:egpText(37,"My Computer",vec2(126.88,420.29))
+    CS:egpColor(37,vec(20,20,20)) 
+    if (changed(Use) & Use & Rchangecomputer ==1) {
+    CS:egpRoundedBox(28,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(28,vec(60,60,60))    
+    CS:egpBox(27,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(27,vec(213,210,215))
+    CS:egpBox(29,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(29,vec(255,0,0))    
+    CS:egpText(30,"X",vec2(354,149))
+    CS:egpBox(33,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(33,vec(185,185,185))
+    CS:egpText(34,"-",vec2(328,149))
+    CS:egpBox(31,vec2(150,156.73),vec2(200,15))
+    CS:egpText(32,"My Computer",vec2(80,147))  
+    CS:egpColor(32,vec(20,20,20))    
+    CS:egpText(38,"Processor: Intel(R) Core(TM) i7 20GHz",vec2(60,170))  
+    CS:egpColor(38,vec(20,20,20))  
+    CS:egpText(39,"Memory: 64,00 GB",vec2(60,200))  
+    CS:egpColor(39,vec(20,20,20))  
+    CS:egpText(40,"Graphics Card: AMD Radeon HD 7770",vec2(60,230))  
+    CS:egpColor(40,vec(20,20,20))
+	Computer=1
+	Rchangecomputer=0
+    }
+    } 
+    else {
+    CS:egpColor(36,vec(240,230,140))
+    CS:egpRemove(37)
+    }
+	
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Minimize my computer application
+
+    if (inrange(Pos, vec2(318.05,146.43) , vec2(343.42,169.69)) & Computer ==1){
+    CS:egpColor(33,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRemove(28)
+    CS:egpRemove(27)
+    CS:egpRemove(29)
+    CS:egpRemove(30)
+    CS:egpRemove(31)
+    CS:egpRemove(32)
+    CS:egpRemove(33)
+    CS:egpRemove(34)
+    CS:egpRemove(38)
+    CS:egpRemove(39)
+    CS:egpRemove(40)
+    Rchangecomputer=1
+	Computer=0
+    }
+    } 
+    else {
+    CS:egpColor(33,vec(185,185,185))
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Close my computer application
+
+
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33)) & Computer ==1){
+    CS:egpColor(30,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(28)
+    CS:egpRemove(27)
+    CS:egpRemove(29)
+    CS:egpRemove(30)
+    CS:egpRemove(31)
+    CS:egpRemove(32)
+    CS:egpRemove(33)
+    CS:egpRemove(34)
+    CS:egpRemove(35)
+    CS:egpRemove(36)
+    CS:egpRemove(38)
+    CS:egpRemove(39)
+    CS:egpRemove(40)
+    Rchangecomputer=0
+	Computer=0
+    }
+    } 
+    else {
+    CS:egpColor(30,vec(255,255,255))
+    }
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+#Shut down computer button on start menu
+	
+	
+    if (inrange(Pos, vec2(136.54,459.61) , vec2(179.06,473.15))) {
+    CS:egpColor(25,vec(20,20,20))
+    if (changed(Use) & Use) {       
+    Page=20
+    }
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close start menu
+
+
+
+    if (inrange(Pos, vec2(6.10,487.60) , vec2(57.57,509.36))) {
+    if (changed(Use) & Use) {
+        Page=10
+    }
+    }
+    
+    
+    CS:egpBox(230,vec2(3.64,298),vec2(186,30))
+    CS:egpColor(230,vec(173,162,185))
+    CS:egpText(231,"Music Player",vec2(1,292))
+    CS:egpColor(231,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(5.78,290.04) , vec2(101.96,314.29))) {
+    CS:egpColor(230,vec(73,110,255))
+    if (changed(Use) & Use) {   
+    Page=10
+    CS:egpRoundedBox(232,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(232,vec(60,60,60))    
+    CS:egpBox(233,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(233,vec(213,210,215))
+    CS:egpBox(234,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(234,vec(255,0,0))    
+    CS:egpText(235,"X",vec2(354,149))
+    CS:egpBox(236,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(236,vec(185,185,185))
+    CS:egpText(237,"-",vec2(328,149))
+    CS:egpBox(238,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(239,"Music Player",vec2(80,147))  
+    CS:egpColor(239,vec(20,20,20)) 
+    CS:egpBox(240,vec2(240,500.09),vec2(40,40))
+    CS:egpColor(240,vec(92,203,250))
+    CS:egpBox(241,vec2(240,497.09),vec2(20,20))
+    CS:egpColor(241,vec(250,152,4))
+    CS:egpText(242,"Select Audio Playlist:",vec2(60,170))  
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(243,"Radio",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    Musicplay=1
+    Musicplayon=1
+    Musicplayminimize=0
+    CS:egpText(244,"Half-Life 1",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    CS:egpText(245,"Half-Life 2",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    CS:egpSize(245,15)
+    CS:egpText(246,"Portal",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    CS:egpText(247,"Team Fortress 2",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    CS:egpText(250,"",vec2(95,200))
+    CS:egpText(251,"",vec2(95,220))
+    CS:egpText(252,"",vec2(95,240))
+    CS:egpText(253,"",vec2(95,260))
+    CS:egpText(254,"",vec2(95,280))
+    CS:egpText(255,"",vec2(130,200))
+    CS:egpText(256,"",vec2(130,220))
+    CS:egpText(257,"",vec2(130,240))
+    CS:egpText(258,"",vec2(130,260))
+	   CS:egpText(259,"",vec2(130,280))
+    CS:egpText(260,"",vec2(165,200))
+    CS:egpText(248,"",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"",vec2(250,270))
+    CS:egpColor(261,vec(20,20,20))
+    CS:egpText(260,"",vec2(165,260))
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpText(265,"",vec2(165,260))
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpText(266,"",vec2(165,260))
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpText(267,"",vec2(165,260))
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpText(268,"",vec2(165,260))
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpText(269,"",vec2(165,260))
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpText(270,"",vec2(165,260))
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpText(271,"",vec2(165,260))
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpText(272,"",vec2(165,260))
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpText(273,"",vec2(165,260))
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpText(274,"",vec2(165,260))
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpText(275,"",vec2(165,260))
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpText(276,"",vec2(165,260))
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpText(277,"",vec2(165,260))
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpText(278,"",vec2(165,260))
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpText(279,"",vec2(165,260))
+    CS:egpColor(279,vec(20,20,20))
+    }
+    }
+    
+    #////////////////////////////
+    #Radio Play list music
+    
+    
+    
+    
+    if (Radioplaylist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Radio",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/piano1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/piano2.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/guit1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/flamenco.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/mirame_radio_thru_wall.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/looping_radio_mix.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/opera.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/country_rock_am_radio_loop.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/cubanmusic1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/latin.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/bongo.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic1.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic2.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ambient/music/dustmusic3.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/radio1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"test/temp/soundscape_test/tv_music.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    }
+    
+    
+    #///////////////////////////////////////////////////
+    #Half-Life1 music
+    
+    
+    if (Halflife1playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Half-Life 1",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song17.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song19.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song20.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song21.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song24.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song25_remix3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song26.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song5.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    }
+    
+    #//////////////////////////////////////////////////////////////  
+    
+    #Half life 2 Play list music
+    
+    if (Halflife2playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Half-Life 2",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_intro.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song0.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song12_long.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song13.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song16.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song17.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song19.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song20_submix4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song23_suitsong3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song25_teleporter.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    
+    CS:egpText(265,"17",vec2(165,220))  
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpSize(265,15)  
+    
+    if (inrange(Pos, vec2(163.38,221.66) , vec2(185.58,236.66))){
+    CS:egpColor(265,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song26.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(265,vec(20,20,20))
+    }
+    
+    CS:egpText(266,"18",vec2(165,240))  
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpSize(266,15)  
+    
+    if (inrange(Pos, vec2(163.38,240.62) , vec2(185.58,256.61))){
+    CS:egpColor(266,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song26_trainstation1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(266,vec(20,20,20))
+    }
+    
+    CS:egpText(267,"19",vec2(165,260))  
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpSize(267,15)  
+    
+    if (inrange(Pos, vec2(163.38,260.80) , vec2(185.58,276.97))){
+    CS:egpColor(267,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song27_trainstation2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(267,vec(20,20,20))
+    }
+    
+    CS:egpText(268,"20",vec2(165,280))  
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpSize(268,15)  
+    
+    if (inrange(Pos, vec2(163.38,281.37) , vec2(185.58,296.67))){
+    CS:egpColor(268,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song28.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(268,vec(20,20,20))
+    }
+    
+    CS:egpText(269,"21",vec2(190,200))  
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpSize(269,15)  
+    
+    if (inrange(Pos, vec2(187.69,199.46) , vec2(210.83,217.20))){
+    CS:egpColor(269,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song29.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(269,vec(20,20,20))
+    }
+    
+    CS:egpText(270,"22",vec2(190,220))  
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpSize(270,15)  
+    
+    if (inrange(Pos, vec2(187.69,221.66) , vec2(210.83,236.66))){
+    CS:egpColor(270,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(270,vec(20,20,20))
+    }
+    
+    CS:egpText(271,"23",vec2(190,240))  
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpSize(271,15)  
+    
+    if (inrange(Pos, vec2(187.69,240.62) , vec2(210.83,256.61))){
+    CS:egpColor(271,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song30.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(271,vec(20,20,20))
+    }
+    
+    CS:egpText(272,"24",vec2(190,260))  
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpSize(272,15)  
+    
+    if (inrange(Pos, vec2(187.69,260.80) , vec2(210.83,276.97))){
+    CS:egpColor(272,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song31.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(272,vec(20,20,20))
+    }
+    
+    CS:egpText(273,"25",vec2(190,280))  
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpSize(273,15)  
+    
+    if (inrange(Pos, vec2(187.69,281.37) , vec2(210.83,296.67))){
+    CS:egpColor(273,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song32.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(273,vec(20,20,20))
+    }
+    
+    CS:egpText(274,"26",vec2(220,200))  
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpSize(274,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,199.46) , vec2(240.01,217.20))){
+    CS:egpColor(274,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song33.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(274,vec(20,20,20))
+    }
+    
+    CS:egpText(275,"27",vec2(220,220))  
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpSize(275,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,221.66) , vec2(240.01,236.66))){
+    CS:egpColor(275,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(275,vec(20,20,20))
+    }
+    
+    CS:egpText(276,"28",vec2(220,240))  
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpSize(276,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,240.62) , vec2(240.01,256.61))){
+    CS:egpColor(276,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(276,vec(20,20,20))
+    }
+    
+    CS:egpText(277,"29",vec2(220,260))  
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpSize(277,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,260.80) , vec2(240.01,276.97))){
+    CS:egpColor(277,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song7.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(277,vec(20,20,20))
+    }
+    
+    CS:egpText(278,"30",vec2(220,280))  
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpSize(278,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,281.37) , vec2(240.01,296.67))){
+    CS:egpColor(278,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl2_song8.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(279,vec(20,20,20))
+    }
+    
+    CS:egpText(279,"31",vec2(220,300))  
+    CS:egpColor(279,vec(20,20,20))
+    CS:egpSize(279,15)
+    
+    
+    if (inrange(Pos, vec2(217.43,299.00) , vec2(240.01,319.00))){
+    CS:egpColor(279,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/ravenholm_1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(279,vec(20,20,20))
+    }
+}
+    
+    #//////////////////////////////////////////////////////////////  
+    
+    #Portal Play list music
+    
+    if (Portalplaylist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Portal",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_4000_degrees_kelvin.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_android_hell.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_no_cake_for_you.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_party_escort.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_procedural_jiggle_bone.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_self_esteem_fund.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_still_alive.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_stop_what_you_are_doing.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_subject_name_here.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_taste_of_blood.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_you_cant_escape_you_know.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/portal_youre_not_a_good_person.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+}
+
+#////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    #Team Fortress 2 Play list music
+    
+    if (TeamFortress2playlist ==1 & Musicplayminimize ==0){
+    CS:egpText(242,"Select Audio Track:",vec2(60,170))
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(248,"Team Fortress 2",vec2(230,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"Back",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"Stop Music",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    
+    if (inrange(Pos, vec2(245.00,267.29) , vec2(338.64,289.28))){
+    CS:egpColor(261,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"")
+    }
+    
+    }
+    else {
+    CS:egpColor(261,vec(20,20,20))
+    }
+    
+    CS:egpText(243,"1",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    if (inrange(Pos, vec2(55.61,200.55) , vec2(73.82,216.32))){
+    CS:egpColor(243,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/fortress_reel.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    CS:egpText(244,"2",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    
+    if (inrange(Pos, vec2(54.98,221.66) , vec2(73.82,236.66))){
+    CS:egpColor(244,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"items/tf_music_upgrade_machine.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(245,"3",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    
+    CS:egpSize(245,15)
+    
+    if (inrange(Pos, vec2(55.04,239.39) , vec2(71.78,258.16))){
+    CS:egpColor(245,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/mvm_start_wave.wav")
+    }
+    
+    }
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(246,"4",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    
+    if (inrange(Pos, vec2(54.98,260.80) , vec2(72.57,276.97))){
+    CS:egpColor(246,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(247,"5",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    
+    if (inrange(Pos, vec2(56.24,281.37) , vec2(72.57,296.67))){
+    CS:egpColor(247,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"music/hl1_song11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(250,"6",vec2(95,200))  
+    CS:egpColor(250,vec(20,20,20))
+    CS:egpSize(250,15)
+    
+    if (inrange(Pos, vec2(89.94,200.55) , vec2(109.53,216.32))){
+    CS:egpColor(250,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup1.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(250,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(251,"7",vec2(95,220))  
+    CS:egpColor(251,vec(20,20,20))
+    CS:egpSize(251,15)
+    
+    if (inrange(Pos, vec2(90.50,221.66) , vec2(107.93,236.66))){
+    CS:egpColor(251,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup10.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(251,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(252,"8",vec2(95,240))  
+    CS:egpColor(252,vec(20,20,20))
+    CS:egpSize(252,15)
+    
+    if (inrange(Pos, vec2(92.16,240.62) , vec2(109.00,256.61))){
+    CS:egpColor(252,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup11.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(252,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(253,"9",vec2(95,260))  
+    CS:egpColor(253,vec(20,20,20))
+    CS:egpSize(253,15)
+    
+    if (inrange(Pos, vec2(90.50,260.80) , vec2(107.93,276.97))){
+    CS:egpColor(253,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup12.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(253,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(254,"10",vec2(95,280))  
+    CS:egpColor(254,vec(20,20,20))
+    CS:egpSize(254,15) 
+    
+    if (inrange(Pos, vec2(92.16,281.37) , vec2(115.91,296.67))){
+    CS:egpColor(254,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup13.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(254,vec(20,20,20))
+    }
+    
+     
+    CS:egpText(255,"11",vec2(130,200))  
+    CS:egpColor(255,vec(20,20,20))
+    CS:egpSize(255,15)
+    
+    if (inrange(Pos, vec2(127.44 ,200.55) , vec2(150.15,216.32))){
+    CS:egpColor(255,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup14.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(255,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(256,"12",vec2(130,220))  
+    CS:egpColor(256,vec(20,20,20))
+    CS:egpSize(256,15)
+    
+    if (inrange(Pos, vec2(127.44,221.66) , vec2(150.15,236.66))){
+    CS:egpColor(256,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup15.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(256,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(257,"13",vec2(130,240))  
+    CS:egpColor(257,vec(20,20,20))
+    CS:egpSize(257,15)
+    
+    if (inrange(Pos, vec2(127.44,240.62) , vec2(150.15,256.61))){
+    CS:egpColor(257,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup16.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(257,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(258,"14",vec2(130,260))  
+    CS:egpColor(258,vec(20,20,20))
+    CS:egpSize(258,15)
+    
+    if (inrange(Pos, vec2(127.44,260.80) , vec2(150.15,276.97))){
+    CS:egpColor(258,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup2.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(258,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(259,"15",vec2(130,280))  
+    CS:egpColor(259,vec(20,20,20))
+    CS:egpSize(259,15) 
+    
+    if (inrange(Pos, vec2(127.44,281.37) , vec2(150.15,296.67))){
+    CS:egpColor(259,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup3.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(259,vec(20,20,20))
+    }
+    
+    
+    CS:egpText(260,"16",vec2(165,200))  
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpSize(260,15)  
+    
+    if (inrange(Pos, vec2(163.38,199.46) , vec2(185.58,217.20))){
+    CS:egpColor(260,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup4.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(260,vec(20,20,20))
+    }
+    
+    CS:egpText(265,"17",vec2(165,220))  
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpSize(265,15)  
+    
+    if (inrange(Pos, vec2(163.38,221.66) , vec2(185.58,236.66))){
+    CS:egpColor(265,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup5.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(265,vec(20,20,20))
+    }
+    
+    CS:egpText(266,"18",vec2(165,240))  
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpSize(266,15)  
+    
+    if (inrange(Pos, vec2(163.38,240.62) , vec2(185.58,256.61))){
+    CS:egpColor(266,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup6.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(266,vec(20,20,20))
+    }
+    
+    CS:egpText(267,"19",vec2(165,260))  
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpSize(267,15)  
+    
+    if (inrange(Pos, vec2(163.38,260.80) , vec2(185.58,276.97))){
+    CS:egpColor(267,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup7.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(267,vec(20,20,20))
+    }
+    
+    CS:egpText(268,"20",vec2(165,280))  
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpSize(268,15)  
+    
+    if (inrange(Pos, vec2(163.38,281.37) , vec2(185.58,296.67))){
+    CS:egpColor(268,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup8.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(268,vec(20,20,20))
+    }
+    
+    CS:egpText(269,"21",vec2(190,200))  
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpSize(269,15)  
+    
+    if (inrange(Pos, vec2(187.69,199.46) , vec2(210.83,217.20))){
+    CS:egpColor(269,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(269,vec(20,20,20))
+    }
+    
+    CS:egpText(270,"22",vec2(190,220))  
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpSize(270,15)  
+    
+    if (inrange(Pos, vec2(187.69,221.66) , vec2(210.83,236.66))){
+    CS:egpColor(270,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/gamestartup9.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(270,vec(20,20,20))
+    }
+    
+    CS:egpText(271,"23",vec2(190,240))  
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpSize(271,15)  
+    
+    if (inrange(Pos, vec2(187.69,240.62) , vec2(210.83,256.61))){
+    CS:egpColor(271,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+        soundPlay(0,0,"ui/holiday/gamestartup_saxxy.mp3")
+    }
+    
+    }
+    else {
+    CS:egpColor(271,vec(20,20,20))
+    }
+}
+
+#//////////////////////////////////////////////
+    
+    
+    if (inrange(Pos, vec2(59.84,199.22) , vec2(100.00,215.03)) & Musicplay ==1){
+    CS:egpColor(243,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Radioplaylist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(243,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(57.05,220.47) , vec2(127.25,237.18)) & Musicplay ==1){
+    CS:egpColor(244,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Halflife1playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(244,vec(20,20,20))
+    }
+    
+    
+    if (inrange(Pos, vec2(59.01,237.55) , vec2(126.37,258.07)) & Musicplay ==1){
+    CS:egpColor(245,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Halflife2playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(245,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(59.01,259.04) , vec2(100.46,276.86)) & Musicplay ==1){
+    CS:egpColor(246,vec(87,87,92))
+    if (changed(Use) & Use) {
+        Portalplaylist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(246,vec(20,20,20))
+    }
+    
+    if (inrange(Pos, vec2(59.98,280.12) , vec2(161.71,299.90)) & Musicplay ==1){
+    CS:egpColor(247,vec(87,87,92))
+    if (changed(Use) & Use) {
+        TeamFortress2playlist=1
+        Musicplay=0
+    }
+    } 
+    else {
+    CS:egpColor(247,vec(20,20,20))
+    }
+    
+    
+    if (inrange(Pos, vec2(243.40,220.32) , vec2(290.85,237.58))){
+    CS:egpColor(249,vec(87,87,92)) 
+    if (changed(Use) & Use) {
+    CS:egpRemove(242)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpText(250,"",vec2(95,200))
+    CS:egpText(251,"",vec2(95,220))
+    CS:egpText(252,"",vec2(95,240))
+    CS:egpText(253,"",vec2(95,260))
+    CS:egpText(254,"",vec2(95,280))
+    CS:egpText(255,"",vec2(130,200))
+    CS:egpText(256,"",vec2(130,220))
+    CS:egpText(257,"",vec2(130,240))
+    CS:egpText(258,"",vec2(130,260))
+	   CS:egpText(259,"",vec2(130,280))
+    CS:egpText(260,"",vec2(165,260))
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpText(265,"",vec2(165,260))
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpText(266,"",vec2(165,260))
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpText(267,"",vec2(165,260))
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpText(268,"",vec2(165,260))
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpText(269,"",vec2(165,260))
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpText(270,"",vec2(165,260))
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpText(271,"",vec2(165,260))
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpText(272,"",vec2(165,260))
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpText(273,"",vec2(165,260))
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpText(274,"",vec2(165,260))
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpText(275,"",vec2(165,260))
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpText(276,"",vec2(165,260))
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpText(277,"",vec2(165,260))
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpText(278,"",vec2(165,260))
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpText(279,"",vec2(165,260))
+    CS:egpColor(279,vec(20,20,20))
+    soundPlay(0,0,"")
+    Radioplaylist=0 
+    Halflife1playlist=0 
+    Halflife2playlist=0 
+    Portalplaylist=0 
+    TeamFortress2playlist=0 
+    Page=10
+    Musicplay=1
+    CS:egpText(242,"Select Audio Playlist:",vec2(60,170))  
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(243,"Radio",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    CS:egpText(244,"Half-Life 1",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    CS:egpText(245,"Half-Life 2",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    CS:egpSize(245,15)
+    CS:egpText(246,"Portal",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    CS:egpText(247,"Team Fortress 2",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    }
+    
+    }
+    else {
+    CS:egpColor(249,vec(20,20,20))
+    }
+    
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Minimize music player application
+
+    if (inrange(Pos, vec2(318.05,146.43) , vec2(343.42,169.69)) & Musicplayon ==1){
+    CS:egpColor(236,vec(173,216,230))
+    if (changed(Use) & Use) {
+    CS:egpRemove(232)
+    CS:egpRemove(233)
+    CS:egpRemove(234)
+    CS:egpRemove(235)
+    CS:egpRemove(236)
+    CS:egpRemove(237)
+    CS:egpRemove(238)
+    CS:egpRemove(239)
+    CS:egpRemove(242)
+    CS:egpRemove(243)
+    CS:egpRemove(244)
+    CS:egpRemove(245)
+    CS:egpRemove(246)
+    CS:egpRemove(247)
+    CS:egpRemove(250)
+    CS:egpRemove(251)
+    CS:egpRemove(252)
+    CS:egpRemove(253)
+    CS:egpRemove(254)
+    CS:egpRemove(255)
+    CS:egpRemove(256)
+    CS:egpRemove(257)
+    CS:egpRemove(258)
+    CS:egpRemove(260)
+    CS:egpRemove(259)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpRemove(260)
+    CS:egpRemove(265)
+    CS:egpRemove(266)
+    CS:egpRemove(267)
+    CS:egpRemove(268)
+    CS:egpRemove(269)
+    CS:egpRemove(270)
+    CS:egpRemove(271)
+    CS:egpRemove(272)
+    CS:egpRemove(273)
+    CS:egpRemove(274)
+    CS:egpRemove(275)
+    CS:egpRemove(276)
+    CS:egpRemove(277)
+    CS:egpRemove(278)
+    CS:egpRemove(279)
+    Musicplay=0
+    Musicplayon=0
+    Musicplayminimize=1
+    }
+    } 
+    else {
+    CS:egpColor(236,vec(185,185,185))
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#Close music player application
+
+    if (inrange(Pos, vec2(347.54,146.90) , vec2(372.87,169.33)) & Musicplayon ==1){
+    CS:egpColor(235,vec(255,0,0))
+    if (changed(Use) & Use) {
+    CS:egpRemove(232)
+    CS:egpRemove(233)
+    CS:egpRemove(234)
+    CS:egpRemove(235)
+    CS:egpRemove(236)
+    CS:egpRemove(237)
+    CS:egpRemove(238)
+    CS:egpRemove(239)
+    CS:egpRemove(240)
+    CS:egpRemove(241)
+    CS:egpRemove(242)
+    CS:egpRemove(243)
+    CS:egpRemove(244)
+    CS:egpRemove(245)
+    CS:egpRemove(246)
+    CS:egpRemove(247)
+    CS:egpRemove(250)
+    CS:egpRemove(251)
+    CS:egpRemove(252)
+    CS:egpRemove(253)
+    CS:egpRemove(254)
+    CS:egpRemove(255)
+    CS:egpRemove(256)
+    CS:egpRemove(257)
+    CS:egpRemove(258)
+    CS:egpRemove(260)
+    CS:egpRemove(259)
+    CS:egpRemove(248)
+    CS:egpRemove(249)
+    CS:egpRemove(261)
+    CS:egpRemove(260)
+    CS:egpRemove(265)
+    CS:egpRemove(266)
+    CS:egpRemove(267)
+    CS:egpRemove(268)
+    CS:egpRemove(269)
+    CS:egpRemove(270)
+    CS:egpRemove(271)
+    CS:egpRemove(272)
+    CS:egpRemove(273)
+    CS:egpRemove(274)
+    CS:egpRemove(275)
+    CS:egpRemove(276)
+    CS:egpRemove(277)
+    CS:egpRemove(278)
+    CS:egpRemove(279)
+    Musicplay=0
+    Musicplayon=0
+    Musicplayminimize=0
+    Radioplaylist=0
+    Halflife2playlist=0
+    Halflife1playlist=0
+    TeamFortress2playlist=0
+    Portalplaylist=0
+    soundPlay(0,0,"")
+    }
+    } 
+    else {
+    CS:egpColor(235,vec(255,255,255))
+    }
+	
+	
+	
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+#Cursor over music player icon on taskbar (Maximize music player application)
+
+    if (inrange(Pos, vec2(216.50,476.23) , vec2(264.81,509.90)) & Musicplayminimize ==1){
+    CS:egpColor(241,vec(250,209,4))
+    CS:egpText(262,"Music Player",vec2(196.88,420.29))
+    CS:egpColor(262,vec(20,20,20)) 
+    if (changed(Use) & Use & Musicplayminimize ==1) {
+    CS:egpRoundedBox(232,vec2(200,250.33),vec2(360,210))
+    CS:egpColor(232,vec(60,60,60))    
+    CS:egpBox(233,vec2(205,240.33),vec2(300,150))
+    CS:egpColor(233,vec(213,210,215))
+    CS:egpBox(234,vec2(359.17,158.73),vec2(15,15))
+    CS:egpColor(234,vec(255,0,0))    
+    CS:egpText(235,"X",vec2(354,149))
+    CS:egpBox(236,vec2(331.17,158.73),vec2(15,15))   
+    CS:egpColor(236,vec(185,185,185))
+    CS:egpText(237,"-",vec2(328,149))
+    CS:egpBox(238,vec2(150,156.73),vec2(200,15))  
+    CS:egpText(239,"Music Player",vec2(80,147))  
+    CS:egpColor(239,vec(20,20,20))
+    CS:egpText(242,"Select Audio Playlist:",vec2(60,170))  
+    CS:egpColor(242,vec(20,20,20))
+    CS:egpText(243,"Radio",vec2(60,200))  
+    CS:egpColor(243,vec(20,20,20))
+    CS:egpSize(243,15)
+    Musicplay=1
+    Musicplayon=1
+    Musicplayminimize=0
+    CS:egpText(244,"Half-Life 1",vec2(60,220))  
+    CS:egpColor(244,vec(20,20,20))
+    CS:egpSize(244,15)
+    CS:egpText(245,"Half-Life 2",vec2(60,240))  
+    CS:egpColor(245,vec(20,20,20))
+    CS:egpSize(245,15)
+    CS:egpText(246,"Portal",vec2(60,260))  
+    CS:egpColor(246,vec(20,20,20))
+    CS:egpSize(246,15)
+    CS:egpText(247,"Team Fortress 2",vec2(60,280))  
+    CS:egpColor(247,vec(20,20,20))
+    CS:egpSize(247,15)
+    CS:egpText(250,"",vec2(95,200))
+    CS:egpText(251,"",vec2(95,220))
+    CS:egpText(252,"",vec2(95,240))
+    CS:egpText(253,"",vec2(95,260))
+    CS:egpText(254,"",vec2(95,280))
+    CS:egpText(255,"",vec2(130,200))
+    CS:egpText(256,"",vec2(130,220))
+    CS:egpText(257,"",vec2(130,240))
+    CS:egpText(258,"",vec2(130,260))
+	   CS:egpText(259,"",vec2(130,280))
+    CS:egpText(260,"",vec2(165,200))
+    CS:egpText(248,"",vec2(250,170))
+    CS:egpColor(248,vec(20,20,20))
+    CS:egpText(249,"",vec2(250,220))  
+    CS:egpColor(249,vec(20,20,20))
+    CS:egpText(261,"",vec2(250,270))  
+    CS:egpColor(261,vec(20,20,20))
+    CS:egpText(260,"",vec2(165,260))
+    CS:egpColor(260,vec(20,20,20))
+    CS:egpText(265,"",vec2(165,260))
+    CS:egpColor(265,vec(20,20,20))
+    CS:egpText(266,"",vec2(165,260))
+    CS:egpColor(266,vec(20,20,20))
+    CS:egpText(267,"",vec2(165,260))
+    CS:egpColor(267,vec(20,20,20))
+    CS:egpText(268,"",vec2(165,260))
+    CS:egpColor(268,vec(20,20,20))
+    CS:egpText(269,"",vec2(165,260))
+    CS:egpColor(269,vec(20,20,20))
+    CS:egpText(270,"",vec2(165,260))
+    CS:egpColor(270,vec(20,20,20))
+    CS:egpText(271,"",vec2(165,260))
+    CS:egpColor(271,vec(20,20,20))
+    CS:egpText(272,"",vec2(165,260))
+    CS:egpColor(272,vec(20,20,20))
+    CS:egpText(273,"",vec2(165,260))
+    CS:egpColor(273,vec(20,20,20))
+    CS:egpText(274,"",vec2(165,260))
+    CS:egpColor(274,vec(20,20,20))
+    CS:egpText(275,"",vec2(165,260))
+    CS:egpColor(275,vec(20,20,20))
+    CS:egpText(276,"",vec2(165,260))
+    CS:egpColor(276,vec(20,20,20))
+    CS:egpText(277,"",vec2(165,260))
+    CS:egpColor(277,vec(20,20,20))
+    CS:egpText(278,"",vec2(165,260))
+    CS:egpColor(278,vec(20,20,20))
+    CS:egpText(279,"",vec2(165,260))
+    CS:egpColor(279,vec(20,20,20))
+    }
+    }
+    else {
+    CS:egpColor(241,vec(250,152,4))
+    CS:egpRemove(262)
+    }
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+    
+    
+    CS:egpBox(22,vec2(0,0),vec2(10,10))
+    CS:egpParentToCursor(22)
+    
+}
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#End of page 18
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Shutting down computer page
+
+
+#Start of page 20
+
+if(Page == 20){
+    CS:egpClear()
+    CS:egpRoundedBox(4,vec2(-1,-1),vec2(1100,1100))
+    CS:egpColor(4,vec(20,200,20)) 
+    soundPlay(0,0,"")
+    CS:egpText(9,"Shutting down computer",vec2(115,100))
+    CS:egpColor(9,vec(9,0,255))
+    CS:egpSize(9,30)
+    timer("text099",5000)
+    if(clk("text099")){
+    Page = 8
+    }
+}
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#Boot computer screen
+
+
+
+if(Page == 8){
+    CS:egpClear()
+    CS:egpRoundedBox(4,vec2(-1,-1),vec2(1100,1100))
+    CS:egpColor(4,vec(20,200,20))
+    CS:egpBox(3,vec2(0,0),vec2(10,10))  
+    CS:egpParentToCursor(3)
+    CS:egpText(26,"-=Start Computer=-",vec2(115,60))
+    CS:egpColor(26,vec(255,255,255))
+    CS:egpSize(26,35)
+    if (inrange(Pos, vec2(110.84,71.97) , vec2(415.41,97.15))) {
+    CS:egpColor(26,vec(255,0,0))
+    if (changed(Use) & Use) {
+    Page = 1
+    }
+    }
+    CS:egpText(1,Title,vec2(140,120.27))
+    CS:egpColor(1,vec(255,255,255))
+    CS:egpSize(1,50)
+    CS:egpText(2,currentTime(),vec2(200,190.40))
+    CS:egpColor(2,vec(R,G,B))
+    CS:egpSize(2,30)
+}
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+if(chatClk(Target) & CMD[1,string]=="!start" & Snakegameap ==1)
+{
+    CS:egpClear()
+    Page=13
+    Button=1
+    Snakegameap=0
+    Snakegame=1
+}
+
+if(Page ==13){
+    Button=1
+}
+
+
+if(chatClk(Target) & CMD[1,string]=="!stop" & Snakegame ==1)
+{
+    CS:egpClear()
+    Page=10
+    Button=0
+    Snakegameap=0
+    Snakegame=0
+}
+
+#End of code

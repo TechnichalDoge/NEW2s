@@ -1,0 +1,23 @@
+@name math sin tan test cos
+@inputs 
+@outputs X
+@persist 
+@trigger 
+interval(150)
+if(first()){
+    X=1   
+}
+X = cos(curtime()*200)
+local Y = sin(curtime()*200)
+    X=-X    
+
+holoCreate(1,entity():pos()+vec(X*(X/Y)*100,0,X*100))
+holoCreate(2,entity():pos()+vec(0,0,Y*100))
+holoCreate(3,entity():pos()+vec(0,-Y*100,0))
+holoCreate(4,entity():pos()+vec(0,0,Y*-100))
+holoColor(2,vec())
+
+holoModel(1,"hq_sphere")
+holoScaleUnits(1,vec(30,30,30))
+ 
+holoEntity(1):setTrails(100,100,1000,"phoenix_storms/fender_white",vec(255,255,255),255)

@@ -1,0 +1,33 @@
+@name Greanade fontain
+@inputs On
+@outputs 
+@persist Pew:entity
+@trigger 
+runOnTick(1)
+if(#[On&]#(tickClk()%60==0)){
+    #Pew = pewCreate("Grenade Launcher","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("37mm Cannon","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Flak Cannon","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+     #Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Basic Laser","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Big Star Wars Laser","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Arx Bore","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Gauss Gun","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+     Pew = pewCreate("Flamethrower","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    # Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",entity():pos(),entity():angles(),"up")
+    
+    
+    
+    local PewWire = Pew:wirelink() 
+    PewWire["XYZ",vector] = findPlayerByName("logica"):pos()
+    PewWire["Fire",number] = 1
+    timer("undo",100)
+    
+}
+if(clk("undo")&(Pew:toString()!="(null)")){
+    concmd("gmod_undo")    
+}

@@ -1,0 +1,15 @@
+@name camera placer behind and front
+@inputs 
+@outputs   Camer:entity
+@persist 
+@trigger 
+interval(25)
+findByModel("models/dav0r/camera.mdl")
+Camer=find()
+if(owner():isFlashlightOn()){
+ Camer:setPos(owner():pos()-vec(owner():pos():x()-0,owner():pos():y()-10,owner():pos():z()+10))   
+}
+else{
+    
+ Camer:setPos(owner():pos()+vec(owner():pos():x()-0,owner():pos():y()-10,owner():pos():z()+10))      
+}

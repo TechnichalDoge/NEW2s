@@ -1,0 +1,123 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+    runOnTick(1)
+
+    holoCreate(3,entity():pos()+entity():up()*46)
+    holoScale(3,vec(1,4,1.5))
+    holoColor(3,vec(144,144,144))
+    holoAng(3,ang(0,90,0))
+    holoAng(3,ang())
+
+    holoCreate(4,entity():pos()+entity():up()*50.5+vec(0,30,0))
+    holoScale(4,vec(1,1,0.75))
+    holoColor(4,vec(144,144,144))
+    holoAng(4,ang())
+    holoParent(4,3)
+
+    holoCreate(5,entity():pos()+entity():up()*41.6+vec(0,30,0))
+    holoScale(5,vec(0.506,0.506,0.37506))
+    holoModel(5,"models/hunter/triangles/05x05x05.mdl")
+    holoColor(5,vec(144,144,144))
+    holoAng(5,ang(180,0,0))
+    holoMaterial(5,"models/debug/debugwhite")
+    holoParent(5,3)
+
+    holoCreate(6,entity():pos()+entity():up()*50.5+vec(0,-24,0))
+    holoScale(6,vec(2,2,0.75))
+    holoModel(6,"hq_cylinder")
+    holoColor(6,vec(144,144,144))
+    holoAng(6,ang(90,0,0))
+    holoParent(6,3)
+
+    holoCreate(7,entity():pos()+entity():up()*46+vec(0,30,0))
+    holoScale(7,vec(0.8,0.8,1.2))
+    holoModel(7,"hq_cylinder")
+    holoColor(7,vec(144,144,144))
+    holoAng(7,ang(90,90,0))
+    holoParent(7,3)
+
+    holoCreate(8,entity():pos()+entity():up()*46+vec(0,31,0))
+    holoScale(8,vec(0.7,0.7,1.1))
+    holoModel(8,"hq_cylinder")
+    holoColor(8,vec(0,0,0))
+    holoAng(8,ang(90,90,0))
+    holoParent(8,3)
+
+    holoCreate(9,entity():pos()+entity():up()*46+vec(0,20,0))
+    holoScale(9,vec(1.5,1.5,0.3))
+    holoModel(9,"hq_cylinder")
+    holoColor(9,vec(144,144,144))
+    holoAng(9,ang(90,90,0))
+    holoParent(9,3)
+
+    holoCreate(10,entity():pos()+entity():up()*46+vec(0,-10,0))
+    holoScale(10,vec(1.5,1.5,0.3))
+    holoModel(10,"hq_cylinder")
+    holoColor(10,vec(144,144,144))
+    holoAng(10,ang(90,90,0))
+    holoParent(10,3)
+    
+    
+    holoCreate(11,entity():pos()+entity():up()*46+vec(0,5,0))
+    holoScale(11,vec(1.5,1.5,2))
+    holoModel(11,"hq_cylinder")
+    holoColor(11,vec(144,144,144))
+    holoAng(11,ang(90,90,0))
+    holoParent(11,3)
+    
+    
+
+
+    holoCreate(12,entity():pos()+entity():up()*12.5)
+    holoModel(12,"hq_cone")
+    holoScaleUnits(12,vec(35,35,25))
+    holoColor(12,vec(144,144,144))
+    holoParent(12,entity())
+    
+    holoCreate(13,entity():pos()+entity():up()*20)
+    holoModel(13,"hq_cylinder")
+    holoScaleUnits(13,vec(18,18,35))
+    holoColor(13,vec(144,144,144))
+    holoParent(13,12)
+
+
+    holoCreate(14,entity():pos()+entity():up()*15)
+    holoModel(14,"hq_cylinder")
+    holoScaleUnits(14,vec(20,20,5))
+    holoColor(14,vec(144,144,144))
+    holoParent(14,12)
+
+    holoCreate(15,entity():pos()+entity():up()*30)
+    holoModel(15,"hq_cylinder")
+    holoScaleUnits(15,vec(20,20,5))
+    holoColor(15,vec(144,144,144))
+    holoParent(15,12)
+
+    holoCreate(16,entity():pos()+entity():up()*37.5)
+    holoModel(16,"dome")
+    holoScaleUnits(16,vec(18,18,20))
+    holoColor(16,vec(144,144,144))
+    holoParent(16,12)
+    
+    holoCreate(17,entity():pos()+entity():up()*37.5)
+    holoModel(17,"hq_cylinder")
+    holoScaleUnits(17,vec(35,18,5))
+    holoColor(17,vec(144,144,144))
+
+    
+    
+        
+    local Range = 2000
+    Target = owner()
+    
+    Angle1 = ang(0,-90,0)-holoEntity(3):heading(Target:shootPos())
+    Angle2 = ang(Angle1:roll(),Angle1:yaw(),-Angle1:pitch())
+    #print(Angle1)
+    holoAng(17,ang(90,90+Angle2:yaw(),0))    
+    holoAng(3,Angle2)
+    
+    

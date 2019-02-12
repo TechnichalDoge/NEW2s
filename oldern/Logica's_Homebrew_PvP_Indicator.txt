@@ -1,0 +1,19 @@
+@name Logica's Homebrew PvP Indicator
+@persist A:vector
+
+
+runOnTick(1)
+foreach(I,PlayT:entity=players()){
+    holoCreate(I,PlayT:pos())
+    holoVisible(I,players(),1)
+    holoVisible(I,PlayT,0)
+    holoModel(I,"hq_torus")
+    if(!PlayT:plyHasGod()){A=vec(255,0,0)}else{A=vec(0,255,0)}
+    holoColor(I,A)
+    holoScaleUnits(I,vec(35/2,35/2,1))
+    holoParent(I,PlayT)
+    holoAng(I,ang())
+    #print(PlayT:boxSize())
+    
+}
+    

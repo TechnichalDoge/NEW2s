@@ -1,0 +1,52 @@
+@name Automatic Eyereader PropDoor v3
+@inputs Door:entity
+@outputs Open Close 
+@persist Dp:vector E:entity Range DoorEnt:entity Ep:vector
+    #Size itll detect
+    Range=20
+if(first()|dupefinished()){
+    DoorEnt = entity():isConstrainedTo()
+    entity():setAlpha(0)
+}
+if(dupefinished()){
+    DoorEnt = entity():isConstrainedTo()
+}
+interval(25)
+Dp = DoorEnt:pos()
+Ep = entity():pos()
+if(first()|dupefinished()){
+holoCreate(1,Ep, vec(1,1,1), entity():angles()+ang(90,0,0),vec(255,255,255),"models/props_lab/eyescanner.mdl")
+holoCreate(2,Ep, vec(0.1,0.1,0.1), entity():angles(),vec(255,255,255))
+holoScaleUnits(2,vec(0.5,13,7))
+holoParent(1,DoorEnt)
+holoParent(2,DoorEnt)
+}
+noCollideAll(entity(),1)
+DoorEnt:setColor(vec(255,255,255))
+findInSphere(Dp,Range)
+findIncludeClass("player")
+E=find()
+if(E:name()==owner():name()){
+    Open=1
+    Close=0
+    noCollideAll(DoorEnt,1)
+    DoorEnt:setAlpha(15)
+    holoAlpha(1,15)
+    holoAlpha(2,15)
+}
+elseif(E:steamID()=="STEAM_0:1:95404286"){
+    Open=1
+    Close=0
+    noCollideAll(DoorEnt,1)
+    DoorEnt:setAlpha(15)
+    holoAlpha(1,15)
+    holoAlpha(2,15)
+}
+else{
+    Open=0
+    Close=1
+    noCollideAll(DoorEnt,0)
+    DoorEnt:setAlpha(255)
+    holoAlpha(1,255)
+    holoAlpha(2,255)
+}

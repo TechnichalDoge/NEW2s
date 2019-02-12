@@ -1,0 +1,7 @@
+@name ownpos
+@inputs 
+@outputs Pos:vector
+@persist 
+@trigger 
+runOnTick(1)
+Pos = owner():pos()

@@ -1,0 +1,17 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(25)
+function number createHolo(HoloModel:string){
+        local HoloI = 0
+        HoloI += 1
+        holoCreate(HoloI)
+        holoModel(HoloI, HoloModel)
+        
+        return HoloI
+    }
+    
+createHolo("models/props_junk/GlassBottle01a.mdl")
+

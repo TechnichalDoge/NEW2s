@@ -1,0 +1,57 @@
+@name 
+@inputs
+@outputs Color:vector
+@persist Color:vector Radius Alpha
+@trigger 
+
+if (first()){
+    runOnTick(1)
+    runOnChat(1)
+    
+    Radius = 500
+    Color = vec(0, 255, 0)
+    Alpha = 100
+    
+    function initHolo(VectorOff:vector){
+        if (first()){
+            I=random()
+            holoCreate(I)
+            holoModel(I, "hq_sphere")
+        }
+        holoPos(I,entity():pos()+VectorOff)
+        holoColor(I, Color)
+        holoAlpha(I, Alpha)
+        holoScaleUnits(I, vec(Radius/2, Radius/2, Radius/2))        
+    }
+    
+    initHolo(vec(0,0,0))
+}
+
+
+if (chatClk(owner())){
+    LastSaid = owner():lastSaid()
+    
+    if (LastSaid[1] == "!"){
+        LastSaidArr = LastSaid:sub(2):explode(" ")
+        Command = LastSaidArr:shiftString()
+        
+        if (Command == "color:"){
+            R = LastSaidArr:string(1):toNumber(10)
+            G = LastSaidArr:string(2):toNumber(10)
+            B = LastSaidArr:string(3):toNumber(10)
+            Color = vec(R, G, B)
+        }
+        if (Command == "radius:"){
+            Radius = LastSaidArr:string(1):toNumber()
+        }
+        if (Command == "alpha:"){
+            Alpha = LastSaidArr:string(1):toNumber()
+        }
+        
+        initHolo(vec(0,5,0))
+                initHolo(vec(5,0,0))
+                        initHolo(vec(-5,0,0))
+                                initHolo(vec(0,-5,0))
+    }
+}
+

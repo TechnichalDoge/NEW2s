@@ -1,0 +1,14 @@
+@name appply force test
+@inputs Prop:entity 
+@outputs 
+@persist Ent:entity Vec:vector
+@trigger 
+interval(25)
+TargetPos = owner():shootPos()+vec(0,0,20)
+Ent = Prop
+Vec = (TargetPos-Ent:pos())*Ent:mass()*10
+Ent:applyForce(Vec+$Vec*5)
+Ent:applyAngForce(ang(Prop:angles():pitch()-d))
+#: force, subtraction of velocity, and multiplication  (positions) * force - velocity
+
+

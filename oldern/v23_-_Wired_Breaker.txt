@@ -1,0 +1,12 @@
+@name v23 - Wired Breaker
+@inputs Tar:entity Input
+@persist Vec:vector Ent:entity
+runOnTick(1)
+if(changed(Input)&Input)
+{
+    Ent = propSpawn("models/hunter/blocks/cube025x025x025.mdl",Tar:pos()+vec(0,0,10),0)
+}
+Target = Tar:pos()+vec(0,0,10) 
+Vec = (Target-Ent:pos())*Ent:mass()*10
+Ent:applyOffsetForce(Vec,Vec+$Vec*5)
+

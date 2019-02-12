@@ -1,0 +1,14 @@
+@name Skybox Bigcity Sky Material
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+local Vec = vec(-14,-7,5500)
+local HoloScale = vec(7000,7000,4000)
+holoCreate(1,Vec)
+holoScaleUnits(1,-HoloScale)
+holoModel(1,"hq_sphere")
+holoMaterial(1,"models/props_lab/warp_sheet")
+
+

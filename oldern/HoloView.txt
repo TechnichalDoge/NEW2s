@@ -1,0 +1,29 @@
+@name HoloView
+@inputs Pos:entity Driver:entity
+@outputs Array:array Driver:entity
+@persist Size Array:array Driver:entity Red Green Blue
+Size=15
+interval(15)
+if(!Pos:plyHasGod()&Pos:isAlive()){
+    Red=255
+    Green=0
+    Blue=0
+    }
+elseif(Pos:plyHasGod()){
+    Red=0
+    Green=255
+    Blue=0
+}
+elseif(!Pos:plyHasGod()&!Pos:isAlive()){
+    Red=0
+    Green=40
+    Blue=255
+    }
+timer("boi",5000)
+holoCreate(1,Pos:pos(),vec(-Size,-Size,-Size),ang(0,0,0),vec(Red,Green,Blue),"models/sprops/geometry/sphere_72.mdl")
+holoVisible(1,players(),0)
+holoVisible(1,Driver,1)
+
+if(clk("boi")){
+reset()   
+}

@@ -1,0 +1,7 @@
+@name holomodelist
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+print(holoModelList())

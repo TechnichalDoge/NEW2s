@@ -1,0 +1,10 @@
+@name 33333
+@inputs 
+@outputs Out:vector
+@persist 
+@trigger 
+interval(25)
+findInSphere(entity():pos(),9999999)
+findIncludePlayer("Spero")
+Ent=find()
+Out=Ent:pos()

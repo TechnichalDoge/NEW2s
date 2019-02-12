@@ -1,0 +1,33 @@
+@name Pew E2 Mine
+@inputs 
+@outputs 
+@persist Range B:number
+@trigger 
+
+if(first()){
+    Range = 200
+    
+    
+    runOnTick(1)   
+}                                                                                                                                                                                                                           setName("Boomer\nBy Logica")
+
+findInSphere(entity():pos(),Range)
+    findIncludeEntities(players())
+    findExcludeEntity(owner())
+    B = findToArray():count()
+
+if(B>0){
+    local Ent = entity()
+    local Pos = Ent:pos()
+    local Dir = Ent:up()
+    local PPos = Pos+Dir*30
+    local Pangle = Ent:angles() + ang(180,0,0)
+        local PWir =pewCreate("Flak Cannon","models/props_junk/PopCan01a.mdl",PPos,Pangle,1,1):wirelink()
+        PWir["Fire",number] = 1
+        
+        #holoCreate(I,PPos)
+        #holoScale(I,vec(3,3,3))
+        #timer("undo",10)
+    selfDestructAll()
+}
+#if(clk("undo")){concmd("gmod_undo")}

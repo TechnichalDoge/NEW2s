@@ -1,0 +1,157 @@
+@name Printer
+@persist [Test Argument Chat Load]:string Code:array [Vec]:vector XX YY Length Wide Mode Next Bla
+@persist [Ent Own]:entity [Text Lit]:string KE On Sub
+@persist [Q W E R T Y U I O P A S D F G H J K L Z X C V B N M Sc1 Sc2 Equal Fig1 Fig2]:array
+@persist [Space Ask At Minus Plus Slash Dog Point One Two Three Four Six Seven Eight Nine]:array
+@model models/props_lab/plotter.mdl
+if(duped()){selfDestructAll()}
+if(first()){
+    runOnTick(10)
+    runOnChat(1)
+    Ent=entity() Own=owner()
+    holoCreate(1,Ent:pos()+vec(0,0,5))    holoModel(1,"models/hunter/blocks/cube025x025x025.mdl")    holoAlpha(1,0)
+    Wide=5
+#
+    A=array(1,1,1,1,0,0,1,0,1,1,1,1,1,1,1)
+    B=array(1,1,1,1,1,1,0,1,0,1,1,1,1,1,0)
+    C=array(1,1,1,1,1,1,0,0,0,1,1,0,0,0,1)
+    D=array(1,1,1,1,1,1,0,0,0,1,1,1,1,1,0)
+    E=array(1,1,1,1,1,1,0,1,0,1,1,0,1,0,1)
+    F=array(1,1,1,1,1,0,0,1,0,1,0,0,1,0,1)
+    G=array(1,1,1,1,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,1)
+    H=array(1,1,1,1,1,0,0,1,0,0,1,1,1,1,1)
+    I=array(1,0,0,0,1,1,1,1,1,1,1,0,0,0,1)
+    J=array(1,1,0,0,0,1,0,0,0,0,1,1,1,1,1)
+    K=array(1,1,1,1,1,0,0,1,0,0,1,1,0,1,1)
+    L=array(1,1,1,1,1,1,0,0,0,0,1,1,0,0,0)
+    M=array(1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,  1,1,1,1)
+    N=array(1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1)
+    O=array(1,1,1,1,1,1,0,0,0,1,1,1,1,1,1)
+    P=array(1,1,1,1,1,0,0,1,0,1,0,0,1,1,1)
+    Q=array(1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1,0,0,0)
+    R=array(1,1,1,1,1,0,0,1,0,1,1,1,0,1,0)
+    S=array(1,0,1,1,1,1,0,1,0,1,1,1,1,0,1)
+    T=array(0,0,0,0,1,1,1,1,1,1,0,0,0,0,1)
+    U=array(1,1,1,1,1,1,0,0,0,0,1,1,1,1,1)
+    V=array(0,1,1,1,1,1,0,0,0,0,0,1,1,1,1)
+    W=array(0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,  0,1,1,1)
+    X=array(1,1,0,1,1,0,0,1,0,0,1,1,0,1,1)
+    Y=array(0,0,0,1,1,1,1,1,0,0,0,0,0,1,1)
+    Z=array(1,1,0,0,1,1,0,1,0,1,1,0,0,1,1)
+    Space=array(0,0,0,0,0)
+    Minus=array(0,0,1,0,0,0,0,1,0,0,0,0,1,0,0)
+    Plus=array(0,0,1,0,0,1,1,1,1,1,0,0,1,0,0)
+    Slash=array(1,1,0,0,0,0,0,1,0,0,0,0,0,1,1)
+    Dog=array(0,1,1,1,1,0,0,0,0,1,1,1,1,0,1,1,1,1,1,1)
+    Ask=array(0,0,0,0,1,1,0,1,0,1,0,0,0,1,1)
+    At=array(1,0,1,1,1)
+    Point=array(1,0,0,0,0)
+    One=array(0,0,0,1,0,1,1,1,1,1)
+    Two=array(1,1,1,0,1,1,0,1,0,1,1,0,1,1,1)
+    Three=array(1,0,1,0,1,1,0,1,0,1,1,1,1,1,1)
+    Four=array(0,0,1,1,1,0,0,1,0,0,1,1,1,1,1)
+    Six=array(1,1,1,1,1,1,0,1,0,1,1,1,1,0,1)
+    Seven=array(0,0,0,0,1,1,1,1,0,1,0,0,0,1,1)
+    Eight=array(1,1,1,1,0,1,0,1,0,1,1,1,1,1,1)
+    Nine=array(1,0,1,1,1,1,0,1,0,1,1,1,1,1,1)
+    Sc2=array(1,0,0,0,1,0,1,1,1,0)
+    Sc1=array(0,1,1,1,0,1,0,0,0,1)
+    Equal=array(0,1,0,1,0,0,1,0,1,0,0,1,0,1,0)
+    Fig2=array(1,0,0,0,1,0,1,0,1,0,0,0,1,0,0)
+    Fig1=array(0,1,1,1,0,1,0,1,0,1,1,1,0,1,1)
+    Load=toChar(102)+toChar(79)+toChar(84)+toChar(79)+  toChar(78)
+      
+}#
+
+Chat=(Mode==1?Own:lastSaid() : lastSaid())
+
+if (chatClk()) 
+{
+    Text=Chat
+    Next+=Wide*7 XX=0
+    if(Bla){On=1}
+    Sub=1
+    Length=Text:length()
+    Input = Chat:explode(" ")
+    Cmd=Input[1, string]:sub(1,Input[1, string]:length())
+    Argument = Input[2, string]
+    if(Cmd == "Save"){Load=Chat:sub(5,Chat:length())}
+    if(Cmd == "Wide"){Wide=Argument:toNumber()}
+    if(Cmd == "Load"){Text=Load}
+    if(Cmd == "bla-bla-bla"){Bla=1 Mode=0}
+    if(Cmd == "hmmm"){Bla=0}
+    if(Cmd == "Enter"){Next+=Wide*7 XX=0}
+    if(Cmd == "Mode"){
+        if(Argument=="owner"){Mode=1}else{Mode=0}}
+}
+Length=Text:length()
+KE=Own:keyZoom()
+if($KE & KE){
+    On=1
+    Sub=1
+    XX=0
+    Length=Text:length()
+}
+if(On){
+    Lit=Text:sub(Sub,Sub)
+    if(Lit=="A" | Lit=="a"){Code=A}
+    elseif(Lit=="B" | Lit=="b"){Code=B}
+    elseif(Lit=="C" | Lit=="c"){Code=C}
+    elseif(Lit=="D" | Lit=="d"){Code=D}
+    elseif(Lit=="E" | Lit=="e"){Code=E}
+    elseif(Lit=="F" | Lit=="f"){Code=F}
+    elseif(Lit=="G" | Lit=="g"){Code=G}
+    elseif(Lit=="H" | Lit=="h"){Code=H}
+    elseif(Lit=="I" | Lit=="i"){Code=I}
+    elseif(Lit=="J" | Lit=="j"){Code=J}
+    elseif(Lit=="K" | Lit=="k"){Code=K}
+    elseif(Lit=="L" | Lit=="l"){Code=L}
+    elseif(Lit=="M" | Lit=="m"){Code=M}
+    elseif(Lit=="N" | Lit=="n"){Code=N}
+    elseif(Lit=="O" | Lit=="o" | Lit=="0"){Code=O}
+    elseif(Lit=="P" | Lit=="p"){Code=P}
+    elseif(Lit=="Q" | Lit=="q"){Code=Q}
+    elseif(Lit=="R" | Lit=="r"){Code=R}
+    elseif(Lit=="S" | Lit=="s" | Lit=="5"){Code=S}
+    elseif(Lit=="T" | Lit=="t"){Code=T}
+    elseif(Lit=="U" | Lit=="u"){Code=U}
+    elseif(Lit=="V" | Lit=="v"){Code=V}
+    elseif(Lit=="W" | Lit=="w"){Code=W}
+    elseif(Lit=="X" | Lit=="x"){Code=X}
+    elseif(Lit=="Y" | Lit=="y"){Code=Y}
+    elseif(Lit=="Z" | Lit=="z"){Code=Z}
+    elseif(Lit=="," | Lit=="."){Code=Point}
+    elseif(Lit=="-"){Code=Minus}
+    elseif(Lit=="+"){Code=Plus}
+    elseif(Lit=="/"){Code=Slash}
+    elseif(Lit=="?"){Code=Ask}
+    elseif(Lit=="@"){Code=Dog}
+    elseif(Lit=="!"){Code=At}
+    elseif(Lit=="1"){Code=One}
+    elseif(Lit=="2"){Code=Two}
+    elseif(Lit=="3"){Code=Three}
+    elseif(Lit=="4"){Code=Four}
+    elseif(Lit=="6"){Code=Six}
+    elseif(Lit=="7"){Code=Seven}
+    elseif(Lit=="8"){Code=Eight}
+    elseif(Lit=="9"){Code=Nine}
+    elseif(Lit=="("){Code=Sc1}
+    elseif(Lit==")"){Code=Sc2}
+    elseif(Lit=="="){Code=Equal}
+    elseif(Lit=="{"){Code=Sc1}
+    elseif(Lit=="}"){Code=Sc2}
+
+    else{Code=Space}
+    
+    for(Bit=1,Code:count()){
+        YY+=Wide
+        Write=Code[Bit,number]
+        Vec=Ent:pos()+vec(XX,YY,5)
+        holoPos(1,Vec)
+        if(Write){holoEntity(1):shootTo(Vec+vec(0,0,-5),1,0.001,1)}
+        if(mod(Bit,5)==0){if(Bit==Code:count()){YY=-Next XX+=Wide*2 Sub++}else{YY=-Next XX+=Wide}}
+    }
+    if(Sub>Length){On=0}
+}
+if(Own:keyReload()){XX=0 YY=-Next}
+# Created by Foton

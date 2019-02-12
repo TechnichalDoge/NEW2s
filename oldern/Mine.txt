@@ -1,0 +1,13 @@
+@name Mine
+@inputs Bomb:entity Target
+@persist E:vector
+runOnTick(5)
+E=entity():pos()
+if(clk("Bye")){
+    selfDestruct()
+}
+if(Target>0){
+    Bomb:ignite()
+    timer("Bye",1500)
+}
+

@@ -1,0 +1,85 @@
+@name Eject Chat command
+@inputs 
+@outputs Pilot CoPilot Pilot2 CoPilot2 Gunner Gunnertwo Gunner2 Gunnertwo2 Co:entity
+@persist Co:entity
+if(first()|dupefinished()){
+Co=findPlayerBySteamID("STEAM_0:0:56411356")
+}
+interval(15)
+runOnChat(1)
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/es 1")|(Co:lastSaid():lower() == "/es 1")){
+        Pilot=1
+        timer("boi1",500)
+    }
+    else{
+     Pilot=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/es 2")|(Co:lastSaid():lower() == "/es 2")){
+        CoPilot=1
+        timer("boi2",500)
+    }
+    else{
+     CoPilot=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/ts 1")|(Co:lastSaid():lower() == "/ts 1")){
+        Pilot2=1
+        timer("boi1",500)
+    }
+    else{
+     Pilot2=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/ts 2")|(Co:lastSaid():lower() == "/ts 2")){
+        CoPilot2=1
+        timer("boi2",500)
+    }
+    else{
+     CoPilot2=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/es 3")|(Co:lastSaid():lower() == "/es 3")){
+        Gunner=1
+        timer("boi1",500)
+    }
+    else{
+     Gunner=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/es 4")|(Co:lastSaid():lower() == "/es 4")){
+        Gunnertwo=1
+        timer("boi2",500)
+    }
+    else{
+     Gunnertwo=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/ts 3")|(Co:lastSaid():lower() == "/ts 3")){
+        Gunner2=1
+        timer("boi1",500)
+    }
+    else{
+     Gunner2=0   
+    }
+}
+if(chatClk(owner())|chatClk(Co)){
+    if((owner():lastSaid():lower() == "/ts 4")|(Co:lastSaid():lower() == "/ts 4")){
+        Gunnertwo2=1
+        timer("boi2",500)
+    }
+    else{
+     Gunnertwo2=0   
+    }
+}
+if(clk("boi1")|clk("boi2")){
+ reset()   
+}
+           

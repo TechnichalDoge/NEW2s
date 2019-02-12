@@ -1,0 +1,14 @@
+@name spheres
+@inputs Vec:vector
+@outputs 
+@persist X
+@trigger 
+interval(25)
+X=X+1
+if(X==359){
+    X=0
+}
+holoCreate(1,Vec,vec(1,1,1),ang(X,X,X),vec(255,255,255),"models/sprops/geometry/sphere_36.mdl")
+holoMaterial(1,"phoenix_storms/explo_barrel")
+"models/hunter/tubes/tube2x2x05.mdl"
+"phoenix_storms/scrnspace"

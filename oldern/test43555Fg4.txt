@@ -1,0 +1,16 @@
+@name test43555Fg4
+@inputs Vehicle:entity
+@outputs 
+@persist Driver:entity VehicleCent:vector
+@trigger 
+interval(200)
+Driver = Vehicle:driver()
+VehicleCent = Vehicle:boxCenterW()
+
+if(first()|dupefinished()){
+holoCreate(1,VehicleCent+vec(0,0,0))
+}
+holoAng(1,Vehicle:angles()+ang(0,-90,0))
+holoParent(1,Vehicle)
+holoModel(1,"models/nova/airboat_seat.mdl")
+

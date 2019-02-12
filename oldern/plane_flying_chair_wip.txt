@@ -1,0 +1,37 @@
+@name plane flying chair wip
+@inputs
+@outputs
+@persist W A S D F Shift Space EArr:array MoveSpeed
+@trigger
+ 
+interval(50)
+#entity():setMass(0)
+E = entity():isWeldedTo()
+E:propDrag(0)
+E:setMass(50000)
+User = E:driver()
+Earr = array(E,User,entity())
+W = User:keyPressed("w")
+A = User:keyPressed("A")
+S = User:keyPressed("S")
+D = User:keyPressed("D")
+F = User:keyPressed("F")
+Shift = User:keySprint()
+Space = User:keyPressed("Space")
+ 
+#E:applyForce(-E:vel()*E:mass()/2)
+ 
+ 
+rangerFilter(E)
+rangerHitWater(1)
+ 
+if(User){ 
+E:applyForce((Space-F)*E:forward()*200*E:mass())
+E:applyForce((W-S)*E:up()*-50*E:mass())
+E:applyForce((A-D)*Shift*-E:right()*200*E:mass())
+E:applyForce((A-D)*Shift*-E:up()*2000*E:mass())
+E:applyForce((Shift)*E:forward()*-200*E:mass())
+E:applyTorque((vec((S-W)*-50-E:angles():roll(),(D-A)*-50-E:angles():pitch(),(A-D)*!Shift*-60)*1-E:angVelVector())*E:mass())
+E:applyTorque((vec((S-W)*50-E:angles():pitch(),(D-A)*50-E:angles():pitch(),(A-D)*!Shift*60)*1-E:angVelVector())*E:mass())
+}
+

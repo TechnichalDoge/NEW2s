@@ -1,0 +1,10 @@
+@name lights dimm
+@outputs Light
+@persist 
+interval(15)
+Light=Light+1
+if(Light==255){
+Light=0    
+}
+
+

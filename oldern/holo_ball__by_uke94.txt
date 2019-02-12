@@ -1,0 +1,504 @@
+@name holo ball serverfriendly
+@inputs 
+@outputs OPEN AT:array DESTROYABLE:array Target:entity K1P K2P DPOSK1 DPOSK2 G1P G2P DPOSG1 DPOSG2 BEA ELE BEA2 ELE2 DBEA DELE DBEA1 DELE1 DBEA2 DELE2
+@persist [RD RD1]:ranger [X E Tar OR GB GBa GE Target MID GBaS]:entity [TCol TR]:vector [FF]:string TPB TPE BAlp Size BEA ELE Search Ready
+@persist XFIND USE Indicator:entity SPS Manual FindRadius K1P K2P G1P G2P DPOSK1 DPOSK2 DPOSG1 DPOSG2 SA Active AC
+@model models/noesis/donut.mdl
+#interval(20) #can save you some ops
+runOnTick(1)
+
+if(first()|duped()){    
+    Size=0.25 # play around but it looks only good by 0.25 
+    
+    ###do not change
+    Search=1
+    Ready=1
+    AC=1
+    
+    
+    K1P=6
+    K2P=-6
+    
+    G1P=3.3
+    G2P=6.6
+    ###
+    
+    Manual=0 #1 is MouseAimed (default: 0)
+    
+    if(Manual==1){print("press right mouse button to shoot")}
+    
+    print("activate/deactivate: aim on it and press use")
+    
+    FireRate=2000 #shots per second (frequency) 
+    #1 is very slow
+    #3 is slow
+    #7 is normal
+    #12 is fast
+    #2000 is kickass!
+    
+    TCol=vec(255,250,245) #color of your turret (default: vec(255,250,245))
+    BAlp=255 #alpha -just to show you how weird holos can look :p 
+    #should always be 255
+    
+    FF="npc_*"
+    #"npc_*"
+    #"prop_physics"
+    #"prop_*"
+    #"player"
+    
+    AntiSpam=0 #Watermelon=1 ; Balloons=2 ; Explosives=4 ; Wooden Props=8
+    #15 All (1+2+4+8)
+    #0  none
+    
+    #if you want Watermaons and Explosives AntiSpam must be: AntiSpam=5
+    #...because 1(WatermelonID)+4(ExplosivesID) = 5
+    #Wooden Props and Ballons = 10 and so on
+    
+    FindRadius=50000
+    #2000 is your maximum spawnradius
+    
+
+    if(AntiSpam==0){print("AntiSpam function: off")}
+   
+    FM10="models/props_junk/watermelon01.mdl"
+    FM11="models/props_junk/watermelon01_chunk01a.mdl"
+    FM12="models/props_junk/watermelon01_chunk01b.mdl"
+    FM13="models/props_junk/watermelon01_chunk01c.mdl"
+    
+    FM20="models/dav0r/balloon/balloon.mdl"
+    
+    FM30="models/props_explosive/explosive_butane_can02.mdl"
+    FM31="models/props_phx/amraam.mdl"
+    FM32="models/props_phx/ball.mdl"
+    FM33="models/props_phx/mk-82.mdl"
+    FM34="models/props_phx/oildrum001_explosive.mdl"
+    FM35="models/props_phx/torpedo.mdl"
+    FM36="models/props_phx/ww2bomb.mdl"
+    FM37="models/props_phx/misc/flakshell_big.mdl"
+    FM38="models/props_c17/oildrum001_explosive.mdl"
+    FM39="models/props_explosive/explosive_butane_can.mdl"
+    
+    FM100="models/props_c17/bench01a.mdl"
+    FM101="models/props_c17/FurnitureChair001a.mdl"
+    FM102="models/props_c17/FurnitureCupboard001a.mdl"
+    FM103="models/props_c17/FurnitureDrawer001a.mdl"
+    FM104="models/props_c17/FurnitureDrawer002a.mdl"
+    FM105="models/props_c17/FurnitureDrawer003a.mdl"
+    FM106="models/props_c17/FurnitureDresser001a.mdl"
+    FM107="models/props_c17/FurnitureShelf001a.mdl"
+    FM108="models/props_c17/FurnitureShelf001b.mdl"
+    FM109="models/props_c17/FurnitureTable001a.mdl"
+    FM110="models/props_c17/FurnitureTable002a.mdl"
+    FM111="models/props_c17/FurnitureTable003a.mdl"
+    FM112="models/props_c17/shelfunit01a.mdl"
+    FM113="models/props_interiors/Furniture_chair01a.mdl"
+    FM114="models/props_interiors/Furniture_shelf01a.mdl"
+    FM115="models/props_interiors/Furniture_Vanity01a.mdl"
+    FM116="models/props_junk/cardboard_box001a.mdl"
+    FM117="models/props_junk/cardboard_box001b.mdl"
+    FM118="models/props_junk/cardboard_box002a.mdl"
+    FM119="models/props_junk/cardboard_box002b.mdl"
+    FM120="models/props_junk/cardboard_box003a.mdl"
+    FM121="models/props_junk/cardboard_box003b.mdl"
+    FM122="models/props_junk/cardboard_box004a.mdl"
+    FM123="models/props_junk/wood_crate001a.mdl"
+    FM124="models/props_junk/wood_crate001a_damaged.mdl"
+    FM125="models/props_junk/wood_crate002a.mdl"
+    FM126="models/props_junk/wood_pallet001a.mdl"
+    FM127="models/props_wasteland/barricade001a.mdl"
+    FM128="models/props_wasteland/barricade002a.mdl"
+    FM129="models/props_wasteland/cafeteria_bench001a.mdl"
+    FM130="models/props_wasteland/cafeteria_table001a.mdl"
+    FM131="models/props_wasteland/wood_fence01a.mdl"
+    FM132="models/props_wasteland/wood_fence01a.mdl"
+    FM133="models/props_wasteland/wood_fence02a.mdl"
+    
+    FM140="models/props_c17/FurnitureDrawer001a_Chunk01.mdl"
+    FM141="models/props_c17/FurnitureDrawer001a_Chunk02.mdl"
+    FM142="models/props_c17/FurnitureDrawer001a_Chunk03.mdl"
+    FM143="models/props_c17/FurnitureDrawer001a_Chunk04.mdl"
+    FM144="models/props_c17/FurnitureDrawer001a_Chunk05.mdl"
+    FM145="models/props_c17/FurnitureDrawer001a_Chunk06.mdl"
+    
+    
+    E=entity()
+    Tar=E
+    Tar:setMass(20)
+    
+    Tar:setAlpha(0)
+    
+    
+    
+    Pos=E:pos()
+    
+    X=holoCreate(0,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(1,1,1),E:angles(),TCol)
+    holoParent(0,E)
+    holoAlpha(0,0)
+
+    
+    OR=holoCreate(1,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(1,1,5.5)*Size,ang(0,0,0),TCol/1.85)
+    holoParent(1,E)
+    holoAlpha(1,BAlp)
+    holoModel(1,"hqcylinder2")
+    holoMaterial(1,"phoenix_storms/fender_white")
+    
+    holoCreate(112,OR:toWorld(vec(0,-4.6,33)*Size),vec(1.4,0.75,0.25)*Size,OR:angles()+ang(180,180,0),TCol/2)
+    holoParent(112,OR)
+    holoAlpha(112,BAlp)
+    holoMaterial(112,"phoenix_storms/fender_white")
+
+    holoCreate(113,OR:toWorld(vec(0,-4.6,-33)*Size),vec(1.4,0.75,0.25)*Size,OR:angles()+ang(0,180,0),TCol/2)
+    holoParent(113,OR)
+    holoAlpha(113,BAlp)
+    holoMaterial(113,"phoenix_storms/fender_white")
+    
+    holoCreate(2,OR:toWorld(vec(0,0,K1P)*Size),vec(4,4,4)*Size,OR:angles()+ang(0,180,0),TCol/1.5)
+    holoParent(2,OR)
+    holoAlpha(2,BAlp)
+    holoModel(2,"dome2")
+    holoMaterial(2,"phoenix_storms/fender_white")
+    
+    holoCreate(21,OR:toWorld(vec(0,0,K1P+22.25)*Size),vec(1.3,1.3,0.5)*Size,ang(0,0,0),TCol/2)
+    holoParent(21,2)
+    holoAlpha(21,BAlp)
+    holoModel(21,"hqcylinder2")
+    holoMaterial(21,"phoenix_storms/fender_white")
+    
+    holoCreate(3,OR:toWorld(vec(0,0,K2P)*Size),vec(4,4,4)*Size,OR:angles()+ang(180,0,0),TCol/1.5)
+    holoParent(3,OR)
+    holoAlpha(3,BAlp)
+    holoModel(3,"dome2")
+    holoMaterial(3,"phoenix_storms/fender_white")
+    
+    holoCreate(31,OR:toWorld(vec(0,0,K2P-22.25)*Size),vec(1.3,1.3,0.5)*Size,ang(0,0,0),TCol/2)
+    holoParent(31,3)
+    holoAlpha(31,BAlp)
+    holoModel(31,"hqcylinder2")
+    holoMaterial(31,"phoenix_storms/fender_white")
+    
+    holoCreate(4, E:toWorld(vec(0,0,-7.5)*Size),vec(6,6,0.7)*Size,E:angles()+ang(0,180,0),TCol/1.7)
+    holoParent(4,X)
+    holoAlpha(4,BAlp)
+    holoModel(4,"hqcylinder2")
+    holoMaterial(4,"phoenix_storms/fender_white")
+    
+    MID=holoCreate(5,E:toWorld(vec(0,0,-12)*Size),vec(5.5,5.5,1)*Size,E:angles()+ang(0,0,0),TCol/1.7)
+    holoParent(5,X)
+    holoAlpha(5,BAlp)
+    holoModel(5,"hqcylinder2")
+    holoMaterial(5,"phoenix_storms/fender_chrome")
+    
+    holoCreate(6,E:toWorld(vec(0,0,-19)*Size),vec(7,7,0.5)*Size,E:angles()+ang(0,0,0),TCol/1.7)
+    holoParent(6,X)
+    holoAlpha(6,BAlp)
+    holoModel(6,"hqcylinder2")
+    holoMaterial(6,"models/shiny")
+    
+    #GB=holoCreate(100,OR:toWorld(vec(0,0,Size*Size*(Size/pi()))),vec(1.5*Size,1.5*Size,1.5*Size),OR:toWorld(ang(0,0,0)),TCol)
+    GB=holoCreate(100,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(1.5*Size,1.5*Size,1.5*Size),OR:toWorld(ang(0,0,0)),TCol)
+    holoParent(100,OR)
+    holoAlpha(100,BAlp)
+    holoMaterial(100,"models/props_combine/masterinterface01c")
+    
+    holoCreate(101,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(2,1.3,1.3)*Size,OR:toWorld(ang(0,0,0)),TCol/3)
+    holoParent(101,GB)
+    holoAlpha(101,BAlp)
+    holoMaterial(101,"phoenix_storms/fender_white")
+    
+    holoCreate(102,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(1.3,2,1.3)*Size,OR:toWorld(ang(0,0,0)),TCol/3)
+    holoParent(102,GB)
+    holoAlpha(102,BAlp)
+    holoMaterial(102,"phoenix_storms/fender_white")
+    
+    holoCreate(103,E:toWorld(vec(0,0,(Size*27.5)-6)),vec(1.3,1.3,2)*Size,OR:toWorld(ang(0,0,0)),TCol/3)
+    holoParent(103,GB)
+    holoAlpha(103,BAlp)
+    holoMaterial(103,"phoenix_storms/fender_white")
+    
+    #GBa=holoCreate(40,GB:toWorld(vec(10,0,0)*Size),vec(1,1,2)*Size,GB:angles()+ang(90,0,0),TCol)
+    GBa=holoCreate(40,E:toWorld(vec(G1P,0,(Size*27.5)-6)),vec(1,1,2)*Size,GB:angles()+ang(90,0,0),vec(255,255,255))
+    holoParent(40,GB)
+    holoAlpha(40,BAlp)
+    holoModel(40,"hqcylinder2")
+    holoMaterial(40,"phoenix_storms/fender_chrome")
+    
+    GBaOR=holoCreate(402,E:toWorld(vec(3.3,0,(Size*27.5)-6)),vec(1,1,1)*Size,GB:angles()+ang(90,0,0),vec(255,255,255))
+    holoParent(402,GB)
+    holoAlpha(402,0)
+
+    
+    GBaS=holoCreate(401,GB:toWorld(vec(60,0,0)*Size),vec(1,1,1)*Size,GB:angles()+ang(90,0,0),vec(255,255,255))
+    holoParent(401,GB)
+    holoAlpha(401,0)
+    
+    #GE=holoCreate(41,GB:toWorld(vec(20,0,0)*Size),vec(0.7,0.7,1.5)*Size,GB:angles()+ang(90,0,0),TCol)
+    GE=holoCreate(41,E:toWorld(vec(G2P,0,(Size*27.5)-6)),vec(0.7,0.7,1.5)*Size,GB:angles()+ang(90,0,0),vec(200,200,200))
+    holoParent(41,GB)
+    holoAlpha(41,BAlp)
+    holoModel(41,"hqcylinder2")
+    holoMaterial(41,"phoenix_storms/fender_chrome")
+    
+    GE2=holoCreate(42,GE:toWorld(vec(0,0,9.2)*Size),vec(-0.33,-0.33,-0.1)*Size,GE:angles(),vec(0,0,0))
+    holoParent(42,GE)
+    holoAlpha(42,BAlp)
+    holoModel(42,"hqcylinder2")
+    holoMaterial(42,"phoenix_storms/chrome")
+ 
+    holoCreate(1120,OR:toWorld(vec(0,0.1,33)*Size),vec(1.41,1.41,0.26)*Size,ang(0,0,0),TCol/2)
+    holoParent(1120,112)
+    holoAlpha(1120,BAlp)
+    holoModel(1120,"hqcylinder2")
+    holoMaterial(1120,"phoenix_storms/fender_white")
+    
+    holoCreate(1130,OR:toWorld(vec(0,0.1,-33)*Size),vec(1.41,1.41,0.26)*Size,ang(0,0,0),TCol/2)
+    holoParent(1130,112)
+    holoAlpha(1130,BAlp)
+    holoModel(1130,"hqcylinder2")
+    holoMaterial(1130,"phoenix_storms/fender_white")
+    
+    Indicator=holoCreate(1920,E:toWorld(vec(0,0,-21)*Size),vec(13,13,0.2)*Size,E:angles()+ang(0,0,0),TCol/1.7)
+    holoParent(1920,X)
+    holoAlpha(1920,0)
+    holoModel(1920,"hqsphere2")
+    holoMaterial(1920,"models/debug/debugwhite")
+    
+    #1.35,1.75,0.25
+    
+    findClearWhiteList()
+    
+    findIncludeClass(FF)
+    
+    if(AntiSpam==1|AntiSpam==3|AntiSpam==5|AntiSpam==7|AntiSpam==9|AntiSpam==11|AntiSpam==13|AntiSpam==15){   
+    findIncludeModel(FM10)
+    #findIncludeModel(FM11)
+    #findIncludeModel(FM12)
+    #findIncludeModel(FM13) #gibs will rarely hit
+    S1="'Watermelon' "
+    }
+    else{S1=""}
+
+    if(AntiSpam==2|AntiSpam==3|AntiSpam==6|AntiSpam==7|AntiSpam==10|AntiSpam==11|AntiSpam==14|AntiSpam==15){
+    findIncludeModel(FM20)
+    S2="'Balloon' "
+    }
+    else{S2=""}
+    
+    if(AntiSpam==4|AntiSpam==5|AntiSpam==6|AntiSpam==7|AntiSpam==12|AntiSpam==13|AntiSpam==14|AntiSpam==15){
+    findIncludeModel(FM30)
+    findIncludeModel(FM31)
+    findIncludeModel(FM32)
+    findIncludeModel(FM33)
+    findIncludeModel(FM34)
+    findIncludeModel(FM35)
+    findIncludeModel(FM36)
+    findIncludeModel(FM37)
+    findIncludeModel(FM38)
+    findIncludeModel(FM39)
+    S3="'Explosives' "
+    }
+    else{S3=""}
+    
+    if(AntiSpam==8|AntiSpam==9|AntiSpam==10|AntiSpam==11|AntiSpam==12|AntiSpam==13|AntiSpam==14|AntiSpam==15){
+    findIncludeModel(FM100)
+    findIncludeModel(FM101)
+    findIncludeModel(FM102)
+    findIncludeModel(FM103)
+    findIncludeModel(FM104)
+    findIncludeModel(FM105)
+    findIncludeModel(FM106)
+    findIncludeModel(FM107)
+    findIncludeModel(FM108)
+    findIncludeModel(FM109)
+    findIncludeModel(FM110)
+    findIncludeModel(FM111)
+    findIncludeModel(FM112)
+    findIncludeModel(FM113)
+    findIncludeModel(FM114)
+    findIncludeModel(FM115)
+    findIncludeModel(FM116)
+    findIncludeModel(FM117)
+    findIncludeModel(FM118)
+    findIncludeModel(FM119)
+    findIncludeModel(FM120)
+    findIncludeModel(FM121)
+    findIncludeModel(FM122)
+    findIncludeModel(FM123)
+    findIncludeModel(FM124)
+    findIncludeModel(FM125)
+    findIncludeModel(FM126)
+    findIncludeModel(FM127)
+    findIncludeModel(FM128)
+    findIncludeModel(FM129)
+    findIncludeModel(FM130)
+    findIncludeModel(FM131)
+    findIncludeModel(FM132)
+    findIncludeModel(FM133)
+    
+    #findIncludeModel(FM140) #gibs
+    #findIncludeModel(FM141)
+    #findIncludeModel(FM142)
+    #findIncludeModel(FM143)
+    #findIncludeModel(FM144)
+    #findIncludeModel(FM145)
+    S2="'Wooden Props' "
+    }
+    else{S2=""}
+    if(AntiSpam!=0){print("AntiSpam function: off")}
+    print("")
+    print("")
+    print("made by Uke94")
+    
+    SPS=1000/FireRate
+}
+USE=owner():aimEntity()==E&owner():keyUse()
+if(USE&$USE){Active=!Active}
+
+
+if(Search==1&Manual==0){
+    #findByClass(FF)
+    #findClearWhiteList()
+    
+    findInSphere(E:pos(),FindRadius)
+    findExcludePlayer(owner())
+    XFIND=findSortByDistance(owner():pos())
+    Search=0
+    timer("Search",1)
+    
+    #DESTROYABLE=findToArray()
+        
+        
+    }
+if(clk("Search")){Search=1}
+
+if(find():isNPC()|find():isPlayer()&Manual==0){Target=find()}else{Target=noentity()}
+Target=find()
+
+
+#if(Target!=noentity()|first()){
+    
+if(Target!=noentity()&Manual==0){
+    if(Target:shootPos()==vec(0,0,0)){TP=Target:massCenter()}
+    else {TP=Target:shootPos()-vec(0,0,10)}
+    
+    if(Target:isNPC()){TP=Target:shootPos()}
+
+}#vec(0,0,0)
+else{TP=owner():aimPos()}
+
+
+BEA=-X:bearing(TP)
+if(-X:elevation(TP)<=0){
+ELE=-X:elevation(TP)}else{ELE=0}
+
+#BEA2=mod(BEA,360)
+#ELE2=mod(ELE,360)
+
+OPEN=(Target==noentity()|TP:distance(E:pos())>FindRadius)&Manual==0
+
+if($OPEN|$Active){
+if(Active==0|OPEN==1){
+DPOSK1=-0.3
+DPOSK2=0.3
+DPOSG1=0.3
+DPOSG2=1.475
+SA=0
+}else{
+DPOSK1=6 
+DPOSK2=-6
+DPOSG1=3.3 
+DPOSG2=6.6 
+SA=1
+}
+}
+if(K1P!=DPOSK1|K2P!=DPOSK2|G1P!=DPOSG1|G2P!=DPOSG2){
+if(SA==0){
+if(K1P<DPOSK1&G2P==DPOSG2){K1P=K1P+0.315} 
+if(K1P>DPOSK1&G2P==DPOSG2){K1P=K1P-0.315}
+
+if(K2P<DPOSK2&G2P==DPOSG2){K2P=K2P+0.315} 
+if(K2P>DPOSK2&G2P==DPOSG2){K2P=K2P-0.315}
+
+if(G1P<DPOSG1){G1P=G1P+0.18} 
+if(G1P>DPOSG1){G1P=G1P-0.18}
+
+if(G2P<DPOSG2){G2P=G2P+0.205} 
+if(G2P>DPOSG2){G2P=G2P-0.205}
+}
+else{
+if(K1P<DPOSK1){K1P=K1P+0.315} 
+if(K1P>DPOSK1){K1P=K1P-0.315}
+
+if(K2P<DPOSK2){K2P=K2P+0.315} 
+if(K2P>DPOSK2){K2P=K2P-0.315}
+
+if(G1P<DPOSG1&K2P==DPOSK2){G1P=G1P+0.18} 
+if(G1P>DPOSG1&K2P==DPOSK2){G1P=G1P-0.18}
+
+if(G2P<DPOSG2&K2P==DPOSK2){G2P=G2P+0.205} 
+if(G2P>DPOSG2&K2P==DPOSK2){G2P=G2P-0.205}
+}
+}
+holoPos(2,OR:toWorld(vec(0,0,K1P)*Size))
+holoPos(3,OR:toWorld(vec(0,0,K2P)*Size))
+
+holoPos(40,GB:toWorld(vec(G1P*4,0,0)*Size))
+holoPos(41,GB:toWorld(vec(G2P*4,0,0)*Size))
+
+if((SA==1&(Target!=noentity()|Manual==1))|first()){
+holoAng(    1, E:toWorld(ang( 0 ,BEA ,90 )))
+holoAng(    4, OR:angles()+ang(0,0,90))
+holoAng(  100,OR:toWorld(ang( 0 , -ELE , 0 )))}
+
+RD=rangerOffset(GB:pos(),TP)
+RD1=rangerOffset(100000000,GB:pos(),GBaS:pos())
+
+if(((RD:entity()==Target|RD1:entity()==Target)&G2P==DPOSG2&SA==1)|(Manual==1&owner():keyAttack2()&SA==1&G2P==DPOSG2)){Fire=1}else{Fire=0}
+
+
+if(Fire==1&Ready==1&ELE<0){
+    #GBaS:shootTo(TP-GBaS:pos(),0,550,55550) #for the normal shootTo function
+    GBaS:shootTo(TP-GBaS:pos(),1,0,550,55550,0) #if you can define trail and bulletcount
+    #GBaS:shootTo(TP-GBaS:pos(),18,40,550,55550,0) #automatic shotgun turret
+    
+    Ready=0
+    
+    timer("Ready",SPS)
+    timer("GE",SPS/2)
+    
+    holoPos(41,GB:toWorld(vec((G2P*4)-2,0,0)*Size))
+    #holoPos(41,GE:pos()-((GBaOR:pos()-GB:pos())/9))
+    soundPlay(100,10,"weapons/smg1/smg1_fire1.wav")
+    soundVolume(100,0.25*Size)
+    soundPitch(100,130)
+}
+
+if(clk("GE")){holoPos(41,GB:toWorld(vec((G2P*4)+2,0,0)*Size))}#holoPos(41,GE:pos()+((GBaOR:pos()-GB:pos())/9))}
+if(clk("Ready")){Ready=1}
+
+
+timer("SU",200)
+
+if(clk("SU")&SA==1){
+TPB=TP:x()+TP:y()
+TPE=TP:z()
+if($TPB){MID:soundPlay(1,0,"ambient/machines/city_ventpump_loop1.wav",0.6),soundPitch(1,200),soundVolume(1,0.45*Size)}#else{soundStop(1)}
+if($TPE){MID:soundPlay(2,0,"ambient/machines/city_ventpump_loop1.wav",0.4),soundPitch(2,800),soundVolume(2,0.45*Size)}#else{soundStop(2)}
+}
+
+if(owner():aimEntity()==E){
+    
+    holoAlpha(1920,200)
+
+    if(Active==0){
+        holoColor(1920,vec(255,0,0))
+    
+    }else{
+        holoColor(1920,vec(0,255,0))
+    }
+
+}else{holoAlpha(1920,0)}
+
+
+#made by Uke94
+
+

@@ -1,0 +1,13 @@
+@name createholofunc
+@persist  HoloI
+if(first()){
+function number createHolo(HoloModel:string){
+        HoloI += 1
+        holoCreate(HoloI)
+        holoModel(HoloI, HoloModel)
+        
+        return HoloI
+    }
+#put createholo here
+}
+

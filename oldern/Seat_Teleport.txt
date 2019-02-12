@@ -1,0 +1,30 @@
+@name Seat Teleport
+@inputs Vec1:vector Vec2:vector Go Base1:entity Base2:entity
+@outputs JTarg1:vector JTarg2:vector Jump 
+@persist Targ
+interval(15)
+if(first()){
+        JTarg1 = Vec1+vec(0,0,10)
+        JTarg2 = Vec2+vec(0,0,10)    
+    
+}
+if (~Go & Go) {
+    Jump = 1
+    if (Targ == 0) {
+        JTarg1 = Vec1+vec(0,0,10)
+        JTarg2 = Vec2+vec(0,0,10)
+
+     }
+    elseif (Targ == 1) {
+        JTarg1 = Vec2+vec(0,0,10)
+        JTarg2 = Vec1+vec(0,0,10) 
+    }
+    Targ = !Targ
+        Base1:setPos(JTarg1)
+        Base2:setPos(JTarg2)    
+}
+else {Jump = 0
+}
+
+
+

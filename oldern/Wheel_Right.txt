@@ -1,0 +1,10 @@
+@name Wheel Right
+@inputs Base:entity Wheel:entity Multiplier
+@outputs 
+@persist I
+@trigger 
+local Speed = 50
+
+runOnTick(1)
+I = I + Speed * Multiplier
+Wheel:setAng(ang(Base:angles():pitch(),Base:angles():yaw()-90,I))

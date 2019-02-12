@@ -1,0 +1,34 @@
+@name Anti-Noclip Field V2
+@inputs [Corner1 Corner2]:vector
+@outputs Target:vector
+@persist Prop:entity Vec:vector  Whitelist:array
+@trigger 
+#E2 by PCL (or HMM) http://steamcommunity.com/profiles/76561198115172591
+if(first())
+{
+
+    Prop = propSpawn("models/hunter/blocks/cube2x2x2.mdl",entity():pos(),1)
+    runOnTick(1)
+    Whitelist = array(owner(),findPlayerByName("Spero"),findPlayerByName("maeljw")) # array of players that will not be targeted
+}
+
+local Ent = Prop
+
+if(findCanQuery())
+{
+    Target = entity():pos()+vec(0,0,100) 
+    
+    findExcludeEntities(Whitelist)
+    findByClass("player")
+    findClipToBox(Corner1,Corner2)
+    findSortByDistance(entity():pos())
+    local A = findToArray()
+    
+    local E = A[1,entity]
+
+    if(A:count()>0&E:isPlayer()&E:inNoclip())
+    {
+        Target = E:pos()
+    }
+}
+

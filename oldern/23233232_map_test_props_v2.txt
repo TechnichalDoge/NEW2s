@@ -1,0 +1,38 @@
+@name 23233232 map test props v2
+@inputs 
+@outputs ScaleFactor LastI Arr:array
+@persist LastI Arr:array
+@trigger 
+
+if (first()){
+    runOnTick(1)
+    ScaleFactor = 1/8
+}
+
+if (findCanQuery()){
+    findInSphere(vec(0,0,-11144), 200000)
+#    findIncludeClass("gmod_wire_hologram")
+    findIncludeClass("prop_physics")
+    Arr=findToArray()
+    LastI = 1
+}else{
+    for(I=LastI, Arr:count()){
+        if(perf()){
+        }else{
+            break
+            LastI = I
+        }
+        
+        A = Arr[I, entity]
+        Offset = A:pos() - vec(0,0,-11144)
+        HoloPos = Offset*(ScaleFactor^1.5) + entity():pos()
+
+        holoCreate(I,HoloPos)
+        holoModel(I,A:model())
+        holoScaleUnits(I,A:boxSize()*(ScaleFactor^1.5))
+        holoAng(I, A:angles())
+        holoColor(I, A:getColor())
+        holoMaterial(I, A:getMaterial())
+        holoColor(I,A:getColor())
+    }
+}

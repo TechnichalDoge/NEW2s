@@ -1,0 +1,10 @@
+@name Misc2342323
+@inputs 
+@outputs Out:entity Out2:vector
+@persist Who:entity
+@trigger 
+runOnTick(1)
+if(first()){
+Who = findPlayerByName("JoRy")
+Out = Who}
+Out2 = Who:pos()

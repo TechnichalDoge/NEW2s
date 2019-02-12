@@ -1,0 +1,154 @@
+@name PILOGO R2
+@persist EP:vector E:entity EA:angle H1:array H2:array Ring:array
+@persist RingCol:vector LetterCol:vector RingMat:string 
+@persist LetterMat:string BackgroundColor:vector BackgroundMat:string
+@persist [BaseSize,Size,Ratio,Thiccness,Loadtime]:number
+@persist SticksnStones:array
+if(first()|dupefinished()){
+
+#scale of the logo
+Size = 1
+
+#the unitsize if it was scaled to 1, this is what size multiplies by,
+#change this and you can manipulate the size more than just using decimals in the size var
+BaseSize = 100
+
+#thickness of the letters and ring
+Thiccness = 10
+
+#ring color
+RingCol = vec(0,0,0)
+
+#letter color
+LetterCol = vec(255,255,255)
+
+#ring material
+RingMat = ""
+
+#letter material
+LetterMat = ""
+
+#background color
+BackgroundColor = vec(0,0,255)
+
+#background material
+BackgroundMat = ""
+
+#ratio of the size of the ring to the size of the letters
+Ratio = 7/8
+
+#loadtime in miliseconds
+LoadTime = 500
+
+
+
+
+    #ease of life
+    E = entity()
+    EP = E:pos()
+    EA = E:angles()
+    
+    #parent holo, also used as background
+    holoCreate(10,EP+vec(0,0,0))
+    holoAng(10,ang(0,0,0))
+    
+    H1 = array(1,
+    EP+vec(0,
+    (BaseSize/6)*Size,0),
+    "models/sprops/misc/alphanum/alphanum_p.mdl",
+    ang(180,-90,-90),
+    vec(BaseSize/2,Thiccness,BaseSize)*Size,
+    LetterCol,
+    LetterMat
+    )
+    
+    H2 = array(2,
+    EP+vec(0,(BaseSize/-6)*Size,0),
+    "models/sprops/misc/alphanum/alphanum_i.mdl",
+    ang(0,90,90),
+    vec(BaseSize/2,Thiccness,BaseSize)*Size,
+    LetterCol,
+    LetterMat
+    )
+  
+
+    #set the properties of the ring
+    Ring = array(3,
+    EP-vec(0,(BaseSize/-6)*Size,0),
+    "models/props_phx/construct/metal_wire1x1x1.mdl",
+    ang(25,45,0),
+    vec(BaseSize*Ratio,BaseSize*Ratio,Thiccness)*Size,
+    RingCol,
+    RingMat
+    )
+    
+    
+    
+    
+    #create holos
+    holoCreate(H1[1,number],H1[2,vector])
+    holoCreate(H2[1,number],H2[2,vector])
+    #holoCreate(Ring[1,number],Ring[2,vector])
+    
+    #clippers
+    holoClipEnabled(10,1)
+    local BaseClipEntity = holoEntity(10)
+    holoClip(10,1,vec(0,-42.5,0),vec(90,95,0),0)
+    holoClip(10,2,vec(0,-42.5,0),vec(-90,95,0),0)
+    #holo Models
+    holoModel(H1[1,number],H1[3,string])
+    holoModel(H2[1,number],H2[3,string])
+    #holoModel(Ring[1,number],Ring[3,string])
+    
+    holoModel(10,"hq_cube")
+    
+    #holo angles
+    holoAng(H1[1,number],H1[4,angle])
+    holoAng(H2[1,number],H2[4,angle])
+    #holoAng(Ring[1,number],Ring[4,angle])
+    
+    #holo color
+    holoColor(H1[1,number],H1[6,vector])
+    holoColor(H2[1,number],H2[6,vector])
+    #holoColor(Ring[1,number],Ring[6,vector])
+    
+    holoColor(10,BackgroundColor)
+    
+    #holo materials
+    holoMaterial(H1[1,number],H1[6,string])
+    holoMaterial(H2[1,number],H2[6,string])
+    #holoMaterial(Ring[1,number],Ring[6,string])
+    
+    holoMaterial(10,BackgroundMat)
+    
+    #parent the letter and ring holos to parent background holo
+    holoParent(H1[1,number],10)
+    holoParent(H2[1,number],10)
+    #holoParent(Ring[1,number],10)
+    
+    #sets timer to reorient itself to correct position
+    timer("Reorientate",LoadTime)
+}
+if(clk("Reorientate")){
+    #have to flip it 180
+    local Flipper = E:angles()+ang(180,0,180)
+    
+    #set the angle of parent holo
+    holoAng(10,Flipper)
+    
+    local RingS = BaseSize*(Size*Ratio)
+    local Scale = Size*BaseSize
+    local Thicciness = Thiccness * Size
+    
+    #scale
+    holoScaleUnits(H1[1,number],H1[5,vector])
+    holoScaleUnits(H2[1,number],H2[5,vector])
+    #holoScaleUnits(Ring[1,number],Ring[5,vector])
+    
+    
+    holoScaleUnits(10,Ring[5,vector]:setZ(Thiccness*Size/12))
+
+
+    #parents the parent holo to the e2 chip
+    holoParent(10,E)
+}

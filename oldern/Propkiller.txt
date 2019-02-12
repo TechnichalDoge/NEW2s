@@ -1,0 +1,15 @@
+@name Propkiller
+@persist V:vector
+@model models/props_junk/sawblade001a.mdl
+interval(10)
+
+Me=owner():aimPos()+vec(0,0,10)
+EntPos=entity():pos()
+
+if(owner():keyAttack2()){
+    X=Me-EntPos
+    applyForce((x*300-entity():vel())+entity():mass())
+}
+
+
+

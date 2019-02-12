@@ -1,0 +1,15 @@
+@name antinoclip field test v1
+@inputs Bl:entity
+@outputs Num:number
+@persist Ep:vector Ee:entity Diameter:number TRadius:number Target:entity TargetPos:vector
+interval(10)
+
+Diameter=100
+#put how big diameter in here
+TRadius=Diameter/2
+Ee=entity()
+Ep=Ee:pos()
+Num=findInSphere(Ep,TRadius)
+Target=find()
+TargetPos=Target:pos()
+Bl:applyForce(TargetPos)

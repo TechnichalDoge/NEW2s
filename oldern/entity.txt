@@ -1,0 +1,11 @@
+@name entity
+@inputs 
+@outputs 
+@persist Arr:array
+@trigger 
+interval(15)
+findInSphere(entity():pos(),500)
+Arr=findToArray()
+if(changed(Arr:count())){
+print(_HUD_PRINTCONSOLE,Arr)
+}

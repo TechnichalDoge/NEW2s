@@ -1,0 +1,14 @@
+@name Altitude
+@outputs Out H
+@persist E:entity H
+runOnTick(5)
+E=entity()
+H=E:pos():z()
+if(H<(-11000)){
+    Out=1
+}
+else{
+    Out=0
+}
+
+

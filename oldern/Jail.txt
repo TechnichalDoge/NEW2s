@@ -1,0 +1,162 @@
+@name Moderation MultiTool
+@persist [Target,Bottom,Top,Middle,Bottom2]:entity [SmolJail,BigJail]:number [AmountSmol,AmountBig,AmountSound,AmountBlind]:number #[[Targets]:array]#
+if(first()){
+    runOnChat(1)
+    runOnTick(1)
+    propSpawnUndo(0)
+    #made slightly by Logia help from Bleck and lego
+}
+
+if(changed(Target:isAlive())){
+    if(!Target:isAlive()){
+        propDeleteAll()
+        lightRemoveAll()
+    }#else{
+     #
+     #   Middle = propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",Target:pos()+vec(0,0,0),ang(0,0,0),1)
+      #  Bottom = propSpawn("models/props_phx/construct/metal_angle360.mdl",Target:pos()+vec(0,0,95),ang(0,0,0),1)
+     #   Bottom2 = propSpawn("models/props_phx/construct/metal_angle360.mdl",Target:pos()+vec(0,0,0),ang(0,0,0),1)
+    #}
+}
+
+if(chatClk(owner())){
+    local LE = owner():lastSaid():explode(" ")
+    #hideChat(1)
+    if(LE[1,string] == "/jail")
+    {
+        #
+    hideChat(1)
+        if(LE[2,string]:length()>0)
+        {
+            Target = findPlayerByName(LE[2,string])
+            #Targets:pushEntity(Target)
+            hint("Valid Player, successfully jailed.",5)
+        
+    
+
+        Middle = propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",Target:pos()+vec(0,0,0),ang(0,0,0),1)
+        Bottom = propSpawn("models/props_phx/construct/metal_angle360.mdl",Target:pos()+vec(0,0,95),ang(0,0,0),1)
+        Bottom2 = propSpawn("models/props_phx/construct/metal_angle360.mdl",Target:pos()+vec(0,0,0),ang(0,0,0),1)
+        SmolJail = 1
+        Middle:propStatic(1)
+        Bottom:propStatic(1)
+        Bottom2:propStatic(1) 
+        Middle:setColor(0,0,0)          
+        Bottom:setMaterial("phoenix_storms/concrete0")
+        Bottom2:setMaterial("phoenix_storms/concrete0")     
+        Bottom:setColor(0,0,0)
+        Bottom2:setColor(0,0,0)    
+        lightCreate(1,Bottom:pos())
+        lightBrightness(1,1)    
+        AmountSmol++
+            #timer("undohide",100)        
+        }
+        else{hint("Player Not Valid",5)
+        }          
+    }
+        if(LE[1,string] == "/bigjail")
+    {
+        #hideChat(1)
+        if(LE[2,string]:length()>0)
+        {
+            Target = findPlayerByName(LE[2,string])
+            #Targets:pushEntity(Target)    
+            hint("Valid Player, successfully jailed.",5)
+            #hideChat(1)
+        Middle = propSpawn("models/hunter/tubes/tube4x4x3.mdl",Target:pos()+vec(0,0,70.425),ang(0,0,0),1)
+        Bottom = propSpawn("models/hunter/tubes/circle4x4.mdl",Target:pos()+vec(0,0,142.85),ang(0,0,0),1) #142.85
+        Bottom2 = propSpawn("models/hunter/tubes/circle4x4.mdl",Target:pos()+vec(0,0,0),ang(0,0,0),1)
+        BigJail = 1  
+        Middle:propStatic(1)
+        Bottom:propStatic(1)
+        Bottom2:propStatic(1)
+        Middle:setAlpha(0)
+        Middle:setMaterial("phoenix_storms/concrete0")        
+        Bottom:setMaterial("phoenix_storms/concrete0")
+        Bottom2:setMaterial("phoenix_storms/concrete0")     
+        Bottom:setColor(0,0,0)
+        Bottom2:setColor(0,0,0)
+        lightCreate(1,Bottom:pos())
+        lightBrightness(1,1)
+        AmountBig++
+            #timer("undohide",100)        
+        }
+        else{hint("Player Not Valid",5)
+        }
+  }
+    
+}
+
+if(chatClk(owner())){
+    local LE = owner():lastSaid():explode(" ")
+    
+    if(LE[1,string] == "/unjailall"){
+        propDeleteAll()
+        Target=noentity()
+        hint("Removed All Jails",5)
+        AmountBig = 0
+        AmountSmol = 0
+#        Targets:clear()
+    #hideChat(1)
+    }
+    
+    if(LE[1,string] == "/kill"){
+        if(LE[2,string]:length()>0)
+        {
+            local KillTarget = findPlayerByName(LE[2,string])
+            local Pew = pewCreate("Medium Laser","models/props_wasteland/prison_lamp001c.mdl",KillTarget:shootPos()+vec(0,0,30),ang(0,0,180),"up")
+            local PewWire = Pew:wirelink()
+            PewWire["Fire",number] = 1
+            timer("undo",100)
+            hint("Valid Player in PVP, successfully killed.",5)
+            #hideChat(1)
+            timer("undohide",100)
+        }    
+    
+    }
+}
+#for(I=0,AmountSmol){
+    holoCreate(1)
+    holoCreate(2)
+    holoCreate(3)   
+    if(BigJail&!SmolJail){
+        holoPos(1,Middle:pos())
+        holoPos(2,Bottom2:pos())
+        holoModel(1,"hq_cylinder")  
+        holoModel(2,"models/props_phx/construct/windows/window_curve360x2.mdl")   
+        holoScaleUnits(1,-Middle:boxSize()+vec(2,2,9))
+        holoScaleUnits(2,Middle:boxSize())    
+        holoAng(1,Middle:angles())
+        holoAng(2,Middle:angles())    
+        holoColor(1,vec())
+        holoColor(2,vec())
+        #holoVisible(1,players(),0)
+        holoVisible(1,Target,1)
+        holoColor(1,vec(15,15,15))
+        }        
+    
+    elseif(SmolJail&!BigJail){
+        local I = 0
+        holoPos(I,Middle:pos()+vec(0,0,45))
+        holoPos(I+1,Bottom:pos())
+        holoPos(I+2,Bottom2:pos())        
+        holoModel(I,"hq_cylinder")   
+        holoScaleUnits(I,-(Middle:boxSize()-vec(2,2,0)))
+        holoAng(I,Middle:angles())
+        holoVisible(I,players(),0)
+        holoVisible(I,Target,1)
+        holoColor(I,vec(15,15,15))
+    }
+
+
+        if(clk("undo")& !(first())&!(dupefinished()))
+        {
+            concmd("gmod_undo")         
+        }   
+#        hideChat(0)
+
+#    if(clk("undohide")){
+  #      hideChat(0)
+    
+        
+ #   }

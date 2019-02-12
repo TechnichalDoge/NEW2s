@@ -1,0 +1,7 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(100)
+print(pewBulletInfo("Beam laser"))

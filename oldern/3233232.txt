@@ -1,0 +1,14 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()|dupefinished()){
+holoCreate(1)
+holoPos(1,entity():pos())
+holoScaleUnits(1,vec(100,100,100))
+holoModel(1,"models/hunter/blocks/cube2x2x2.mdl")
+holoMaterial(1,"models/effects/muzzleflash/blurmuzzle")
+holoParent(1,entity())
+}

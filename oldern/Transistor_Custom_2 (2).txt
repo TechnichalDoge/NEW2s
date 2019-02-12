@@ -1,0 +1,11 @@
+@name Transistor Custom 2 V2
+@inputs Input Toggle Input2
+@outputs Output Output2
+runOnTick(1)
+if(Toggle==1){
+    Output=Input
+}
+else{
+    Output=Input2  
+}
+Output2 = changed(Toggle)

@@ -1,0 +1,7 @@
+@name okay
+@inputs 
+@outputs 
+@persist 
+@trigger 
+runOnChat(1)
+concmd("say :")

@@ -1,0 +1,8 @@
+@name Transistor Custom
+@inputs Input Toggle
+@outputs Output
+if(Toggle==1){
+Input=Output}
+else{
+ Output=0   
+}

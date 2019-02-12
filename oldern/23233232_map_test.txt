@@ -1,0 +1,44 @@
+@name 23233232 map test
+@inputs 
+@outputs ScaleFactor LastI Arr:array
+@persist LastI Arr:array SelfHolos:array
+@trigger 
+
+if (first()){
+    runOnTick(1)
+    ScaleFactor = 1/24
+}
+
+if (findCanQuery()){
+    findInSphere(entity():pos(), 2000)
+    findIncludeClass("gmod_wire_hologram")
+    findIncludeClass("prop_physics")
+    findExcludeEntities(SelfHolos)
+    Arr=findToArray()
+    LastI = 1
+}else{
+    for(I=LastI, Arr:count()){
+        if(perf()){
+        }else{
+            break
+            LastI = I
+        }
+        
+        A = Arr[I, entity]
+        Offset = A:pos() - entity():pos()
+        HoloPos = Offset*ScaleFactor + entity():pos()
+
+        holoCreate(I,HoloPos)
+        SelfHolos:pushEntity(holoEntity(I))
+        holoModel(I,A:model())
+        #if (A:type() == "gmod_wire_hologram"){
+        #    holoScaleUnits(I,holoScaleUnits(holoIndex(A))*ScaleFactor)
+        #}else{
+            holoScaleUnits(I,A:boxSize()*ScaleFactor)
+        #}
+        holoAng(I, A:angles())
+        holoColor(I, A:getColor())
+        holoMaterial(I, A:getMaterial())
+        holoColor(I,A:getColor())
+    }
+}

@@ -1,0 +1,60 @@
+@name Grapher2
+@inputs EGP:wirelink GraphicalValuable:number Range:vector2
+@trigger none
+@outputs Frequency:number TableValues:array EGPSIZE:vector2
+@outputs HorzRes:number VertRes:number
+@outputs Amt
+@outputs PrevX1 PrevY1 NowX1 NowY1 ActuPX ActuNX ActuPY ActuNY
+@persist ExpantionFactor K
+#[
+
+
+comments and howto and creds
+
+]#
+interval(1000/15)
+if(first()|dupefinished()){
+    EGP:egpClear()
+ #resolutions
+    #horz res
+    HorzRes = 256
+    #vert res
+    VertRes = 124
+    ExpantionFactor = 4
+ #colors
+    #backgroundcolor
+    #0y line color
+    #graph color
+ #setup array   
+    TableValues[1,number] = 0
+ # include mapfunction
+ #include "/mapfunction"
+}
+if(!(EGP == nowirelink()&!inputClk())){
+EGPSIZE = EGP:egpSize()
+TableValues:pushNumber(GraphicalValuable)
+if(TableValues:count()>HorzRes){
+    TableValues:shiftNumber()
+}
+
+##loop through and display the stuff on egp
+        PrevX1 = K-1
+        PrevY1 = TableValues[K-1,number]
+        NowX1 = K
+        NowY1 = TableValues[K,number]
+        ActuPX = mapNum(PrevX1,10,HorzRes,0,EGPSIZE[1]*ExpantionFactor,1)#-(EGPSIZE[1])
+        ActuNX = mapNum(NowX1,10,HorzRes,0,EGPSIZE[1]*ExpantionFactor,1)#-(EGPSIZE[1])
+        ActuPY = mapNum(PrevY1,Range[1],Range[2],0,EGPSIZE[2],1)
+        ActuNY = mapNum(NowY1,Range[1],Range[2],0,EGPSIZE[2],1)
+        #maybe use the beizer function in a for to make it curved
+        EGP:egpLine(K,vec2(ActuPX,ActuPY),vec2(ActuNX,ActuNY))  
+        EGP:egpSize(K,2)
+        #EGP:egpCircle(K,vec2(ActuNX,ActuNY),vec2(10))
+        print(ActuNY)
+
+Amt = TableValues:count()
+K++
+if(K>HorzRes/ExpantionFactor){
+    K = 0
+}
+}

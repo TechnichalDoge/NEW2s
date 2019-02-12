@@ -1,0 +1,8 @@
+@name owenrlight
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+lightCreate(1,owner():pos())
+lightParent(1,owner())

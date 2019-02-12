@@ -1,0 +1,13 @@
+@name If then else
+@inputs A B Input
+@outputs C
+@persist 
+@trigger 
+
+runOnTick(60)
+if(A==1){
+    C==B    
+}
+else{
+    C==Input    
+}

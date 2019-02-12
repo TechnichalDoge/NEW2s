@@ -1,0 +1,8 @@
+@name Transistor c5
+@inputs Toggle Input:vector Base:entity Input2
+@outputs Output:vector
+if(Toggle==1){
+Output=Input}
+else{
+ Output=Base:pos()+vec(0,0,Input2)
+}

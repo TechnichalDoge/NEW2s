@@ -1,0 +1,17 @@
+@name Black box v3
+@persist I E:entity
+interval(80)
+E=entity()
+for(I=0,20) { holoCreate(I)
+holoCreate(I)
+holoModel(I,"cube")
+holoPos(I, (entity():pos()))
+holoColor(I,vec(1,1,1))
+holoMaterial(I,"models/debug/debugwhite")
+holoParent(I,E)
+holoAlpha(I,255)
+holoScale(I,vec(-I,-I,-I))
+}
+
+
+

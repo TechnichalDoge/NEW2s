@@ -1,0 +1,30 @@
+@name Test AntiNoclip troll
+@inputs [A,B,C,D,E,F]:entity
+@outputs 
+@persist Ply:entity
+@trigger 
+if(first()){
+Ply = findPlayerByName("professor")
+}
+local Int = array(A,B,C,D,E,F)
+
+foreach(I,K:entity=Int){
+    K:propFreeze(1)
+}
+
+
+A:setPos(Ply:pos()+vec(0,0,-35))
+A:setAng(ang())
+B:setPos(Ply:shootPos()+vec(0,0,25))
+B:setAng(ang())
+C:setPos((Ply:shootPos()+Ply:pos())/2+vec(50,0,0))
+C:setAng(ang(90,0,0))
+D:setPos((Ply:shootPos()+Ply:pos())/2-vec(50,0,0))
+D:setAng(ang(90,0,0))
+E:setPos((Ply:shootPos()+Ply:pos())/2-vec(0,50,0))
+E:setAng(ang(90,90,0))
+F:setPos((Ply:shootPos()+Ply:pos())/2+vec(0,50,0))
+F:setAng(ang(90,90,0))
+runOnTick(1)
+
+

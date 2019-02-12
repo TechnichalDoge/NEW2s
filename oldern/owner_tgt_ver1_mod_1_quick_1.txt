@@ -1,0 +1,11 @@
+@name owner tgt ver1 mod 1 quick 1
+@inputs
+@outputs Teleport_Pos:vector
+@persist Player:entity
+@trigger 
+runOnTick(1)
+
+    Entity=owner()
+    
+    Vector=(Entity:pos())
+

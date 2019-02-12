@@ -1,0 +1,17 @@
+@name Strafing
+@inputs Alt A D
+@outputs BL BR FL FR
+@persist 
+@trigger 
+
+if(Alt){
+    if(A&D){BL=0 BR=0 FL=0 FR=0}
+    elseif(A){BL=-1 FR=1 BR=1 FL=-1}
+    elseif(D){BL=1 FR=-1 BR=-1 FL=1}
+    else{BL=0 BR=0 FL=0 FR=0}
+}else{
+    if(A&D){BL=0 BR=0 FL=0 FR=0}
+    elseif(A){BL=1 FR=1 BR=-1 FL=-1}
+    elseif(D){BL=-1 FR=-1 BR=1 FL=1}
+    else{BL=0 BR=0 FL=0 FR=0}
+}

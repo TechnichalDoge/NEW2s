@@ -1,0 +1,19 @@
+@name test22222
+@inputs Ent1:entity Bearing
+@outputs 
+@persist Ang:angle
+@trigger 
+if(first())
+{
+    runOnTick(1)
+}
+local E = Ent1
+local T = entity():pos()+vec(0,0,100)
+local M = E:mass()
+
+Dir = ang(0,Bearing,0)
+QProp = quat(E)
+Q = quat(Dir)/QProp
+Torque = E:toLocal(rotationVector(Q) + E:pos())
+E:applyTorque((Torque*1500 - E:angVelVector()*40)*E:inertia())
+

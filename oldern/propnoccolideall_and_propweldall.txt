@@ -1,0 +1,20 @@
+@name propnoccolideall and propweldall no work
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()){
+    for(I=0,entity():hasConstraints()){
+        noCollide(entity():isConstrainedTo(I),entity():isConstrainedTo(I+1))
+        noCollide(entity():isConstrainedTo(I),entity():isConstrainedTo(I-1))     
+        weld(entity():isConstrainedTo(I),entity():isConstrainedTo(I+1))
+        weld(entity():isConstrainedTo(I),entity():isConstrainedTo(I-1)) 
+        if(I==entity():hasConstraints()){
+            timer("r",100)  
+        }   
+    }
+}
+if(clk("r")){
+    selfDestruct()    
+}

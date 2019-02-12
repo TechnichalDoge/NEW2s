@@ -1,0 +1,10 @@
+@name Autokill V1Ba2#ftE36
+@inputs 
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+if(owner():keyAttack1()){
+ owner():kill()  
+    
+}

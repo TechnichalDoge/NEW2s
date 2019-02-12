@@ -1,0 +1,17 @@
+@name Up controlls
+@inputs Up Down
+@outputs UD
+@persist Speed Speed2
+
+runOnTick(10)
+Speed=0.5
+Speed2=-0.5
+if(Up==1){
+    UD=Speed
+}
+elseif(Down==1){
+    UD=(Speed2)
+}
+else{
+    UD=0
+}

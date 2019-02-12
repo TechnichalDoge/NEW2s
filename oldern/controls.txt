@@ -1,0 +1,36 @@
+@name controls
+@inputs W A S D
+@outputs A1 B1 A2 B2
+@persist 
+runOnTick(5)
+
+if(W==1){
+ A1=1
+ B1=1
+ A2=0
+ B2=0   
+}
+elseif(S==1){
+    A2=1
+    B2=1
+    A1=0
+    B1=0
+}
+elseif(A==1){
+    A1=1
+    B2=1
+    A2=0
+    B1=0
+}
+elseif(D==1){
+    A2=1
+    B1=1
+    A1=0
+    B2=0
+}
+else{
+    A1=0
+    A2=0
+    B1=0
+    B2=0
+}

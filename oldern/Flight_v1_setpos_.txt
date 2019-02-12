@@ -1,0 +1,63 @@
+@name Flight v1 setpos 
+@inputs EGP:wirelink Cam:wirelink
+@persist Position:vector Multiplier String:string Entity:entity Driver:entity
+@persist W A S D Shift Cntrl Angle:angle 
+runOnTick(1)              
+
+if(first()|dupefinished()){                                                                                                                                                                                                                                                                                                     setName("Setpos Flight\nBy Logica")                                                           
+    Entity = entity():isConstrainedTo()
+    Position = entity():pos()
+}    
+Driver = Entity:driver()
+if(changed(Driver)){
+    timer("TM",100)    
+}
+if(changed(Cam)){
+    Cam["Position",vector] = Entity:pos()
+    Cam["Activated",number] = 1    
+}
+
+W = Driver:keyPressed("W")
+A = Driver:keyPressed("A")
+S = Driver:keyPressed("S")
+D = Driver:keyPressed("D")
+Shift = Driver:keySprint()
+Cntrl = Driver:keyDuck()
+Angle = Driver:eyeAngles()
+
+if(Driver!=owner()){
+    Entity:killPod()    
+}
+if(clk("TM")&Driver:name()!="(null)"){
+    Entity:hintDriver("Controls:\nW - Forward\nS - Back\nA - Left\nD - Right\nShift - Faster\nCtrl - Toggle Slow\nMouse - Aim\n \nMade By Logica",4)        
+}
+ 
+#holoCreate(1,owner():eyeAngles():forward()*400+owner():shootPos()) 
+#print(owner():eyeAngles():forward()*400+owner():shootPos())
+
+if(Shift){
+    Multiplier = 100
+    String = "Fast"
+}elseif(Cntrl){
+    Multiplier = 10
+    String = "Slow - Toggled"
+}else{  
+    Multiplier = 25
+    String = "Normal"
+}    
+if(W){
+Position = (Angle:forward()*Multiplier+Position)
+}
+elseif(S){
+Position = (-Angle:forward()*Multiplier+Position)   
+}
+elseif(A){
+Position = (-Angle:right()*Multiplier+Position)     
+}
+elseif(D){
+Position = (Angle:right()*Multiplier+Position)     
+}
+Entity:setPos(Position)
+#Entity:setAng(ang(0,Angle:yaw(),0))
+
+EGP:egpText(1,String,vec2(10,200))

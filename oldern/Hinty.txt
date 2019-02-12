@@ -1,0 +1,11 @@
+@name Hinty pt2
+@inputs Input
+@outputs 
+@persist 
+@trigger 
+
+if Input=1 (hint("Bye",4)) 
+
+
+
+

@@ -1,0 +1,21 @@
+@name Modern ARt 1
+@inputs 
+@outputs 
+@persist EP:vector
+@trigger 
+EP=entity():pos()
+interval(25)
+
+holoCreate(1,EP)
+holoModel(1,"hq_cylinder")
+holoScaleUnits(1,vec(100,100,2))
+holoMaterial(1,"phoenix_storms/concrete0")
+
+
+for(I=1,4){
+holoCreate(2+I,EP)
+holoModel(2+I,"hq_tube")
+holoScaleUnits(2+I,vec(80,80,100))
+holoAng(2+I,ang(0,90*I,-25))
+holoMaterial(2+I,"phoenix_storms/concrete0")
+}

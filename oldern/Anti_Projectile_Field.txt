@@ -1,0 +1,115 @@
+@name Anti Projectile Field
+#@outputs Array:array Array2:array Which:array Array3:array Array4:array
+@persist Array:array Radius Pos Array2:array Which:array Array3:array Array4:array Which2:array Array5:array
+@model models/props_junk/TrafficCone001a.mdl
+if(first()|dupefinished()){
+#    Radius=22500
+#Radius=1000
+Radius=22500
+    timer("timersafe",50)
+}
+
+interval(100)
+
+#Array2=pewFindInSphere(vec(0,0,0),Radius)
+Array2=pewFindInSphere(entity():pos(),Radius)
+if(changed(Array2:count())){
+    for(I=1,Array2:count()){
+        Array3:pushVector(pewBulletPos(Array2[I,number]))
+        Which:pushVector(pewBulletVel(Array2[I,number]))
+    }
+}
+
+
+findIncludeClass("npc_grenade_frag")
+findInSphere(entity():pos(),Radius)
+Array4 = findToArray()
+
+findIncludeClass("pewpew_base_bullet")
+findInSphere(entity():pos(),Radius)
+Array5 = findToArray()
+
+findIncludeClass("crossbow_bolt")
+findIncludeClass("m9k_thrown_m61")
+findIncludeClass("m9k_thrown_spec_knife")
+findIncludeClass("m9k_thrown_knife")
+findIncludeClass("m9k_thrown_harpoon")
+findIncludeClass("prop_combine_ball")
+findIncludeClass("grenade_ar2")
+findIncludeClass("rpg_missile")
+findIncludeClass("pewpew_base_bullet")
+findInSphere(entity():pos(),Radius)
+Array = findToArray()
+
+
+
+while(perf(50) & clk("timersafe")){
+    if(changed(Array:count())|changed(Array3:count())|changed(Array4:count())){
+        for(I=1,Array:count()){
+            local TempPewPewVector = Array[I,entity]:pos()
+            local AddH = Array[I,entity]:vel()/35            
+            Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,-50)+AddH,ang(0,0,0),1)
+            Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,40)+AddH,ang(0,0,0),1)
+            Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,-50)+AddH,ang(0,0,0),1)
+            timer("bb",50)
+        }         
+        for(I=1,Array3:count()){
+            local TempPewPewVector = Array3[I,vector]
+            local AddH = Which[I,vector]/25
+            Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,90)+AddH,ang(0,0,0),1)
+            Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            timer("bb",70)
+        }
+        for(I=1,Array4:count()){
+            local TempPewPewVector = Array4[I,entity]:pos()
+            local AddH = Array4[I,entity]:vel()-Array4[I,entity]:vel()
+            Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,90)+AddH,ang(0,0,0),1)
+            Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            timer("bb",200)
+        }
+        for(I=1,Array3:count()){
+            local TempPewPewVector = Array5[I,entity]:pos()
+            local AddH = Array5[I,entity]:vel()/25
+            Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,90)+AddH,ang(0,0,0),1)
+            Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,0)+AddH,ang(0,0,0),1)
+            timer("bb",70)
+        }    
+    
+    }
+    
+    Middle:propShadow(0)
+    Bottom:propShadow(0)
+    Bottom2:propShadow(0)
+    Middle:setAlpha(0)
+    Bottom:setAlpha(0)
+    Bottom2:setAlpha(0)
+    
+    timer("timersafe",100)
+    
+}
+if(first() | dupefinished()){
+    Pos=0   
+}
+if(clk("bb")){
+    propDeleteAll() 
+    Array3:remove(1)      
+    Which:remove(1)   
+}
+
+##include "decor24655646546Y5gbD"
+
+
+#[
+holoCreate(1,entity():pos())
+holoModel(1,"hq_sphere")
+Pos = Pos+1
+holoAng(1,ang(Pos,Pos,Pos))
+holoScaleUnits(1,vec(-Radius*2,-Radius*2,-Radius*2))
+holoAlpha(1,100)
+if(Pos>359){
+Pos=0
+}
+]# #debug sphere

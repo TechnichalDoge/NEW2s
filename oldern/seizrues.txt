@@ -1,0 +1,14 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(15)
+
+holoCreate(1,entity():pos())
+holoModel(1,"models/breen.mdl")
+holoAnim(1,112)
+#print(owner():getAnimation())
+print(holoAnimLength(1))
+print(holoEntity(1):getAnimation())
+

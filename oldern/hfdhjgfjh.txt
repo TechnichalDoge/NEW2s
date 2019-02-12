@@ -1,0 +1,7 @@
+@name 
+@inputs A
+@outputs B
+@persist 
+@trigger 
+runOnTick(1)
+B = -A

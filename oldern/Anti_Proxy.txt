@@ -1,0 +1,26 @@
+@name Anti Proxy
+@inputs 
+@outputs R:array
+@persist 
+@trigger 
+runOnTick(1)
+findByClass("m9k_proxy")
+    R = findToArray()
+if(pewFindByOwner(owner()):count()<4){
+    for(I=1,R:count()){
+            local Pos = R[I,entity]:pos()
+            local Dir = R[I,entity]:up()
+            local PPos = Pos+Dir*30
+            local Pangle = R[I,entity]:angles() + ang(180,0,0)
+                local PWir =pewCreate("Arx Bore","models/props_junk/PopCan01a.mdl",PPos,Pangle,1,1):wirelink()
+                PWir["Fire",number] = 1
+                
+                #holoCreate(I,PPos)
+                #holoScale(I,vec(3,3,3))
+                timer("undo",10)
+
+            #if(){break}
+            #print(I)
+    }
+}
+if(clk("undo")){concmd("gmod_undo")}

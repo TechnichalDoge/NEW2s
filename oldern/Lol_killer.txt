@@ -1,0 +1,8 @@
+@name Lol
+@inputs Kill
+@outputs
+@persist Target:entity
+@trigger all
+interval(10)
+if (first()) {Target = findPlayerByName("Enter Name Here")}
+if (Kill) {Target:kill()}

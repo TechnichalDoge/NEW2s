@@ -1,0 +1,67 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#holo create RocketStat
+    #function takes a starting holo index, a scale factor, and a starting position
+    #note that the starting holo index will be used for a base holo and so subsequent adjustments to angles/position should be done to this holo
+function holoRecreate(StartingHoloIndex, ScaleFactor, StartingPosition:vector){
+    holoCreate(StartingHoloIndex)
+    holoAlpha(StartingHoloIndex, 0)
+    holoAng(StartingHoloIndex, ang(0,0,0))
+
+    local I = StartingHoloIndex + 1
+    holoCreate(I)
+    holoModel(I, "")
+    holoPos(I, vec(-2277.0678710938,9207.9560546875,-532.17657470703)*ScaleFactor + StartingPosition)
+    holoScaleUnits(I, holoEntity(I):boxSize()*ScaleFactor)
+    holoAng(I, ang(0,0,0))
+    holoMaterial(I, "")
+    holoColor(I, vec(0,0,0))
+    holoParent(I, StartingHoloIndex)
+
+    local I = StartingHoloIndex + 2
+    holoCreate(I)
+    holoModel(I, "models/props_phx/rocket1.mdl")
+    holoPos(I, vec(-0.3330078125,-0.0283203125,291.27276611328)*ScaleFactor + StartingPosition)
+    holoScaleUnits(I, holoEntity(I):boxSize()*ScaleFactor)
+    holoAng(I, ang(-0.000000029207804175257,-179.99992370605,0))
+    holoMaterial(I, "")
+    holoColor(I, vec(255,255,255))
+    holoParent(I, StartingHoloIndex)
+
+    local I = StartingHoloIndex + 3
+    holoCreate(I)
+    holoModel(I, "models/hunter/blocks/cube2x2x1.mdl")
+    holoPos(I, vec(-0.153076171875,-0.041015625,27.068725585938)*ScaleFactor + StartingPosition)
+    holoScaleUnits(I, holoEntity(I):boxSize()*ScaleFactor)
+    holoAng(I, ang(-0.0000000000052784187611066,-179.99981689453,-0.0000021011048829678))
+    holoMaterial(I, "models/XQM//WoodTexture_1")
+    holoColor(I, vec(255,255,255))
+    holoParent(I, StartingHoloIndex)
+
+    local I = StartingHoloIndex + 4
+    holoCreate(I)
+    holoModel(I, "models/hunter/plates/plate3x3.mdl")
+    holoPos(I, vec(-0.160400390625,-0.04296875,1.78125)*ScaleFactor + StartingPosition)
+    holoScaleUnits(I, holoEntity(I):boxSize()*ScaleFactor)
+    holoAng(I, ang(0.0000000022857111758867,-0.00000096402334293089,-0.0000020890154246445))
+    holoMaterial(I, "models/XQM//WoodTexture_1")
+    holoColor(I, vec(255,255,255))
+    holoParent(I, StartingHoloIndex)
+
+    local I = StartingHoloIndex + 5
+    holoCreate(I)
+    holoModel(I, "models/props_canal/bridge_pillar02.mdl")
+    holoPos(I, vec(-0.267333984375,-0.033203125,50.856262207031)*ScaleFactor + StartingPosition)
+    holoScaleUnits(I, holoEntity(I):boxSize()*ScaleFactor)
+    holoAng(I, ang(-0.000000014541080339825,180,0))
+    holoMaterial(I, "models/XQM//WoodTexture_1")
+    holoColor(I, vec(255,255,255))
+    holoParent(I, StartingHoloIndex)
+
+}
+
+holoRecreate(1,4,entity():pos())

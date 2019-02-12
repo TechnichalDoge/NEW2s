@@ -1,0 +1,11 @@
+@name Get Angle vector test1a 
+@inputs AP:vector Driver:entity
+@outputs AA:angle
+@persist HP:angle
+interval(25)
+
+HP = Driver:heading(AP)
+
+AA = HP + ang(0,0,0)
+
+hint(AA:toString(),1)

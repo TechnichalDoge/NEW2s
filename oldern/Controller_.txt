@@ -1,0 +1,25 @@
+@name Controller 
+@inputs W A S D
+@outputs Nw Ne WW
+@persist 
+@trigger W A S D 
+
+if(W){
+    WW = 1    
+}
+elseif(S){
+    WW = -1    
+}
+else{WW = 0}
+if(A){
+    Nw = -1
+    Ne = 1
+}
+elseif(D){
+    Nw = 1
+    Ne = -1    
+}
+else{
+    Nw = 0
+    Me = 0
+}

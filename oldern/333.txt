@@ -1,0 +1,50 @@
+@name 333
+@inputs
+@outputs Color:vector
+@persist Color:vector Radius
+@trigger 
+
+if (first()){
+    runOnTick(1)
+    runOnChat(1)
+    
+    Radius = 500
+    Color = vec(0, 255, 0)
+    Alpha = 100
+    
+    function redrawHolo(Color:vector){
+        holoCreate(1)
+        holoModel(1, "hq_sphere")
+        holoColor(1, Color)
+        holoAlpha(1, Alpha)
+        holoScaleUnits(1, vec(Radius/2, Radius/2, Radius/2))        
+    }
+      redrawHolo(Color)
+}
+
+
+if (chatClk(owner())){
+    LastSaid = owner():lastSaid()
+    
+    if (LastSaid[1] == "!"){
+        LastSaidArr = LastSaid:sub(2):explode(" ")
+        Command = LastSaidArr:shiftString()
+        
+        if (Command == "color:"){
+            R = LastSaidArr:string(2):toNumber(10)
+            G = LastSaidArr:string(3):toNumber(10)
+            B = LastSaidArr:string(4):toNumber(10)
+            Color = vec(R, G, B)
+        }
+        if (Command == "radius:"){
+            Radius = LastSaidArr[1, number]
+        }
+        if (Command == "alpha:"){
+            Alpha = LastSaidArr[1, number]
+        }
+        
+    }
+    
+}
+interval(200)
+  redrawHolo(Color)

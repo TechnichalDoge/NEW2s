@@ -1,0 +1,18 @@
+@name v23 vs1
+#@inputs Ent:entity
+@persist Vec:vector Ent:entity
+if(first()|dupefinished())
+{
+    runOnTick(1)
+    Ent = propSpawn("models/hunter/blocks/cube025x025x025.mdl",entity():pos()+vec(0,0,10),0)
+#    holoCreate(1)
+    holoPos(1,Ent:pos())
+    holoModel(1,"models/combatmodels/gshell.mdl")
+    holoParent(1,Ent)
+
+}
+Target = entity():pos()+vec(0,0,10) 
+Vec = (Target-Ent:pos())*Ent:mass()*10
+Ent:applyOffsetForce(Vec,Vec+$Vec*5)
+
+

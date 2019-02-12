@@ -1,0 +1,11 @@
+@name View-Controlled Missile
+@inputs Chair:entity Cam:wirelink
+@persist E:entity Driver:entity
+interval(50)
+Driver = Chair:driver()
+if(changed(Driver:keyAttack1()) & Driver:keyAttack1()){ E:propBreak() E = propSpawn("models/props_phx/amraam.mdl",Chair:pos()+vec(0,0,200),Driver:eyeAngles(),0) E:setColor(vec(100,100,100)) E:setMaterial("phoenix_storms/grey_chrome") E:setTrails(35,35,0.4,"trails/smoke",vec(150,150,150),255) E:propGravity(0) E:setMass(500)
+}
+if(E:pos() != vec(0,0,0)){ if(Driver:keyAttack2()){E:propBreak()} E:applyForce(E:forward()*E:mass()*5000) E:applyForce(-E:vel()*E:mass()*0.25) E:applyTorque((100*E:toLocal(rotationVector(quat((Driver:eyeAngles()))/quat(E:angles()))+E:pos())-25*E:angVelVector())*E:inertia()) Cam["Activated",number] = 1 Cam["Position",vector] = E:pos()+vec(-100,0,50):rotate(E:angles()) Cam["Angle",angle] = E:angles()
+}
+else{ Cam["Activated",number] = 0
+} 

@@ -1,0 +1,14 @@
+@name tubes
+@inputs 
+@outputs 
+@persist X
+@trigger 
+interval(25)
+X=X+1
+if(X==359){
+    X=0
+}
+holoCreate(1,(entity():pos()),vec(5,5,5),ang(0,X,0),vec(255,255,255),"models/hunter/tubes/tube2x2x05.mdl")
+holoMaterial(1,"phoenix_storms/explo_barrel")
+"models/hunter/tubes/tube2x2x05.mdl"
+"phoenix_storms/scrnspace"

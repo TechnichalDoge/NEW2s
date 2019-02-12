@@ -1,0 +1,28 @@
+@name SNiperAssisttest
+@inputs 
+@outputs ExplodedFir:array
+@persist 
+@trigger 
+
+local Ranger = owner():eyeTrace()
+if(Ranger:entity():toString()!="(null)"){
+    local Name = Ranger:entity():toString()
+    ExplodedFir = Name:explode("[")
+    if(ExplodedFir[1,string] == "Player "){
+        local Name = ExplodedFir[3,string]:explode("]")[1,string]
+            if(!findPlayerByName(Name):plyHasGod()){
+                concmd("+attack")    
+                timer("notak",100)
+        
+            }
+      
+    
+    }     
+}
+if(clk("notak")){
+    
+concmd("-attack")    
+}
+
+
+runOnTick(1)

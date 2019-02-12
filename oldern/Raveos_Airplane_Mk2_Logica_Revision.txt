@@ -1,0 +1,230 @@
+@name Raveos Airplane Mk2 Logica Revision MK3
+@persist Speed Propspeed Vel Timer
+@persist TurnSpeed TurnStart
+@persist MaxSpeedMultiplier Acceleration
+@persist IdleSlow Deceleration
+@persist MinSpeed SpeedRequirement
+@persist MassMultiplier MaxSpeed
+@persist LowHeight
+
+@persist WASD_OR_AIM:string
+@persist Pitch Yaw TurnSpeedWASD ElevationSpeedWASD
+@persist CurYaw CurPitch
+@persist MaxTurn MaxElevation
+##########################
+##########################
+#### Written by Raveo ####
+#### AKA Chey         ####
+##########################
+##########################
+#### Edited by Logica ####
+##########################
+##########################
+
+if(first()|dupefinished()){
+    TurnSpeed = 185
+    TurnStart = 100
+    MaxSpeedMultiplier = 100
+    Acceleration = 0.025
+    IdleSlow = 0.05
+    Deceleration = 0.015
+    MinSpeed = 0
+    SpeedRequirement = 250
+    MassMultiplier = 75
+    MaxSpeed = 500
+    LowHeight = 40
+    
+    #values are "keyboard" or "aim"
+    WASD_OR_AIM = "keyboard":lower()
+    
+    TurnSpeedWASD = 1/100
+    ElevationSpeedWASD = 1/100    
+    
+    CurPitch = entity():angles():pitch()/100
+    CurYaw = entity():angles():yaw()/100
+    MaxTurn = 30 / 100
+    MaxElevation = 90/100
+
+}
+
+
+
+
+
+
+E=entity():isWeldedTo()
+Holoref=holoEntity(2)
+
+if(first()|dupefinished()){ 
+    runOnTick(1)
+    
+    Red=random(255)
+    Blue=random(0)
+    Green=random(0)
+    
+    E:setMass(50)
+    entity():setMass(50)
+    E:setAlpha(255)
+    
+    if(E:type()!="prop_vehicle_prisoner_pod") {
+        print("You must spawn the Chip on a seat")
+    }
+}
+
+entity():setMass(0)
+
+E=entity():isWeldedTo()
+E:setMass(50000)
+
+Chair=entity():isWeldedTo()
+Driver=Chair:driver()
+
+if(WASD_OR_AIM == "aim"){
+W=Driver:keyForward()
+S=Driver:keyBack()
+}
+elseif(WASD_OR_AIM == "keyboard"){
+W = Driver:keySprint()
+S = Driver:keyWalk()
+}
+Rvel=E:angVel():roll()
+Pvel=E:angVel():pitch()
+Yvel=E:angVel():yaw()
+
+Pd=E:angles():pitch()/100
+R1=E:angles():roll()/100
+
+Range=rangerOffset(100,E:pos()+vec(0,0,-8),-E:up()*50)
+rangerHitEntities(0)
+Height=Range:distance()
+
+
+E:applyForce(-E:vel()*E:mass())
+E:applyAngForce(ang(Rvel,-Yvel,-Pvel)*E:mass())
+E:applyForce(vec(0,0,1)*E:mass()*7.511255) #tf is that number
+
+if(Height<LowHeight|!Driver){
+    
+    #slowly fall and glide
+    E:applyForce(vec(0,0,1)*E:mass()*(28-Height))
+    E:applyForce(-vec(0,0,1)*E:mass()*5*(Height-28))
+    
+}
+
+#has to do with the relationship between weight and turnability
+E:applyAngForce(ang(R1,0,-Pd)*E:mass()*MassMultiplier)
+
+if(Driver){
+    if(WASD_OR_AIM == "aim"){ 
+        #aimturning
+        if(Height>LowHeight+10){
+            Y=vec(Driver:eye():dot(Chair:right()),Driver:eye():dot(Chair:right()),0):y()
+        }
+        else{
+            Y=0
+        }    
+    }
+    #keyturning
+    elseif(WASD_OR_AIM == "keyboard"){
+        if(Height>LowHeight+10){        
+            Yaw = Driver:keyPressed("d") - Driver:keyPressed("a")
+            CurYaw = CurYaw*abs(Yaw)+(Yaw*TurnSpeedWASD)
+            Y = clamp(CurYaw,-MaxTurn,MaxTurn)
+        }
+        else{
+            Y=0
+        } 
+    }
+
+    
+    #lift off
+    if(Vel>SpeedRequirement){
+        #aimturning
+        if(WASD_OR_AIM == "aim"){
+            P=vec(0,Driver:eye():dot(Chair:up()),Driver:eye():dot(Chair:up())):z() 
+        }
+        #keyturning
+        elseif(WASD_OR_AIM == "keyboard"){
+            Pitch = Driver:keyPressed("w") - Driver:keyPressed("s")
+            CurPitch = CurPitch*abs(Pitch)+(Pitch*ElevationSpeedWASD)
+            P=clamp(CurPitch,-MaxElevation,MaxElevation)
+        }
+    }
+    else{
+        P=0
+    }
+    
+    #turns the craft
+    E:applyAngForce(ang(-P,-Y,Y)*E:mass()*TurnSpeed)
+    
+    #sounds
+    Timer+=1 
+    if(Timer>80){
+        Timer=0
+    }
+    
+    if(Timer==5){
+        E:soundPlay(1,0,"thrusters/hover00.wav")
+    }
+    
+    soundPitch(1,E:vel():length()*Speed*10)
+    
+}
+else{
+    soundStop(1)
+}
+
+
+#Weight to speedability and forward speed
+Forward=E:forward()*E:mass()*MassMultiplier
+E:applyForce((Forward+$Forward)*Speed)
+
+#movement
+if(W){
+    Speed+=Acceleration
+}
+#if your slowing down or theres no one in the seat
+if(S|!Driver){
+    Speed-=IdleSlow
+}
+#if your holding s and the height is less than LowHeight you decelerate fast
+elseif(S&Height<LowHeight){
+    Speed-=Deceleration
+}
+#if speed goes below minspeed
+if(Speed<MinSpeed){
+    Speed=MinSpeed
+}
+#if speed goes above MaxSpeedMultiplier
+if(Speed>MaxSpeedMultiplier){
+    Speed=MaxSpeedMultiplier
+}
+
+#velocity in 1 directino
+Vel=E:vel():length()
+
+#
+Propspeed+=clamp(Speed*10,0,MaxSpeed)
+holoAng(7,E:toWorld(ang(Propspeed,0,0)))
+
+#glide?
+if(Driver&Speed<2&Height>LowHeight){
+    E:applyForce(-vec(0,0,1)*E:mass()*TurnStart) 
+    Speed=2
+}
+
+#if there is a driver or not
+if(E:driver()){
+    Active=1
+}
+else{
+    Active=0
+}
+
+#Help Hints
+if(changed(Active) & Active){
+    E:hintDriver("Made by Raveo & Revised by Logica",7)
+    E:hintDriver("W:S Accelerate",5)
+    E:hintDriver("Mouse aim to steer",5)
+    E:hintDriver("Enjoy!",5)
+}

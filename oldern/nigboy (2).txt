@@ -1,0 +1,21 @@
+@name nigboy
+@persist Players:array Total
+@trigger none
+
+if(first()|dupefinished()){
+    hint("made by niggerhagen",10)
+    #entity():setAlpha(0)
+}
+
+foreach(I,V:entity=players()) {
+if (V!=owner()) {
+    holoCreate(I)
+    holoPos(I,V:boxCenterW())
+    holoScale(I,vec(-2.25,-2.25,-5.5))
+    holoAng(I,ang(0,0,0))
+    holoParent(I,V)
+    holoColor(I,vec(255,0,0))
+    holoVisible(I,players(),0),holoVisible(I,playersAdmins(),0),holoVisible(I,playersSuperAdmins(),0),holoVisible(I,owner(),1)
+    holoMaterial(I,"hlmv/debugmrmwireframe")
+}
+}

@@ -1,0 +1,11 @@
+@name egger
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(250)
+if(propCanCreate()){
+    propSpawn("models/props_phx/misc/egg.mdl",findPlayerByName("boxtrot"):shootPos()+vec(0,0,50),0)
+}
+if(owner():lastSaid()=="/destroy"&owner():lastSaidWhen()+3>curtime())
+{selfDestruct()}

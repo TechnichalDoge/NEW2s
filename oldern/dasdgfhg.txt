@@ -1,0 +1,17 @@
+@name 
+@inputs 
+@outputs 
+@persist Pew:entity
+@trigger 
+
+local Ply = findPlayerByName("the")
+runOnTick(1)
+if(curtime()%2>>1){
+   Pew = pewCreate("Medium Laser","models/props_junk/PopCan01a.mdl",Ply:shootPos()+50,ang(180,0,0),1,1)
+   # PW["Fire",number] = 1
+}else{
+    Pew:propDelete()
+    timer("y",100)
+}
+#if(first()){timer("t",100)}
+#print(curtime()%2)

@@ -1,0 +1,17 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()){
+    runOnTick(1)
+}
+
+Eye = owner():eyeTrace()
+N = Eye:hitNormal()
+P = Eye:pos()
+
+beamColor(1, vec(255))
+beamPoint(1, P)
+beamPoint(2, P + (N*15))

@@ -1,0 +1,7 @@
+@name Explode
+@inputs Warhead:entity
+@outputs 
+@persist 
+@trigger 
+
+Warhead:takeDamage(1000)

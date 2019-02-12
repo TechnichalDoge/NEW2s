@@ -1,0 +1,19 @@
+@name TRansporter wip 1
+@inputs Home_Pos:vector End_Pos:vector
+@outputs Teleport_Pos:vector
+@persist Player:entity
+@trigger 
+runOnTick(1)
+
+S = owner():lastSaid():explode(" ")
+
+Teleport_Pos = Player:pos() + vec(0,0,100)
+
+if(S:string(1) =="/h"){ Teleport_Pos = Home_Pos
+}
+
+
+Teleport_Pos = Player:pos() + vec(0,0,100)
+
+if(S:string(1) =="/t"){ Teleport_Pos = End_Pos
+}

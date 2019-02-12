@@ -1,0 +1,30 @@
+@name Props Map V2 test V1
+@inputs 
+@outputs 
+@persist 
+@trigger 
+if (first()){
+    runOnTick(1)
+    ScaleFactor = 1/24
+}
+    findByClass("prop_physics")
+    Arr=findToArray()
+    for(I=1, Arr:count()){
+        if(perf()){
+        }else{
+            break
+            LastI = I
+        }
+        
+        A = Arr[I, entity]
+        Offset = A:pos() - entity():pos()
+        HoloPos = Offset*ScaleFactor + entity():pos()
+
+        holoCreate(I,HoloPos)
+        holoModel(I,A:model())
+        holoScaleUnits(I,A:boxSize()*ScaleFactor)
+        holoAng(I, A:angles())
+        holoColor(I, A:getColor())
+        holoMaterial(I, A:getMaterial())
+        holoColor(I,A:getColor())
+    }

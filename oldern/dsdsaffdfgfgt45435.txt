@@ -1,0 +1,45 @@
+@name Flack Cannon EXP Mk2
+@inputs Base:entity
+@outputs LifeTime
+@persist Array:array
+@trigger 
+if(first()|dupefinished()){
+    function vector getalt(Vector:vector){
+        return Vector+vec(0,0,11140-0.03125)
+    }    
+}
+runOnTick(1)
+Array=pewFindByOwner(owner())
+#print(owner():pos()+vec(0,0,11140-0.03125))
+for(I=1,Array:count()){
+    local Bullet = Array[I,number]
+    local BulletName = pewBulletCannon(Bullet):pewBulletName()
+    local BulletPos = pewBulletPos(Bullet)
+    local BulletVel = pewBulletVel(Bullet)
+    local OwnPos = getalt(owner():pos())
+    local BulletUp = BulletVel:z()
+    if(BulletName == "Flak Cannon"){
+        #local Distance = BulletPos:distance2(Target)
+        #print(BulletVel)
+        #local Test = Target/BulletVel
+        #print("AVG  " + (Test:x() + Test:y() + Test:z())/3)
+        #local LifeTime = Target:y()/(BulletUp/8)
+        #print(LifeTime)
+        #print("   " + Target:y() + "    " + BulletUp/9.5 + "    " + Target:y()/(BulletUp/9.5)) 
+        
+        #print(OwnPos/BulletVel)
+        #print(" "+OwnPos)
+        #print("  "+BulletVel)
+        #print(OwnPos:z()/BulletUp)
+        LifeTime = OwnPos:z()/BulletUp
+    }
+}
+if(first()){
+local FT = 0
+while(FT<11){
+    holoCreate(FT,entity():pos()+vec(0,0,9000*FT))
+    
+    
+    FT++    
+}
+}

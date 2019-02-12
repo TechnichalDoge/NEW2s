@@ -1,0 +1,7 @@
+@name Sexy Furry
+@inputs
+@outputs 
+@persist EP:vector Mod:string Ent:entity
+runOnTick(20)
+EP=entity():pos()
+Ent=entSpawn("models/player/wolf/wolf.mdl",EP)

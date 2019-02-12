@@ -1,0 +1,18 @@
+@name Turret
+@inputs Turr:wirelink
+@outputs E:entity Fire
+@persist
+@trigger
+runOnTick(1)
+
+    if(Turr){
+        if(E){E=Turr:entity()}
+
+        if(E{)(
+        E:setPos(owner():pos()+vec(0,0,100))
+        E:setAng((owner():aimPos()-E:pos()):toAngle())
+        Fire=owner():keyReload()
+
+    Turr["Fire",number]=Fire
+	)
+}

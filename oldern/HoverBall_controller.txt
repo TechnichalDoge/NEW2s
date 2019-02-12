@@ -1,0 +1,53 @@
+@name HoverBall controller
+@inputs [RE1,RE2,RE3]:entity
+@outputs H1 H2 H3 Distance
+@persist HR1 HR2 HR3 Up Down Speed Speed2
+
+interval(100)
+
+
+local Height = 50
+Distance = Height
+
+
+Speed=0.5
+Speed2=-0.5
+rangerHitEntities(0)
+local R1=rangerOffset(RE1:pos(),vec(RE1:pos():x(),RE1:pos():y(),-100000000000)):distance()
+rangerHitEntities(0)
+local R2=rangerOffset(RE2:pos(),vec(RE2:pos():x(),RE2:pos():y(),-100000000000)):distance()
+rangerHitEntities(0)
+local R3=rangerOffset(RE3:pos(),vec(RE3:pos():x(),RE3:pos():y(),-100000000000)):distance()
+
+
+
+if(R1<Height){
+    H1=Speed
+}
+elseif(R1>Height){
+    H1=(Speed2)
+}
+else{
+    H1=0
+}
+
+if(R2<Height){
+    H2=Speed
+}
+elseif(R2>Height){
+    H2=(Speed2)
+}
+else{
+    H2=0
+}
+
+if(R3<Height){
+    H3=Speed
+}
+elseif(R3>Height){
+    H3=(Speed2)
+}
+else{
+    H3=0
+}
+

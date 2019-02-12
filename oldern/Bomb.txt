@@ -1,0 +1,38 @@
+@name Bomb
+@inputs Base:entity Base2:entity
+@outputs 
+@persist EP:vector
+@trigger 
+runOnTick(45)
+EP=entity():pos()
+BP=Base:pos()
+B2P=Base2:pos()
+holoCreate(1,(BP+vec(0,0,45)))
+holoModel(1,"models/sprops/cylinders/size_5/cylinder_12x18.mdl")
+holoScale(1,vec(7,7,5))
+holoCreate(2,(BP+vec(0,0,0)))
+holoModel(2,"models/sprops/misc/domes/size_1/dome_12x12.mdl")
+holoScale(2,vec(7,7,5))
+holoCreate(3,(B2P+vec(0.55,0,-1.5)))
+holoModel(3,"models/sprops/misc/domes/size_1/dome_12x6.mdl")
+holoScale(3,vec(7,7,5))
+holoAng(3,ang(0,180,0))
+holoCreate(4,(B2P+vec(0.55,0,7.5)))
+holoModel(4,"models/sprops/rectangles/size_2/rect_12x42x3.mdl")
+holoScale(4,vec(4,2,1))
+holoAng(4,ang(0,180,90))
+holoCreate(5,(B2P+vec(0.55,0,7.5)))
+holoModel(5,"models/sprops/misc/tubes/size_3/tube_36x6.mdl")
+holoScale(5,vec(5,4,5))
+holoAng(5,ang(0,90,90))
+holoCreate(6,(B2P+vec(0.55,0,7.5)))
+holoModel(6,"models/sprops/rectangles/size_2/rect_12x42x3.mdl")
+holoScale(6,vec(4,2,1))
+holoAng(6,ang(0,90,90))
+#models/XQM//Deg360
+holoMaterial(1,"models/XQM//Deg360")
+holoMaterial(2,"models/XQM//Deg360")
+holoMaterial(3,"models/XQM//Deg360")
+holoMaterial(4,"models/XQM//Deg360")
+holoMaterial(5,"models/XQM//Deg360")
+holoMaterial(6,"models/XQM//Deg360")

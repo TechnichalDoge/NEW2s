@@ -1,0 +1,19 @@
+@name 
+@inputs 
+@outputs 
+@persist V I
+@trigger 
+interval(750)
+if(first()){V=1}
+
+if(V&owner():keyUse()){
+    lightCreate(I,owner():aimPos())
+    lightDistance(I,9999)
+    I++
+    if(owner():lastSaid()=="NoMoreLights"&lastSaidWhen()<=1){
+        V = 0    
+    }
+    
+    
+        
+}

@@ -1,0 +1,8 @@
+@name 
+@inputs Ent:entity
+@outputs 
+@persist 
+@trigger Ent
+
+print(Ent:type())
+

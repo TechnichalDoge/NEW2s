@@ -1,0 +1,9 @@
+@name Below chip
+@outputs X Y Z L
+@persist 
+runOnTick(1)
+Num=125
+X=entity():pos():x()
+Y=entity():pos():y()
+Z=(entity():pos():z()-Num)
+L=Num

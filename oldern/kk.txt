@@ -1,0 +1,243 @@
+@name Sphere-ctreFusion Sphere Mech
+@inputs PodEnt:entity
+@outputs LShoot RShoot
+@persist A B SpnTgl SpnTmr FrzTgl FrzTmr DelTgl DelTmr AngYaw
+@persist GunAng:angle PrpAry:array MovAry:array
+@persist Material_1:string Material_2:string Colour_1:vector Colour_2:vector
+@model models/hunter/tubes/tube2x2xta.mdl
+
+interval(100)
+E = entity()
+### 1. Creation / Spawning
+#Toggle Spawning when Pod is linked.
+if(changed(PodEnt) & PodEnt:pos() != vec(0,0,0)){SpnTgl = 1}
+if(SpnTgl){
+    SpnTmr++
+    #Colour / Material Customization
+    if(SpnTmr == 5){
+        Material_1 = "phoenix_storms/grey_chrome"
+        Colour_1 = vec(35,35,35)
+        Material_2 = "phoenix_storms/grey_chrome"
+        Colour_2 = randvec(0,255)
+        hint("Initiating creation.",5)
+    }
+    #E2 Entity Properties
+    if(SpnTmr == 10){
+        E:propFreeze(1)
+        E:setPos(E:pos()+vec(0,0,150))
+        E:setAng(ang(0,0,0))
+        E:setMass(5000)
+        E:setColor(Colour_2)
+        E:setMaterial(Material_2)
+    }
+    #Pod Entity Properties
+    if(SpnTmr == 15){
+        PodEnt:propFreeze(1)
+        PodEnt:setPos(E:pos()+vec(10,0,35))
+        PodEnt:setAng(ang(0,-90,0))
+        PodEnt:setMass(500)
+        PodEnt:setColor(Colour_2)
+        PodEnt:setMaterial(Material_2)
+        weld(E,PodEnt)
+        hint("Spawning components.",5)
+    }
+    #Spawn Props - Movement Sphere | Sphere Holder
+    if(SpnTmr == 20){
+        MovAry[1,entity]=propSpawn("models/hunter/misc/sphere2x2.mdl",E:pos()+vec(0,0,-50),ang(0,0,0),1)
+        MovAry[1,entity]:setColor(Colour_2)
+        MovAry[1,entity]:setMaterial(Material_2)
+        PrpAry[1,entity]=propSpawn("models/hunter/misc/shell2x2a.mdl",E:pos()+vec(0,0,-35),ang(0,0,0),1)
+        PrpAry[1,entity]:setColor(Colour_1)
+        PrpAry[1,entity]:setMaterial(Material_1)
+    }
+    #Spawn Props - L Curved Strip | R Curved Strip
+    if(SpnTmr == 30){
+        PrpAry[2,entity]=propSpawn("models/hunter/tubes/tube2x2x025c.mdl",E:pos()+vec(0,41.5,23.725),ang(90,90,0),1)
+        PrpAry[2,entity]:setColor(Colour_2)
+        PrpAry[2,entity]:setMaterial(Material_2)
+        PrpAry[3,entity]=propSpawn("models/hunter/tubes/tube2x2x025c.mdl",E:pos()+vec(0,-41.5,23.725),ang(90,90,180),1)
+        PrpAry[3,entity]:setColor(Colour_2)
+        PrpAry[3,entity]:setMaterial(Material_2)
+    }
+    #Spawn Props - L Side Disc | R Side Disc
+    if(SpnTmr == 40){
+        PrpAry[4,entity]=propSpawn("models/hunter/tubes/circle2x2.mdl",E:pos()+vec(0,48.85,23.725),ang(0,0,90),1)
+        PrpAry[4,entity]:setColor(Colour_1)
+        PrpAry[4,entity]:setMaterial(Material_1)
+        PrpAry[5,entity]=propSpawn("models/hunter/tubes/circle2x2.mdl",E:pos()+vec(0,-48.85,23.725),ang(0,0,90),1)
+        PrpAry[5,entity]:setColor(Colour_1)
+        PrpAry[5,entity]:setMaterial(Material_1)
+    }
+    #Spawn Props - L Shoulder Curve | R Shoulder Curve
+    if(SpnTmr == 50){
+        PrpAry[6,entity]=propSpawn("models/hunter/misc/shell2x2x45.mdl",E:pos()+vec(0,50,23.725),ang(0,-90,-90),1)
+        PrpAry[6,entity]:setColor(Colour_2)
+        PrpAry[6,entity]:setMaterial(Material_2)
+        PrpAry[7,entity]=propSpawn("models/hunter/misc/shell2x2x45.mdl",E:pos()+vec(0,-50,23.725),ang(0,90,-90),1)
+        PrpAry[7,entity]:setColor(Colour_2)
+        PrpAry[7,entity]:setMaterial(Material_2)
+    }
+    #Spawn Props - Horizontal Cylinder | Small Centre Cylinder
+    if(SpnTmr == 60){
+        PrpAry[8,entity]=propSpawn("models/hunter/tubes/tube1x1x3.mdl",E:pos()+vec(0,70,15),ang(0,0,90),1)
+        PrpAry[8,entity]:setColor(Colour_1)
+        PrpAry[8,entity]:setMaterial(Material_1)
+        PrpAry[9,entity]=propSpawn("models/XQM/cylinderx1medium.mdl",E:pos()+vec(-40,0,35),ang(90,0,0),1)
+        PrpAry[9,entity]:setColor(Colour_1)
+        PrpAry[9,entity]:setMaterial(Material_1)
+    }
+    #Spawn Props - L Arm Cylinder | R Arm Cylinder
+    if(SpnTmr == 70){
+        PrpAry[10,entity]=propSpawn("models/XQM/airplanewheel1big.mdl",E:pos()+vec(0,70,15),ang(0,90,0),1)
+        PrpAry[10,entity]:setColor(Colour_2)
+        PrpAry[10,entity]:setMaterial(Material_2)
+        PrpAry[11,entity]=propSpawn("models/XQM/airplanewheel1big.mdl",E:pos()+vec(0,-70,15),ang(0,-90,0),1)
+        PrpAry[11,entity]:setColor(Colour_2)
+        PrpAry[11,entity]:setMaterial(Material_2)
+    }
+    #Spawn Props - Large Centre Cylinder | Cylinder Holder
+    if(SpnTmr == 80){
+        PrpAry[12,entity]=propSpawn("models/XQM/cylinderx1huge.mdl",E:pos()+vec(-40,0,15),ang(90,0,0),1)
+        PrpAry[12,entity]:setColor(Colour_2)
+        PrpAry[12,entity]:setMaterial(Material_2)
+        PrpAry[13,entity]=propSpawn("models/hunter/tubes/tubebendinsidesquare2.mdl",E:pos()+vec(-95,0,35),ang(0,90,45),1)
+        PrpAry[13,entity]:setColor(Colour_1)
+        PrpAry[13,entity]:setMaterial(Material_1)
+    }
+    #Spawn Props - L Rear Cylinder | R Rear Cylinder
+    if(SpnTmr == 90){PrpAry[14,entity]=propSpawn("models/XQM/cylinderx2big.mdl",E:pos()+vec(-70,45,0),ang(90,0,180),1)
+        PrpAry[14,entity]:setColor(Colour_2)
+        PrpAry[14,entity]:setMaterial(Material_2)
+        PrpAry[15,entity]=propSpawn("models/XQM/cylinderx2big.mdl",E:pos()+vec(-70,-45,0),ang(90,0,0),1)
+        PrpAry[15,entity]:setColor(Colour_2)
+        PrpAry[15,entity]:setMaterial(Material_2)
+    }
+    #Spawn Props - L Gun Support | R Gun Support
+    if(SpnTmr == 100){
+        PrpAry[16,entity]=propSpawn("models/Mechanics/robotics/a2.mdl",E:pos()+vec(25,70,0),ang(0,0,0),1)
+        PrpAry[16,entity]:setColor(Colour_1)
+        PrpAry[16,entity]:setMaterial(Material_1)
+        PrpAry[17,entity]=propSpawn("models/Mechanics/robotics/a2.mdl",E:pos()+vec(25,-70,0),ang(0,0,0),1)
+        PrpAry[17,entity]:setColor(Colour_1)
+        PrpAry[17,entity]:setMaterial(Material_1)
+    }
+    #Spawn Props - L Gun Cube | R Gun Cube
+    if(SpnTmr == 110){
+        MovAry[2,entity]=propSpawn("models/hunter/blocks/cube05x05x05.mdl",E:pos()+vec(50,70,0),ang(0,0,0),1)
+        MovAry[2,entity]:setColor(Colour_2)
+        MovAry[2,entity]:setMaterial(Material_2)
+        MovAry[3,entity]=propSpawn("models/hunter/blocks/cube05x05x05.mdl",E:pos()+vec(50,-70,0),ang(0,0,0),1)
+        MovAry[3,entity]:setColor(Colour_2)
+        MovAry[3,entity]:setMaterial(Material_2)
+    }
+    #Moving Prop Properties
+    if(SpnTmr == 115){
+        ballsocket(E,MovAry[1,entity]:massCenter()-MovAry[1,entity]:pos(),MovAry[1,entity])
+        ballsocket(E,MovAry[2,entity]:massCenter()-MovAry[2,entity]:pos(),MovAry[2,entity])
+        ballsocket(E,MovAry[3,entity]:massCenter()-MovAry[3,entity]:pos(),MovAry[3,entity])
+        MovAry[1,entity]:setMass(2500)
+        MovAry[2,entity]:setMass(500)
+        MovAry[3,entity]:setMass(500)
+    }
+    if(SpnTmr == 120){
+        noCollide(E,MovAry[1,entity])
+        noCollide(E,MovAry[2,entity])
+        noCollide(E,MovAry[3,entity])
+        noCollide(PodEnt,MovAry[1,entity])
+        noCollide(PodEnt,MovAry[2,entity])
+        noCollide(PodEnt,MovAry[3,entity])
+        hint("Welding props.",5)
+    }
+    #Main Prop Properties
+    if(SpnTmr > 120){
+        A++
+        if(A > PrpAry:count()){
+            B++
+            A = B
+            weld(E,PrpAry[B,entity])
+            weld(PodEnt,PrpAry[B,entity])
+            noCollide(E,PrpAry[B,entity])
+            noCollide(PodEnt,PrpAry[B,entity])
+            noCollide(PrpAry[B,entity],MovAry[1,entity])
+            noCollide(PrpAry[B,entity],MovAry[2,entity])
+            noCollide(PrpAry[B,entity],MovAry[3,entity])
+            PrpAry[B,entity]:setMass(250)
+        }
+        weld(PrpAry[A,entity],PrpAry[B,entity])
+        noCollide(PrpAry[A,entity],PrpAry[B,entity])
+    }
+    #Spawn Completion
+    if(SpnTmr > 120 & B - 1 > PrpAry:count()){
+        E:soundPlay(1,0,"thrusters/rocket01.wav")
+        hint("Creation complete.",10)
+        SpnTgl = 0
+    }
+    #Lag Protection
+    if(E:cpuUsage() > 7.5*10^-3){
+        hint("Creating too much lag; removing.",10)
+        selfDestructAll()
+    }
+}
+### 2. CONTROLS
+Driver = PodEnt:driver()
+if(toString(Driver) != "(null)"){
+   
+    #Primary Movement
+    E:applyForce(E:forward()*(Driver:keyPressed("W") + Driver:keyPressed("LShift") - Driver:keyPressed("S"))*E:mass()*350)
+    AngYaw = E:angles():yaw() + (Driver:keyPressed("A") - Driver:keyPressed("D"))*2
+    E:applyForce(E:up()*Driver:keyPressed("Space")*E:mass()*500)
+   
+    #Armament Controls
+    LShoot = Driver:keyAttack1()
+    RShoot = Driver:keyAttack2()
+    GunAng = Driver:eyeAngles()
+}
+else{
+    GunAng = E:angles()
+    LShoot = 0
+    RShoot = 0
+}
+soundPitch(1,sqrt(E:vel():length()*0.5))
+#Rotational Operations
+E:applyTorque((1500*E:toLocal(rotationVector(quat(ang(0,AngYaw,0))/quat(E:angles()))+E:pos())-25*E:angVelVector())*E:inertia())
+MovAry[2,entity]:applyTorque((250*MovAry[2,entity]:toLocal(rotationVector(quat(GunAng)/quat(MovAry[2,entity]:angles()))+MovAry[2,entity]:pos())-25*MovAry[2,entity]:angVelVector())*MovAry[2,entity]:inertia())
+MovAry[3,entity]:applyTorque((250*MovAry[3,entity]:toLocal(rotationVector(quat(GunAng)/quat(MovAry[3,entity]:angles()))+MovAry[3,entity]:pos())-25*MovAry[3,entity]:angVelVector())*MovAry[3,entity]:inertia())
+#Movement Stabilizer
+E:applyForce(-E:vel()*E:mass()*0.25)
+### 3. FREEZE / UNFREEZE
+if(changed(owner():keyPressed("RShift")) & owner():keyPressed("RShift")){
+    FrzTgl++
+    if(FrzTgl > 1){FrzTgl = 0}
+    if(FrzTgl == 0){hint("Hold to unfreeze props.",3)}
+    if(FrzTgl == 1){hint("Hold to freeze props.",3)}
+    E:propFreeze(FrzTgl)
+    PodEnt:propFreeze(FrzTgl)    
+    MovAry[1,entity]:propFreeze(FrzTgl)
+    MovAry[2,entity]:propFreeze(FrzTgl)
+    MovAry[3,entity]:propFreeze(FrzTgl)
+}
+if(owner():keyPressed("RShift")){
+    FrzTmr++
+    PrpAry[FrzTmr,entity]:propFreeze(FrzTgl)
+}
+else{FrzTmr = 0}
+### 4. DELETE
+if(owner():keyPressed("Up") & changed(owner():keyPressed("Down")) & owner():keyPressed("Down") & DelTgl == 0){
+    DelTgl = 1
+    DelTmr = 0
+    hint("Deleting Sphere Mech.",5)
+    PodEnt:propBreak()
+    MovAry[1,entity]:propDelete()
+    MovAry[2,entity]:propDelete()
+    MovAry[3,entity]:propDelete()
+    MovAry[2,entity]:isWeldedTo():propDelete()
+    MovAry[3,entity]:isWeldedTo():propDelete()
+}
+if(DelTgl){
+    DelTmr++
+    PrpAry[DelTmr,entity]:propDelete()
+    if(DelTmr > PrpAry:count()){
+        hint("Deletion complete.",5)
+        E:propDelete()
+    }
+}

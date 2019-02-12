@@ -1,0 +1,84 @@
+@name deco12airshipstartrek right
+@inputs Base:entity
+@outputs 
+@persist Length
+@trigger 
+Length = 200
+#interval(255)
+local Ratio = 69
+holoCreate(1,Base:pos(),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,255,255),"hq_cylinder")
+holoMaterial(1,"phoenix_storms/mat/mat_phx_plastic2")
+holoParent(1,Base)
+holoScaleUnits(1,vec(Ratio,Ratio/3,Length))
+
+holoCreate(2,Base:pos()+vec(32,0,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(15,15,15),"hq_cylinder")
+holoMaterial(2,"phoenix_storms/concrete0")
+holoScaleUnits(2,vec(5,5,Length))
+holoParent(2,1)
+
+holoCreate(3,Base:pos()+vec(0,-Length/2.0075,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,255,255),"hq_sphere")
+holoMaterial(3,"phoenix_storms/mat/mat_phx_plastic2")
+holoScaleUnits(3,vec(Ratio,Ratio/3,Length/3))
+holoParent(3,1)
+
+holoCreate(4,Base:pos()+vec(0,Length/2.0075,0),vec(1,1,1),Base:angles()+ang(0,0,-90),vec(255,255,255),"hq_sphere")
+holoMaterial(4,"phoenix_storms/mat/mat_phx_plastic2")
+holoScaleUnits(4,vec(Ratio,Ratio/3,Length/10))
+holoParent(4,1)
+
+holoCreate(5,Base:pos()+vec(-33,15,0),vec(1,1,1),Base:angles()+ang(0,0,-90),vec(80,80,255),"hq_cylinder")
+holoMaterial(5,"phoenix_storms/concrete0")
+holoScaleUnits(5,vec(5,5,Length-50))
+holoParent(5,1)
+
+holoCreate(6,Base:pos()+vec(-33,90,0),vec(1,1,1),Base:angles()+ang(0,0,-90),vec(80,80,255),"hq_dome")
+holoMaterial(6,"phoenix_storms/concrete0")
+holoScaleUnits(6,vec(5,5,Length-190))
+holoParent(6,1)
+
+holoCreate(7,Base:pos()+vec(-32+2.8,-70,0),vec(1,1,1),Base:angles()+ang(0,20,-90),vec(80,80,255),"hq_dome")
+holoMaterial(7,"phoenix_storms/concrete0")
+holoScaleUnits(7,vec(15,15,Length-175))
+holoParent(7,1)
+
+holoCreate(8,Base:pos()+vec(-32+2.8,-70,0),vec(1,1,1),Base:angles()+ang(0,20,90),vec(80,80,255),"hq_dome")
+holoMaterial(8,"phoenix_storms/concrete0")
+holoScaleUnits(8,vec(15,15,Length-195))
+holoParent(8,1)
+local Ratio1 = Ratio-5
+local Len1 = Length-180
+local Ratio1_2 = Ratio/3-3
+holoCreate(9,Base:pos()+vec(-3.8,-80,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,150,25),"hq_torus")
+holoMaterial(9,"phoenix_storms/concrete0")
+holoScaleUnits(9,vec(Ratio1,Ratio1_2,Len1))
+holoParent(9,1)
+
+holoCreate(10,Base:pos()+vec(-3.8,-84,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,150,25),"hq_torus")
+holoMaterial(10,"phoenix_storms/concrete0")
+holoScaleUnits(10,vec(Ratio1,Ratio1_2,Len1))
+holoParent(10,1)
+
+holoCreate(11,Base:pos()+vec(-3.8,-88,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,150,25),"hq_torus")
+holoMaterial(11,"phoenix_storms/concrete0")
+holoScaleUnits(11,vec(Ratio1,Ratio1_2,Len1))
+holoParent(11,1)
+
+holoCreate(12,Base:pos()+vec(-3.8,-92,0),vec(1,1,1),Base:angles()+ang(0,0,90),vec(255,150,25),"hq_torus")
+holoMaterial(12,"phoenix_storms/concrete0")
+holoScaleUnits(12,vec(Ratio1,Ratio1_2,Len1))
+holoParent(12,1)
+
+holoCreate(13,Base:pos()+vec(-3,-100,1),vec(1,1,1),Base:angles()+ang(180,90,-90),vec(255,75,75),"models/hunter/misc/shell2x2d.mdl")
+holoMaterial(13,"phoenix_storms/concrete0")
+holoScaleUnits(13,vec(Ratio/2,Ratio/6,Length/6))
+holoParent(13,1)
+
+holoCreate(14,Base:pos()+vec(5,-Length/2.0075,0),vec(1,1,1),Base:angles()+ang(0,0,0),vec(15,15,15),"hq_torus")
+holoMaterial(14,"phoenix_storms/concrete0")
+holoScaleUnits(14,vec(Ratio-10,Ratio-2,Length/3))
+holoParent(14,1)
+
+holoCreate(15,Base:pos()+vec(5,Length/2.0075,0),vec(1,1,1),Base:angles()+ang(0,0,0),vec(15,15,15),"hq_torus")
+holoMaterial(15,"phoenix_storms/concrete0")
+holoScaleUnits(15,vec(Ratio-10,Ratio/3,Length/5))
+holoParent(15,1)

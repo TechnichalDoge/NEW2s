@@ -1,0 +1,8 @@
+@name Transistor c2
+@inputs Toggle Input
+@outputs Output
+if(Toggle==1){
+Output=Input}
+else{
+ Output=-90   
+}

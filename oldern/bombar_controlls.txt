@@ -1,0 +1,17 @@
+@name bombar controlls
+@inputs Up Down
+@outputs UD UD2
+@persist Speed Speed2
+
+runOnTick(10)
+Speed=5
+if(Up==1){
+    UD=Speed
+}
+elseif(Down==1){
+    UD2=Speed
+}
+else{
+    UD=0
+    UD2=0
+}

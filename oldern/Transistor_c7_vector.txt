@@ -1,0 +1,12 @@
+@name Transistor c7 vector
+@inputs Toggle Input:vector IP:vector IP2:vector
+@outputs Output:vector
+runOnTick(1)
+if(Toggle==0){
+Output=Input}
+elseif(Toggle==1){
+ Output=IP
+}
+elseif(Toggle==2){
+ Output=IP2
+}

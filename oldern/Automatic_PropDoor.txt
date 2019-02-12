@@ -1,0 +1,8 @@
+@name Automatic Eyereader PropDoor v1 Deco
+@persist Ep:vector E:entity 
+interval(25)
+Ep=entity():pos()
+holoCreate(1,Ep, vec(1,1,1), ang(vec(entity():angles())),vec(15,255,15),"models/props_phx/gears/spur9.mdl")
+holoCreate(2,Ep, vec(1.5,1.5,2.5), ang(vec(entity():angles())),vec(255,15,15),"models/sprops/geometry/sphere_6.mdl")
+"models/sprops/geometry/sphere_6.mdl"
+entity():setNoCollideAll()

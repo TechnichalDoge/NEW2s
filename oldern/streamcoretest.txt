@@ -1,0 +1,11 @@
+@name streamcoretest
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+interval(15)
+if(first()){
+entity():streamStart(1,100,"https://www.dropbox.com/s/0998j2r1h7u6b0t/Britney%20Spears%20-%20Toxic%20Official%20Video.mp3?raw=1")
+soundPlay(2,20,"C:\Users\Michelle\Desktop\michmusictest\Britney Spears - Toxic Official Video.mp3")
+}

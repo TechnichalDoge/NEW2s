@@ -1,0 +1,11 @@
+@name Test2243
+@inputs Entity:entity
+@outputs X 
+@persist X
+@trigger 
+interval(10)
+X=X+1
+if(X==359){
+X=0
+}
+Entity:setAng(ang(0,0,X))

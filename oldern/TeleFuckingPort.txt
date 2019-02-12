@@ -1,0 +1,34 @@
+@name TeleFuckingPort
+@outputs User Position:vector Eject 
+@persist Prev:vector
+runOnChat(1) 
+interval(25)
+
+if(chatClk(owner())){
+    local LE = owner():lastSaid():explode(" ")
+    
+    if(LE[1,string] == "/goto")
+    {
+        User = 1
+        
+        Position = findPlayerByName(LE[2,string]):pos()
+        
+        Eject = 1
+        timer("Fuck you", 100)
+    }
+    if(LE[1,string] == "/goback")
+    {
+        User = 1
+        
+        Position = entity():pos()
+        
+        Eject = 1
+        timer("Fuck you", 100)
+    }
+    
+}
+if(clk("Fuck you")){
+    User = 0
+    Eject = 0
+    
+}

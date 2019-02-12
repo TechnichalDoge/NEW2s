@@ -1,0 +1,7 @@
+@name owner ent
+@inputs 
+@outputs Owner:entity
+@persist 
+@trigger 
+
+Owner=owner()

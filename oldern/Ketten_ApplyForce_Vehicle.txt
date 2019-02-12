@@ -1,0 +1,28 @@
+@name Ketten ApplyForce Vehicle
+@inputs 
+@outputs  
+
+@persist Chair:entity Base:entity BackBoard:entity
+@persist
+#co deved by Boxtrot and logica
+
+interval(10)
+
+
+if(first()&entity():isConstrainedTo():type()=="prop_vehicle_prisoner_pod"){
+
+    propSpawnUndo(0)    
+    Chair = entity():isConstrainedTo()
+    Base = propSpawn("models/hunter/plates/plate1x2.mdl",Chair:pos()-Chair:forward()*28-Chair:up()*20,Chair:angles(),0)
+    BackBoard = propSpawn("models/hunter/plates/plate1x1.mdl",Chair:pos()-Chair:forward()*52,Chair:angles(),0)
+    weld(Chair,Base)
+    weld(Chair,BackBoard)
+    weld(BackBoard,Base)            
+
+    
+}
+elseif(first()&entity():isConstrainedTo():type()!="prop_vehicle_prisoner_pod"){
+    print("Please Spawn on Chair")
+    selfDestruct()
+}
+

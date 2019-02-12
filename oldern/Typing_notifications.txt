@@ -1,0 +1,7 @@
+@name Typing notifications
+interval(25)
+for(P=0,players():count()){
+    if(changed(players()[P,entity]:isTyping())){
+        print(players()[P,entity]:name()+" is currently typing a message.") 
+    }       
+}

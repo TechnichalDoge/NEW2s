@@ -1,0 +1,23 @@
+@name Map
+@inputs 
+@outputs 
+@persist Props:array
+@trigger 
+interval(200)
+        while(perf()){
+        find()
+        findByClass("prop_physics")
+        Props = findToArray()
+
+for(I=1,Props:count()){
+    local TempProp = Props[I,entity]
+    local Tempmat = TempProp:getMaterial()
+    local RelPos = TempProp:pos()
+    local TempModel = TempProp:model()
+    local TempSize = TempProp:boxSize()
+    local TempAngle = TempProp:angles()
+    local TempColor = TempProp:getColor()
+    holoCreate(I,entity():pos(),TempSize,TempAngle,TempColor,TempModel)
+   
+}
+}

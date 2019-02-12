@@ -1,0 +1,44 @@
+@name Findinsphereconeguidance23
+@inputs Gun:entity 
+@outputs Target:vector Target2:number Eu:vector Tarep:entity Number Number2
+@persist Ep:vector Eu:vector Zp:vector Zu:vector Tarep:entity Entity2:entity Entity:entity
+interval(20)
+Ep=Gun:pos()
+Eu=Gun:up()
+Number=findInCone(Ep,Eu,4500,2)
+findIncludeClass("player")
+findExcludePlayer("Logica")
+findExcludeEntity(Entity)
+local Players = findToArray()
+for(I=1,Players:count())
+{
+    local P = Players[I,entity]
+    if(!P:plyHasGod())
+    {
+        Target2=1
+        break
+    }
+    else{
+        Target2=0
+    }
+}
+
+Zp=entity():pos()
+Zu=entity():up()
+Number=findInSphere(Ep,2000)
+findIncludeClass("player")
+findExcludePlayer("Logica")
+local Players = findToArray()
+for(I=1,Players:count())
+{
+    local P = Players[I,entity]
+    if(!P:plyHasGod())
+    {
+        Tarep=P
+        Target=(Tarep:pos()+vec(0,0,40))
+        break
+    }
+}
+
+
+

@@ -1,0 +1,14 @@
+@name ForModArray
+@persist FuckYouNull:array 
+
+findInSphere(vec(),999999999)
+FuckYouNull = findToArray()
+
+if(perf()){
+    foreach(I,K:entity=FuckYouNull){
+        if(K:owner() == owner()){
+            K:setColor(0,100,215)
+            
+        }
+    }
+}

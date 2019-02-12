@@ -1,0 +1,19 @@
+@name ghhfhfgh
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()){
+    runOnTick(1)
+}
+
+Eye = owner():eyeTrace()
+N = owner():shootPos()-owner():aimPos()#Eye:hitNormal() 
+P = Eye:pos() + N/(owner():shootPos():distance(Eye:pos())/175)
+B = P + N
+beamColor(1, vec(255))
+beamPoint(1, P )
+beamPoint(2, P + N#[(N*5)]#)
+holoCreate(1,P)
+holoModel(1,"hq_sphere")

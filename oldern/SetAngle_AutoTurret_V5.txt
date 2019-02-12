@@ -1,0 +1,155 @@
+@name SetAngle Autoturret V5 By Logica
+@inputs On
+@persist Base:entity Prop:entity TurretB:entity
+@persist Pewpew:entity PewWire:wirelink
+@persist True False
+@persist RequireInput Holodeco BaseColor:vector Range PewPewModel:string PewPewBullet:string
+@persist PlayersInRange:array PlayersInPvp:array
+@persist Angle:angle Target:entity Targep:vector
+@persist Excludes:array
+@model models/props_phx/construct/metal_plate1.mdl
+
+
+@outputs PlayersInPvp:array Angle:angle
+ 
+
+
+
+if(first()){
+    ##openingvarsforbools
+        True = 1
+        False = 0
+    
+    #Range of turret
+        Range = 1000
+    
+    #who to not target
+    Excludes = array(
+        owner()#,
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName(""),
+        #findPlayerByName("")
+        )
+    
+    
+    
+    
+    
+    
+    
+    
+    #The Model of the pewpew
+        PewPewModel = "models/props_junk/PopCan01a.mdl"
+    
+    #The Bullet of the pewpew
+        PewPewBullet = "Medium Laser"
+    
+    #   This input decides weither it needs the input "On" to = 1 or not,
+    #   valid statements
+    #   are True and False
+        RequireInput = False
+    
+    #holo deco or not
+        HoloDeco = True
+    
+    #basecolor
+        local BaseColor = vec(65,125,225)
+            if(HoloDeco){
+                #creates the holo at the e2's center and scales it to the e2's size
+                    holoCreate(0,entity():boxCenterW())   
+                    holoScaleUnits(0,entity():boxSize()) 
+                #and colors and parents it to the e2
+                    holoColor(0,BaseColor)
+                    holoParent(0,entity())
+            }
+                setColor(BaseColor:x(),BaseColor:y(),BaseColor:z())
+    
+    
+    
+    #spawns the turret itself    
+        Prop = propSpawn("models/mechanics/solid_steel/steel_beam_4.mdl",entity():pos()+entity():up()*26,entity():angles(),1)
+    #stationary entity that helps with angles
+        TurretB = propSpawn("models/hunter/blocks/cube025x025x025.mdl",entity():pos()+entity():up()*26,entity():angles(),1)
+    #makes the writing shorter
+        Base = entity()
+    #spawn the pewpew
+        Pewpew = pewCreate(PewPewBullet,PewPewModel,entity():pos()+entity():up()*26+entity():forward()*26,entity():angles()+ang(90,0,0))
+    #create a wirelink
+        PewWire = Pewpew:wirelink()
+    #welds the turret to the e2
+        weld(Prop,Base)
+        weld(TurretB,Base)
+        weld(Pewpew,Prop)
+    #makes the turret static
+        Prop:propStatic(1)
+        TurretB:propStatic(1)
+    #Nocollide everything
+        noCollideAll(Prop,1)
+        noCollideAll(TurretB,1)
+        noCollideAll(Base,1)
+    #self explainatory
+        runOnTick(1)
+    # this doesnt work for some reason
+        propSpawnUndo(0)
+
+} 
+# for us to easily remove all turrets
+if(owner():lastSaid()=="/rts"&lastSaid()=="/rts"&(curtime()-lastSaidWhen())<=1){
+    selfDestructAll()
+}
+#unfreezed the pewpew
+    Pewpew:propFreeze(0)
+
+#if the turret's input is on or if it doesnt need a input at all
+if(RequireInput==False|On){
+    #find players in sphere and output to array
+    findInSphere(Base:pos(),Range)
+        findIncludeClass("Player")
+        findExcludeEntities(Excludes)
+        findSortByDistance(Base:pos())
+            PlayersInRange = findToArray()
+    
+    #foreach player in range array
+    foreach(K,V:entity=PlayersInRange){
+        #check if they are in pvp (no god) and if they arnt already in the output array
+        if(!V:plyHasGod()&!invert(PlayersInPvp):exists(V:name())){
+            #Assigns array part K to entity V
+            PlayersInPvp[K,entity] = V
+        }
+    }
+    # if the amount of players in range changes reset playersinpvp array
+    if(changed(PlayersInRange:count())){
+        PlayersInPvp = array()   
+    }
+    
+    #Targets the closest one in pvp
+    Target = PlayersInPvp[1,entity]
+    #target position
+    Targep = Target:pos()+vec(0,0,10)
+        
+        # if there is anybody in pvp at all around it
+        if(PlayersInPvp:count()==0){
+            Angle = Base:angles()
+        }else{
+            Angle = -TurretB:heading(Targep)
+        } 
+#if its off and requires input
+}else{
+    Angle = Base:angles()
+}
+
+if(PlayersInPvp:count()>0 & round(Prop:angles() - Angle) == ang(0,0,0)){
+    PewWire["Fire",number] = 1
+}else{
+    PewWire["Fire",number] = 0
+}
+
+
+#setangle
+Prop:setAng(Angle)

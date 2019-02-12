@@ -1,0 +1,56 @@
+@name PVP MULTITOOL GOOGLEGLASS
+@inputs EGP:wirelink
+@outputs 
+@persist AfterSort:table
+
+interval(250)
+if(first()|dupefinished()) {
+    function vector2 vecL(X:number,Y:number){
+        local Offset = vec2(X,-Y)
+        local Res = egpScrSize(owner())/2
+        local Pos = Res+Offset
+        return Pos    
+    }
+    
+    EGP:egpRoundedBox(1,vecL(320,250),vec2(400,220))
+    EGP:egpColor(1,vec(75,75,75))
+    EGP:egpAlpha(1,65)
+    
+    EGP:egpBox(2,vecL(egpScrW(owner())/2-60,250),vec2(110,200))
+    EGP:egpAngle(2,90)
+    EGP:egpColor(2,vec(75,75,75)) 
+    
+    EGP:egpBox(3,vecL(egpScrW(owner())/2-70,250),vec2(110,200))
+    EGP:egpAngle(3,90)
+    EGP:egpMaterial(3,"gui/center_gradient")
+    EGP:egpColor(3,vec(95,95,95))
+    
+    for(I=1000,1010){
+        EGP:egpRoundedBoxOutline(I,vecL(320,250),vec2(400,220))
+        EGP:egpColor(I,vec(75,75,75))
+        EGP:egpSize(I,4)
+        EGP:egpFidelity(I,10*(I-990))
+    }
+
+} if(changed(EGP)){reset()}
+
+
+findByClass("player")
+findClipToSphere(owner():pos(),2000)
+#findExcludeEntity(owner())
+local PreSort = findToTable()
+for(I=0,PreSort:count()){
+    local InvertedPre = invert(PreSort)
+    local InvertedAfter = invert(PreSort)
+    if(!PreSort[I,entity]:plyHasGod()&!InvertedAfter:exists(PreSort[I,entity]:name())){
+        AfterSort:pushEntity(PreSort[I,entity])    
+    }
+    if(AfterSort:exists(PreSort[I,entity]:name())){
+        hint("2",2)    
+    }    
+}
+EGP:egpText(4,"People in pvp around you: \n" + AfterSort:count() ,vecL(300,100))
+print(invert(PreSort):toString())
+
+
+

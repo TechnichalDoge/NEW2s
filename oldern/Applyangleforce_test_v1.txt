@@ -1,0 +1,9 @@
+@name Applyangleforce test v1
+@inputs Base:entity
+@outputs 
+@persist Ea:angle
+@trigger 
+runOnTick(1)
+Ea=entity():angles()
+
+Base:applyAngForce(ang(vec(1,1,1))*36)

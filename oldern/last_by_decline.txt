@@ -1,0 +1,8 @@
+@name last by decline
+#made by Decline
+LastSaid = lastSaid()
+LastSpoke = lastSpoke()
+if(changed(LastSaid)) {
+    print(LastSpoke,+LastSaid)
+}
+interval(100)

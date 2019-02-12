@@ -1,0 +1,11 @@
+@name test2222
+@inputs Ranger
+@outputs Fire
+@persist 
+interval(25)
+if(Ranger>0){
+    Fire=1
+}
+else{
+    Fire=0
+}

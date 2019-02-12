@@ -1,0 +1,25 @@
+@name applyangforcetest2
+@inputs Bear Entity:entity
+@outputs Out Bear2:angle Angle:angle
+@persist Bear2:angle Angle:angle B
+interval(15)
+Bear2=ang(Bear,0,0)
+B=0.5
+Angle=entity():angles()
+if(Angle:pitch()==Bear){
+applyAngForce(ang(0,0,0))
+}
+elseif(Angle:yaw()<(Bear-1)){
+applyAngForce(ang(0,720,0))
+Out=0
+}
+elseif(Angle:yaw()>(Bear+1)){
+applyAngForce(ang(0,-720,0))
+Out=0
+}
+elseif(Angle:yaw()<(Bear+B)){
+Out=1
+}
+elseif(Angle:yaw()>(Bear-B)){
+Out=1
+}

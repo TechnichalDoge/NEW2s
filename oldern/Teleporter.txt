@@ -1,0 +1,27 @@
+@name teleporter
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()){
+    runOnChat(1)
+}
+
+if(chatClk(owner())){
+    local LS = lastSaid()
+    local Ex = LS:explode(" ")
+    
+    if(Ex[1,string] == "/goto"){
+        local P = findPlayerByName(Ex[2,string])
+        
+        if(P:isPlayer()){
+            Chair = seatSpawn("models/props_c17/lampShade001a.mdl", P:pos()+vec(50,0,0), ang(), 0)
+            Chair:use()
+            Chair:ejectPod()
+            
+            propDeleteAll()
+        }
+        hideChat(1)
+    }
+}

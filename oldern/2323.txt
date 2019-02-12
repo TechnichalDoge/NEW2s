@@ -1,0 +1,8 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+hint(owner():shootPos():toString(),5)
+hint(owner():pos():toString(),5)

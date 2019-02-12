@@ -1,0 +1,16 @@
+@name grafitti test
+@inputs 
+@outputs 
+@persist Arr:array
+@trigger 
+interval(100)
+
+if(owner():keyAttack2()){
+    Arr:pushVector(owner():aimPos())
+    for(I=1,250){
+        holoCreate(I,Arr[I,vector])
+        holoModel(I,"hq_sphere")
+        holoScaleUnits(I,vec(5,5,5))
+    }
+}
+

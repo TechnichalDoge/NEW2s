@@ -1,0 +1,7 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(1000)
+entSpawn("npc_grenade_frag",entity():pos())

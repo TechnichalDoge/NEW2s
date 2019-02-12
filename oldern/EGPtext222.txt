@@ -1,0 +1,8 @@
+@name EGP
+@inputs EGP:wirelink
+
+#link EGP to your EGP screen/emitter
+
+EGP:egpText(1,"sample text",vec2(256,256))
+EGP:egpSize(1,30)
+EGP:egpColor(1,vec(255,0,0))

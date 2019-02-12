@@ -1,0 +1,55 @@
+@name  tytytyyt
+@inputs EGP:wirelink KBInput:string
+@outputs 
+@persist Cursor:vector2 Items:table
+@trigger 
+
+interval(100)
+
+if (changed(KBInput)) {
+
+    if (KBInput) {
+
+        M = KBInput:explode(" ")
+
+        if (M[1,string] == "shutdown") {
+            reset()
+        }elseif (M[1,string] == "example1") {
+            print("example 1")
+        }
+
+    }
+}
+
+EGP:egpText(1,KBInput,vec2(0,0))
+
+function addItem(Item:string,Amount) {
+
+    if (Items) 
+    {
+
+        for (I=1,Items:count()) 
+        {
+            print(Items[I,array][I,string],Item)
+            if (Items[I,array][I,string] == Item) 
+            {
+                #print("yes")
+                Items[I,array] = array(Items[I,array][1,string],Items[I,array][2,number]+Amount)
+                #print(Items[I,array])
+                break
+            }
+            else
+            {
+                Items[I+1,array] = array(Item,Amount)
+                #Loop wasn't broken, therefor we must write a new slot.
+                #break
+            }
+        }
+    }
+    elseif (!Items) 
+    {
+        Items[1,array] = array(Item,Amount)
+        #No items exist, write a new inventory.
+    }
+
+}

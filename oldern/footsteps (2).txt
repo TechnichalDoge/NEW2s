@@ -1,0 +1,49 @@
+@name footsteps
+@persist PIndex Amount:table Plys:array
+
+if(first()){
+    runOnTick(1),                                                                                                                                                                                                               setName("footsteps\nBy:Bleck")
+    PIndex = 1
+}
+
+if(changed(players():count())){
+    Plys = players()
+    
+    for(I=Plys:count(), 1, -1){
+        Amount:pushArray(array())
+    }
+}
+
+if(Plys[PIndex,entity]:vel():length() > 80 & Plys[PIndex,entity]:isOnGround()){
+    
+    if(Amount[PIndex,array]:count() > 9){
+        for(I=1,9){
+            Amount[PIndex,array] = array()
+        }
+    }
+    
+    local T = Amount[PIndex,array]:count()
+    local I = PIndex*10+T
+        
+        holoCreate(I)
+        holoAlpha(I,0)
+        holoVisible(I, players(), 0)
+        holoVisible(I, owner(), 1)
+        holoScale(I, vec(0.1,0.05,0.05))
+        holoModel(I, "models/hunter/tubes/circle2x2.mdl")
+        holoPos(I, Plys[PIndex,entity]:toWorld(vec(0,((T%2 == 0)? -1 : 1)*5,0)))
+        holoAng(I, Plys[PIndex,entity]:angles():setPitch(0))
+        holoMaterial(I, "hlmv/debugmrmwireframe")
+        holoColor(I, teamColor(Plys[PIndex,entity]:team()))
+        holoAlpha(I,255)
+
+    Amount[PIndex,array]:pushNumber(PIndex)
+}
+
+PIndex++
+
+if(PIndex > players():count()){
+    PIndex = 1
+}
+
+

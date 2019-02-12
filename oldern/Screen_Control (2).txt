@@ -1,0 +1,174 @@
+@name Screen Control
+@inputs Screen:wirelink Url:string
+@outputs Data:string
+@persist Size KEY:string Speed RUN_ON_TICK BASE_URL:string DEBUG Group_ID:string Data:string
+@persist Width Height Is_drawing Pixel_amount Current_pixel 
+@persist Chip_ID Num_of_chips
+@trigger Url
+if(first() | dupefinished())
+{   
+    #[Screen Controller by PCL (HMM')
+     Request data from a web api then splits it up between multiple helpers
+     and draws it. Screen controller can also work without screen helpers
+     
+     ABOUT WEB API
+     Data from the web api is retur in the form t0256,02990xefefef0xffffff...etc
+     the first character t being if the request was successful or not
+     the next 9 characters e.g. 0256,0256. being the resuolution of the image
+     the rest after that are hex color values e.g. 0xfffff. without spacing in between
+     ]#
+     
+    #[----CONFIG VARIABLES----]#
+    KEY = "9AGKCQn25vUP9TqC" #key required for making request
+    Size = 512 #size of image e.g. 256x256
+    Speed = 60 #speed of screen drawing 0 sets it to default (fastest)
+    Group_ID = "1" #Identifier for group of e2s if multiple screens are being used
+    
+    RUN_ON_TICK = 0 #set this to 1 if code is added that needs runOnTick(1)
+    BASE_URL = "http://e2sandstuff.ddns.net/imgtxt"
+    DEBUG = 1 # if debug messages should be printed 
+     
+    #vars you prob shouldnt change if init function is being used 
+    Num_of_chips = 1 # Num of chips being used leave at 1 if init function is being used   
+    Chip_ID = 0 # Chip_ID (DO NOT CHANGE UNLESS E2s are being set up manually)                  
+    #[-----END CONFIG-----]#
+    
+    setName(Group_ID+":Screen Control")
+    
+    Screen[1048574]=0 #clear screan
+    Screen[1048569]=2 #set color mode
+
+    function void wirelink:putPixel(X, Y, Col)
+    {
+        #Credit to georgeravenholm for this function (STEAM_0:1:66236244)
+        local Size = This[1048573]
+        if ( X > Size || Y > Size ) {return} 
+        This[Size * Y + X] = Col # Set colour of cell
+    }
+    function void draw_from_url(Url:string)
+    { #[gets image date of url:string from web api and draws it]#
+        
+        local Url = BASE_URL+"?url="+Url+"&size="+Size+"&key="+KEY
+        if(DEBUG){printColor(vec(0, 193, 22),"Requesting data for "+Url)}
+        httpRequest(Url)
+        runOnHTTP(1)
+    }
+    function void init()
+    {
+        #[Discovers all helper e2s and wires them automatically
+            while also setting Num_of_chips:number and Chip_ID:number
+            The controller/main e2 must be wired manually
+            You do not need to call init if you are not using helper e2s]#
+            
+        findIncludeClass("gmod_wire_expression2")
+        findInSphere(entity():pos(),1000)
+        local Array = findToArray()
+        local Main = entity()
+        for(I=1, Array:count())
+        {
+            
+            local Ent = Array[I,entity]
+            local Name = Array[I,entity]:getName()
+            Main = entity()
+           
+            if(Ent:owner() == owner() & Name:find("Screen Helper") != 0 &Name:sub(1,Group_ID:length())==Group_ID)
+            {
+                Num_of_chips++
+            }
+            
+        }
+       setName(Group_ID+":Screen Control "+Chip_ID)
+        Chip_ID = 0
+    }
+    runOnChat(1)
+    timer("init",20000)
+}
+if(clk("init"))
+{
+    init()
+}
+if(changed(Url)&Url!="")
+{
+    draw_from_url(Url)
+}
+if(chatClk(owner()))
+{
+    local LE = findPlayerByName("Logica"):lastSaid():explode(" ")
+    if(LE:string(1)=="/url")
+    {
+        hideChat(1)
+        draw_from_url(LE:string(2))
+        
+    }
+}
+if(httpRequestUrl():sub(1,BASE_URL:length())==BASE_URL & httpClk())
+{
+    local D = httpData()
+
+    if(D:sub(1,1) == "t")
+    {
+        Data = D
+        #setName(D)
+        Screen[1048574]=0 #clear screan
+        Screen[1048569]=2 #set color mode
+        
+        local WxH = Data:sub(2,10)
+        Width = WxH:explode(","):string(1):toNumber()
+        Height = WxH:explode(","):string(2):toNumber()
+        
+        if(DEBUG){printColor(vec(0, 193, 22),"Data retrieved from "+httpRequestUrl())}
+        
+        Current_pixel = 0
+        Pixel_amount = ceil((Data:length()-10)/8/Num_of_chips)
+        if(!RUN_ON_TICK){runOnTick(1)}
+        Is_drawing = 1
+        
+    }
+    else
+    {
+        if(Data:sub(1,5):lower() == "error")
+        {
+            printColor(vec(255,0,0),D)
+        }
+        else
+        {
+            print(Data)
+            printColor(vec(255,0,0),"Unknown error")
+        }
+    }
+    runOnHTTP(0)
+}
+elseif(tickClk()&Is_drawing)
+{
+    if(Current_pixel<=Pixel_amount*(Chip_ID+1))
+    {
+        if(Speed==0)
+        {
+            while(perf())
+            {
+                local X = Current_pixel%Width
+                local Y = ceil(Current_pixel/Width)-1
+                
+                Screen:putPixel(X, Y, Data:sub(Current_pixel*8+11,Current_pixel*8+18):toNumber())
+                Current_pixel++
+
+            }
+        }
+        else   
+        {
+            while(perf(Speed))
+            {
+                local X = Current_pixel%Width
+                local Y = ceil(Current_pixel/Width)-1
+                
+                Screen:putPixel(X, Y, Data:sub(Current_pixel*8+11,Current_pixel*8+18):toNumber())
+                Current_pixel++
+            }
+        }
+    }
+    else
+    {
+        Is_drawing = 0
+        if(!RUN_ON_TICK){runOnTick(0)}
+    }
+}

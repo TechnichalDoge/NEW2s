@@ -1,0 +1,45 @@
+@name TI-NCT Constructor
+@inputs Design:table
+@outputs 
+@outputs MyPos:vector Props:table T X Y Z Level:table
+@trigger 
+
+if (first()) {
+    MyPos=entity():pos()+vec(0,0,500)
+    Level=Design[Z,table]:clone()
+}
+
+if (!(Design==table())) {
+    interval(500)
+} else {
+    reset()
+}
+
+if (~Design){
+    reset()
+}
+
+if ($Z) {
+    Level=Design[Z,table]:clone()
+}
+
+
+if (Level[T,normal]){
+    Y=floor(T/8)
+    X=T-(Y*8)
+    #print("X: "+X+" Y: "+Y+" T: "+T)
+} else {
+    X=-1
+    Y=-1
+}
+T++
+if (T>65) {
+    T=0
+    Z++
+}
+
+
+if(X!=-1 && Y!=-1) {
+    Props:pushEntity(propSpawn("models/hunter/blocks/cube8x8x8.mdl",MyPos+vec(X*379.5,Y*379.5,Z*379.5),ang(0,0,0),1))
+}
+

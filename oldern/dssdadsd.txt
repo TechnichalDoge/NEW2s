@@ -1,0 +1,34 @@
+@name Flak Cannon EXP Mk 1
+@inputs Target:vector
+@outputs LifeTime:number
+@persist Array:array Te
+@trigger 
+
+runOnTick(1)
+Array=pewFindByOwner(owner())
+
+for(I=1,Array:count()){
+    local Bullet = Array[I,number]
+    local BulletName = pewBulletCannon(Bullet):pewBulletName()
+    local BulletPos = pewBulletPos(Bullet)
+    local BulletVel = pewBulletVel(Bullet)
+    local BulletUp = BulletVel:z()
+    if(changed(Array:count()) & BulletName == "Flak Cannon"){
+        local Distance = BulletPos:distance2(Target)
+        print(BulletVel)
+        local Test = Target/BulletVel
+        #print("AVG  " + (Test:x() + Test:y() + Test:z())/3)
+        LifeTime = Target:y()/(BulletUp/8)
+        print(LifeTime)
+        print("   " + Target:y() + "    " + BulletUp/9.5 + "    " + Target:y()/(BulletUp/9.5)) 
+        
+    }
+}
+
+"vel is actually 9000 more or less"
+while(Te<10){
+    #print(Te)
+    holoCreate(Te,vec(entity():pos():x(),entity():pos():y(),entity():pos():z()+Te*(9000/9.5)))
+    #print(vec(entity():pos():x(),entity():pos():y(),entity():pos():z()+Te*(9000/9.5)))
+    Te++
+}

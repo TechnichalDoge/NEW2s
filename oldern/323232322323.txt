@@ -1,0 +1,11 @@
+@name 3333333
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+interval(25)
+findByClass("prop_ragdoll")
+print(find():pos())
+holoCreate(1,find():pos())
+holoScale(1,vec(100,100,100))

@@ -1,0 +1,19 @@
+@name FFFFi
+@inputs Base:entity
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+function vector toRelative(Start:entity,PosTo:vector){
+    local X = Start:right()*PosTo:x()
+    local Y = Start:forward()*PosTo:y()
+    local Z = Start:up()*PosTo:z()
+    local Vec1 = X+Y+Z
+    local Vector = Start:pos() + Vec1
+
+    
+    
+    return Vector
+}
+holoCreate(1,toRelative(Base,vec(100,50,10)))
+#print(toRelative(owner(),vec(100,10,10)))

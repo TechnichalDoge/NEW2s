@@ -1,0 +1,26 @@
+@name test
+@inputs Ent1:entity Bearing
+@outputs 
+@persist Ang:angle
+@trigger 
+if(first())
+{
+    runOnTick(1)
+    runOnKeys(owner(),1)
+}
+local E = Ent1
+local T = entity():pos()+vec(0,0,100)
+local M = E:mass()
+
+
+
+Dir = (T-owner():aimPos()):normalized():toAngle()+ang(-90,0,0)
+Dir = ang(0,Bearing,0)
+# Dir = Dir:rotate(ang(90,0,0))
+Dir = Dir:setPitch(0)
+Dir =  Dir:setRoll(0)
+QProp = quat(E)
+Q = quat(Dir)/QProp
+Torque = E:toLocal(rotationVector(Q) + E:pos())
+E:applyTorque((Torque*1500 - E:angVelVector()*40)*E:inertia())
+

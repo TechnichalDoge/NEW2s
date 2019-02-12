@@ -1,0 +1,33 @@
+@name test
+@inputs Entity:entity Chair:entity
+@outputs User Position:vector
+@persist 
+@trigger 
+runOnChat(1)
+runOnTick(1)
+
+local Home = entity():pos()
+
+
+if(chatClk(owner())){
+    local String = owner():lastSaid()
+    local Exploded = String:explode(" ")
+    if(Exploded[1,string] == "/"){
+        if(Exploded[2,string]:lower() == "goto"){
+            User = 1
+            timer("Useroff",100)
+            local Person = findPlayerByName(Exploded[3,string])
+            Entity:setPos(owner():pos()+vec(0,0,300))
+            Position = Person:pos()+vec(47,0,0)
+            Chair:ejectPod()                        
+        }
+    }else{
+            Entity:setPos(Home+vec(0,0,10))    
+        
+    }
+}
+
+if(clk("Useroff")){
+    User = 0   
+}
+#Entity:setPos(owner():pos()+vec(0,0,300))

@@ -1,0 +1,8 @@
+@name Transistor c4
+@inputs Toggle Input I2
+@outputs Output
+if(Input>I2){
+Output=1}
+else{
+ Output=-1
+}

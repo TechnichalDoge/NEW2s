@@ -1,0 +1,31 @@
+@name Clouds
+@inputs 
+@outputs 
+@persist Ep:vector Move Speed Speed2 Move2 Size Size2 Size3
+@trigger 
+interval(55)
+if(Move>50000){
+ Move=0   
+Move2=0
+}
+Ep=entity():pos()
+Speed=randint(-1,3)
+Speed2=randint(0,3)
+Move=Move+Speed
+Move2=Move2+Speed2
+Size=randint(10,55)
+Size2=randint(10,55)
+holoCreate(1,(Ep+vec(Move,Move2,5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(15,15,15),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(2,(Ep+vec(Move-randint(1,10),Move2+randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(3,(Ep+vec(Move+randint(1,10),Move2-randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(4,(Ep+vec(Move-randint(1,10),Move2+randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(5,(Ep+vec(Move+randint(1,10),Move2-randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(6,(Ep+vec(Move-randint(1,10),Move2+randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoCreate(7,(Ep+vec(Move+randint(1,10),Move2-randint(1,10),5000)),vec(Size,Size,Size2),ang(vec(randint(Speed,Speed2),randint(Speed,Speed2),randint(Speed,Speed2))),vec(255,255,255),"models/props_wasteland/rockgranite01c.mdl")
+holoMaterial(1,"phoenix_storms/plastic")
+holoMaterial(2,"phoenix_storms/plastic")
+holoMaterial(3,"phoenix_storms/plastic")
+holoMaterial(4,"phoenix_storms/plastic")
+holoMaterial(5,"phoenix_storms/plastic")
+holoMaterial(6,"phoenix_storms/plastic")
+holoMaterial(71,"phoenix_storms/plastic")

@@ -1,0 +1,11 @@
+@name bombs2v1
+@inputs Drop Safe Rack:entity
+@outputs 
+@persist Ep:vector Ra:angle
+interval(25)
+Ep=entity():pos()
+Ra=Rack:angles()
+if(Drop==1){
+    E = propSpawn("models/props_phx/amraam.mdl",Ep-vec(0,0,30),Ra+ang(vec(0,-90,0)),0)
+    E:propFreeze(0)
+}

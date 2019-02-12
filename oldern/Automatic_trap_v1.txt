@@ -1,0 +1,38 @@
+@name Automatic trap v1
+@inputs Door:entity Gps1:vector Gps2:vector
+@outputs Open Close Num:number KC:number
+@persist Ep:vector Ar:array Find:entity
+if(first()|dupefinished()){
+KC=0
+}
+interval(25)
+Ep=entity():pos()
+entity():setNoCollideAll()
+
+
+
+findInBox(Gps1,Gps2)
+findIncludeClass("player")
+findExcludeEntity(owner())
+Ar=findToArray()
+Num=Ar:count()
+Find=find()
+
+if(Num>0){
+    Open=0
+    Close=1
+    Door:removeNoCollideAll()
+    Door:setAlpha(255)
+}
+else{
+    Open=1
+    Close=0
+    Door:setNoCollideAll()
+    Door:setAlpha(0)
+}
+if(Close==1){
+KC=1
+}
+else{
+KC=0   
+}

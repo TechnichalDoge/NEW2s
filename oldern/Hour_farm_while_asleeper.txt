@@ -1,0 +1,23 @@
+@name Hour farm while asleeper
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#made by tired logica who is too lazy to exit game
+interval(60000*10)
+concmd("say hourfarmplaceholder")
+
+if(first()){
+    local P1 = propSpawn("models/hunter/misc/lift2x2.mdl",owner():pos(),1)
+    local P2 = propSpawn("models/hunter/misc/lift2x2.mdl",owner():pos(),ang(0,90,0),1)
+    P1:setMaterial("models/effects/muzzleflash/blurmuzzle")
+    P2:setMaterial("models/effects/muzzleflash/blurmuzzle")
+    P1:propShadow(0)
+    P2:propShadow(0)
+    holoCreate(1)
+    holoScale(1,vec(2,2,2))
+    holoModel(1,"models/hunter/blocks/cube2x2x2.mdl")
+    holoMaterial(1,"models/effects/muzzleflash/blurmuzzle")
+    holoParent(1,entity())
+}

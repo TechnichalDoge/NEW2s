@@ -1,0 +1,54 @@
+@name Anticombineball
+@outputs Array:array Array2:array
+@persist Array:array Radius Pos Array2:array
+if(first()|dupefinished()){
+#size of antipewpew
+Radius=750
+
+    timer("timersafe",200)
+}
+
+interval(25)
+#Array2=pewFindInSphere(entity():pos(),Radius)
+#findIncludeClass("pewpew_base_bullet")
+findInSphere(entity():pos(),Radius)
+findIncludeClass("prop_combine_ball")
+Array=findToArray()
+#
+while(perf()&clk("timersafe")){
+    for(I=1,Array2:count()){
+    local TempPewPewVector = pewBulletPos(Array2[I,number])
+    Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,-30),ang(0,0,0),1)
+    Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,3),ang(0,0,0),1)
+    Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,-3),ang(0,0,0),1)
+    timer("bb",70)
+    }
+    for(I=1,Array:count()){
+    local TempPewPewVector = Array[I,entity]:pos()
+    Middle=propSpawn("models/props_phx/construct/windows/window_curve360x2.mdl",TempPewPewVector+vec(0,0,-50),ang(0,0,0),1)
+    Bottom=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,40),ang(0,0,0),1)
+    Bottom2=propSpawn("models/props_phx/construct/metal_angle360.mdl",TempPewPewVector+vec(0,0,-50),ang(0,0,0),1)
+    timer("bb",70)
+    }
+    Middle:setAlpha(0)
+    Bottom:setAlpha(0)
+    Bottom2:setAlpha(0)
+    timer("timersafe",200)
+}
+if(first()|dupefinished()){
+ Pos=0   
+}
+#[
+holoCreate(1,entity():pos())
+holoModel(1,"hq_sphere")
+Pos = Pos+1
+holoAng(1,ang(Pos,Pos,Pos))
+holoScaleUnits(1,vec(-Radius*2,-Radius*2,-Radius*2))
+holoAlpha(1,100)
+if(Pos>359){
+Pos=0
+}
+]# #debug sphere
+if(clk("bb")){
+ propDeleteAll()   
+}

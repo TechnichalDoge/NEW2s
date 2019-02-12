@@ -1,0 +1,194 @@
+@name Keypad - V1.3 - By: Rybo
+@inputs
+@outputs  Correct Incorrect
+@persist P:entity I Clk Percent Code:string Fry Fried Enter:string FirstPunch ChooseCode Toggle String:string Dist Secure CHold IHold Crack Aim:vector Vec:vector Vecs:array Use
+@model models/props_lab/keypad.mdl
+runOnTick(1)
+#ChooseCode must be turned on to have a custom code
+if(first()|duped()){
+#Set to one to make the keypad toggle
+Toggle=0
+    #Is the keypad secure?
+    Secure=1
+    if(Toggle==0){
+#What should our hold rate be for if the code is correct?
+    CHold=5000
+#What should our hold rate be for if the code is incorrect?
+    IHold=1000
+}
+    Correct=0
+    
+    Incorrect=0
+#Should we be able to choose the code for the keypad?
+    ChooseCode=0
+    #Is the keypad able to fry if attacked by a crowbar?
+    Fry=1
+    #Is the keypads code the first code we punch in?
+    FirstPunch=1
+    
+    if(ChooseCode==1){
+#If we're able to choose the code, what should the code be?
+        Code="1337"
+    print("The code is: "+Code)
+    }
+}
+
+
+findByClass("player")
+if(ChooseCode==0&FirstPunch==0){
+if(Code:find("0")){
+print("The code "+Code+" was rejected.")
+Code=toString(round(random(1000,9999)))
+if(Code:find("0")==0){
+print("The code is: "+Code)
+}
+}
+}
+
+
+
+E=entity()
+P=findClosest(entity():pos())
+Dist=P:pos():distance(entity():pos())
+Aim=P:aimPos()
+Use=P:keyUse()
+if(first()|duped())
+{
+    if(ChooseCode==0&FirstPunch==0){
+    print("Generating Code...")
+}
+    Vecs=array(
+    vec(1,-1.5,-0.5),
+    vec(1,0,-0.5),
+    vec(1,1.5,-0.5),
+    vec(1,-1.5,-2),
+    vec(1,0,-2),
+    vec(1,1.5,-2),
+    vec(1,-1.5,-3.5),
+    vec(1,0,-3.5),
+    vec(1,1.5,-3.5)
+    )
+    if(ChooseCode==0&FirstPunch==0){
+Code=toString(round(random(1000,9999)))
+if(Code:find("0")==0){
+print("The code is: "+Code)
+}
+}    
+}
+if(Fried==0){
+if(Secure==1&Dist<70){
+for(I=1,Vecs:count())
+{
+    Vec=E:toWorld(Vecs[I,vector])
+    if(Aim:distance(Vec)<=1&$Use==1&Enter:length()<=4){if(Enter:length()==0){String=""}
+    Enter+=toString(I),String+="*",soundPlay(1,0,"buttons/button15.wav")} 
+}
+}
+if(Secure==0&Dist<70){
+for(I=1,Vecs:count())
+{
+    Vec=E:toWorld(Vecs[I,vector])
+    
+    if(Aim:distance(Vec)<=1&$Use==1&Enter:length()<=4){if(Enter:length()==0){String=""}
+        Enter+=toString(I),String+=toString(I),soundPlay(1,0,"buttons/button15.wav")} 
+}
+}
+setName(String)
+#FirstPunch Code
+    if(FirstPunch==1&Code:length()<4){
+    Code=Enter
+}
+
+if(Toggle==0){
+if(Enter:length()>=4&Enter==Code){
+    soundPlay(1,0,"buttons/button14.wav")
+    Enter=""
+    String="Correct Code"
+    Correct=1
+    timer("Reset",CHold)
+}
+elseif(Enter:length()>=4&Enter!=Code){
+    soundPlay(1,0,"buttons/button11.wav")
+    Enter=""
+    String="Incorrect Code"
+    Incorrect=1
+    timer("reset",IHold)
+}
+}
+if(clk("Reset")){
+if(Enter:length()==0){
+String=""
+}
+Correct=0}
+
+if(clk("reset")){
+if(Enter:length()==0){
+String=""
+}
+Incorrect=0}
+
+#Keypad cracking
+Clk=clk("Blip")
+if(changed(P)==0&P:weapon():type()=="keypad_cracker"&Dist<70&P:aimEntity()==entity()&P:keyAttack1()){Crack=1}
+else{Crack=0,Percent=0}
+if(Crack==1){setName("Percent: "+Percent),timer("Blip",1000),timer("percent",1000)}
+if($Clk==1){soundPlay(1,0,"buttons/blip2.wav")}
+if(clk("percent")){Percent+=round(random(-1,3))}
+if(Percent==100){Enter=Code,Crack=0,Percent=0}
+if(Percent>100){Percent=100}
+if(Percent<0){Percent=0}
+
+#toggle code
+
+if(Toggle==1){
+if(Enter:length()>=4&Enter==Code&Correct==0){
+    soundPlay(1,0,"buttons/button14.wav")
+    Enter=""
+    String="Correct Code"
+    Correct=1
+}
+
+if(Enter:length()>=4&Enter==Code&Correct==1|Enter:length()>=4&Enter==Code&Incorrect==1){
+    soundPlay(1,0,"buttons/button14.wav")
+    Enter=""
+    String=""
+    Correct=2
+}
+
+if(Enter:length()>=4&Enter!=Code&Incorrect==0){
+    soundPlay(1,0,"buttons/button11.wav")
+    Enter=""
+    String="Incorrect Code"
+    Incorrect=1
+}
+
+if(Enter:length()>=4&Enter!=Code&Incorrect==1|Enter:length()>=4&Enter!=Code&Correct==1){
+    soundPlay(1,0,"buttons/button11.wav")
+    Enter=""
+    String="Incorrect Code"
+    Incorrect=2
+}
+
+}
+}
+if(Correct==2|Incorrect==2){String="",Enter="",Correct=0,Incorrect=0}
+
+#Frying
+
+if(Fried==0&changed(P)==0&P:weapon():type()=="weapon_crowbar"&Dist<70&P:aimEntity()==entity()&P:keyAttack1()){
+Fried=1
+Correct=1
+timer("T",1000)
+
+soundPlay(1,0,"ambient/energy/newspark10.wav")
+}
+
+if(clk("T")){
+    soundPlay(1,0,"buttons/button11.wav")
+    setName("Correct Code")
+}
+
+
+
+
+#Made By Bigrybo/Rybo/rybo32

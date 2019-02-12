@@ -1,0 +1,19 @@
+@name eletest v2
+@inputs Input Legth
+@outputs Hydraulic In Out
+@persist Up Down
+interval(25)
+if(first()|dupefinished()){Up=92
+interval(25)
+Down=279
+if(Input==0){
+    Hydraulic=Down
+    Out=1
+    In=0
+}
+elseif(Input==1){
+    Hydraulic=Up
+    In=1
+    Out=0
+}
+}

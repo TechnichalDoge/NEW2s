@@ -1,0 +1,15 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+    for(I=0,5000){
+        lightCreate(I,entity():pos()+vec(randint(-10,10),randint(-10,10),randint(0,10)))
+        lightBrightness(I,9999999)
+        lightParent(I,entity())
+        #holoCreate(I,lightPos(I))
+        if(!perf()){
+            break    
+        }
+    }
+

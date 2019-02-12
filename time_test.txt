@@ -1,0 +1,9 @@
+@name time test
+@inputs 
+@outputs Time Range:vector2
+@persist 
+@trigger 
+
+interval(10)
+Time = curtime()*1000%60
+Range = vec2(0,60)

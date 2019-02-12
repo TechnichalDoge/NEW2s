@@ -1,0 +1,11 @@
+@name bomb autoignite
+@inputs Prop:entity Drop
+@outputs 
+@persist 
+if(changed(Drop)){
+timer("lo",5000)
+}
+if(clk("lo")){
+    Prop:ignite()
+}
+

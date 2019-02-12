@@ -1,0 +1,6 @@
+@name Altutude Func V1
+@persist 
+
+function vector getalt(Vector:vector){
+    return Vector+vec(0,0,11140-0.03125)
+}

@@ -1,0 +1,5 @@
+@name Mortar Deco Mk1
+@inputs Base:entity Base2:entity BaseA:entity
+@persist 
+
+#Base is the Gimbal, Base2 is the block inside the gimbal, BaseA is the base of all

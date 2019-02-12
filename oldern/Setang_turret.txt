@@ -1,0 +1,29 @@
+@name Setang turret
+@persist Base:entity Prop:entity 
+@persist Pewpew:entity PewWire:wirelink
+@persist 
+@model models/props_phx/construct/metal_plate1.mdl
+
+if(first()){
+    Prop = propSpawn("models/mechanics/solid_steel/steel_beam_4.mdl",entity():pos()+entity():up()*26,entity():angles(),1)
+    Base = entity()
+    weld(Prop,Base)
+    Prop:propStatic(1)
+    runOnTick(1)
+    propSpawnUndo(0)
+
+} 
+
+print()
+if(owner():lastSaid()=="/rts"&lastSaid()=="/rts"&(curtime()-lastSaidWhen())<=1){
+    selfDestructAll()
+}
+
+
+function angle ang2toang3(Ang:vector2,N:number){
+    return ang(Ang:x(),Ang:y(),N)
+}
+#local Angles = 
+#Base:setPos(TBase:boxCenterW())
+#Base:setAng(ang2toang3(,90))
+

@@ -1,0 +1,26 @@
+@name  53654656676666BaR3
+@inputs
+@outputs 
+@persist Color:vector Radius
+@trigger 
+
+if (first()){
+    runOnTick(1)
+    runOnChat(1)
+    
+    Radius = 500
+    Color = vec(0, 255, 0)
+    Alpha = 100
+    
+    function redrawHolo(){
+        holoCreate(1)
+        holoModel(1, "hq_sphere")
+        holoColor(1, Color)
+        holoAlpha(1, Alpha)
+        holoScaleUnits(1, vec(Radius/2, Radius/2, Radius/2))        
+    }
+    
+    redrawHolo()
+}
+
+

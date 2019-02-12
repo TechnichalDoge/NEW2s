@@ -1,0 +1,7 @@
+@name AngSEttertest
+@inputs E:entity
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+E:setAng(ang(0,0,0))

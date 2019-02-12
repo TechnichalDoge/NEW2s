@@ -1,0 +1,9 @@
+@name testes
+@inputs Ranger
+@outputs Lifetime
+@persist 
+
+interval(20)
+
+Lifetime=4000/135
+

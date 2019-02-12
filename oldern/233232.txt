@@ -1,0 +1,25 @@
+@name 
+@inputs 
+@outputs 
+@persist Props:array
+@trigger 
+if(first()|dupefinished()){
+    Scale = 1/24   
+}
+interval(1000)
+
+findByClass("prop_physics")
+Props=findToArray()
+for(P=0,Props:count()){
+    local TempProp = Props[P,entity]
+    local TempPos = TempProp:pos()*Scale+entity():pos()
+    local TempMat = TempProp:getMaterial()
+    local TempAng = TempProp:angles()
+    local TempColor = TempProp:getColor()
+    local TempModel = TempProp:model()
+    local TempSize = TempProp:boxSize()*Scale
+    holoCreate(P,TempPos,TempSize,TempAng,TempColor,TempModel)
+    if(!perf()){
+    break
+}
+}

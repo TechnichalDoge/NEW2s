@@ -1,0 +1,18 @@
+@name Medicine door system
+@inputs Base1:entity Base2:entity Input
+@persist 
+@trigger Input
+Base1:setMaterial("phoenix_storms/glass")
+Base2:setMaterial("phoenix_storms/glass")
+if(Input){
+    noCollideAll(Base1,0)
+    noCollideAll(Base2,1)
+    Base1:setAlpha(225)
+    Base2:setAlpha(50)
+}
+else{
+    noCollideAll(Base1,1)
+    noCollideAll(Base2,0)
+    Base1:setAlpha(50)
+    Base2:setAlpha(225)    
+}

@@ -1,0 +1,11 @@
+@name holoforgun1
+@inputs Gun:entity
+@outputs 
+@persist GunPos:vector
+runOnTick(20)
+GunPos=Gun:pos()
+holoCreate(1,entity():pos(),vec(1,1,1),entity():angles(),vec(10,10,10),"models/sprops/misc/domes/size_4/dome_48x24.mdl")
+holoCreate(2,GunPos,vec(1,1,5),Gun:angles(),vec(10,10,10),"models/sprops/cylinders/size_4/cylinder_9x12.mdl")
+holoCreate(3,GunPos,vec(1,1,6),Gun:angles(),vec(10,0,0),"models/sprops/misc/domes/size_0/dome_3x12.mdl")
+
+

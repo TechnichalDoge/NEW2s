@@ -1,0 +1,7 @@
+@name Logica Autosurf v2
+@outputs A
+@persist A
+interval(10)
+    E = propSpawn("models/sprops/rectangles_thin/size_54/rect_54x144x1_5.mdl",owner():toWorld(vec(0,0,-7)),owner():angles(),1)
+    E:setAlpha(0)
+

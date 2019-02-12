@@ -1,0 +1,46 @@
+@name EGP Radar Hud Alpha Test Ver 0A0A1
+@inputs EGP:wirelink
+@persist [NearbyPlayers]:array [Owner]:entity [Range,Count,NearestDistance,Size,Pheight]:number [OwnP,Ppcolor]:vector
+
+if(first()|dupefinished()){
+    #How big should the map be
+    Size = 10
+    
+    #Range of the radar
+    Range = 1500
+    
+    #makes a variable for the owner (easier to not use parentheses)
+    Owner = owner()
+
+    #runontick
+    runOnTick(1)
+    
+    #excludes
+    findExcludeEntity(Owner)
+    
+}
+if(tickClk()){
+    #makes a vaariable for the owners position (Read Owner variable)
+    OwnP = Owner:pos()
+}
+
+#the find = radar or however you want to call it, it finds the people to put on the radar
+findInSphere(Owner:pos(),Range/2)
+
+#sorts it by distance
+findSortByDistance(OwnP)
+
+#puts it into the array variable for the players
+NearbyPlayers = findToArray()
+
+#goes through the players and does everything
+for(P=1,NearbyPlayers:count()){
+    if(!NearbyPlayers[P,entity]:plyHasGod()){
+        Ppcolor = vec(255,0,0)
+    }else{
+        Ppcolor = vec(0,255,0)
+    }
+    local NPP = NearbyPlayers[P,entity]:pos()
+    local APP = NPP/(Size*10000000)
+    EGP:egpCircle(1,vec2(APP:x(),APP:y()),vec2(Size,Size))
+}

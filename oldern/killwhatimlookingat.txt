@@ -1,0 +1,22 @@
+@name killwhatimlookingat
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(25)
+#print(owner():weapon():toString())
+#print(owner():weapon():toString()=="Weapon [869][pac_crossbow]")
+local Ex = owner():weapon():toString():explode("[")
+#print(Ex[3,string])
+        if(Ex[3,string]=="pac_crossbow]"&changed(owner():keyAttack1())&owner():keyAttack1()){
+                local KillTarget = owner():aimPos()+vec(0,0,150)
+                #local Pew = pewCreate("Medium Laser","models/props_wasteland/prison_lamp001c.mdl",KillTarget,ang(0,0,180),"up")
+                local Pew = pewCreate("Homing Missile - Normal","models/props_wasteland/prison_lamp001c.mdl",KillTarget,ang(0,0,180),"up")
+                local PewWire = Pew:wirelink()
+                PewWire["Fire",number] = 1
+                timer("undo",100)
+            }
+        if(clk("undo")& !(first())&!(dupefinished()))
+        {
+            concmd("gmod_undo")         
+        }  

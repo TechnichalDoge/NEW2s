@@ -1,0 +1,17 @@
+@name Prop Cannon
+@inputs Prop:entity Spawned Target:entity Force:vector
+@outputs 
+@persist 
+@trigger 
+
+
+
+
+if (Spawned == 1) {
+Prop:applyForce(vec(0,0,10000))
+Prop:setTrails(3,3,100,"models/debug/debugwhite",vec(0,0,0),255)
+}
+
+if (Prop:pos():z() > 3000) {
+Prop:applyForce(Force)
+}

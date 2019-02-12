@@ -1,0 +1,134 @@
+@name UFO
+@inputs PodW PodS PodActive Cloak TBeam Turbo Seat:entity PodBearing PodElevation
+@outputs PodEject Abductee:entity
+@persist Angles:angle Pos:vector TMP:vector Speed RD:ranger Driver:entity
+interval(1)
+
+Chip=entity()
+Craft=entity():isWeldedTo()
+Center=Craft:massCenter()
+Driver = Seat:driver()
+
+if(first() | duped()) {
+    print("-- UFO Built and Programmed by Freo --")
+    holoCreate(1)
+    holoModel(1,"hqicosphere2")
+    holoPos(1,Craft:massCenter() + vec(0,0,-15))
+    holoAng(1,Craft:angles())
+    holoMaterial(1,"phoenix_storms/chrome")
+    holoScale(1, vec(12,12,3.5))
+    holoColor(1,vec(50,50,50))
+    holoShadow(1,1)
+    holoCreate(2)
+    holoModel(2,"dome2")
+    holoMaterial(2,"phoenix_storms/glass")
+    holoScale(2, vec(8,8,7))
+    holoPos(2,Craft:massCenter() + vec(0,0,-10))
+    holoAng(2,Craft:angles()+ang(180,0,0))
+    holoShadow(2,1)
+    holoParent(2,1)
+    holoCreate(3)
+    holoModel(3,"cone")
+    holoMaterial(3,"models/props_combine/portalball001_sheet")
+    holoScale(3, vec(6,6,9))
+    holoPos(3,Craft:massCenter() + vec(0,0,45))
+    holoAng(3,Craft:angles()+ang(180,0,0))
+    holoParent(3,1)
+    holoCreate(4)
+    holoModel(4,"dome")
+    holoMaterial(4,"phoenix_storms/black_chrome")
+    holoScale(4, vec(8.2,8.2,7.2))
+    holoPos(4,Craft:massCenter() + vec(0,0,-10))
+    holoAng(4,Craft:angles()+ang(180,0,0))
+    holoParent(4,1)
+    
+    TMP = Chip:pos()
+    }
+    
+if(PodW){
+    X = Craft:pos():x() + Speed * cos(PodElevation) * cos(PodBearing)
+    Y = Craft:pos():y() + Speed * cos(PodElevation) * sin(PodBearing)
+    Z = Craft:pos():z() + Speed * sin(PodElevation)
+    Angles = angnorm(ang(0,0,0) - Craft:angles() - Craft:angVel()) * 2 * Craft:mass()
+    Pos = round(vec(X,Y,Z) - Center - Craft:vel()) * Craft:mass()
+    Craft:applyAngForce(Angles)
+    Craft:applyForce(Pos)
+    TMP = Craft:pos()
+}
+
+if(PodS){
+    X = Craft:pos():x() - Speed * cos(PodElevation) * cos(PodBearing)
+    Y = Craft:pos():y() - Speed * cos(PodElevation) * sin(PodBearing)
+    Z = Craft:pos():z() - Speed * sin(PodElevation)
+    Angles = angnorm(ang(0,0,0) - Craft:angles() - Craft:angVel()) * 2 * Craft:mass()
+    Pos = round(vec(X,Y,Z) - Center - Craft:vel()) * Craft:mass()
+    Craft:applyAngForce(Angles)
+    Craft:applyForce(Pos)
+    TMP = Craft:pos()
+}
+
+if(!PodW & !PodS){
+    Angles = angnorm(ang(0,0,0) - Craft:angles() - Craft:angVel()) * 2 * Craft:mass()
+    Pos = round(TMP - Center - Craft:vel()) * Craft:mass()
+    Craft:applyAngForce(Angles)
+    Craft:applyForce(Pos)
+}
+
+if(TBeam){
+    Speed = 400
+    holoAlpha(3,255)
+    Craft:soundPlay(2,0,"ambient/energy/zap2.wav")
+    soundPitch(2,45)
+    
+    if(!Abductee){
+        RD = ranger(300)
+        Abductee = RD:entity()
+    }
+    if(Abductee & Abductee:pos():distance(Craft:pos()) > 600){
+        RD = ranger(300)
+        Abductee = RD:entity()
+    }
+    if(Abductee){
+        Abductee:applyForce(round(Craft:pos() - Abductee:massCenter() - vec(0,0,Abductee:radius()) - Abductee:vel()) * Abductee:mass())
+    }
+
+}else{
+    Speed = 800
+    holoAlpha(3,0)
+}
+
+if (Cloak){
+    entity():setAlpha(0)
+    holoMaterial(1,"models/shadertest/predator")
+    holoAlpha(2,0)
+    holoMaterial(4,"models/shadertest/predator")
+    holoShadow(1,0)
+    holoShadow(2,0)
+}else{
+    entity():setAlpha(0)
+    holoMaterial(1,"phoenix_storms/chrome")
+    holoAlpha(2,255)
+    holoMaterial(4,"phoenix_storms/black_chrome")
+    holoShadow(1,1)
+    holoShadow(2,1)
+}
+
+if(PodActive){
+    Driver:setMaterial("models/shadertest/predator")
+    Seat:setAlpha(0)
+}else{
+    Driver:setMaterial("")
+    Seat:setAlpha(255)
+}
+
+if(Turbo & !TBeam){
+    Speed = 3000
+}
+
+
+
+Craft:soundPlay(1,0,"weapons/physcannon/energy_sing_flyby2.wav") 
+soundPitch(1,25) 
+holoPos(1,Center + vec(0,0,5))
+holoAng(1,Chip:angles())
+

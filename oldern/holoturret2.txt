@@ -1,0 +1,11 @@
+@name holoturret2
+@inputs Gimbal:entity
+@outputs 
+@persist Ep:vector Gp:vector Ga:angle Ea:angle
+interval(25)
+Ep=entity():pos()
+Ea=entity():angles()
+Gp=Gimbal:pos()
+Ga=Gimbal:angles()
+holoCreate(1,Ep,vec(5,5,0.5),Ea,vec(255,255,255),"")
+holoCreate(2,Ep,vec(5,5,6),Ea, vec(255,255,255),"models/sprops/misc/domes/size_1/dome_12x6.mdl")

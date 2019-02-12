@@ -1,0 +1,27 @@
+@name 23233232 map test
+@inputs 
+@outputs ScaleFactor
+@persist 
+@trigger 
+
+interval(400)
+
+findByClass("prop_physics")
+
+Arr=findToArray()
+
+if(perf()){
+    for(I=1,Arr:count()){
+        A = Arr[I, entity]
+        ScaleFactor=1/24
+        Offset = A:pos() - entity():pos()
+        HoloPos = Offset*ScaleFactor + entity():pos()
+
+        holoCreate(I,HoloPos)
+        holoModel(I,A:model())
+        holoScaleUnits(I,A:boxSize()*ScaleFactor)
+        holoAng(I,A:angles())
+        holoColor(I,A:getColor())
+        holoMaterial(I,A:getMaterial())
+    }
+}

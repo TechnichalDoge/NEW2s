@@ -1,0 +1,21 @@
+@name 
+@inputs 
+@outputs 
+@persist [X]:number
+@trigger 
+
+if(first()|dupefinished()){
+
+    holoCreate(1,entity():pos())
+    holoModel(1,"models/Eli.mdl")
+    
+    runOnTick(1)
+
+}
+
+    X = X + tickInterval()*0.33, X = X%1
+
+    holoAnim(1,"cheer1",X)
+    
+    #print(owner():getAnimation())
+    #print(holoAnimLength(1))

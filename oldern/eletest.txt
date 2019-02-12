@@ -1,0 +1,24 @@
+@name eletest
+@inputs Input Legth Tlegth
+@outputs Hydraulic In Out
+@persist Up Down
+@trigger 
+interval(25)
+Up=92
+Down=279
+if(Legth==Up&Input==0){
+    In=0
+}
+elseif(Legth==Down&Input==1){
+    Out=0
+}
+if(Input==1){
+ In=1   
+}
+elseif(Input==0){
+    Out=1
+}
+else{
+ In=0
+Out=0   
+}

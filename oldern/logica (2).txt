@@ -1,0 +1,10 @@
+@name logica
+timer("trigger", 30000)
+if(clk("trigger")) {
+    concmd("say /me for Exalted 2018!")
+}
+
+#Timer works like this. timer("timer name", time)
+#The timer name is like the e2 name, it doesn't matter what its called
+#all the timer on line 2 is saying is, every 30000 milliseconds the timer named "trigger" is activated.
+#On line 3 we look for that timer to be activated, and if it is we concmd say /me for exalted

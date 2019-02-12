@@ -1,0 +1,20 @@
+@name 
+@inputs Entity:entity
+@outputs 
+@persist Vel
+@trigger 
+
+interval(100)#runOnTick(1)
+
+Vel = Entity:vel():z() 
+
+for(I=1,6){
+    holoCreate(I)
+    holoModel(I, Entity:model())
+    holoAng(I, Entity:angles())
+    holoPos(I, Entity:pos() + (vec(0,0,(1/2)*$Vel*I^2)+Entity:vel():setZ(0)))
+    holoAlpha(I, 255/I)
+}
+
+
+

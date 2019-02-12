@@ -1,0 +1,68 @@
+@name Testtsttst
+@inputs  
+@outputs 
+@persist Front:ranger Back:ranger FD BD Up Base:entity Chair:entity Height AltSpeed
+@persist W A S D Driver:entity Speed PositionX PositionY Steerspeed Angle:angle
+if(first()){
+Height = 15
+AltSpeed = 1
+Speed = 25
+SteerSpeed = 5
+
+Angle = ang(0,0,0)
+Base = entity():isConstrainedTo()
+Chair = seatSpawn("models/Mechanics/wheels/bmw.mdl", Base:pos()+Base:right()*26+vec(0,0,10), Base:angles()-ang(0,90,0), 0)
+weld(Chair,Base)
+
+
+
+}
+Driver = Chair:driver()
+
+W = Driver:keyPressed("W")
+A = Driver:keyPressed("A")
+S = Driver:keyPressed("S")
+D = Driver:keyPressed("D")
+
+runOnTick(1)
+
+Front = rangerOffset(100,Base:pos()+Base:right()*26-vec(0,0,5),-Base:up())
+holoCreate(1,Front:pos())
+
+Back = rangerOffset(100,Base:pos()-Base:right()*26-vec(0,0,5),-Base:up())
+holoCreate(2,Back:pos())
+
+FD = Front:distance()
+BD = Back:distance()
+
+if(FD>Height|BD>Height){
+    Up = -AltSpeed
+}elseif(FD<=Height|BD<=Height){
+    Up = AltSpeed
+}else{
+    Up = 0
+}
+
+if(A&!D){
+    Angle = Angle - ang(0,Steerspeed,0)
+}elseif(D&!A){
+    Angle = Angle + ang(0,Steerspeed,0)
+}else{
+    Angle = Angle
+}
+
+if(W){
+PositionX = (Angle:right()*Speed+PositionX):x()
+PositionY = (Angle:right()*Speed+PositionY):y()
+}
+elseif(S){
+PositionX = (-Angle:right()*Speed+PositionX):x()   
+PositionY = (-Angle:right()*Speed+PositionY):y()
+}
+
+Base:setPos(vec(PositionX,PositionY,Base:pos():z()+Up))
+
+Base:setAng(ang(0,Angle:yaw(),0))
+print(Angle)
+
+

@@ -1,0 +1,29 @@
+@name Logica PHaser Test
+@inputs Input Target:entity Alt Driver:entity
+@outputs 
+@persist Pewpew:entity PewpewWire:wirelink
+#@trigger Input
+Position = -100
+    
+interval(10)
+
+if (first()|dupefinished()) {
+}
+
+        
+    if((dupefinished()))
+        {
+            reset()
+        }
+
+        #####
+
+        if(changed(Input)&Input){
+            local Ang = (entity():pos()-Target:boxCenterW()+vec(0,0,-50)#[-Target:vel()/4]#):toAngle()+ang(-90,0,0)
+            Pewpew=pewCreate("Flak Cannon","models/props_c17/canister02a.mdl",entity():pos()+vec(0,0,Position),Ang)        
+            PewpewWire=Pewpew:wirelink()
+            PewpewWire["Fire",number]=1
+            timer("undo",100)     
+        }else{
+            Pewpew:propDelete()    
+        }

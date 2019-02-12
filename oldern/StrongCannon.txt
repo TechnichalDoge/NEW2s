@@ -1,0 +1,132 @@
+@name StrongCannon
+@model models/weapons/w_models/w_bat.mdl
+@persist T I360
+@inputs A
+entity():setMass(100)
+runOnTick(1)
+
+if(first()){
+
+    holoCreate(1)
+    holoModel(1,"models/holograms/hq_tube_thin.mdl")
+    holoScale(1,vec(0.40,0.40,2))
+    holoParent(1,entity())
+    holoAng(1,entity():toWorld(ang(0)))
+    holoPos(1,entity():toWorld(vec(0,0,15)))
+    holoMaterial(1,"phoenix_storms/OfficeWindow_1-1")
+    
+    holoCreate(2)
+    holoModel(2,"models/weapons/w_models/w_flaregun_shell.mdl")
+    holoScale(2,vec(0.70))
+    holoParent(2,entity())
+    holoAng(2,entity():toWorld(ang(-90,0,0)))
+    holoPos(2,entity():toWorld(vec(0,0,25)))
+    holoMaterial(2,"")
+
+    holoCreate(3)
+    holoModel(3,"models/holograms/hq_tube_thick.mdl")
+    holoScale(3,vec(0.43))
+    holoParent(3,entity())
+    holoAng(3,entity():toWorld(ang(0,0,0)))
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    holoMaterial(3,"phoenix_storms/cube")
+
+    
+    holoCreate(4)
+    holoModel(4,"models/holograms/hq_torus_thick.mdl")
+    holoScale(4,vec(0.45,0.45,0.60))
+    holoParent(4,entity())
+    holoAng(4,entity():toWorld(ang(0,0,0)))
+    holoPos(4,entity():toWorld(vec(0,0,10)))
+    holoMaterial(4,"phoenix_storms/cube")
+    
+        holoCreate(5)
+    holoModel(5,"models/items/crossbowrounds.mdl")
+    holoScale(5,vec(0.20,0.70,0.70))
+
+    holoAng(5,entity():toWorld(ang(-90,0,0)))
+    holoPos(5,entity():toWorld(vec(2,0,30)))
+    holoMaterial(2,"")
+    
+            holoCreate(6)
+    holoModel(6,"models/items/crossbowrounds.mdl")
+    holoScale(6,vec(0.20,0.70,0.70))
+
+    holoAng(6,entity():toWorld(ang(-90,0,0)))
+    holoPos(6,entity():toWorld(vec(-2,0,30)))
+    holoMaterial(6,"")
+    
+                holoCreate(7)
+    holoModel(7,"models/items/crossbowrounds.mdl")
+    holoScale(7,vec(0.20,0.70,0.70))
+
+    holoAng(7,entity():toWorld(ang(-90,0,0)))
+    holoPos(7,entity():toWorld(vec(0,2,30)))
+    holoMaterial(7,"")
+    
+                    holoCreate(8)
+    holoModel(8,"models/items/crossbowrounds.mdl")
+    holoScale(8,vec(0.20,0.70,0.70))
+
+    holoAng(8,entity():toWorld(ang(-90,0,0)))
+    holoPos(8,entity():toWorld(vec(0,-2,30)))
+    holoMaterial(8,"")
+    
+}
+
+if(owner():keyPressed("LALT")){
+T++
+
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    if(T>30){
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+}
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    if(T>29){
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+}
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    if(T>28){
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+}
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    if(T>27){
+    holoPos(3,entity():toWorld(vec(0,0,13)))
+}
+
+
+    if(T>40){
+        A=1
+            EE=entity()
+if(A){
+E=propSpawn("models/Items/combine_rifle_ammo01.mdl",entity():toWorld(vec(0,0,0)),entity():toWorld(ang(0,90,90)),0)
+E:applyOffsetForce(entity():toWorld(vec(0,0,999999999999999999*999)),entity():toWorld(vec(0,0,0)))                                                 ###   ###
+E:setMass(50000)
+E:soundPlay(1,99999,"ambient/explosions/explode_4.wav")
+E:soundPlay(2,99999,"ambient/energy/weld1.wav")
+E:setTrails(10,6,0.50,"trails/physbeam",vec(25,120,250),255)
+particle(0.1,50,0,"effects/muzzleflash4",vec(255,55,25),EE:toWorld(vec(0,0,0)-vec(0,0,0)),EE:up()*1000) ###   ###  ###
+E:setdLight(E:toWorld(vec(0,0,0)),vec(255,180,20),5,50,1)  
+E:ignite(1000)
+I360=(I360+500)%360
+    holoAng(2,entity():toWorld(ang(-90,I360,0)))
+holoParent(5,2)
+ holoParent(6,2)                                               
+  holoParent(7,2)                                                                    #########  ###
+   holoParent(8,2)                                                                  #########  ###
+}       
+
+
+
+                                                                              ###   ###  ###
+                                                                                                     ###   ###  ###
+
+    holoPos(3,entity():toWorld(vec(0,0,20)))
+    T==(0)
+T=0
+T==0
+T=+0
+T+(0)
+stopAllTimers()
+}
+}

@@ -1,0 +1,8 @@
+@name Block next to you
+@inputs Start:number Entity:entity
+@outputs Oa:vector Ow:vector
+@persist Ow:vector Oa:vector
+runOnTick(20)
+Ow=owner():pos()
+Oa=Ow+vec(0,0,10)
+Entity:teleport(Oa)

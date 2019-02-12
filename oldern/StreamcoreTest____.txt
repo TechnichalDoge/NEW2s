@@ -1,0 +1,104 @@
+@name StreamcoreTest    
+@inputs Next Back Shuffle Stop EGP:wirelink Owner
+@outputs 
+@persist Songs:array Song:number Entity:entity Curse:vector2
+@trigger 
+interval(25)
+if(first()|dupefinished()){
+Songs = array("https://www.dropbox.com/s/0998j2r1h7u6b0t/Britney%20Spears%20-%20Toxic%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/o664yrct1rsjy6v/Camila%20Cabello%20-%20Havana%20Audio%20ft%20Young%20Thug.mp3?dl=1","https://www.dropbox.com/s/9l4ij5eh9rhstzn/Dua%20Lipa%20-%20New%20Rules%20Official%20Music%20Video.mp3?dl=1","https://www.dropbox.com/s/br4ujgjxxgr62ib/Fitz%20And%20The%20Tantrums%20-%20Spark%20Official%20Audio.mp3?dl=1","https://www.dropbox.com/s/q3pp8ypyxidlxyw/Halsey%20-%20Bad%20At%20Love.mp3?dl=1","https://www.dropbox.com/s/34j0yjflqgdmevq/Halsey%20-%20Castle.mp3?dl=1","https://www.dropbox.com/s/yqdsd5tz430offy/Halsey%20-%20Control%20Audio.mp3?dl=1","https://www.dropbox.com/s/snnbwc6evqs1j7x/Imagine%20Dragons%20-%20Thunder.mp3?dl=1","https://www.dropbox.com/s/702hu6izh6eul57/Karizma%20-%20Work%20It%20Out.mp3?dl=1","https://www.dropbox.com/s/7i18zvsacia6lxn/Katy%20Perry%20-%20Hey%20Hey%20Hey%20Official.mp3?dl=1","https://www.dropbox.com/s/muaxtt3ol0bwhtg/La%20Roux%20-%20Bulletproof.mp3?dl=1","https://www.dropbox.com/s/wj213su36bqsw0a/Adele%20-%20Send%20My%20Love%20To%20Your%20New%20Lover.mp3?dl=1","https://www.dropbox.com/s/otwn7nvfqxp23k2/As%20If%20By%20Magic%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/y7fim5kydnziwpp/Christina%20Aguilera%20-%20Genie%20In%20A%20Bottle.mp3?dl=1","https://www.dropbox.com/s/itaqqd6awzku2ei/Colourless%20Colour%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/keibalgb3rp03tn/Cruel%20Sexuality.mp3?dl=1","https://www.dropbox.com/s/p6jeynvgjqvmqwh/David%20Guetta%20-%20Titanium%20ft%20Sia%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/en84qpb3xo9jfyt/Fascination%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/8v463ndcey6zncu/Fitz%20%20The%20Tantrums%20-%20Fools%20Gold%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/m3w3ntr3tzt7s5j/Fitz%20And%20The%20Tantrums%20-%20Out%20Of%20My%20League%20Official%20Music%20Video.mp3?dl=1","https://www.dropbox.com/s/wj8nponk6icu1i8/Growing%20Pains%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/lus8gp8qz4k1j2b/Im%20Not%20Your%20Toy%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/pgvabgd5uhho0d8/In%20For%20The%20Kill%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/dyrurg8ti5azrfm/Kungs%20vs%20Cookin%20on%203%20Burners%20-%20This%20Girl.mp3?dl=1","https://www.dropbox.com/s/o2bdyu1teob3cy1/La%20Roux%20-%20Kiss%20And%20Not%20Tell.mp3?dl=1","https://www.dropbox.com/s/wf47ia2o6a3rm6z/La%20Roux%20-%20Sexotheque.mp3?dl=1","https://www.dropbox.com/s/nj7yeihalodw8bm/La%20Roux%20-%20Uptight%20Downtown.mp3?dl=1","https://www.dropbox.com/s/zcrukap360c2oo5/Michael%20Jackson%20-%20Beat%20It%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/2r6dysa2j75v87l/Michael%20Jackson%20-%20Smooth%20Criminal%20Shortened%20Version.mp3?dl=1","https://www.dropbox.com/s/mzne69v4bk7sa4b/Naked%20Eyes-%20Always%20Something%20There%20To%20Remind%20Me.mp3?dl=1","https://www.dropbox.com/s/0s6oefrkbh58nmw/Portugal%20The%20Man%20-%20Feel%20It%20Still%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/eopg5tz2kjdocqg/Quicksand%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/cb2g3bwepnidukz/Rachel_Platten_-_Fight_Song_Official_Video.mp3?dl=1","https://www.dropbox.com/s/4hni1d4p108tnnb/Reflections%20Are%20Protection%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/uteb2kgy1na8qmy/Shakira%20-%20Cant%20Remember%20to%20Forget%20You%20ft%20Rihanna.mp3?dl=1","https://www.dropbox.com/s/1u0xphmy3tdrloe/Shakira%20-%20Hips%20Dont%20Lie%20ft%20Wyclef%20Jean.mp3?dl=1","https://www.dropbox.com/s/r6ilpso448oj4pe/Shakira%20-%20Whenever%20Wherever.mp3?dl=1","https://www.dropbox.com/s/s5vymv6yek872lh/Sia%20-%20Chandelier%20Official%20Video.mp3?dl=1","https://www.dropbox.com/s/ylppt63dw2kdbul/Tigerlily%20-%20La%20Roux.mp3?dl=1","https://www.dropbox.com/s/46xqacwmekz1ngu/Tropical%20Chancer.mp3?dl=1")
+Song = 1
+
+
+    function vector2 vecL(X:number,Y:number){
+        local Offset = vec2(X,-Y)
+        local Res = EGP:egpSize()/2
+        local Pos = Res+Offset
+        return Pos    
+    }
+
+local Col = vec(125,125,125)
+EGP:egpBox(2,vecL(0,0),EGP:egpSize())
+EGP:egpRoundedBox(3,vecL(0,0),EGP:egpSize())
+EGP:egpRadius(3,100)
+EGP:egpColor(2,Col)
+EGP:egpColor(3,Col+vec(-25,-25,-25))
+EGP:egpOrderBelow(2,3)
+EGP:egpText(1,"Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Song Number : 1",vec2(20,200))
+#EGP:egpOrderBelow(1,2)
+setName("Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Song Number : 1")
+EGP:egpCircle(5,vec2(0,0),vec2(10,10))
+EGP:egpParentToCursor(5)
+} if(changed(EGP)){reset()}
+Curse = EGP:egpCursor(owner())
+
+EGP:egpText(6,EGP:egpCursor(owner()):toString(),vecL(0,0))
+
+
+EGP:egpRoundedBox(7,vecL(-10,-50),vec2(100,40))
+EGP:egpText(8,"Play",vecL(-50,-25))
+EGP:egpFont(8,"",45)
+if(Curse:x() > vecL(-60,0):x()&Curse:x() < vecL(40,0):x()& Curse:y() < vecL(0,-70):y()& Curse:y() > vecL(0,-30):y() & owner():keyUse()){
+    EGP:egpColor(7,vec(125,125,125)-vec(20,20,20))
+    timer("play",10)
+}else{
+    EGP:egpColor(7,vec(125,125,125))
+}
+
+#[EGP:egpRoundedBox(10,vecL(-10,-100),vec2(100,40))
+EGP:egpText(11,"Stop",vecL(-50,-75))
+EGP:egpFont(11,"",45)
+if(Curse:x() > vecL(-60,0):x()&Curse:x() < vecL(40,0):x()& Curse:y() < vecL(0,-120):y()& Curse:y() > vecL(0,-80):y() & owner():keyUse()){
+    EGP:egpColor(10,vec(125,125,125)-vec(20,20,20))
+    timer("stop",10)
+}else{
+    EGP:egpColor(10,vec(125,125,125))
+}]#
+
+
+
+
+streamDisable3D(1)
+if(changed(Next)|changed(Back)){
+    local Shuffles = randint(-(Songs:count()/2),(Songs:count()/2))
+    if(changed(Next)&Next&!Shuffle){
+        Song++
+    }
+    elseif(changed(Back)&Back&!Shuffle){
+        Song--    
+    }
+    elseif(changed(Next)&Next&Shuffle){
+        Song = Song+Shuffles
+    }
+    elseif(changed(Back)&Back&Shuffle){
+        Song = Song-Shuffles    
+    }
+    if(Song>Songs:count()){
+        Song=1
+    }
+    elseif(Song<=0){
+        Song=1    
+    }
+    #print(Song)
+    if(changed(Next)&Next|changed(Back)&Back){
+        setName("Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Song Number : " + Song:toString())
+        EGP:egpText(4,"Selected " +"Song Number : " + Song:toString(),vec2(20,220))  
+    }
+}
+if(Owner){
+    Entity = owner()
+}
+else{
+    Entity = entity()   
+}
+if(clk("play")){
+    #hint("",1)
+    #streamStop(1)
+    Entity:streamStart(1,Songs[Song,string])
+    EGP:egpText(1,"Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Song Number : " + Song:toString(),vec2(20,200))
+}
+
+#[if(clk("stop")){
+    streamStop(1)
+    streamVolume(1,0)
+    EGP:egpText(1,"Logica StreamCore Radio" +"\n"+"Now playing; \n " +"Music Stopped",vec2(20,200))
+}]#

@@ -1,0 +1,135 @@
+@name Ban Hammer
+@inputs 
+@outputs 
+@persist Bar:entity Head:entity Spike1:entity Spike2:entity OPlayer:entity
+@trigger 
+
+interval(10)
+runOnChat(1)
+E = owner()
+Material = "models/props_pipes/pipeset_metal"
+Material2 = "models/effects/vol_light001"
+Material3 = "models/props_canal/metalwall005b"
+Model1 = "hqcone"
+RH = "anim_attachment_RH"
+
+Command = owner():lastSaid():explode(" "):string(1)
+
+if(Command == "-slay"){
+    Code1 = 1
+}
+
+if(Command == "-slap"){
+    Code2 = 1
+}
+
+if(Command == "-ignite"){
+    Code3 = 1
+}
+
+if(Command == "-votekick"){
+    Code4 = 1
+}
+
+if (first() | duped())
+{
+    print("Thank you for using the Ban Hammer. Made by LiveTrash, xXgamerzXx, and Drunkie.")
+    print("You must aqquire a crowbar to use the Ban Hammer")
+    
+    Bar = holoCreate(1,E:attachmentPos(RH),vec(0.2,0.2,4),E:attachmentAng(RH))
+    holoPos(1,Bar:toWorld(vec(0,0,20)))
+    holoParentAttachment(1,E,RH)
+    holoMaterial(1,Material)
+    
+    Head = holoCreate(2,E:attachmentPos(RH),vec(4,2,2),E:attachmentAng(RH))
+    holoPos(2,Bar:toWorld(vec(0,0,20)))
+    holoAng(2,E:attachmentAng(RH))
+    holoParent(2,1)
+    holoMaterial(2,Material)
+    
+    Spike1 = holoCreate(3,E:attachmentPos(RH),vec(1,1,1),E:attachmentAng(RH))
+    holoPos(3,Bar:toWorld(vec(30,0,20)))
+    holoAng(3,E:attachmentAng(RH)+ang(90,0,0))
+    holoParent(3,2)
+    holoMaterial(3,Material3)
+    holoModel(3,Model1)
+    
+    Spike2 = holoCreate(4,E:attachmentPos(RH),vec(1,1,1),E:attachmentAng(RH))
+    holoPos(4,Bar:toWorld(vec(-30,0,20)))
+    holoAng(4,E:attachmentAng(RH)+ang(-90,0,0))
+    holoParent(4,2)
+    holoMaterial(4,Material3)
+    holoModel(4,Model1)
+}
+
+# Color the crowbar if its out
+if (E:weapon():type() == "weapon_crowbar")
+{
+    E:weapon():setMaterial(Material2)
+    Bar:setAlpha(255)
+    Head:setAlpha(255)
+    Spike1:setAlpha(255)
+    Spike2:setAlpha(255)
+
+
+if(Code1){
+if(E:keyAttack1())
+{
+    OP = E:aimEntity()
+    if(OP:id() != OPlayer:id() & E:pos():distance(OP:pos()) <= 300)
+    {
+        concmd("ulx sslay "+OP:name())
+        OPlayer = OP
+	timer("ResetOP",2000)
+    }
+}
+}
+
+if(Code2){
+if(E:keyAttack1())
+{
+    OP = E:aimEntity()
+    if(OP:id() != OPlayer:id() & E:pos():distance(OP:pos()) <= 300)
+    {
+        concmd("ulx slap "+OP:name())
+        OPlayer = OP
+	timer("ResetOP",2000)
+    }
+}
+}
+
+if(Code3){
+if(E:keyAttack1())
+{
+    OP = E:aimEntity()
+    if(OP:id() != OPlayer:id() & E:pos():distance(OP:pos()) <= 300)
+    {
+        concmd("ulx ignite "+OP:name())
+        OPlayer = OP
+	timer("ResetOP",2000)
+    }
+}
+}
+if(Code4){
+if(E:keyAttack1())
+{
+    OP = E:aimEntity()
+    if(OP:id() != OPlayer:id() & E:pos():distance(OP:pos()) <= 300)
+    {
+        concmd("ulx votekick "+OP:name())
+        OPlayer = OP
+	timer("ResetOP",2000)
+    }
+}
+}
+else
+{
+    Bar:setAlpha(0)
+    Head:setAlpha(0)
+    Spike1:setAlpha(0)
+    Spike2:setAlpha(0)
+}
+
+if (clk("ResetOP")) {
+	OPlayer=noentity()
+}

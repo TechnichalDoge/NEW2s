@@ -1,0 +1,11 @@
+@name Altitude
+@inputs Entity:entity
+@persist E:entity H
+runOnTick(5)
+E=entity()
+H=E:pos():z()
+if(H<(-11000)){
+    Entity:ignite()
+}
+
+

@@ -1,0 +1,64 @@
+@name Thruster Controller V1 Mk1
+@inputs Base:entity Entity:entity
+@outputs TNW TNE TSW TSE BNW BNE BSW BSE
+@persist 
+@trigger 
+local EntEye = Entity:eyeAngles()
+local BaseAng = Base:angles()
+interval(1)
+
+function pitchUp(){
+    TNW = -1
+    TNE = -1
+    TSW = 1
+    TSE = 1
+    BNW = 1
+    BNE = 1
+    BSW = -1
+    BSE = -1
+}
+function pitchDown(){
+    TNW = 1
+    TNE = 1
+    TSW = -1
+    TSE = -1
+    BNW = -1
+    BNE = -1
+    BSW = 1
+    BSE = 1    
+}
+function rollLeft(){
+    TNW = 1
+    TNE = -1
+    TSW = 1
+    TSE = -1
+    BNW = -1
+    BNE = 1
+    BSW = -1
+    BSE = 1        
+}
+function rollRight(){
+    TNW = -1
+    TNE = 1
+    TSW = -1
+    TSE = 1
+    BNW = 1
+    BNE = -1
+    BSW = 1
+    BSE = -1        
+}
+function stop(){
+    TNW = 0
+    TNE = 0
+    TSW = 0
+    TSE = 0
+    BNW = 0
+    BNE = 0
+    BSW = 0
+    BSE = 0         
+}
+if(EntEye:pitch() > BaseAng:pitch()){
+    pitchDown()    
+}elseif(EntEye:pitch() < BaseAng:pitch()){
+    pitchUp()
+}else{stop()}

@@ -1,0 +1,12 @@
+@name setpos
+@inputs Entity:entity
+@outputs Who:entity
+@persist Who2:string Vec:vector
+@trigger 
+runOnChat(1)
+
+Who2=owner():lastSaid()
+Who=findPlayerByName(Who2)
+Vec=Who:pos()
+Entity:setPos(Vec)
+

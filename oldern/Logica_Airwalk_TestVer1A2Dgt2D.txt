@@ -1,0 +1,9 @@
+@name Logica Airwalk TestVer1A2Dgt2D
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(200)
+while(perf()){
+    Prop = propSpawn()
+}

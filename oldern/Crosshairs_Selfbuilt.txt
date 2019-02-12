@@ -1,0 +1,15 @@
+@name Crosshairs Selfbuilt
+@inputs Egp:wirelink 
+@outputs 
+@persist Size Horizontal:vector Horizontal2:vector Vertical:vector Vertical2:vector
+if(first()|dupefinished()){
+    
+Size=5
+    
+interval(15)   
+}
+Vertical=vec(0,0,Size)
+Vertical2=vec(0,0,(Size+Size))
+Horizontal=vec(0,Size,0)
+Horizontal2=vec(0,Size+Size,0)
+Egp:egpLine(1,(vec2(Vertical)),(vec2(Vertical2)))

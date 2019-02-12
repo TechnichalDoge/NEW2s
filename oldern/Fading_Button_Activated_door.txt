@@ -1,0 +1,15 @@
+@name Fading Button Activated door
+@inputs Active Door:entity
+@trigger Active
+if(Active==1){
+    Open=1
+    Close=0
+    noCollideAll(Door,1)
+    Door:setAlpha(15)
+}
+else{
+    Open=0
+    Close=1
+    noCollideAll(Door,0)
+    Door:setAlpha(255)
+}

@@ -1,0 +1,50 @@
+@name Calculator
+@inputs B1 B2 B3 B4 B5 B6 B7 B8 B9 
+@outputs Screen ScreenX ScreenY
+@persist X Y Z  
+
+if(first())(
+    X = 0
+    Y = 0
+)
+
+Screen = Z
+ScreenX = X
+ScreenY = Y
+
+if (B1 == 1){
+    X = X + 1
+}  #incr 1 v
+
+if (B2 == 1){
+    X = X - 1
+} # dec first val
+
+if (B3 == 1){
+    Y = Y + 1
+}  #incr 2 val
+
+if (B4 == 1){
+    Y = Y - 1
+} #dec 2 val
+
+if (B5 == 1){
+    Z = X + Y
+} # adds both val
+
+if (B6 == 1){
+    Z = X - Y
+} #Subtracts both values
+
+if (B7 == 1){
+    Z = X * Y
+} #Multiplys both
+
+if (B8 == 1){
+    Z = X / Y
+} #Divides both values
+
+if (B9 == 1){
+    Z = Z - Z
+} # resets screen with awesome awnser
+

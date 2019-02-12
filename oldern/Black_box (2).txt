@@ -1,0 +1,18 @@
+@name Black box
+@persist E:entity
+@inputs Close:number
+interval(20)
+E=entity()
+holoCreate(1)
+holoModel(1,"cube")
+holoPos(1, (entity():pos()+vec(0,0,60)))
+holoColor(1,vec(1,1,1))
+holoMaterial(1,"models/debug/debugwhite")
+holoParent(1,E)
+holoAlpha(1,255)
+if(Close==1){
+holoScale(1,vec(-15,-15,-10))
+}
+else{
+holoScale(1,vec(0,0,0))
+}

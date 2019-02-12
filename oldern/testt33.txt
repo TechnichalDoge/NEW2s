@@ -1,0 +1,7 @@
+@name testt33
+@inputs Ele Axis:entity Bear
+@outputs Ang:angle
+@persist 
+
+runOnTick(1)
+Ang=ang(0,Bear,0)

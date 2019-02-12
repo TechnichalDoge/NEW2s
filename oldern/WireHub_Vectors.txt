@@ -1,0 +1,13 @@
+@name WireHub Vectors
+@inputs [L1 L2 L3 L4 L5 L6 L7 L8]:vector
+@outputs [O1 O2 O3 O4 O5 O6 O7 O8]:vector
+interval(15)
+O1=L1
+O2=L2
+O3=L3
+O4=L4
+O5=L5
+O6=L6
+O7=L7
+O8=L8
+

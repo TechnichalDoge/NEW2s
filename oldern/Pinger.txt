@@ -1,0 +1,9 @@
+@name Pinger
+runOnChat(1)
+if(owner():lastSaid():lower()=="ateveryone"){
+    for(I=0,players():count()){
+        local Plrr = players()[I,entity]
+        Plrr:soundPlay(1,0,"passtime/whistle.wav")    
+    }
+    concmd("say Be Pinged!")
+}

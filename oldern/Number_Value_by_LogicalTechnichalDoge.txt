@@ -1,0 +1,7 @@
+@name Number Value by LogicalTechnichalDoge
+@inputs 
+@outputs Number:number
+@persist 
+@trigger 
+
+Number = 1

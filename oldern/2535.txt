@@ -1,0 +1,13 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+for(I=0,inf()){
+holoCreate(I,entity():pos())
+holoModel(I,"models/props_hightower_event/underworld_lava.mdl")
+holoScaleUnits(I,vec(10,10,10)*264364)
+holoAng(I,ang(0,I%360,0))
+if(!perf()){break}
+}

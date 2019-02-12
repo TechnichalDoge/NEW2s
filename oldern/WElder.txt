@@ -1,0 +1,12 @@
+@name WElder
+@inputs S R Ent:entity
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+if(R){
+entity():constraintBreak("weld",Ent)
+}
+if(S){
+weld(entity(),Ent)
+}

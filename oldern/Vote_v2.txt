@@ -1,0 +1,14 @@
+@name Vote v2 
+@inputs Ent1:entity Ent2:entity Reset
+@outputs Array:array
+@persist #Array:array
+@trigger Ent1 En2
+
+if((Ent1!=noentity()|Ent2!=noentity())#[&(!Array:exists(Ent1:id())|!Array:exists(Ent2:id()))]#){
+Array[Ent1:id(),entity] = Ent1
+Array[Ent2:id(),entity] = Ent2
+}
+if(Reset){
+    Array = array()    
+}
+print(Array)

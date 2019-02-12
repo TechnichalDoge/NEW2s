@@ -1,0 +1,19 @@
+@name decor24655646546Y5gbD
+@inputs Base:entity
+@outputs 
+@persist 
+@trigger 
+
+for(I=1,Base:getConstraints():count()){
+    Base:setAlpha(0)
+    Base:isConstrainedTo(I):setAlpha(0)
+        if(Base:isConstrainedTo(I):type()=="gmod_wire_expression2" ){
+            Base:isConstrainedTo(I):propGravity(0)  
+        }else{
+            Base:isConstrainedTo(I):propGravity(5)  
+        }
+}
+holoCreate(1,Base:pos()+vec(0,0,5.25))
+holoParent(1,Base)
+holoModel(1,"models/props_junk/TrafficCone001a.mdl")
+holoAng(1,Base:angles()+ang(0,0,-90))

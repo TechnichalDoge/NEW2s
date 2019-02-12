@@ -1,0 +1,33 @@
+@name holoDick
+@persist  HoloI
+Size = 2
+if(first()){
+function number createHolo(HoloModel:string){
+        HoloI += 1
+        holoCreate(HoloI)
+        holoModel(HoloI, HoloModel)
+        
+        return HoloI
+    }
+    Holo = createHolo("hq_sphere")
+    holoPos(Holo,entity():pos()+vec(5,0,5)*Size)
+    holoScale(Holo,vec(2,2,2)*Size)
+    holoParent(Holo,entity())
+
+    Holo = createHolo("hq_sphere")
+    holoPos(Holo,entity():pos()+vec(-5,0,5)*Size)    
+    holoScale(Holo,vec(2,2,2)*Size)
+    holoParent(Holo,entity())    
+    
+    Holo = createHolo("hq_cylinder")
+    holoPos(Holo,entity():pos()+vec(0,5,20)*Size) 
+    holoScale(Holo,vec(1,1,3)*Size)
+    holoParent(Holo,entity())    
+    
+    Holo = createHolo("hq_sphere")
+    holoPos(Holo,entity():pos()+vec(0,5,40)*Size) 
+    holoScale(Holo,vec(1,1,2)*Size)
+    holoParent(Holo,entity())      
+    
+}
+

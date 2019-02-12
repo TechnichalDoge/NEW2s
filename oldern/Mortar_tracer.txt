@@ -1,0 +1,26 @@
+@name Mortar tracer
+@inputs 
+@outputs 
+@persist Array:array
+@trigger 
+
+runOnTick(1)
+Array=pewFindByOwner(owner())
+
+for(I=1,Array:count()){
+    local Bullet = Array[I,number]
+    local BulletName = pewBulletCannon(Bullet):pewBulletName()
+    local BulletPos = pewBulletPos(Bullet)
+    local BulletVel = pewBulletVel(Bullet)
+    local BulletUp = BulletVel:z()
+    #print(BulletPos)
+    if(changed(Array:count()) & BulletName == "Low Velocity Cannon"){
+        holoCreate(I,BulletPos)
+        holoModel(I,"hq_sphere")
+        holoScaleUnits(I,vec(100,100,100))
+        holoMaterial(I,"phoenix_storms/fender_wood")
+        holoAlpha(I,225)
+
+    }
+    holoPos(I,BulletPos)    
+}

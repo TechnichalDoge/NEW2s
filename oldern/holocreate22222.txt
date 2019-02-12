@@ -1,0 +1,8 @@
+@name holocreate22222
+@inputs 
+@outputs 
+@persist 
+@trigger 
+if(first()|dupefinished()){
+holoCreate(1,entity():pos(),vec(8,8,2),entity():angles(),vec(255,255,255),"models/props_wasteland/rockcliff05f.mdl")
+}

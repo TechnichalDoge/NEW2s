@@ -1,0 +1,4 @@
+@name SHUT UP SO I CAN THINK 
+
+runOnTick(1)
+concmd("stopsound")

@@ -1,0 +1,14 @@
+@name Lagmaster v1000
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+local LagAmount = inf()
+for(I=0,LagAmount){
+holoCreate(I,entity():pos())
+holoModel(I,"models/props_hightower_event/underworld_lava.mdl")
+holoScaleUnits(I,vec(100,100,100)#[*264364]#)
+holoAng(I,ang(0,I%360,0))
+if(!perf()){break}
+}

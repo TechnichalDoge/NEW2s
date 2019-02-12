@@ -1,0 +1,8 @@
+@name last by decline v2
+#made by Decline
+LastSaid = lastSaid()
+LastSpoke = lastSpoke()
+if(changed(LastSaid)) {
+    hint(LastSpoke:name()+" said) " + LastSaid, 7)
+}
+interval(100)

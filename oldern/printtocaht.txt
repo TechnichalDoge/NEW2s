@@ -1,0 +1,12 @@
+@name printtocaht
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(25)
+findByClass("gmod_wire_field_device")
+local Hi = find()
+if(#[first()|]#changed(Hi)){
+#print(Hi:owner():name()+" has a field generator!")
+concmd("say" + Hi:owner():name()+" has a field generator!")
+}

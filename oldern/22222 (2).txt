@@ -1,0 +1,12 @@
+@name 
+
+@persist Vec:vector Ent:entity
+if(first())
+{
+    runOnTick(1)
+    Ent = propSpawn("models/hunter/blocks/cube025x025x025.mdl",entity():pos()+vec(0,0,10),0)
+}
+Target = entity():pos()+vec(0,0,10) 
+Vec = (Target-Ent:pos())*Ent:mass()*10
+Ent:applyForce(Vec+$Vec*5)
+

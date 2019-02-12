@@ -1,0 +1,48 @@
+@name EGP VIEW
+@inputs Ent:entity Driver:entity EGP:wirelink
+@outputs Array:array Driver:entity
+@persist Size Array:array Driver:entity RGB:vector
+
+if(first())
+{
+    
+    runOnTick(1) 
+    #changes
+    #switched to runontick for faster egp updating
+    #removed R G B vars to use single RGB vector variable
+    #renamed Pos to Ent 
+    EGP:egpClear()
+    EGP:egpCircle(1,vec2(0,0),vec2(20,20))
+    EGP:egpAlpha(1,100)
+    EGP:egpColor(1,vec(200,70,70))
+    
+    EGP:egp3DTracker(2,Ent:pos())
+    EGP:egpParent(1,2)
+    
+    runOnTick(1)
+}
+
+if(!Ent:plyHasGod()&Ent:isAlive())
+{
+
+    RGB = vec(255,0,0)
+}
+elseif(Ent:plyHasGod())
+{
+
+    RGB = vec(0,255,0)
+}
+elseif(!Ent:plyHasGod()&!Ent:isAlive())
+{
+
+    RGB = vec(0,40,255)
+}
+
+
+if(tickClk())
+{
+    EGP:egpColor(1,RGB)
+    EGP:egpPos(2,Ent:pos())
+    
+}
+

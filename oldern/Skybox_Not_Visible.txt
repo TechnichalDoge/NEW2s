@@ -1,0 +1,6 @@
+@name Skybox Not Visible
+if(first()){
+holoCreate(0,vec()-vec(0,0,7290))
+holoScaleUnits(0,-vec(13912,13912,14580))
+holoMaterial(0,"models/effects/muzzleflash/blurmuzzle")
+}

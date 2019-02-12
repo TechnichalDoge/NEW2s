@@ -1,0 +1,28 @@
+@name !mini_turret_tut
+@outputs Fire
+runOnTick(1)
+E = entity()
+
+if (first()){
+     E:setMass (10000)
+}
+if (owner():lastsaid() == "/on"){
+E:setPos(owner():shootPos()=vec(0,0,35))
+E:setAng(owner():eyeAngles())
+}
+if (owner():lastsaid() == "/off"){
+
+}
+##:keyAttack2 is mouse
+
+if(owner():keyAttack2()){
+      Fire = 1
+}
+else{
+    Fire = 0
+}
+
+## you can also add
+#if(owner():keyAttack1()){
+    #Fire = 0
+#}##

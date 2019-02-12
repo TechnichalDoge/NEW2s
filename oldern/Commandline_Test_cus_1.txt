@@ -1,0 +1,242 @@
+@name Commandline Test cus 1
+@inputs KeyBoard:wirelink EGP:wirelink
+@persist NewestString:string RPS:string UserLog:array ActualTime Version:string Current:string TimeZone:number StoredStrings:table CurrentUser:entity PplInTotal:array PplInPVP:array CommandLog:array Backgroundcolor:vector Objectcolor:vector StringfromKeyboard:string
+@outputs RPS:string
+@model models/props/cs_office/computer_caseb.mdl
+if(first()|dupefinished()){
+    EGP:egpClear()
+    #color of lines and deco
+        Objectcolor=vec(100,100,250)
+    
+    #color of text
+        Textcolor=vec(255,255,255)
+    
+    #color of background
+        Backgroundcolor=vec(0,40,0) 
+
+    #timezone
+    TimeZone=-6
+    
+    #version
+    Version="10"
+    
+    runOnTick(1)
+    EGP:egpBox(696,vec2(0,0),vec2(1024,1024))
+    
+}
+
+    EGP:egpBox(696,vec2(0,0),vec2(1024,1024))
+    EGP:egpColor(696,Backgroundcolor)
+    EGP:egpBox(777,vec2(0,500),vec2(1024,40))
+    EGP:egpColor(777,Objectcolor+vec(5,5,5))
+    EGP:egpBoxOutline(727,vec2(257,496),vec2(507,28))
+    EGP:egpLine(1337,vec2(0,480),vec2(510,480))
+    EGP:egpColor(1337,Objectcolor)
+    EGP:egpBox(666,vec2(0,0),vec2(1024,40))
+    EGP:egpColor(666,Objectcolor)
+    EGP:egpText(6969,"Logica Command Console",vec2(10,1))
+    EGP:egpColor(6969,Textcolor)
+    EGP:egpText(9696,"Type 'help' for commands.",vec2(315,1))
+    EGP:egpColor(9696,Textcolor)    
+    EGP:egpText(23344,"LTech "+Version,vec2(220,1))
+    
+StringfromKeyboard = KeyBoard["Output",string]
+Current = KeyBoard["Output",string]
+EGP:egpText(1,Current,vec2(10,485))
+
+CurrentUser = KeyBoard["User",entity]
+if(changed(CurrentUser)&CurrentUser==CurrentUser){
+UserLog:pushEntity(CurrentUser)
+}
+
+if(StringfromKeyboard:find("\n")>0){
+    if(StringfromKeyboard:replace(" ",""):replace("\n","")!="")
+    {
+        CommandLog:pushString(StringfromKeyboard)
+        
+        
+        NewestString = StringfromKeyboard:sub(0,StringfromKeyboard:find("\n")-1)
+    
+        
+        
+    }
+    KeyBoard["Reset Output String", number] = 1
+    
+    PplInPVP = array()
+    
+    for(I=1,players():count()) {
+        local Ply = players()[I,entity]
+        
+        if(!Ply:plyHasGod()){
+            PplInPVP:pushEntity(Ply)
+        }
+    }    
+    
+    ActualTime = (time("hour")+12)+TimeZone
+
+#    print(NewestString)
+    ###Commands
+    if(NewestString:explode(" "):string(1):lower()=="pm")
+    {
+        local Exploded = NewestString:explode(" ")
+        concmd("ulx psay "+Exploded:string(2)+" "+Exploded:concat(" ",3,Exploded:count()))
+    }
+    elseif(NewestString:explode(" "):string(1):lower()=="save")
+    {
+        local Exploded = NewestString:explode(" ")
+        StoredStrings[Exploded:string(2),string] = Exploded:concat(" ",3,Exploded:count())
+        
+
+    }   
+    elseif(NewestString:explode(" "):string(1):lower()=="get")
+    {
+        local Exploded = NewestString:explode(" ")
+        local TempVar = StoredStrings[Exploded:string(2),string]
+        CommandLog:pushString("("+Exploded:string(2)+")"+" = "+TempVar)
+    } 
+    elseif(NewestString:explode(" "):string(1):lower()=="whoinpvp")
+    {
+        for(I=1, PplInPVP:count()){
+            CommandLog:pushString("(People in PVP) = " + PplInPVP[I,entity]:name())
+        } 
+    }
+    elseif(NewestString:explode(" "):string(1):lower()=="help")
+    {
+        CommandLog:pushString("The Commands are;")
+        CommandLog:pushString("whoinpvp, save <var> <string>, get <var> <string>,")
+        CommandLog:pushString("pm <player> <string>, restart, clear, time, userlogs")
+        CommandLog:pushString("getid <player>, (getip <player>)-X, echo <string>,")	
+        CommandLog:pushString("calculate <number> <sign> <number>,")
+        CommandLog:pushString("rps <Rock Paper or Scissors>,")	
+}
+    elseif(NewestString:explode(" "):string(1):lower()=="restart")
+    {
+    reset()
+    }
+    elseif(NewestString:explode(" "):string(1):lower()=="clear")
+    {
+    EGP:egpClear()
+    CommandLog = array()
+    }    
+    elseif(NewestString:explode(" "):string(1):lower()=="userlogs")
+    {
+        for(I=1, PplInPVP:count()){
+        CommandLog:pushString("(Users who used this)" + " = "+(UserLog[I,entity]:name()))
+        }         
+    }elseif(NewestString:explode(" "):string(1):lower()=="time")
+    {
+    if(ActualTime/12>1){
+        AMPM = "PM"
+    }elseif(ActualTime/12<1){
+        AMPM = "AM"
+    }
+    CommandLog:pushString("(The Time is)" +(ActualTime%12)+":"+time("min")+AMPM)                
+    }elseif(NewestString:explode(" "):string(1):lower()=="getip")
+    {
+        local Exploded = NewestString:explode(" ")
+        #CommandLog:pushString(findPlayerByName(Exploded:string(2)):name()+"'s IP is: "+findPlayerByName(Exploded:string(2)):ip())
+        CommandLog:pushString(findPlayerByName(Exploded:string(2)):name()+"'s IP is: "+"192.168.0.1")
+    }elseif(NewestString:explode(" "):string(1):lower()=="getid")
+    {
+        local Exploded = NewestString:explode(" ")
+        CommandLog:pushString(findPlayerByName(Exploded:string(2)):name()+"'s STEAMID is: "+findPlayerByName(Exploded:string(2)):steamID())
+    }elseif(NewestString:explode(" "):string(1):lower()=="echo")
+    {
+        local Exploded = NewestString:explode(" ")
+        CommandLog:pushString(Exploded:string(2)+" "+Exploded:concat(" ",3,Exploded:count()))
+    }elseif(NewestString:explode(" "):string(1):lower()=="calculate")
+    {
+        local Exploded = NewestString:explode(" ")
+        if(Exploded:string(3)=="+"){
+            CommandLog:pushString(NewestString + " = "+(Exploded:string(2):toNumber() + Exploded:string(4):toNumber()):toString()) 
+        }elseif(Exploded:string(3)=="-"){
+            CommandLog:pushString(NewestString + " = "+(Exploded:string(2):toNumber() - Exploded:string(4):toNumber()):toString()) 
+        }elseif(Exploded:string(3)=="*"   |Exploded:string(3)=="x"){
+            CommandLog:pushString(NewestString + " = "+(Exploded:string(2):toNumber() * Exploded:string(4):toNumber()):toString()) 
+        }elseif(Exploded:string(3)=="/"){
+            CommandLog:pushString(NewestString + " = "+(Exploded:string(2):toNumber() / Exploded:string(4):toNumber()):toString()) 
+        }elseif(Exploded:string(3)=="^"){
+            CommandLog:pushString(NewestString + " = "+(Exploded:string(2):toNumber() ^ Exploded:string(4):toNumber()):toString()) 
+        }
+    }elseif(NewestString:explode(" "):string(1):lower()=="rps"){
+        local RPN = round(random(1,3),0)
+        local Exploded = NewestString:explode(" ")
+            
+        switch(RPN){
+            case 1,
+            RPS = "rock"
+            break
+                
+            case 2,
+            RPS = "scissors"
+            break
+                
+            case 3,
+            RPS = "paper"
+            break
+        }
+        CommandLog:pushString("Computer: "+RPS)
+        if(Exploded:string(2):lower() == RPS)
+        {
+            CommandLog:pushString("Its a tie!")  
+        }
+        if(RPS=="rock"&Exploded:string(2):lower()=="scissors"|RPS=="paper"&Exploded:string(2):lower()=="rock"|RPS=="scissors"&Exploded:string(2):lower()=="paper"){
+            CommandLog:pushString("I beat you!")
+        }elseif(RPS=="rock"&Exploded:string(2):lower()=="paper"|RPS=="paper"&Exploded:string(2):lower()=="scissors"|RPS=="scissors"&Exploded:string(2):lower()=="rock"){
+            CommandLog:pushString("You beat me!")
+        }elseif(NewestString:explode(" "):string(1):lower()=="Saws")
+    {
+        local Exploded = NewestString:explode(" ")
+        if(Exploded:string(2):lower()=="on"){
+        CommandLog:pushString("saws on")
+    }elseif(Exploded:string(2):lower()=="off"){
+        CommandLog:pushString("saws off")
+    }
+    }
+                
+        
+    }    
+
+    
+    ###
+
+    
+
+    local CI=1 #just another var to increment
+    for(I=CommandLog:count(),1,-1) #starts and CommandLog:count() and and subtracts one until it equals 0
+    {
+        EGP:egpText(10+I,CommandLog[CI,string],vec2(10,450-(I-1)*20))
+        CI++
+        EGP:egpFont(10+I,"Consolas")
+        if(I>=22){
+            EGP:egpRemove(33)
+            EGP:egpRemove(34)
+            EGP:egpRemove(35)
+        }
+    
+}
+}
+
+
+lightCreate(1,EGP:entity():pos()+vec(0,0,-30))
+lightParent(1,EGP:entity())
+lightDistance(1,50)
+lightBrightness(1,1)
+lightColor(1,Backgroundcolor)
+
+if(KeyBoard["InUse",number]==0){
+    local Pos = vec2((50 * sin(curtime()*50))+256,256)
+EGP:egpBox(124,vec2(256,256),vec2(512,512))
+EGP:egpCircle(1332,Pos,vec2(150,100))
+EGP:egpColor(124,Backgroundcolor)
+EGP:egpColor(1332,Objectcolor)
+EGP:egpText(5564,"Logica CC", Pos)
+EGP:egpAlign(5564,1,1)
+EGP:egpSize(5564,50)
+#EGP:egpColor(5564,Textcolor)
+}else{
+EGP:egpRemove(124)
+EGP:egpRemove(1332)
+EGP:egpRemove(5564)
+}
+

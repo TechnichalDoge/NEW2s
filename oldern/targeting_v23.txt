@@ -1,0 +1,25 @@
+@name targeting v2
+@inputs EGP:wirelink Target:entity
+@outputs 
+@persist Target:entity
+@trigger 
+
+if(first()|dupefinished())
+{
+
+    EGP:egpClear()
+    EGP:egp3DTracker(2,Target:pos())
+    EGP:egpCircle(1,vec2(0,0),vec2(20,20))
+    EGP:egpAlpha(1,100)
+    EGP:egpColor(1,vec(200,70,70))
+    EGP:egpParent(1,2)
+
+}
+
+interval(15)
+timer("resetauto",700)
+    EGP:egpText(3,Target:name(),vec2())
+    EGP:egpPos(2,EGP:egpPos(2))
+    EGP:egpParent(3,2)
+    EGP:egpPos(2,Target:pos())
+

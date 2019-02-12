@@ -1,0 +1,99 @@
+@name Quantum Particle Collision Bomb
+@inputs A
+@outputs Collision
+@persist E:entity B:entity EP:vector EX EY EZ
+@persist Bombs:table
+@persist Bomb_a:number Bomb_r:number Max_r:number Props_per_ring:number
+#added bombs table to persist
+@model models/props_wasteland/laundry_washer003.mdl
+runOnTick(5)
+if(first())
+{
+    Max_r = 5
+    Props_per_ring = 8
+}
+E =entity()
+EP=E:pos()
+EX=EP:x()
+EY=EP:y()
+EZ=EP:z()
+#Countdown to after Input is pressed. 15 sec
+    if(clk("Collision")){
+    Collision=1
+    }
+elseif(A==1){
+    timer("Collision",5000)
+    }
+
+if(Collision==1&changed(Collision)){
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+soundPlay(1,soundDuration("vehicles/crane/crane_creak1.wav"),"vehicles/crane/crane_creak1.wav")
+    }
+if(Collision==1&changed(Collision))
+{
+    timer("bomb_spawn",1000)
+    Bomb_r = 0
+    
+}
+if(clk("bomb_spawn")){
+    
+    if(Bomb_r+1<=Max_r)
+    {
+        while(perf(40))
+        {
+            if(Bombs:count()>=Props_per_ring)
+            {
+                Bomb_a = 0
+                #print(Props_per_ring+" "+Bombs:count())
+                Bomb_r++
+                
+                timer("explode",5)
+                break
+            }
+            if(propCanCreate())
+            {
+                #local O = 
+                local P = vec(cos(Bomb_a),sin(Bomb_a),0)*Bomb_r*250
+                local B = propSpawn("m9k_ammo_40mm_single",EP+P,ang(90,0,90),1)
+                
+                Bombs:pushEntity(B) 
+                 
+                Bomb_a+=360/Props_per_ring
+            }
+            else
+            {
+                timer("bomb_spawn",100)
+                #print(1)
+                break
+            }
+
+        }
+        
+        
+    }
+}    
+  
+#timer("explode",500) #calls explode timer
+
+
+if(clk("explode"))#run if the execution was caused by the explode timer
+{ 
+    for(I=1,Bombs:count())
+    {
+        local Bomb = Bombs:popEntity()
+        #sets bomb equal to last entry in table and removes the entry
+        if(Bomb:isValid())
+        {
+            #if the bomb is a valid entity explode it and call the timer again
+            Bomb:ignite()
+        }
+    }
+
+    #print(Bombs:count())
+    timer("bomb_spawn",1000)
+}

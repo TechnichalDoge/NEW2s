@@ -1,0 +1,20 @@
+@name teses45y6565666
+@inputs 
+@outputs 
+@persist Rot
+@trigger 
+interval(15)
+local Size = 0.3
+
+Rot = Rot+5
+if(Rot>359){
+    Rot=0
+}
+holoCreate(1,entity():pos())
+holoModel(1,"models/windmill/wings.mdl")
+holoScale(1,vec(Size,Size,Size))
+holoAng(1,entity():angles()+ang(0,Rot,0))
+holoCreate(2,entity():pos())
+holoModel(2,"models/windmill/wings.mdl")
+holoScale(2,vec(Size,Size,Size))
+holoAng(2,entity():angles()+ang(0,Rot+(66+2/3),0))

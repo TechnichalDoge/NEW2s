@@ -1,0 +1,9 @@
+@name Transistor
+@inputs Toggle
+@outputs Output
+interval(250)
+if(Toggle==1){
+Output=1}
+else{
+ Output=0   
+}

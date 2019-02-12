@@ -1,0 +1,44 @@
+@name Random Forest custom2
+@inputs 
+@outputs 
+@persist Nr Scale Count Size
+@trigger 
+#edited by logica
+if (first()|dupefinished()) {
+#How many holos
+Nr = 5
+#How big
+Scale = 0.2
+#Area
+Size = 0
+#how wide
+Thiccness = randint(4,8)
+Nr = clamp(Nr,1,25)
+Scale = clamp(Scale,0.01,25)
+Size = clamp(Size,0.01,25)
+Count = 0
+}
+runOnSpawn(1)
+if (holoCanCreate()) {
+if (Count < Nr*2) {
+for(I=1,min(8,Nr*2),2) {
+Count+=2
+#Create
+holoCreate(Count), holoCreate(Count-1)
+#Scale
+H = randint(5,10)
+H2 = randint(15,35)
+holoScaleUnits(Count,vec(Thiccness,Thiccness,H)*Scale)
+#Position
+Rnd = vec2(randint(-8*Nr,8*Nr)*Size,randint(-8*Nr,8*Nr)*Size)
+holoPos(Count,entity():pos()+vec(Rnd,(H/2)*Size))
+#Color & Model
+#holoColor(Count,vec(randint(150,200),randint(50,80),randint(50,80)))
+holoModel(Count,"models/props_foliage/tree_springers_01a.mdl")
+#Angles
+holoAng(Count,ang(randint(-15,15),randint(-180,180),randint(-15,15)))
+#Parenting
+holoParent(Count,entity()), holoParent(Count-1,entity())
+}
+}
+}

@@ -1,0 +1,48 @@
+@name FailCake Press Me
+@inputs EGP:wirelink
+@persist [E Ply BG FinalPly Freeze Piano Piano2 Floor Fur1 Fur2 Pl1 Pl2 Pl3 Pl4 Lab]:entity Event Pos Play AlphaIt Alpha Alpha2
+@trigger all
+@model models/dav0r/buttons/button.mdl
+
+function void setEvent(I:number){
+Event = I 
+}
+
+function number getEvent(){
+return Event 
+}
+
+EGP:egpClear()
+EGP:egpTriangleOutline(5,vec2(250,330),vec2(280,330),vec2(250,400))
+EGP:egpRoundedBox(1,vec2(250,280),vec2(Size - 1,119))
+EGP:egpRoundedBoxOutline(2,vec2(250,280),vec2(Size,120))
+EGP:egpColor(2,vec(1,1,1)) 
+EGP:egpTriangle(4,vec2(250,330),vec2(280,330),vec2(250,400))
+EGP:egpText(3,Text,vec2(TextPos,250))
+EGP:egpFont(3,"Arial",60)
+EGP:egpColor(3,vec(1,1,1)) 
+EGP:egpColor(5,vec(1,1,1)) 
+}
+
+
+if(first() | duped()){
+E = entity()
+
+
+runOnLast(1)
+runOnTick(1)
+
+Event = -1 # By Default 
+EGP:egpClear()
+Play = 0
+Alpha2 = 255
+
+holoCreate(1)
+holoModel(1,"cube")
+holoPos(1,E:toWorld(vec(0,0,60.5)))
+holoColor(1,vec(1,1,1))
+holoMaterial(1,"models/debug/debugwhite")
+holoParent(1,E)
+holoAlpha(1,0)
+holoScale(1,vec(-30,-30,-10))
+}

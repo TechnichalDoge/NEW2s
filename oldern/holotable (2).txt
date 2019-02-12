@@ -1,0 +1,8 @@
+@name holotable
+@inputs 
+@outputs 
+@persist Ep:vector Ea:angle
+interval(25)
+Ea=entity():angles()
+Ep=entity():pos()
+holoCreate(1,Ep,vec(10,1,1),Ea,vec(255,255,255),"models/props_wasteland/prison_shelf002a.mdl")

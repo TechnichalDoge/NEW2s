@@ -1,0 +1,7 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+holoCreate(1,entity():pos(),vec(1,1,1),ang(0,0,0),vec(200,200,200),"https://www.dropbox.com/s/gusf33i0kxeb8zr/untitl22122ed.obj?dl=0")

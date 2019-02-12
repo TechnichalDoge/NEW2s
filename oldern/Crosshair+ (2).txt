@@ -1,0 +1,74 @@
+@name Crosshair+
+@inputs EGP:wirelink
+@outputs 
+@persist Crosshair:table
+@trigger 
+
+if(first() | dupefinished())
+{
+    Crosshair["width",number]=1.6
+    Crosshair["length",number]=10
+    Crosshair["gap",number]=7
+    Crosshair["circle_size",number]=1.7
+    Crosshair["circle_alpha",number] = 255
+    EGP:egpClear()
+    function void create_crosshair()
+    {
+        local ScrSize = egpScrSize(owner())
+        local Center = vec2(ScrSize:x()/2,ScrSize:y()/2)
+        EGP:egpCircle(1,Center,vec2(Crosshair["circle_size",number],Crosshair["circle_size",number]))
+        EGP:egpColor(1,vec(0,255,0))
+        EGP:egpAlpha(1,Crosshair["circle_alpha",number])
+        local L = Crosshair["length",number]
+        local W = Crosshair["width",number]
+        local G = Crosshair["gap",number]
+        
+        local S = 1.5
+        EGP:egpBox(6,Center+vec2(G+L/2,0),vec2(L+S,W+S))
+        EGP:egpBox(7,Center+vec2(-G-L/2,0),vec2(L+S,W+S))
+        EGP:egpBox(8,Center+vec2(0,G+L/2),vec2(W+S,L+S))
+        EGP:egpBox(9,Center+vec2(0,-G-L/2),vec2(W+S,L+S))
+        for(I=6,9){EGP:egpColor(I,vec(2,0,0))}
+        
+        #2-5 for lines
+        EGP:egpBox(2,Center+vec2(G+L/2,0),vec2(L,W))
+        EGP:egpBox(3,Center+vec2(-G-L/2,0),vec2(L,W))
+        EGP:egpBox(4,Center+vec2(0,G+L/2),vec2(W,L))
+        EGP:egpBox(5,Center+vec2(0,-G-L/2),vec2(W,L))
+        for(I=2,5){EGP:egpColor(I,vec(0,255,0))}
+
+    }
+    create_crosshair()
+    runOnTick(1)
+    runOnChat(1)
+}
+elseif(chatClk(owner()))
+{
+    LE = lastSaid():explode(" ")
+    if(LE:string(1)=="/crosshair_width")
+    {
+        Crosshair["width",number] = LE:string(2):toNumber()
+        create_crosshair()
+    }
+    elseif(LE:string(1)=="/crosshair_length")
+    {
+        Crosshair["length",number] = LE:string(2):toNumber()
+        create_crosshair()
+    }
+    elseif(LE:string(1)=="/crosshair_gap")
+    {
+        Crosshair["gap",number] = LE:string(2):toNumber()
+        create_crosshair()
+    }
+    elseif(LE:string(1)=="/crosshair_circle_size")
+    {
+        Crosshair["circle_size",number] = LE:string(2):toNumber()
+        create_crosshair()
+    }
+    elseif(LE:string(1)=="/crosshair_circle_alpha")
+    {
+        Crosshair["circle_alpha",number] = LE:string(2):toNumber()
+        print(Crosshair["circle_alpha",number])
+        create_crosshair()
+    }
+}

@@ -1,0 +1,9 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+local Pews = (pewFindByOwner(owner()))
+interval(250)
+print(pewBulletVel(Pews[1,number]))
+print(Pews)

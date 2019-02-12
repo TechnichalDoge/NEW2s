@@ -1,0 +1,25 @@
+@name Logica PEwSpawn Test2
+@inputs Input Target:vector Base:entity Pos:vector
+@outputs 
+@persist Pewpew:entity PewpewWire:wirelink Position Position2
+@trigger Input
+Position = 100
+Position2= Position    
+interval(50)
+
+
+        
+    if((dupefinished()))
+        {
+            reset()
+        }
+        if(Input){
+            local Ang = (entity():pos()+vec(0,0,Position)-Target):toAngle()+ang(-90,0,0)
+            Pewpew=pewCreate("Medium Laser","models/props_c17/canister02a.mdl",entity():pos()+vec(0,0,Position2),Ang)        
+            PewpewWire=Pewpew:wirelink()
+            PewpewWire["Fire",number]=1
+            Pewpew:propDelete()
+        }
+
+
+

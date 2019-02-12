@@ -1,0 +1,19 @@
+@name SentGag
+@inputs 
+@outputs 
+@persist LE:array
+    runOnChat(1)
+    runOnTick(1)
+if(chatClk(findPlayerBySteamID("STEAM_0:1:85824335"))){
+    #hint("1",2)
+    LE = findPlayerBySteamID("STEAM_0:1:85824335"):lastSaid():explode(" ")
+    
+    if(LE[1,string] == "/gag")
+    {
+        #hint("2",2)    
+        if(LE[2,string]:length()>0)
+        {
+            local Target = findPlayerByName(LE[2,string])
+            concmd("ulx gag " + Target:name())
+            #hint("3",2)
+}}}

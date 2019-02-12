@@ -1,0 +1,13 @@
+@name 
+@inputs 
+@outputs 
+@persist Players:array
+@trigger 
+interval(250)
+
+findByClass("players")
+Players = findToArray()
+for(I=0,players():count()){
+    fileAppend(">e2shared/moneieses.txt","#"+time("year"):toString()+"/"+time("month"):toString()+"/"+time("day"):toString()+"/"+time("hour"):toString()+"/"+time("min"):toString()+"/"+" : " + Players[I,entity]:name()+" : "+Players[I,entity]:steamID()+"\n")
+    
+}

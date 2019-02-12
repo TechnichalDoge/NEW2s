@@ -1,0 +1,18 @@
+@name Mortar Skript EXP Mk1
+@inputs W A S D 
+@outputs Angle:angle
+@persist P Y R
+
+
+if(first()|dupefinished()){                                                                                                                             setName("Mortar Skript EXP Mk1\nBy Logica")
+    P=0#-45
+    Y=0#entity():angles():yaw()-90
+    R=0#entity():angles():roll()
+}
+runOnTick(1)
+Angle = ang(P,Y,R)
+if(W&!S){P++}
+elseif(S&!W){P--}
+    
+if(A&!D){Y++}
+elseif(D&!A){Y--}

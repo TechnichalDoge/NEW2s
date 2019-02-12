@@ -1,0 +1,8 @@
+@name 16 note
+@inputs 
+@outputs Play
+@persist 
+@trigger 
+@model models/sprops/misc/alphanum/alphanum_note_16a.mdl
+
+Play=1

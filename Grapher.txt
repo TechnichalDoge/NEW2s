@@ -4,6 +4,7 @@
 @outputs HorzRes:number VertRes:number
 @outputs Amt
 @outputs PrevX1 PrevY1 NowX1 NowY1 ActuPX ActuNX ActuPY ActuNY
+@persist SkipLine
 #[
 
 
@@ -12,11 +13,13 @@ comments and howto and creds
 ]#
 
 if(first()|dupefinished()){
+    EGP:egpClear()
  #resolutions
     #horz res
-    HorzRes = 512
+    HorzRes = 124
     #vert res
-    VertRes = 200
+    VertRes = 124
+    SkipLine = 4
  #colors
     #backgroundcolor
     #0y line color
@@ -24,7 +27,7 @@ if(first()|dupefinished()){
  #setup array   
     TableValues[1,number] = 0
  #freq
-    Frequency = 1000/  0.1 #basically using frames per second.
+    Frequency = 1000/  5 #basically using frames per second.
  # include mapfunction
  #include "/mapfunction"
 }
@@ -37,21 +40,21 @@ if(TableValues:count()>HorzRes){
 }
 
 ##loop through and display the stuff on egp
-EGP:egpClear()
 timer("show",11.5)
 if(clk("show")){
-    for(K=2,HorzRes){
+    for(K=2,HorzRes,SkipLine){
         if(!perf()){break}
-        PrevX1 = K-1
-        PrevY1 = TableValues[K-1,number]
+        PrevX1 = K-SkipLine
+        PrevY1 = TableValues[K-SkipLine,number]
         NowX1 = K
         NowY1 = TableValues[K,number]
-        ActuPX = mapNum(PrevX1,0,HorzRes,0,EGPSIZE[1],1)+250
-        ActuNX = mapNum(NowX1,0,HorzRes,0,EGPSIZE[1],1)+250
+        ActuPX = mapNum(PrevX1,0,HorzRes,0,EGPSIZE[1],1)+0
+        ActuNX = mapNum(NowX1,0,HorzRes,0,EGPSIZE[1],1)+0
         ActuPY = mapNum(PrevY1,-VertRes/2,VertRes/2,0,EGPSIZE[2],1)
         ActuNY = mapNum(NowY1,-VertRes/2,VertRes/2,0,EGPSIZE[2],1)
         #maybe use the beizer function in a for to make it curved
         EGP:egpLine(K,vec2(ActuPX,ActuPY),vec2(ActuNX,ActuNY))  
+        print(NowX1)
     }
 } 
 Amt = TableValues:count()

@@ -1,0 +1,7 @@
+@name applyforceangtest
+@inputs En:entity Angle:angle
+@outputs 
+@persist 
+@trigger 
+
+En:applyAngForce(Angle)

@@ -1,0 +1,9 @@
+@name Automatic trap v1 gate setupv
+@inputs Gps1:vector Gps2:vector
+@outputs Num:number
+interval(25)
+entity():setNoCollideAll()
+
+Num=findInBox(Gps1,Gps2)
+findIncludeClass("player")
+#findExcludeEntity(owner())

@@ -1,0 +1,105 @@
+@name Melon-lover
+@inputs Move Found      
+@outputs 
+@persist Vector:vector E:entity
+@model models/props_junk/watermelon01.mdl
+
+#Commands#
+#be red/be blue = Change Melon's color.
+#party - parties :)
+#Color reset - Changes his color back to normal
+#cloak me - cloaks you and Melon
+#uncloak - un-cloaks you.
+#rainbow - makes you change colors!
+#rainbow off - no rainbow
+
+#--------Greeting--------#
+if(first()){
+    hint("Made by Watermelon",10)
+    hint("for CMDS check line 79",10)
+#-------End-of-Greeting-------# 
+}
+
+runOnTick(1)
+runOnChat(1)
+
+#----------Protection----------#
+if(duped()){selfDestructAll()
+    hint("Awww you cant dupe it :P",10)
+#---------End-of-Protection-----#
+}
+
+#----------Varibels----------#
+O = owner()
+E = entity()
+R = "be red"
+B = "be blue"
+P = "party"
+RE = "Color reset"
+C = "cloak me"
+UC = "uncloak"
+#---------End-of-varibels--------#
+
+#---------Move-code--------#
+if(Move==0)
+{
+    Vector=owner():pos()-(entity():pos()-vec(15,0,15))
+    applyForce($Vector*10+Vector)
+    setName("Melon
+    Following")
+}
+if(Move==1) {
+setName("Melon
+Staying") }
+#---------End-of-move-code----------#
+
+#--------Code--------#
+
+if(O:lastSaid() == R)
+{
+    E:setColor(vec(255,0,0))
+    
+    
+}
+
+if((O:lastSaid() == B))
+{
+    E:setColor(vec(0,0,255))
+}
+if(O:lastSaid() == P)
+{
+      entity():setColor(vec(random(255), random(255), random(255)))
+    
+}
+if(O:lastSaid() == RE)
+{
+    E:setColor(vec(255,255,255))
+}
+if(O:lastSaid() == C)
+{
+    E:setMaterial("models/shadertest/unlitgenericmodel")
+    O:setMaterial("models/shadertest/unlitgenericmodel")
+
+      
+    
+}
+if(O:lastSaid() == UC)
+{
+    E:setMaterial("")
+    O:setMaterial("")
+}
+if(O:lastSaid() == "rainbow")
+{
+    O:setMaterial("models/debug/debugwhite")
+    O:setColor(vec(random(255), random(255), random(255)))
+}
+if(O:lastSaid() == "rainbow off")
+{
+    O:setMaterial("")
+    O:setColor(vec(255,255,255))
+}
+
+
+
+
+    

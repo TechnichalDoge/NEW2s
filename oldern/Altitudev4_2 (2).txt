@@ -1,0 +1,35 @@
+@name Altitudev4_2
+@outputs Distance Explode Down:vector Release
+@persist E:entity Explod_distance Arr:array Explod_distance2
+#Made by HMM (http://steamcommunity.com/profiles/76561198115172591/) for Logica 
+if(first()|dupefinished())
+{
+    E=entity()
+    Explod_distance = 175 #distance from ground you want bomb to explode at 
+     Explod_distance2 = 180
+    runOnTick(1)
+}
+findInSphere(entity():pos(),1000000000)
+findIncludePlayerProps(owner())
+Arr=findToArray()
+Down = (entity():pos()+vec(0,0,-10)) # down direction
+
+#creats with large distance starting at the entitys position -1 unit down and pointing in the down direction
+rangerFilter(Arr)
+RD = rangerOffset(1000000,Down,Down) 
+Distance = RD:distance() #pretty self explanatory
+
+if(RD:startSolid()) # if the ranger is started inside the world the distance is set to 0
+{
+    Distance = 0
+}
+if(Distance<=Explod_distance)
+{
+    Explode = 1
+}
+else
+{
+    Explode = 0
+}
+
+

@@ -1,0 +1,33 @@
+@name 
+@inputs 
+@outputs 
+@persist [X]:number Model:string
+@trigger 
+findByClass("player")
+findSortByDistance(entity():pos())
+local Pos = find():pos()
+local Ang = ang(0,entity():heading(Pos):roll(),0)
+local Pm = randint(1,3)
+if(Pm==1){
+    Model = "models/Eli.mdl"
+}elseif(Pm==2){
+    Model = "models/alyx.mdl"
+}elseif(Pm==3){
+    Model = "models/odessa.mdl"
+}
+if(first()|dupefinished()){
+
+    holoCreate(1,entity():pos())
+    holoModel(1,Model)
+
+    runOnTick(1)
+
+}
+    holoAng(1,Ang)
+    X = X + tickInterval()*0.33, X = X%1
+
+    holoAnim(1,"cheer1",X)
+    
+    print(Ang)
+    #print(owner():getAnimation())
+    #print(holoAnimLength(1))

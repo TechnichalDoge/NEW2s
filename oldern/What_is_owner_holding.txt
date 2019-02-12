@@ -1,0 +1,5 @@
+@name What is owner holding
+interval(250)
+if(changed(owner():weapon())){
+print((owner():weapon():toString()))    
+}

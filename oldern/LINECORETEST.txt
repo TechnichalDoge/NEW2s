@@ -1,0 +1,14 @@
+@name LINECORETEST
+@inputs 
+@outputs 
+@persist 
+@trigger 
+runOnTick(1)
+Eye = owner():eyeTrace()
+N = owner():shootPos()-owner():aimPos()#Eye:hitNormal() 
+P = Eye:pos() + N/(owner():shootPos():distance(Eye:pos())/15)
+B = P + N
+holoCreate(3,P)
+beamColor(1, vec(255))
+beamPoint(1, P )
+beamPoint(2, B )

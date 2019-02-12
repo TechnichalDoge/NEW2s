@@ -1,0 +1,15 @@
+@name 234444
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first())
+{
+    httpRequest("https://cfcservers.org/rules")
+    runOnHTTP(1)
+}
+elseif(httpClk())
+{
+    Data = httpData()
+}

@@ -1,0 +1,7 @@
+@name angg
+@inputs Ele Bear
+@outputs Angle:angle
+@persist 
+runOnTick(1)
+
+Angle=ang(0,Ele,-Bear)

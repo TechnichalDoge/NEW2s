@@ -1,0 +1,31 @@
+@name Black box v3
+@persist I E:entity
+E=entity()
+Ender = 10
+for(I=0,Ender) {
+holoCreate(I)
+holoModel(I,"cube")
+holoPos(I, (entity():pos()+vec(0,0,10)))
+holoColor(I,vec(1,1,1))
+holoMaterial(I,"models/debug/debugwhite")
+#holoMaterial(I,"models/effects/muzzleflash/blurmuzzle")
+holoParent(I,E)
+#holoAlpha(I,255)
+holoScale(I,(vec(I,I,10)*5))
+#if(!perf()){break}
+}
+    for(I=(Ender+1),(Ender*2+1)) {
+        holoCreate(I)
+        holoModel(I,"cube")
+        holoPos(I, (entity():pos()+vec(0,0,10)))
+        holoColor(I,vec(1,1,1))
+        holoMaterial(I,"models/debug/debugwhite")
+        #holoMaterial(I,"models/effects/muzzleflash/blurmuzzle")
+        holoParent(I,E)
+        #holoAlpha(I,255)
+        for(V=0,Ender) {
+            holoScale(I,-vec(V,V,10)*5)
+        }
+        #if(!perf()){break}
+    }
+

@@ -1,0 +1,23 @@
+@name targeter/Player Teleport
+@inputs Home_Pos:vector
+@outputs Teleport_Pos:vector
+@persist Player:entity
+@trigger 
+runOnTick(1)
+
+S = owner():lastSaid():explode(" ")
+
+if(S:string(1) =="/p"){ TempPlayer = findPlayerByName(S:string(2)) if(TempPlayer:isPlayer()){ Player = TempPlayer }
+
+
+
+
+}
+
+Teleport_Pos = Player:pos() + vec(0,0,100)
+
+if(S:string(1) =="/h"){ Teleport_Pos = Home_Pos
+}
+
+
+

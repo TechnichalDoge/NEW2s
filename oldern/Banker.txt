@@ -1,0 +1,12 @@
+@name Banker    
+@inputs 
+@persist Moneies:array People:array
+interval(255)
+People=players()
+for(I=1,players():count()){
+    if (perf()) {
+    local Pers = People[I,entity] 
+    Moneies:pushString(Pers:name()+"ffssfsfsf")
+    fileWrite(">e2shared/moneieses.txt",vonEncode(Moneies))  
+}
+}

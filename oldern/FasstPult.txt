@@ -1,0 +1,16 @@
+@name FasstPult
+@inputs On
+@outputs Output
+@persist A
+
+interval(250)
+
+if(On){
+    if(A == 1){
+        A = 0    
+    }
+    else{
+        A = 1    
+    }
+    Output = A
+}
