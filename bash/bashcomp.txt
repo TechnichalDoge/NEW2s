@@ -5,7 +5,8 @@
 @persist NormFontSize LineNumbered
 @persist FromLeft
 
-interval(1000/10)
+#refresh rate
+interval(1000/20)
 if(first()){
     Lines = 15   
     NormFontSize = 21
