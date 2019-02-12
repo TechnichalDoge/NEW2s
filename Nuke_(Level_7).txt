@@ -1,0 +1,164 @@
+@name Nuke (Level 7)
+@inputs Arm 
+@outputs 
+@persist Last1:entity Last2:entity Pew1:entity Pew2:entity I Armed Base:entity Detonated Finished Index Alpha BlinderHoloCount:number
+@trigger Arm Detonate
+
+#profbox made
+if (first()|dupefinished()) {
+    
+    #timer("expand",250)
+    #timer("g",500)
+    
+    soundStop(1)
+    
+    Armed = 0
+    Detonated = 0
+    Finished = 0
+    
+    Base = entity():isWeldedTo()
+
+}
+elseif(clk("g")) {
+
+    Last1:propDelete() 
+    
+    Pew1 = pewCreate("37mm Cannon","models/hunter/blocks/cube025x025x025.mdl",entity():pos()+vec(0,0,40),ang(randint(75,90),randint(-180,180),0))
+    local WL1 = Pew1:wirelink()
+    WL1["Fire",number] = 1
+    
+    Last1 = Pew1
+    
+    
+    
+    Last2:propDelete() 
+    
+    Pew2 = pewCreate("37mm Cannon","models/hunter/blocks/cube025x025x025.mdl",entity():pos()+vec(0,0,40),ang(randint(75,90),randint(-180,180),0))
+    local WL2 = Pew2:wirelink()
+    WL2["Fire",number] = 1
+    
+    Last2 = Pew2
+    
+    
+    holoCreate(curtime()*5)
+    holoAng(curtime()*5,ang(randint(0,15),randint(0,180),0))
+    holoScale(curtime()*5,vec(5,0.1,0.1))
+    
+    timer("g",100)
+}
+
+if (clk("expand")) {
+    I = I + 1
+    
+    holoScale(1,vec(I*1.2))
+    holoAlpha(1,255-I)
+    
+    holoScale(2,vec(I*0.65,I*0.65,I*1.3))
+    holoAlpha(2,255-I)
+    
+    holoScale(3,vec(I*2,I*2,I*1.2))
+    holoAlpha(3,255-I)
+    holoPos(3,entity():pos()+vec(0,0,I*15))
+    
+    if (I < 255) {
+        timer("expand", 50)
+    }
+    else{
+        holoDeleteAll()
+        stoptimer("g")
+        Last1:propDelete()
+        Last2:propDelete()
+        selfDestructAll()
+    }
+}
+
+
+if (Arm & !Armed) {
+    Armed = 1
+
+    timer("check", 100)
+}
+
+if (clk("check")) {
+    rangerFilter(Base)
+    rangerFilter(Base:getConstraints())
+    R = rangerOffset(100, Base:pos() - vec(0, 0, 100), vec(0, 0, -1))
+
+    if (R:hit() & !Detonated) {
+        printColor( vec(255, 0, 0), "NUKE DETONATING! CLEAR THE FUCKING AREA!")
+        timer("spawnholos", 1000)
+        timer("expand", 1200)
+        timer("g", 1400)
+        stoptimer("check")
+        Detonated = 1
+    }
+    
+    timer("check",100)
+}
+
+
+
+if (clk("spawnholos")) {
+    
+    entity():setMass(50000)
+    entity():propFreeze(1)
+    Base:propFreeze(1)
+    
+    stoptimer("check")
+    
+    holoCreate(1,entity():pos())
+    holoModel(1,"hq_torus")
+    holoColor(1,vec(255,144,0))
+    holoDisableShading(1,1)
+    holoAng(1,ang())
+    
+    holoCreate(2,entity():pos()+vec(0,0,50))
+    holoModel(2,"hq_cylinder")
+    holoColor(2,vec(255,144,0))
+    holoDisableShading(2,1)
+    holoAng(2,ang())
+    
+    holoCreate(3,entity():pos()+vec(0,0,50))
+    holoModel(3,"hq_sphere")
+    holoColor(3,vec(255,144,0))
+    holoDisableShading(3,1)
+    holoAng(3,ang())
+    
+    
+    findIncludeClass("player")
+    findInSphere(entity():pos(),2500)
+    Blind = findToArray()
+    
+    for (I=1,Blind:count()) {
+        local C = Blind[I,entity]
+        
+        holoCreate(100+I,C:attachmentPos("anim_attachment_head"))
+        holoParentAttachment(100+I,C,"anim_attachment_head")
+        holoDisableShading(100+I,1)
+        holoVisible(100+I,players(),0)
+        holoVisible(100+I,C,1)
+        holoScale(100+I,vec(-2,-2,-2))
+        
+        BlinderHoloCount++
+        
+        timer("fadeblinder",10)
+        Index = 0
+    }
+}
+
+if(clk("fadeblinder")) {
+    Index++
+    
+    if (Index < 255) {
+        for (I=1,BlinderHoloCount) {
+            holoAlpha(I+100,255-Index)
+        }
+        timer("fadeblinder",10)
+    }
+    else{
+        stoptimer("fadeblinder")
+        for (I=1,BlinderHoloCount) {
+            holoDelete(I+100)
+        }
+    }
+}

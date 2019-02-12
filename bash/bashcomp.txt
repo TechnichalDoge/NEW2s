@@ -3,50 +3,100 @@
 @outputs Clear
 @persist Lines:number TextLines:array
 @persist NormFontSize LineNumbered
-@persist FromLeft
+@persist FromLeft PercentOfBottom
+@persist LastEnteredText:string
+@trigger TextInput
 
-#refresh rate
-interval(1000/20)
+#refresh rate interval
+#interval(1000/12)
+
+#set customization and include mapfunction
 if(first()){
-    Lines = 15   
+    
+    Lines = 25   
     NormFontSize = 21
     LineNumbered = 0
     FromLeft = 10
-    #include "mapfunction"
+    PercentOfBottom = 0.05
+    #if egp is already connected, clear it
     if(EGP != nowirelink()){
         EGP:egpClear()
     }
+    
+    #[
+        Code from p5.js
+            https://github.com/processing/p5.js/blob/master/src/math/calculation.js#L465
+        Converted to E2 by Logica
+            https://steamcommunity.com/id/GetLogical/
+    ]#
+    function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+        local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+        if (!StayinBounds) {
+            return Newval
+        }
+        else{
+            if (LowerBounds2 < UpperBounds2) {
+                return clamp(Newval, LowerBounds2, UpperBounds2)
+            } 
+            else {
+                return clamp(Newval, UpperBounds2, LowerBounds2)
+            }
+        }
+    }
+    
 }
+#check if egp is connected
 if(EGP != nowirelink()){
-EGP:egpDrawTopLeft(1)
-local EGPSIZE = EGP:egpSize()
-#EGP:egpBox(0,vec2(0,0),EGPSIZE)
-local BOTTOMTEXT = EGPSIZE[2]*0.1+EGPSIZE[2]*0.8
-local BOTTOMTEXTSIZE = EGPSIZE[2]*0.1
+    #draw top left for ease
+    EGP:egpDrawTopLeft(1)
+    #make a local egpsize variable
+    local EGPSIZE = EGP:egpSize()
+    #Where the bottom text / rectangle should be  # i still dont understand why 0.8 and not 0.9, but okay.
+    local BOTTOMTEXT = EGPSIZE[2]*PercentOfBottom+EGPSIZE[2]*(1-(PercentOfBottom*2))
+    
+    #what size should it be?
+    local BOTTOMTEXTSIZE = EGPSIZE[2]*PercentOfBottom
+    #line thiccness of the bottom box
+    EGP:egpSize(100,2)
+    #bottom box ofc
+    EGP:egpBoxOutline(100,vec2(0,BOTTOMTEXT),vec2(EGPSIZE[1],BOTTOMTEXTSIZE))
+    #what size should the bottom text be (scaled down by 0.8 ofc)
+    EGP:egpSize(0,BOTTOMTEXTSIZE*0.8)
+    #the bottom text itself
+    EGP:egpText(0,TextInput,vec2(FromLeft,BOTTOMTEXT+BOTTOMTEXTSIZE/3))
+    #okay lets uh draw and write all the lines in the textlines array
+    for(I = Lines,1,-1){
+        #what is the text we want to draw
+        local LineStr = TextLines:reversed()[I,string]
+        #push the last entered line into the lastenteredtext value
+        if(I == 1){
+            LastEnteredText = LineStr 
+        }
+        #if our lines are numbered, number them if not not
+        if(LineNumbered){
+            #map the line positions from the top of bottom box to the top of screen
+            EGP:egpText(I+1,I+ " : " +LineStr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
+        }
+        else{
+            EGP:egpText(I+1,LineStr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
+        }
+        #font size
+        EGP:egpSize(I+1,NormFontSize)
+    }
+    #if enter is pressed then enter the text
+    if(TextInput:find("\n") & TextInput:length() > 1){
+        TextLines:pushString(TextInput)    
+        Clear = 1  
+        timer("uclrk",20) 
+    }
+    #if the array exceeds capacity, remove some uneeded values.
+    if(TextLines:count()>Lines+5){
+        TextLines:shift()  
+    }
+    #clear keyboard
+    if(clk("uclrk")){
+        Clear = 0    
+    }    
+}
 
-EGP:egpSize(100,2)
-EGP:egpBoxOutline(100,vec2(0,BOTTOMTEXT),vec2(EGPSIZE[1],BOTTOMTEXTSIZE))
-EGP:egpDrawTopLeft(0)
-EGP:egpSize(0,32)
-EGP:egpText(0,TextInput,vec2(FromLeft,BOTTOMTEXT+BOTTOMTEXTSIZE/3))
-for(I = Lines,1,-1){
-    local Linestr = TextLines:reversed()[I,string]
-    if(LineNumbered){
-    EGP:egpText(I+1,I+ " : " +Linestr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
-    }
-    else{
-    EGP:egpText(I+1,Linestr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
-    }
-    EGP:egpSize(I+1,NormFontSize)
-}
-if(TextInput:find("\n") & TextInput:length() > 1){
-    TextLines:pushString(TextInput)    
-    Clear = 1  
-    timer("uclrk",20) 
-}
-EGP:egpDrawTopLeft(1)
-}
-if(clk("uclrk")){
-    Clear = 0    
-}
 
