@@ -38,7 +38,6 @@ if (Grav & Grav > 0) {
  holoCreate(1,BulletPos)
 if(I>=1000){
     print(BulletPos:distance(Target:pos()))
-    if(inrange(BulletPos:distance(Target:pos()),-500+
     reset()    
 }
 }
