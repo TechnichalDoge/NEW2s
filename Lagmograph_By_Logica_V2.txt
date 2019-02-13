@@ -1,28 +1,35 @@
-@name Lagmograph By Logica V1
+@name Lagmograph By Logica V2
 @inputs Egp:wirelink
 @outputs Sp
-@persist Hi Abs CD Table:table CDMAX Speed 
+@persist Hi Abs CD Table:table CDMAX Speed Abs2
 @trigger 
 
 if(first()){
-    #Egp:egpClear()
     # Speed vs Detail, lower the number the faster it to go left right but higher it will be slower but more detail
     Speed = 256
     
+    #change it to distance between eachother?
     Sp = 512/Speed
 }
 
 
-interval(25)                                                                                                                                                                                                                        setName("Lagmograph by \n Logica")
+interval(25)             
+#make sure the egp is there                                                                                                                                                                                                           setName("Lagmograph by \n Logica")
 if(Egp != nowirelink()){
+#egp origin
 local Ori = Egp:egpOrigin()
 
+#the current lag stuff
 Abs = (realtime()-curtime())
 
-Hi = $Abs*30000
+#the other current lag stuff
+Abs2 = (systime()-realtime())
+#combines both lag stuffs and multiplies it by 30000
+Hi = (($Abs+$Abs2)/2)*30000
 
 Hi = clamp(Hi,-248,248)
 #print(Hi)
+
 
 if(first()|CD == 0){
 CD = Speed
@@ -47,9 +54,8 @@ if(first()){
 #/deco
 
 Table[CD,number] = Hi
-Egp:egpLine(CD*100,vec2(CD*Sp,Ori:y()+Hi),vec2((CD+1)*Sp,Ori:y()+Table[CD+1,number]))
+Egp:egpLine(CD,vec2(CD*Sp,Ori:y()+Hi),vec2((CD+1)*Sp,Ori:y()+Table[CD+1,number]))
 Egp:egpLine(-11,vec2(CD*Sp,0),vec2(CD*Sp,Egp:egpSize():y()))
 Egp:egpColor(-11,vec(0,255,0))
-Egp:egpColor(CD*100,vec(255,0,0))
 }
 else{reset()}

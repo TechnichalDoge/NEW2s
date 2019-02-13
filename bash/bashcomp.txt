@@ -14,10 +14,10 @@
 if(first()){
     
     Lines = 25   
-    NormFontSize = 21
+    NormFontSize = 28
     LineNumbered = 0
     FromLeft = 10
-    PercentOfBottom = 0.05
+    PercentOfBottom = 0.1
     #if egp is already connected, clear it
     if(EGP != nowirelink()){
         EGP:egpClear()

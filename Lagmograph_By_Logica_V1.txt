@@ -1,7 +1,7 @@
 @name Lagmograph By Logica V1
 @inputs Egp:wirelink
 @outputs Sp
-@persist Hi Abs CD Table:table CDMAX Speed 
+@persist Hi Abs CD Table:table CDMAX Speed Hi1
 @trigger 
 
 if(first()){
@@ -10,18 +10,21 @@ if(first()){
     Speed = 256
     
     Sp = 512/Speed
+    #include "mapfunction"
 }
 
 
 interval(25)                                                                                                                                                                                                                        setName("Lagmograph by \n Logica")
 if(Egp != nowirelink()){
 local Ori = Egp:egpOrigin()
+local Size = Egp:egpSize()
 
 Abs = (realtime()-curtime())
 
-Hi = $Abs*30000
+Hi1 = $Abs
+print(Hi1)
+Hi = mapNum(Hi1,-0.03,0.03,-Size[2]/2,Size[2]/2,0)
 
-Hi = clamp(Hi,-248,248)
 #print(Hi)
 
 if(first()|CD == 0){

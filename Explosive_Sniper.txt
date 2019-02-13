@@ -1,0 +1,60 @@
+@name Explosive Sniper
+@persist Target:vector PlayerPos:vector Gunpos:vector GunAng:angle PPos:vector 
+@persist Clicked:number PewGun:entity
+interval(15)
+if(first()){
+    #there were bugs with it being placed differently than on the ground, so lets just
+    #automatically set its angle to 0,0,0 at start
+    entity():setAng(ang(0,0,0))    
+}
+#we need to make sure owner is in pvp
+if(owner():playerIsInPvp()){
+    #and with the certain gun
+    if(owner():weapon():type()=="m9k_barret_m82"){
+        #get owners shoot position
+        PlayerPos = owner():shootPos()
+        #get target
+        Target = owner():eyeTrace():position()
+        #get the angle we want the gun at
+        GunAng = owner():eyeAngles() + ang(90,0,0)
+        #hacky stuff inbound
+        #create a holo at the origin
+        holoCreate(1,vec(0,0,0))
+        #and put a holo behind the first one a little bit
+        holoCreate(2,vec(100,0,0))
+        #now lets parent them so that when we rotate the first one it rotates the second
+        holoParent(2,1)
+        #lets position the first one at the target
+        holoPos(1,PlayerPos+vec(randint(-25,25),randint(-25,25),randint(-25,25)))
+        #rotate the first one which rotates the second
+        holoAng(1,GunAng - ang(90,0,0))
+        #make them invisible
+        holoVisible(1,players(),0)
+        holoVisible(2,players(),0)
+        #very hacky stuff
+        #get the position of the second holo
+        Gunpos = holoEntity(2):pos()
+        #if owner click shoot, and make sure it isnt repeated
+            if(owner():keyAttack1()&!Clicked){
+                timer("Boom",25)    
+                Clicked = 1
+            }
+        }
+        #spawn pewpew when shot
+    if(clk("Boom")){
+        PewGun = pewCreate("Gauss Gun","models/props_junk/PopCan01a.mdl",Gunpos,GunAng)
+        PewGun:pewFire(1)   
+         
+        #start delete and reload timer
+        timer("delete",25)
+        timer("unclick",30) 
+    }
+}
+#delete pewpew
+if(clk("delete")){
+    PewGun:propDelete()    
+}
+#finish reload
+if(clk("unclick")){
+    Clicked = 0    
+}
