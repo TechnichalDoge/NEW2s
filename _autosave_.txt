@@ -4,8 +4,8 @@
 @persist Lines:number TextLines:array
 @persist NormFontSize LineNumbered
 @persist FromLeft PercentOfBottom
-@persist LastEnteredText:string
-@trigger TextInput
+@persist LastEnteredText:string SPACERING
+@trigger TextInput 
 
 #refresh rate interval
 #interval(1000/12)
@@ -18,6 +18,9 @@ if(first()){
     LineNumbered = 0
     FromLeft = 10
     PercentOfBottom = 0.1
+    SPACERING = 0.3
+    
+    
     #if egp is already connected, clear it
     if(EGP != nowirelink()){
         EGP:egpClear()
@@ -43,7 +46,8 @@ if(first()){
             }
         }
     }
-    
+    Clear = 1  
+    timer("uclrk",20) 
 }
 #check if egp is connected
 if(EGP != nowirelink()){
@@ -78,7 +82,7 @@ if(EGP != nowirelink()){
             EGP:egpText(I+1,I+ " : " +LineStr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
         }
         else{
-            EGP:egpText(I+1,LineStr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT,1)))
+            EGP:egpText(I+1,LineStr,vec2(FromLeft,mapNum(I,Lines,0,0,BOTTOMTEXT-BOTTOMTEXTSIZE*SPACERING,1)))
         }
         #font size
         EGP:egpSize(I+1,NormFontSize)
