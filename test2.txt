@@ -1,0 +1,10 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+interval(100)
+for(I=0,100,2){
+    holoCreate(I,entity():pos()+entity():forward()*I+entity():up()*-I^2)
+}

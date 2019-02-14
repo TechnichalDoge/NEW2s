@@ -1,47 +1,168 @@
 @name 
-@inputs Target:entity
-@outputs Debug:angle Debug2
-@persist Gravity LastTick Vel:vector Tk Grav PewDirection:vector BulletPos:vector Time Rang:ranger Dist Hit
+@inputs #Target:entity
+@outputs  Time2
+@persist Target:entity MagicFlakNumber
 #flak
-#runOnTick(1)
-interval(Tk*1000)
-timer("revel",100)
-#print(gravity())
+MagicFlakNumber = 0.00011420804042192
+interval(125)
 beamPoint(1,entity():pos())
+beamPoint(2,entity():pos()+entity():up()*entity():pos():distance(Target:pos()))
 
-if(first()#[clk("revel")&((Dist<10)&(BulletPos:distance(Target:pos())<500))]#){
-    Grav = gravity()
-    Tk = tickInterval()
-    #print(Tk*1000)
-    
-    PewDirection = entity():up()
-    BulletPos = entity():pos()
-    SpeedOffset = randint(1,0.02)
-    Vel = (PewDirection * 135 * SpeedOffset * (1/Tk)) * (Tk/(1/66))   
-        
+Time2 = MagicFlakNumber	* entity():pos():distance(Target:pos())
 
+findIncludeClass("prop_physics")
+findIncludeClass("player")
+findExcludePlayerProps(owner())
+findInCone(entity():pos(),entity():up(),10000,25)
+findSortByDistance(entity():pos()+entity():up()*1000)
+Target = findResult(1)
+
+
+
+
+
+
+
+
+#[
+local Arr = pewFindByCannon(Pew)
+foreach(I,K:number=Arr){
+    local Pos = pewBulletPos(K)
+    local Zboi = Pos:z()-entity():pos():z()
+    if((Zboi>1000&Zboi<1900)||(Zboi>2000&Zboi<2900)||(Zboi>3000&Zboi<3900)||(Zboi>4000&Zboi<4900)||(Zboi>5000&Zboi<5900)){
+        print(Pos:z()+" | "+curtime())    
+    }
 }
+#0.00011420804042192	
 
-rangerHitEntities(0)
-Rang = rangerOffset(10000,BulletPos,vec(0,0,-1))
-Dist = Rang:distance()
 
+#print("BB"+(8689.1513671875-8689.0458984375)/(-2897.8786621094+3810.8078613281))
+
+#AA 0.00011324857699008	
+#BB 0.00011552785264209	
+#CC 0.0001138476916336	
+
+
+#[
+-7530.017578125 | 8688.62109375	
+-6590.0913085938 | 8688.7275390625	
+
+(8688.7275390625-8688.62109375)/(-6590.0913085938--7530.017578125)
+
+
+-3810.8078613281 | 8689.0458984375	
+-2897.8786621094 | 8689.1513671875	
+
+(8689.1513671875-8689.0458984375)/(-2897.8786621094--3810.8078613281)
+
+
+-7535.6362304688 | 8795.818359375	
+-6600.65625 | 8795.9248046875	
+
+(8795.9248046875	-8795.818359375	)/(-6600.65625--7535.6362304688)
+
+
+-4750.9438476563 | 8796.13671875	
+-3836.2116699219 | 8796.2431640625	
+
+(8796.2431640625	-8796.13671875	)/(-)
+
+
+-2928.2287597656 | 8796.3486328125	
+
+
+
+-5804.7177734375 | 8809.2880859375	
+-4882.3056640625 | 8809.39453125	
+
+
+
+
+-3966.6423339844 | 8809.5	
+-3057.7287597656 | 8809.6064453125
+
+-7536.0717773438 | 8829.5458984375	
+-6601.47265625 | 8829.6513671875	
+
+
+
+-4752.521484375 | 8829.8642578125	
+-3838.1704101563 | 8829.9697265625	
+
+
+
+
+
+-2930.5681152344 | 8830.076171875	
+
+
+-7529.0078125 | 8992.2431640625	
+-6588.2255859375 | 8992.3486328125	
+
+
+-3806.3754882813 | 8992.6669921875	
+-2892.5905761719 | 8992.7734375
+
+
+-7394.1040039063 | 9004.333984375	
+-6454.2143554688 | 9004.439453125	
+
+
+-5521.0747070313 | 9004.5458984375	
+-4594.6840820313 | 9004.6513671875	
+
+
+
+
+-2762.1501464844 | 9004.8642578125	
+
+#runOnTick(1)
+#[if(!perf()){reset()}
 #print(Dist)
-for(I=0,1000,10){
-if(!(Dist<10)&!(BulletPos:distance(Target:pos())<500)){
+for(I=0,100,5){
+if(!(BulletPos:distance(Target:pos())<400)){
 if (Grav & Grav > 0) {
 		Vel = Vel - vec(0,0,Grav) * Tk
 	}
 	BulletPos = BulletPos + Vel * Tk
 
 }
- holoCreate(1,BulletPos)
-if(I>=1000){
-    print(BulletPos:distance(Target:pos()))
-    reset()    
+ #holoCreate(1,BulletPos)
+if(I>=100){
+    #print(BulletPos:distance(Target:pos()))
+    if(BulletPos:distance(Target:pos())<400){
+        Debug3=1
+        if(!NotGot){
+            Timey = systime()
+        #Time2 = 0.00011420804042192	* entity():pos():distance(Target:pos())#(systime()-(StartTime))*1500
+        NotGot = 1
+        }
+        #print("hi")
+    }
+    #135*100 = 13500 per tick
+    else{
+    Debug3 = 0  
+    reset()  
+    }
+       
 }
 }
-if(BulletPos:distance(Target:pos())<500){
+#if(first()#[clk("revel")&((Dist<10)&(BulletPos:distance(Target:pos())<500))]##){
+    #Grav = gravity()
+    #Tk = tickInterval()
+    #print(Tk*1000)
+    
+    #PewDirection = entity():up()
+    #BulletPos = entity():pos()
+    #SpeedOffset = randint(1,0.02)
+    #SpeedOffset = 1
+    #Vel = (PewDirection * 135 * SpeedOffset * (1/Tk)) * (Tk/(1/66))   
+    #StartTime = systime()
+    #Target = findPlayerByName("[BM] Dolphin-Gineer")
+#}
+        #print(BulletPos:distance(Target:pos())/100)
+#print((sqrt(2)*Vel)/Grav)
+#[if(BulletPos:distance(Target:pos())<400){
     #print("hi")
 }
 if(owner():keyUse()){reset()}
@@ -96,3 +217,4 @@ BULLET.AmmoReloadtime = 0
 BULLET.Lifetime = nil
 BULLET.ExplodeAfterDeath = true
 BULLET.EnergyPerShot = 2000
+]#

@@ -1,4 +1,4 @@
-@name Explosive Sniper
+@name Explosive mg
 @persist Target:vector PlayerPos:vector Gunpos:vector GunAng:angle PPos:vector 
 @persist Clicked:number PewGun:entity
 interval(15)
@@ -10,7 +10,7 @@ if(first()){
 #we need to make sure owner is in pvp
 if(owner():playerIsInPvp()){
     #and with the certain gun
-    if(owner():weapon():type()=="m9k_barret_m82"){
+    if(owner():weapon():type()=="pac_ar2"){
         #get owners shoot position
         PlayerPos = owner():shootPos()
         #get target
@@ -21,11 +21,11 @@ if(owner():playerIsInPvp()){
         #create a holo at the origin
         holoCreate(1,vec(0,0,0))
         #and put a holo behind the first one a little bit
-        holoCreate(2,vec(-100,0,0))
+        holoCreate(2,vec(100,0,0))
         #now lets parent them so that when we rotate the first one it rotates the second
         holoParent(2,1)
         #lets position the first one at the target
-        holoPos(1,Target)
+        holoPos(1,PlayerPos+vec(randint(-25,25),randint(-25,25),randint(-25,25)))
         #rotate the first one which rotates the second
         holoAng(1,GunAng - ang(90,0,0))
         #make them invisible
@@ -42,12 +42,12 @@ if(owner():playerIsInPvp()){
         }
         #spawn pewpew when shot
     if(clk("Boom")){
-        PewGun = pewCreate("Flak Cannon","models/props_junk/PopCan01a.mdl",Gunpos,GunAng)
+        PewGun = pewCreate("Arx Bore","models/props_junk/PopCan01a.mdl",Gunpos,GunAng)
         PewGun:pewFire(1)   
          
         #start delete and reload timer
         timer("delete",25)
-        timer("unclick",(60/50)*1000) 
+        timer("unclick",30) 
     }
 }
 #delete pewpew
