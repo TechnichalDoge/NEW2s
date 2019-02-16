@@ -16,7 +16,7 @@ W = PodBoi["W",number]
 S = PodBoi["S",number]
 A = PodBoi["A",number]
 D = PodBoi["D",number]
-Fire = PodBoi["Mouse1",number]
+Fire = PodBoi["",number]
 W = PodBoi["W",number]
 W = PodBoi["W",number]
 if(
