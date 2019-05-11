@@ -1,22 +1,9 @@
-@name 
+@name test
 @inputs 
-@outputs 
+@outputs Array:array
 @persist 
 @trigger 
-interval(tickInterval()*5000)
-#    PewDirection = entity():up()
-#    BulletPos = entity():pos()
-#    SpeedOffset = randint(1,0.02)
-#    Vel = (PewDirection * 135 * SpeedOffset * (1/Tk)) * (Tk/(1/66))   
-#    StartTime = curtime()
-#		Vel = Vel - vec(0,0,Grav) * Tk
 
-for(I=-250,250,5){
-    local Pos = -1*(I+0)^2+0
-    holoCreate(I+250,entity():pos()+vec(I,0,Pos))
-    
-    #y=m(x+a)^2+b
-}
-#0 = 135 + (-gravity())*t
-#t=135/gravity()
-print(2*(135/gravity()))
+Array=pewFindInBox(entity():pos()-vec(10,10,0),entity():pos()+vec(10,10,10000))
+holoCreate(1,entity():pos()+vec(0,0,5000))
+holoScaleUnits(1,vec(20,20,10000))

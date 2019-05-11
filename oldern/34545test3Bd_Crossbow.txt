@@ -12,10 +12,10 @@ function holo (Ent:entity,Ang:angle,I:number){
     holoAng(I,Ang+(ang(0,0,0)))
    #holoModel(I,"models/props_lab/cactus.mdl")
     #holoModel(I,"models/Items/AR2_Grenade.mdl")
-    holoModel(I,"models/Items/hevsuit.mdl")
+    #holoModel(I,"models/Items/hevsuit.mdl")
         #holoModel(I,"models/Humans/Group03/male_07.mdl")
     #holoModel(I,"models/props_c17/doll01.mdl")
-    #holoModel(I,"models/Gibs/HGIBS.mdl")
+    holoModel(I,"models/Gibs/HGIBS.mdl")
     
         #holoModel(I,"models/props_c17/doll01.mdl")    
                 #holoModel(I,"models/props_phx/trains/fsd-overrun2.mdl")  

@@ -1,0 +1,8 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnKeys(owner(),1)
+print(owner():keyPressed("Mouse_right"))

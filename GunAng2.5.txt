@@ -1,11 +1,9 @@
-@name GunAng3.25
+@name GunAng2.5
 @inputs Gun:wirelink CamController:wirelink Chair:entity EGP:wirelink
 @outputs Angles:angle
 @persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
 @persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
-@persist GunE:entity Fire:number Inactive:number FireLocation:vector 
-@persist True False
-@persist Sizes:table Colors:table Positions:table Type:table Controls:table 
+@persist Controls:table GunE:entity Fire:number Inactive:number FireLocation:vector
 runOnTick(1)
 
 if(first()||dupefinished()||Chair:driver() == noentity()){
@@ -19,29 +17,10 @@ if(first()||dupefinished()||Chair:driver() == noentity()){
     Controls["Fire",string] = "MOUSE1"
     Controls["Change Angle",string] = "MOUSE2"
     
-    #Options are BCircle (a big circle in the center), ICircle ( a smaller circle in center ), HLine (a line horizontally that goes from left to right),
-    #VLine ( a verticle line through center from top to bottom)
-    #TVBPost ( a tpost coming from Bottom ), TVTPost ( tpost coming from top )
-    # THLPost (tpost from left) THRPost (Tpost from right),
-    # TVBFPost ( a flat tpost coming from Bottom ), TVTFPost ( flat tpost coming from top )
-    # THLFPost (flat tpost from left) THRFPost (flat Tpost from right),
-    Type["Crosshair",string] = "BCircle ICircle HLine"
-    
-    
-    Colors["Crosshairs",vector4] = vec4(255,0,0,255)
-    Positions["Crosshairs",vector2] = vec2(0,0)
-    
     
     CamSpeed = 5
     CamHeight = 1000
     CamPos = vec(0,0,CamHeight)
-    True = 1
-    False = 0 
-    
-    function vector2 centerEGPOBJ(TheEgp:wirelink,Pos:vector2){
-        local EGPCENTER = TheEgp:egpSize()/2
-        return Pos+EGPCENTER
-    }
 }
 
 Driver = Chair:driver()
@@ -122,16 +101,15 @@ if(!Inactive){
     GunE:setAng(GunMeanAngles)
     
     
-    #----------------------------EGP-------------------------#
-    EGP:egpDrawTopLeft(False)
-    
-    local TypesSelected = Type["Crosshair",string]:explode(" ")
-    if(TypesSelected:indexOf("")
-
-    EGP:egpCircleOutline(1,)
     
     
+    #[
+    holoCreate(1,EPos)
+    holoPos(1,EPos+vec(Dists:x()/2*cos(Yaw),Dists:x()/2*sin(Yaw),0))
+    holoAng(1,ang(0,Yaw,0))
+    holoScaleUnits(1,vec(Dists:x(),10,10))
+    holoCreate(2,EPos+vec(Dists:x()*cos(Yaw),Dists:x()*sin(Yaw),Dists:y()/2))
+    holoScaleUnits(2,vec(10,10,Dists:y()))
     
-    
-    
+    ]#
 }

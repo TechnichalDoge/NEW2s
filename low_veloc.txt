@@ -1,0 +1,11 @@
+@name low veloc
+@inputs TargetAll:vector
+@outputs 
+@persist AngleU:number AngleD:number Angles:array Target:vector2 
+runOnTick(1)
+
+local MagicNum = 44 + 2/3
+Target = vec2(sqrt((TargetAll:x()-entity():pos():x())^2+(TargetAll:y()-entity():pos():y())^2),(TargetAll:z()-entity():pos():z()))
+AngleU = atan((MagicNum^2+sqrt(MagicNum^4 - gravity()*(gravity()*Target:x()^2+2*Target:y()*MagicNum^2)))/(gravity()*Target:x()))
+AngleD = atan((MagicNum^2-sqrt(MagicNum^4 - gravity()*(gravity()*Target:x()^2+2*Target:y()*MagicNum^2)))/(gravity()*Target:x()))
+print(AngleU)

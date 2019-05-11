@@ -3,7 +3,7 @@
 @outputs  Time2
 @persist Target:entity MagicFlakNumber
 #flak
-MagicFlakNumber = 0.00011420804042192
+MagicFlakNumber = 0.00009920804042192 #0.00011420804042192
 interval(125)
 beamPoint(1,entity():pos())
 beamPoint(2,entity():pos()+entity():up()*entity():pos():distance(Target:pos()))
@@ -15,11 +15,11 @@ findIncludeClass("player")
 findExcludeEntities(getBuilders())
 #findExcludePlayerProps(owner())
 findInCone(entity():pos(),entity():up(),10000,25)
-findSortByDistance(entity():pos()+entity():up()*1000)
+#findSortByDistance(entity():pos()+entity():up()*1000)
 Target = findResult(1)
 
 
-
+#print(1/(135 * (tickInterval()*1000))/4)
 
 
 

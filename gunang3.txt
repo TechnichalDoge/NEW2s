@@ -1,11 +1,10 @@
-@name GunAng3.25
+@name GunAng3
 @inputs Gun:wirelink CamController:wirelink Chair:entity EGP:wirelink
 @outputs Angles:angle
 @persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
 @persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
-@persist GunE:entity Fire:number Inactive:number FireLocation:vector 
+@persist Controls:table GunE:entity Fire:number Inactive:number FireLocation:vector Colors:table Positions:table
 @persist True False
-@persist Sizes:table Colors:table Positions:table Type:table Controls:table 
 runOnTick(1)
 
 if(first()||dupefinished()||Chair:driver() == noentity()){
@@ -18,15 +17,6 @@ if(first()||dupefinished()||Chair:driver() == noentity()){
     Controls["Back",string] = "S"
     Controls["Fire",string] = "MOUSE1"
     Controls["Change Angle",string] = "MOUSE2"
-    
-    #Options are BCircle (a big circle in the center), ICircle ( a smaller circle in center ), HLine (a line horizontally that goes from left to right),
-    #VLine ( a verticle line through center from top to bottom)
-    #TVBPost ( a tpost coming from Bottom ), TVTPost ( tpost coming from top )
-    # THLPost (tpost from left) THRPost (Tpost from right),
-    # TVBFPost ( a flat tpost coming from Bottom ), TVTFPost ( flat tpost coming from top )
-    # THLFPost (flat tpost from left) THRFPost (flat Tpost from right),
-    Type["Crosshair",string] = "BCircle ICircle HLine"
-    
     
     Colors["Crosshairs",vector4] = vec4(255,0,0,255)
     Positions["Crosshairs",vector2] = vec2(0,0)
@@ -124,11 +114,8 @@ if(!Inactive){
     
     #----------------------------EGP-------------------------#
     EGP:egpDrawTopLeft(False)
-    
-    local TypesSelected = Type["Crosshair",string]:explode(" ")
-    if(TypesSelected:indexOf("")
 
-    EGP:egpCircleOutline(1,)
+    #EGP:egpCircleOutline()
     
     
     

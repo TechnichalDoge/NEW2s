@@ -1,0 +1,20 @@
+@name aimbot
+@inputs CamController:wirelink
+@persist Ranger:ranger Valids:array
+@outputs Name:entity Valids:array
+runOnTick(1)
+CamController["Activated",number] = 1
+CamController["Position",vector] = owner():shootPos()
+foreach(I,K:entity = getPvpers()){ #getPvpers() players()
+    Ranger=rangerOffset(10000,owner():shootPos(),vec(owner():shootPos():toAngle(K:shootPos())))
+    if(!Ranger:hitWorld()){
+        Valids[I,entity] = K
+    }
+    else{
+        Valids[I,entity] = noentity()    
+    }
+}
+CamController["Angle",angle] = owner():shootPos():toAngle(Valids[1,entity]:shootPos())
+if(owner():keyPressed("k")){
+    error("quitted")
+}

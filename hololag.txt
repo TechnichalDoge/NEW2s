@@ -1,0 +1,11 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+for(I=0,10000){
+        if(!perf()){break}   
+        holoCreate(I,entity():pos()+vec(random()*100,random()*100,random()*100))    
+    }
+reset()

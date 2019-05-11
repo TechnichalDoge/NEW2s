@@ -1,0 +1,16 @@
+@name Plasma
+@inputs TargetAll:vector Gun:entity
+@outputs 
+@persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2
+runOnTick(1)
+
+local MagicNum = 30
+local Grav = 0.13774078411188
+Locality = vec2(vec2(entity():pos():x(),entity():pos():y()):distance(vec2(TargetAll:x(),TargetAll:y())),TargetAll:z()-entity():pos():z())
+Target = Locality
+AngleU = atan((MagicNum^2+sqrt(MagicNum^4 - Grav*(Grav*Target:x()^2+2*Target:y()*MagicNum^2)))/(Grav*Target:x()))
+AngleD = atan((MagicNum^2-sqrt(MagicNum^4 - Grav*(Grav*Target:x()^2+2*Target:y()*MagicNum^2)))/(Grav*Target:x()))
+#print(AngleU)
+Angles = ang(AngleU-90,(entity():pos():toAngle(TargetAll)):yaw(),0)
+Gun:setAng(Angles)
+#print(gravity())

@@ -2,8 +2,8 @@
 @inputs PodBoi:wirelink PewPew:wirelink
 @persist Magic_Flak_Number:number RandBoi:number
 @persist Addboi:angle StartingAng:angle
-@persist SpeedMod:number W A S D Fire ChangeTargetFrd
-@persist ChangeTargetBack LifeTime
+@persist SpeedMod:number Controls:array#W A S D Fire 
+@persist ChangeTargetBack ChangeTargetFrd LifeTime 
 
 if(first()){
     SpeedMod = 1.1    
@@ -12,13 +12,15 @@ if(first()){
     
 }
 interval(20)
+ChangeTargetFrd = PodBoi["Shift",number]
+Controls = array(PodBoi["W",number]#[W]#,PodBoi["A",number]#[A]#,PodBoi["S",number]#[S]#,PodBoi["D",number]#[D]#,PodBoi["Mouse1",number]#[Shoot]#,ChangeTargetFrd,ChangeTargetBack)
 W = PodBoi["W",number]
 S = PodBoi["S",number]
 A = PodBoi["A",number]
 D = PodBoi["D",number]
-Fire = PodBoi["",number]
+Fire = PodBoi["Mouse1",number]
 W = PodBoi["W",number]
-W = PodBoi["W",number]
+ChangeTargetFrd = PodBoi["W",number]
 if(
 
 

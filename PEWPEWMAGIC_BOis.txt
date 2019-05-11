@@ -1,0 +1,4 @@
+["Flak|135","Low Velocity|44.6666666"]
+#Flak stated speed:135
+#flak magic number 0.00009920804042192
+#Lv stated Velocity:45

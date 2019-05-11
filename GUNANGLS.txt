@@ -1,0 +1,28 @@
+@name GunAng
+@inputs TargetAll:vector Gun:entity
+@outputs 
+@persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number
+runOnTick(1)
+
+MagicNum = 45
+Grav = Gun:pewGravity()
+EPos = Gun:pos()
+print(pewBulletInfo(Gun:pewBulletName()))
+Locality = (vec2(TargetAll) - vec2(EPos))
+DistY = TargetAll:z() - EPos:z()
+DistX = sqrt(Locality:x()^2+Locality:y()^2)
+Target = vec2(DistX,DistY)
+Yaw = atan(Locality:y(),Locality:x())
+AngleU = atan((MagicNum^2+sqrt(MagicNum^4 - Grav*(Grav*DistX^2+2*DistY*MagicNum^2)))/(Grav*DistX))
+AngleD = atan((MagicNum^2-sqrt(MagicNum^4 - Grav*(Grav*DistX^2+2*DistY*MagicNum^2)))/(Grav*DistX))
+#print(AngleU)
+Angles = ang(AngleD-90,Yaw+180,0)
+Gun:setAng(Angles)
+#print(gravity())
+holoCreate(1,EPos)
+holoPos(1,EPos+vec(DistX/2*cos(Yaw),DistX/2*sin(Yaw),0))
+holoAng(1,ang(0,Yaw,0))
+holoScaleUnits(1,vec(DistX,10,10))
+holoCreate(2,EPos+vec(DistX*cos(Yaw),DistX*sin(Yaw),DistY/2))
+holoScaleUnits(2,vec(10,10,DistY))
+

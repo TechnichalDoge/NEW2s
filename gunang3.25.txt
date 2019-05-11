@@ -126,7 +126,6 @@ if(!Inactive){
     EGP:egpDrawTopLeft(False)
     
     local TypesSelected = Type["Crosshair",string]:explode(" ")
-    if(TypesSelected:indexOf("")
 
     EGP:egpCircleOutline(1,)
     

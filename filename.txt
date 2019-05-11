@@ -1,0 +1,13 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+if(first()) {
+    beamSetOriginParent(entity()) #I think this is how you initailize the beam maybe probably?
+    beamSize(15)
+    beamPoint(1,entity():pos())  #this won't follow the chip, because it's a position
+    beamPoint(2,findPlayerByName("Logica")) #this will follow the player, because it's an entity
+    
+}

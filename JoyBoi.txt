@@ -1,0 +1,15 @@
+@name JoyBoi
+@inputs PodController:wirelink Ent:entity
+@persist Target:angle BaseAng:angle
+@persist HorzAdd VertAdd AngAdd:angle
+
+runOnTick(1)
+#include "mapfunction"
+
+if(PodController["Active",number]==1){
+HorzAdd = (mapNum(PodController["Bearing",number],-180,180,-1,1,1))
+VertAdd = (mapNum(PodController["Elevation",number],-180,180,-1,1,1))
+AngAdd = ang(-HorzAdd,-VertAdd,0)
+Target = Target + AngAdd
+}
+Ent:setAng(Target)

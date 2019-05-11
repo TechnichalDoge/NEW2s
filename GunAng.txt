@@ -1,0 +1,75 @@
+@name GunAng
+@inputs Gun:entity CamController:wirelink PodController:wirelink
+@inputs TargetAll:vector
+@outputs CamPos:vector CamMax:number CamHeight:number TraceD:number UD:number 
+@persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
+@persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number TraceCam:ranger CamHeightOrg:number
+runOnTick(1)
+
+if(first()||dupefinished()||Chair:driver() == noentity()){
+    CamSpeed = 5
+    CamHeight = 1000
+    CamPos = vec(0,0,CamHeight)
+}
+Chair = PodController["Entity",entity]
+Active = PodController["Active",number]
+CamController["Activated",number] = Active
+CamController["Angle",angle] = ang(90,90,0)
+CamController["Parent",entity] = Chair
+UD = (PodController["Space",number] - PodController["Shift",number]) * CamSpeed
+FB = (PodController["W",number] - PodController["S",number]) * CamSpeed
+LR = (PodController["D",number] - PodController["A",number]) * CamSpeed
+Veloc = Gun:pewSpeed()
+Grav = Gun:pewGravity()
+EPos = Gun:pos()
+CamMax = (Veloc^2)/Grav
+
+if(!(CamPos + Chair:pos()):isInWorld()){
+    CamPos = CamPos + vec(0,0,1000)    
+}
+if(Chair:pos():distance(CamController["HitPos",vector]) < CamMax){
+    CamPos = CamPos + vec(LR,FB,UD)
+}
+
+CamController["Position",vector] = CamPos
+
+Locality = (vec2(TargetAll) - vec2(EPos))
+DistY = TargetAll:z() - EPos:z()
+DistX = sqrt(Locality:x()^2+Locality:y()^2)
+Target = vec2(DistX,DistY)
+Yaw = atan(Locality:y(),Locality:x())+180
+
+
+AngleU = atan((Veloc^2+sqrt(Veloc^4 - Grav*(Grav*DistX^2+2*DistY*Veloc^2)))/(Grav*DistX))-90
+AngleD = atan((Veloc^2-sqrt(Veloc^4 - Grav*(Grav*DistX^2+2*DistY*Veloc^2)))/(Grav*DistX))-90
+
+
+Angles = ang(AngleD,Yaw,0)
+
+if(Gun:angles():yaw() < Angles:yaw()){
+    GunMeanAngles += ang(0,0.3,0)   
+}
+if(Gun:angles():yaw() > Angles:yaw()){
+    GunMeanAngles += ang(0,-0.3,0)    
+}
+if(Gun:angles():pitch() < Angles:pitch()){
+    GunMeanAngles += ang(0.1,0,0)    
+}
+if(Gun:angles():pitch() > Angles:pitch()){
+    GunMeanAngles += ang(-0.1,0,0)    
+}
+Gang = Gun:angles() + " " + Angles:pitch()
+Gun:setAng(GunMeanAngles)
+
+
+
+
+#[
+holoCreate(1,EPos)
+holoPos(1,EPos+vec(DistX/2*cos(Yaw),DistX/2*sin(Yaw),0))
+holoAng(1,ang(0,Yaw,0))
+holoScaleUnits(1,vec(DistX,10,10))
+holoCreate(2,EPos+vec(DistX*cos(Yaw),DistX*sin(Yaw),DistY/2))
+holoScaleUnits(2,vec(10,10,DistY))
+
+]#
