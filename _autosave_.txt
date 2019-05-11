@@ -1,137 +1,39 @@
-@name GunAng3.25
-@inputs Gun:wirelink CamController:wirelink Chair:entity EGP:wirelink
-@outputs Angles:angle
-@persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
-@persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
-@persist GunE:entity Fire:number Inactive:number FireLocation:vector 
-@persist True False
-@persist Sizes:table Colors:table Positions:table Type:table Controls:table 
-runOnTick(1)
+@name Logica's Homebrew Wallbrew
+@inputs EGP:wirelink
+@outputs
+@persist A:vector
+@trigger 
 
-if(first()||dupefinished()||Chair:driver() == noentity()){
-    #Controls
-    Controls["Up",string] = "Space"
-    Controls["Down",string] = "Shift"
-    Controls["Left",string] = "A"
-    Controls["Right",string] = "D"
-    Controls["Forward",string] = "W"
-    Controls["Back",string] = "S"
-    Controls["Fire",string] = "MOUSE1"
-    Controls["Change Angle",string] = "MOUSE2"
-    
-    #Options are BCircle (a big circle in the center), ICircle ( a smaller circle in center ), HLine (a line horizontally that goes from left to right),
-    #VLine ( a verticle line through center from top to bottom)
-    #TVBPost ( a tpost coming from Bottom ), TVTPost ( tpost coming from top )
-    # THLPost (tpost from left) THRPost (Tpost from right),
-    # TVBFPost ( a flat tpost coming from Bottom ), TVTFPost ( flat tpost coming from top )
-    # THLFPost (flat tpost from left) THRFPost (flat Tpost from right),
-    Type["Crosshair",string] = "BCircle ICircle HLine"
-    
-    
-    Colors["Crosshairs",vector4] = vec4(255,0,0,255)
-    Positions["Crosshairs",vector2] = vec2(0,0)
-    
-    
-    CamSpeed = 5
-    CamHeight = 1000
-    CamPos = vec(0,0,CamHeight)
-    True = 1
-    False = 0 
-    
-    function vector2 centerEGPOBJ(TheEgp:wirelink,Pos:vector2){
-        local EGPCENTER = TheEgp:egpSize()/2
-        return Pos+EGPCENTER
+runOnDisconnect(1)
+runOnChat(1)
+
+runOnConnect(1)
+#runOnTick(1)
+if(changed(EGP)|first()|connectClk()|disconnectClk()){
+    EGP:egpClear()
+    foreach(I,PlayT:entity=players()){
+      
+        local Ib = I +40
+        local Ic = I +80
+        local Id = I + 120
+        #if(Ib>900)
+        #{
+        #    print(1)
+        #}
+        EGP:egp3DTracker(I,vec(0)) #changed pos to vec(0)
+        EGP:egpParent(I,PlayT)
+        #removed redundant set pos line 
+        EGP:egpBoxOutline(Ib,vec2(0),vec2(20,20)) #set pos to 0
+        EGP:egpParent(Ib,I)
+        EGP:egpText(Ic,PlayT:name(),vec2(0))
+        EGP:egpColor(Ic,teamColor(PlayT:team()))
+        EGP:egpParent(Ic,I)
+        if(PlayT:playerIsInPvp()){A=vec(255,0,0)}else{A=vec(0,255,0)}
+        EGP:egpBox(Id,vec2(0),vec2(10,10))           
+        EGP:egpColor(Id,A)
+        EGP:egpAlpha(100)
+        EGP:egpParent(Id,I)
+         #removed redundant egpPos line
     }
 }
-
-Driver = Chair:driver()
-Active = Driver != noentity()
-runOnKeys(Driver,Active)
-
-if(!Active){
-    timer("inactivate",250)
-}
-if(clk("inactivate")){
-    Inactive = 1
-} else{
-    Inactive = 0
-}
-
-if(!Inactive){
-    GunE = Gun["Cannon",entity]
-    Veloc = GunE:pewSpeed()
-    Grav = GunE:pewGravity()
-    EPos = GunE:pos()
-    CamMax = (Veloc^2)/Grav
     
-    if(Driver:keyPressed(Controls["Fire",string])){
-        Gun["Fire",number] = 1    
-    } else{
-        Gun["Fire",number] = 0
-    }
-    
-    if(Driver:keyPressed(Controls["Change Angle",string])){
-        DirectionFlicker += 1  
-    }
-    DirectionFlicker = DirectionFlicker % 2
-    
-    if(!((CamPos + Chair:pos()):isInWorld()) || CamController["Trace",ranger]:distance() > 50000){
-        CamPos = CamPos + vec(0,0,100)    
-    }
-    elseif(Chair:pos():distance(CamController["HitPos",vector]) < CamMax){
-        CamPos = CamPos + vec(LR,FB,UD)
-    }
-    
-    UD = (Driver:keyPressed(Controls["Up",string]) - Driver:keyPressed(Controls["Down",string])) * CamSpeed
-    FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * CamSpeed
-    LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * CamSpeed
-    
-    CamController["Activated",number] = Active
-    CamController["Angle",angle] = ang(90,90,0)
-    CamController["Parent",entity] = Chair
-    CamController["Position",vector] = CamPos
-    
-    FireLocation = CamController["HitPos",vector]
-    
-    Locality = (vec2(FireLocation) - vec2(EPos))
-    Dists = vec2( sqrt(Locality:x()^2+Locality:y()^2) , FireLocation:z() - EPos:z() )
-    Yaw = atan(Locality:y(),Locality:x())+180
-    AngleU = atan((Veloc^2+sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
-    AngleD = atan((Veloc^2-sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
-    
-    if(DirectionFlicker == 0){
-        Angles = ang(AngleU,Yaw,0)
-    }
-    elseif(DirectionFlicker == 1){
-        Angles = ang(AngleD,Yaw,0)
-    }
-    
-    if(GunE:angles():yaw() < Angles:yaw()){
-        GunMeanAngles += ang(0,0.3,0)   
-    }
-    if(GunE:angles():yaw() > Angles:yaw()){
-        GunMeanAngles += ang(0,-0.3,0)    
-    }
-    if(GunE:angles():pitch() < Angles:pitch()){
-        GunMeanAngles += ang(0.1,0,0)    
-    }
-    if(GunE:angles():pitch() > Angles:pitch()){
-        GunMeanAngles += ang(-0.1,0,0)    
-    }
-    
-    GunE:setAng(GunMeanAngles)
-    
-    
-    #----------------------------EGP-------------------------#
-    EGP:egpDrawTopLeft(False)
-    
-    local TypesSelected = Type["Crosshair",string]:explode(" ")
-    if(TypesSelected:indexOf("")
-
-    EGP:egpCircleOutline(1,)
-    
-    
-    
-    
-    
-}
