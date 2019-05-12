@@ -156,7 +156,8 @@ if(!Inactive){
 
     foreach(K,V:string=TypesSelected){
       if(V == "BCircle"){
-
+      local Positron = Positions["CircleCenters",vector2]
+      EGP:egpCircleOutline(1,centerEGPOBJ(EGP,Positron))
       }
       if(V == "ICircle"){
 
