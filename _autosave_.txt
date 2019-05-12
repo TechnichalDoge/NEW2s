@@ -8,10 +8,7 @@
 @persist Sizes:table Colors:table Positions:table Type:table Controls:table
 runOnTick(1)
 
-if(first()||dupefinished()){
-  EGP:egpClear()
-}
-if((first()||dupefinished() || Chair:driver() == noentity())){
+if((first()||dupefinished())||changed(Driver)){
 
     Driver = Chair:driver()
 
@@ -93,6 +90,12 @@ if((first()||dupefinished() || Chair:driver() == noentity())){
 }
 
 Driver = Chair:driver()
+
+if(Chair:driver() == noentity()){
+    reset()
+    EGP:egpClear()
+}
+
 EGPSIZE = egpScrSize(Driver)
 Active = Driver != noentity()
 runOnKeys(Driver,Active)
