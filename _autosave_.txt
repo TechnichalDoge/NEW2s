@@ -312,10 +312,4 @@ if(!Inactive){
         EGP:egpSize(K,Sizotron:z())
       }
     }
-    #EGP:egpCircleOutline(1,)
-
-
-
-
-
 }
