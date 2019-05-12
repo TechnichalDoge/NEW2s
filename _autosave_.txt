@@ -2,10 +2,10 @@
 @inputs Gun:wirelink CamController:wirelink Chair:entity EGP:wirelink
 @outputs Angles:angle
 @persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
-@persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
+@persist FB:number LR:number UD:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
 @persist GunE:entity Fire:number Inactive:number FireLocation:vector
 @persist True False EGPSIZE:vector2
-@persist Sizes:table Colors:table Positions:table Type:table Controls:table
+@persist Sizes:table Colors:table Positions:table Type:table Controls:table Configurations:table
 runOnTick(1)
 
 if((first()||dupefinished())||changed(Driver)){
@@ -21,6 +21,12 @@ if((first()||dupefinished())||changed(Driver)){
     Controls["Back",string] = "S"
     Controls["Fire",string] = "mouse_left"
     Controls["Change Angle",string] = "mouse_right"
+    Controls["Speed Up",string] = "LALT"
+
+    Configurations["Base Speed",number] = 5
+    Configurations["Speed Up Speed",number] = 15
+    Configurations["Cam Height At Start",number] = 1000
+
 
     EGPSIZE = egpScrSize(Driver)
 
@@ -79,11 +85,11 @@ if((first()||dupefinished())||changed(Driver)){
     Positions["THRFPost",vector4] = vec4(EGPSIZE:x()/2,0,Sizes["THRFPost",vector]:y(),0)
 
 
-    CamSpeed = 5
-    CamHeight = 1000
-    CamPos = vec(0,0,CamHeight)
+    CamPos = vec(0,0,Configurations["Cam Height At Start",number])
+
     True = 1
     False = 0
+
     function vector2 centerToEgp(Dreever:entity,Positan:vector2){
       return Positan+(egpScrSize(Dreever)/2)
     }
@@ -126,19 +132,23 @@ if(!Inactive){
         DirectionFlicker = DirectionFlicker % 2
     }
 
-
-
-    UD = (Driver:keyPressed(Controls["Up",string]) - Driver:keyPressed(Controls["Down",string])) * CamSpeed
-    FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * CamSpeed
-    LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * CamSpeed
-    
+    if(Driver:keyPressed(Controls["Speed Up",string])){
+        UD = (Driver:keyPressed(Controls["Up",string]) - Driver:keyPressed(Controls["Down",string])) * Configurations["Speed Up Speed",number]
+        FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * Configurations["Speed Up Speed",number]
+        LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * Configurations["Speed Up Speed",number]
+    }
+    else{
+        UD = (Driver:keyPressed(Controls["Up",string]) - Driver:keyPressed(Controls["Down",string])) * Configurations["Base Speed",number]
+        FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * Configurations["Base Speed",number]
+        LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * Configurations["Base Speed",number]
+    }
     if(!((CamPos + Chair:pos()):isInWorld()) || CamController["Trace",ranger]:distance() > 50000){
         CamPos = CamPos + vec(0,0,100)
     }
     else{
         CamPos = CamPos + vec(LR,FB,UD)
     }
-    
+
     CamController["Activated",number] = Active
     CamController["Angle",angle] = ang(90,90,0)
     CamController["Parent",entity] = Chair
