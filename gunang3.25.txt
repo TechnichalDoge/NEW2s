@@ -180,7 +180,11 @@ if(!Inactive){
         EGP:egpColor(1,Colorinos)
       }
       if(V == "icircle"){
-
+        local Positron = Positions["ICircle",vector2]
+        local Sizotron = Sizes["ICircle",vector2]
+        local Colorinos = Colors["ICircle",vector4]
+        EGP:egpCircleOutline(1,centerToEgp(Driver,Positron),Sizotron)
+        EGP:egpColor(1,Colorinos)
       }
       if(V == "hline"){
 
