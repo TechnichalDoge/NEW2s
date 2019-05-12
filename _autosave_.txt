@@ -1,26 +1,308 @@
-@name thingy
-@inputs Target1:vector Target2:vector
-@outputs Inbetween:vector Size:vector Angles:angle
-@persist Distance:number Dist2:number
-@persist Locality:vector
+@name GunAng3.25
+@inputs Gun:wirelink CamController:wirelink Chair:entity EGP:wirelink
+@outputs Angles:angle
+@persist AngleU:number AngleD:number Angles:angle Target:vector2 Locality:vector2 DistX:number DistY:number EPos:vector Yaw:number Grav:number Veloc:number GunMeanAngles:angle GunMoveSpeed:number
+@persist FB:number LR:number UD:number CamSpeed:number CamHeight:number CamPos:vector CamMax:number Chair:entity Active:number Driver:entity DirectionFlicker:number
+@persist GunE:entity Fire:number Inactive:number FireLocation:vector
+@persist True False EGPSIZE:vector2
+@persist Sizes:table Colors:table Positions:table Type:table Controls:table
+runOnTick(1)
 
-Locality = Target2 - Target1 # get the local position to Target1 
-Distance = Locality:length() # get the distance between the two by getting the length (uses the pythagorean therom on all the values of the vector https://github.com/wiremod/wire/blob/master/lua/entities/gmod_wire_expression2/core/vector.lua#L52) 
-# of the local vector
-Dist2 = vec2(Locality):length() # gets the distance in only the x and y points by getting the length of the vector 2 form of the vector ( doing vec2(vector) drops the z value)
+if(first()||dupefinished()){
+  EGP:egpClear()
+}
+if((first()||dupefinished() || Chair:driver() == noentity())){
 
-Size = vec(15,15,Distance) #We know the distance between the two, we would like the holo or whatever to span that distance ( if rotated )
+    Driver = Chair:driver()
 
-Angles = ang( atan(Locality:z()/Dist2)#[gets the arc tangent of the tangent of the Distance between x and y and the local z]#, atan(Locality:y()/Locality:x())#[gets the arc tangent of the tangent of the local x and y]#,0)
+    #Controls
+    Controls["Up",string] = "Space"
+    Controls["Down",string] = "LSHIFT"
+    Controls["Left",string] = "A"
+    Controls["Right",string] = "D"
+    Controls["Forward",string] = "W"
+    Controls["Back",string] = "S"
+    Controls["Fire",string] = "mouse_left"
+    Controls["Change Angle",string] = "mouse_right"
 
-#[
-arctangent is the inverse of tangent
-tangent(angle) = y/x
-arctangent(y/x) = angle
+    EGPSIZE = egpScrSize(Driver)
 
-atan(Locality:z()/Dist2)
+    # Options are
+    # BCircle (a big circle in the center),
+    # ICircle ( a smaller circle in center ),
+    # HLine (a line horizontally that goes from left to right),
+    # VLine ( a verticle line through center from top to bottom)
+    # TVBPost ( a tpost coming from Bottom ),
+    # TVTPost ( tpost coming from top )
+    # THLPost (tpost from left)
+    # THRPost (Tpost from right),
+    # TVBFPost ( a flat tpost coming from Bottom ),
+    # TVTFPost ( flat tpost coming from top )
+    # THLFPost (flat tpost from left)
+    # THRFPost (flat Tpost from right),
+    Type["Crosshair",string] = "BCircle ICircle THRPost THLPost TVTPost TVBPost"
+
+    Sizes["BCircle",vector] = vec(20,20,1)
+    Sizes["ICircle",vector] = vec(10,10,1)
+    Sizes["HLine",number] = 5
+    Sizes["VLine",number] = 5
+    Sizes["TVBPost",vector4] = vec4(EGPSIZE:y()/2,0,5,-15)
+    Sizes["TVTPost",vector4] = vec4(EGPSIZE:y()/2,0,5,15)
+    Sizes["THLPost",vector4] = vec4(EGPSIZE:x()/2,0,5,15)
+    Sizes["THRPost",vector4] = vec4(EGPSIZE:x()/2,0,5,-15)
+    Sizes["TVBFPost",vector] = vec(EGPSIZE:y()/2,20,5)
+    Sizes["TVTFPost",vector] = vec(EGPSIZE:y()/2,20,5)
+    Sizes["THLFPost",vector] = vec(EGPSIZE:x()/2,20,5)
+    Sizes["THRFPost",vector] = vec(EGPSIZE:x()/2,20,5)
+
+    Colors["BCircle",vector4] = vec4(255,0,0,255)
+    Colors["ICircle",vector4] = vec4(255,0,0,255)
+    Colors["HLine",vector4] = vec4(255,0,0,255)
+    Colors["VLine",vector4] = vec4(255,0,0,255)
+    Colors["TVBPost",vector4] = vec4(255,0,0,255)
+    Colors["TVTPost",vector4] = vec4(255,0,0,255)
+    Colors["THLPost",vector4] = vec4(255,0,0,255)
+    Colors["THRPost",vector4] = vec4(255,0,0,255)
+    Colors["TVBFPost",vector4] = vec4(255,0,0,255)
+    Colors["TVTFPost",vector4] = vec4(255,0,0,255)
+    Colors["THLFPost",vector4] = vec4(255,0,0,255)
+    Colors["THRFPost",vector4] = vec4(255,0,0,255)
+
+    Positions["BCircle",vector2] = vec2(0,0)
+    Positions["ICircle",vector2] = vec2(0,0)
+    Positions["HLine",vector4] = vec4(-EGPSIZE:x(),0,EGPSIZE:x(),0)
+    Positions["VLine",vector4] = vec4(0,-EGPSIZE:y(),0,EGPSIZE:y())
+    Positions["TVBPost",vector4] = vec4(0,EGPSIZE:y()/2,0,Sizes["TVBPost",vector4]:y())
+    Positions["TVTPost",vector4] = vec4(0,-EGPSIZE:y()/2,0,-Sizes["TVTPost",vector4]:y())
+    Positions["THLPost",vector4] = vec4(-EGPSIZE:x()/2,0,-Sizes["THLPost",vector4]:y(),0)
+    Positions["THRPost",vector4] = vec4(EGPSIZE:x()/2,0,Sizes["THRPost",vector4]:y(),0)
+    Positions["TVBFPost",vector4] = vec4(0,EGPSIZE:y()/2,0,Sizes["TVBFPost",vector]:y())
+    Positions["TVTFPost",vector4] = vec4(0,-EGPSIZE:y()/2,0,-Sizes["TVTFPost",vector]:y())
+    Positions["THLFPost",vector4] = vec4(-EGPSIZE:x()/2,0,-Sizes["THLFPost",vector]:y(),0)
+    Positions["THRFPost",vector4] = vec4(EGPSIZE:x()/2,0,Sizes["THRFPost",vector]:y(),0)
+
+
+    CamSpeed = 5
+    CamHeight = 1000
+    CamPos = vec(0,0,CamHeight)
+    True = 1
+    False = 0
+    function vector2 centerToEgp(Dreever:entity,Positan:vector2){
+      return Positan+(egpScrSize(Dreever)/2)
+    }
+}
+
+Driver = Chair:driver()
+EGPSIZE = egpScrSize(Driver)
+Active = Driver != noentity()
+runOnKeys(Driver,Active)
+
+if(!Active){
+    timer("inactivate",250)
+}
+if(clk("inactivate")){
+    Inactive = 1
+} else{
+    Inactive = 0
+}
+
+if(!Inactive){
+    GunE = Gun["Cannon",entity]
+    Veloc = GunE:pewSpeed()
+    Grav = GunE:pewGravity()
+    EPos = GunE:pos()
+
+    if(Driver:keyPressed(Controls["Fire",string])){
+        Gun["Fire",number] = 1
+    } else{
+        Gun["Fire",number] = 0
+    }
+
+    if(Driver:keyPressed(Controls["Change Angle",string])){
+        DirectionFlicker += 1
+        DirectionFlicker = DirectionFlicker % 2
+    }
 
 
 
-https://www.khanacademy.org/math/trigonometry
-]# 
+    UD = (Driver:keyPressed(Controls["Up",string]) - Driver:keyPressed(Controls["Down",string])) * CamSpeed
+    FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * CamSpeed
+    LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * CamSpeed
+    
+    if(!((CamPos + Chair:pos()):isInWorld()) || CamController["Trace",ranger]:distance() > 50000){
+        CamPos = CamPos + vec(0,0,100)
+    }
+    else{
+        CamPos = CamPos + vec(LR,FB,UD)
+    }
+    
+    CamController["Activated",number] = Active
+    CamController["Angle",angle] = ang(90,90,0)
+    CamController["Parent",entity] = Chair
+    CamController["Position",vector] = CamPos
+
+    FireLocation = CamController["HitPos",vector]
+
+    Locality = (vec2(FireLocation) - vec2(EPos))
+    Dists = vec2( sqrt(Locality:x()^2+Locality:y()^2) , FireLocation:z() - EPos:z() )
+    Yaw = atan(Locality:y(),Locality:x())+180
+    AngleU = atan((Veloc^2+sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
+    AngleD = atan((Veloc^2-sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
+
+    if(DirectionFlicker == 0){
+        Angles = ang(AngleU,Yaw,0)
+    }
+    elseif(DirectionFlicker == 1){
+        Angles = ang(AngleD,Yaw,0)
+    }
+
+    if(GunE:angles():yaw() < Angles:yaw()){
+        GunMeanAngles += ang(0,0.3,0)
+    }
+    if(GunE:angles():yaw() > Angles:yaw()){
+        GunMeanAngles += ang(0,-0.3,0)
+    }
+    if(GunE:angles():pitch() < Angles:pitch()){
+        GunMeanAngles += ang(0.1,0,0)
+    }
+    if(GunE:angles():pitch() > Angles:pitch()){
+        GunMeanAngles += ang(-0.1,0,0)
+    }
+
+    GunE:setAng(GunMeanAngles)
+
+
+    #----------------------------EGP-------------------------#
+    EGP:egpDrawTopLeft(False)
+
+    local TypesSelected = Type["Crosshair",string]:lower():explode(" ")
+
+    foreach(K,V:string=TypesSelected){
+      if(V == "bcircle"){
+        local Positron = Positions["BCircle",vector2]
+        local Sizotron = Sizes["BCircle",vector]
+        local Colorinos = Colors["BCircle",vector4]
+        EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
+        EGP:egpColor(K,Colorinos)
+      }
+      if(V == "icircle"){
+        local Positron = Positions["ICircle",vector2]
+        local Sizotron = Sizes["ICircle",vector]
+        local Colorinos = Colors["ICircle",vector4]
+        EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
+        EGP:egpColor(K,Colorinos)
+      }
+      if(V == "hline"){
+        local Positron1 = vec2(Positions["HLine",vector4]:x(),Positions["HLine",vector4]:y())
+        local Positron2 = vec2(Positions["HLine",vector4]:z(),Positions["HLine",vector4]:w())
+        local Colorinos = Colors["HLine",vector4]
+        local Sizotron = Sizes["HLine",number]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpSize(K,Sizotron)
+        EGP:egpColor(K,Colorinos)
+      }
+      if(V == "vline"){
+        local Positron1 = vec2(Positions["VLine",vector4]:x(),Positions["VLine",vector4]:y())
+        local Positron2 = vec2(Positions["VLine",vector4]:z(),Positions["VLine",vector4]:w())
+        local Colorinos = Colors["VLine",vector4]
+        local Sizotron = Sizes["VLine",number]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpSize(K,Sizotron)
+        EGP:egpColor(K,Colorinos)
+      }
+      if(V == "tvbpost"){
+        local Sizotron = Sizes["TVBPost",vector4]
+        local Positron1 = vec2(Positions["TVBPost",vector4]:x(),Positions["TVBPost",vector4]:y())
+        local Positron2 = vec2(Positions["TVBPost",vector4]:z(),Positions["TVBPost",vector4]:w()-Sizotron:w())
+        local Colorinos = Colors["TVBPost",vector4]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2-vec2(0,1)))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+
+        local TPositron = array(centerToEgp(Driver,Positron2)-vec2(Sizotron:z()/2,0),centerToEgp(Driver,Positron2)+vec2(Sizotron:z()/2,0),centerToEgp(Driver,Positron2)+vec2(0,Sizotron:w()))
+        EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
+        EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
+      }
+      if(V == "tvtpost"){
+        local Sizotron = Sizes["TVTPost",vector4]
+        local Positron1 = vec2(Positions["TVTPost",vector4]:x(),Positions["TVTPost",vector4]:y())
+        local Positron2 = vec2(Positions["TVTPost",vector4]:z(),Positions["TVTPost",vector4]:w()-Sizotron:w())
+        local Colorinos = Colors["TVTPost",vector4]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2+vec2(0,1)))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+
+        local TPositron = array(centerToEgp(Driver,Positron2)-vec2(Sizotron:z()/2,0),centerToEgp(Driver,Positron2)+vec2(Sizotron:z()/2,0),centerToEgp(Driver,Positron2)+vec2(0,Sizotron:w()))
+        EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
+        EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
+      }
+      if(V == "thlpost"){
+        local Sizotron = Sizes["THLPost",vector4]
+        local Positron1 = vec2(Positions["THLPost",vector4]:x(),Positions["THLPost",vector4]:y())
+        local Positron2 = vec2(Positions["THLPost",vector4]:z()-Sizotron:w(),Positions["THLPost",vector4]:w())
+        local Colorinos = Colors["THLPost",vector4]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2+vec2(1,0)))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+
+        local TPositron = array(centerToEgp(Driver,Positron2)-vec2(0,Sizotron:z()/2),centerToEgp(Driver,Positron2)+vec2(0,Sizotron:z()/2),centerToEgp(Driver,Positron2)+vec2(Sizotron:w(),0))
+        EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
+        EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
+      }
+      if(V == "thrpost"){
+        local Sizotron = Sizes["THRPost",vector4]
+        local Positron1 = vec2(Positions["THRPost",vector4]:x(),Positions["THRPost",vector4]:y())
+        local Positron2 = vec2(Positions["THRPost",vector4]:z()-Sizotron:w(),Positions["THRPost",vector4]:w())
+        local Colorinos = Colors["THRPost",vector4]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2-vec2(1,0)))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+
+        local TPositron = array(centerToEgp(Driver,Positron2)-vec2(0,Sizotron:z()/2),centerToEgp(Driver,Positron2)+vec2(0,Sizotron:z()/2),centerToEgp(Driver,Positron2)+vec2(Sizotron:w(),0))
+        EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
+        EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
+      }
+      if(V == "tvbfpost"){
+        local Positron1 = vec2(Positions["TVBFPost",vector4]:x(),Positions["TVBFPost",vector4]:y())
+        local Positron2 = vec2(Positions["TVBFPost",vector4]:z(),Positions["TVBFPost",vector4]:w())
+        local Colorinos = Colors["TVBFPost",vector4]
+        local Sizotron = Sizes["TVBFPost",vector]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+      }
+      if(V == "tvtfpost"){
+        local Positron1 = vec2(Positions["TVTFPost",vector4]:x(),Positions["TVTFPost",vector4]:y())
+        local Positron2 = vec2(Positions["TVTFPost",vector4]:z(),Positions["TVTFPost",vector4]:w())
+        local Colorinos = Colors["TVTFPost",vector4]
+        local Sizotron = Sizes["TVTFPost",vector]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+      }
+      if(V == "thlfpost"){
+        local Positron1 = vec2(Positions["THLFPost",vector4]:x(),Positions["THLFPost",vector4]:y())
+        local Positron2 = vec2(Positions["THLFPost",vector4]:z(),Positions["THLFPost",vector4]:w())
+        local Colorinos = Colors["THLFPost",vector4]
+        local Sizotron = Sizes["THLFPost",vector]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+      }
+      if(V == "thrfpost"){
+        local Positron1 = vec2(Positions["THRFPost",vector4]:x(),Positions["THRFPost",vector4]:y())
+        local Positron2 = vec2(Positions["THRFPost",vector4]:z(),Positions["THRFPost",vector4]:w())
+        local Colorinos = Colors["THRFPost",vector4]
+        local Sizotron = Sizes["THRFPost",vector]
+        EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
+        EGP:egpColor(K,Colorinos)
+        EGP:egpSize(K,Sizotron:z())
+      }
+    }
+    #EGP:egpCircleOutline(1,)
+
+
+
+
+
+}
