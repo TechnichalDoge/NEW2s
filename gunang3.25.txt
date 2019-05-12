@@ -8,7 +8,10 @@
 @persist Sizes:table Colors:table Positions:table Type:table Controls:table
 runOnTick(1)
 
-if(first()||dupefinished()||Chair:driver() == noentity()){
+if((first()||dupefinished()|| Chair:driver() != noentity()) & EGP != nowirelink()){
+
+    Driver = Chair:driver()
+
     #Controls
     Controls["Up",string] = "Space"
     Controls["Down",string] = "Shift"
@@ -19,7 +22,7 @@ if(first()||dupefinished()||Chair:driver() == noentity()){
     Controls["Fire",string] = "MOUSE1"
     Controls["Change Angle",string] = "MOUSE2"
 
-    EGPSIZE = EGP:egpSize()
+    EGPSIZE = egpScrSize(Driver)
 
     # Options are
     # BCircle (a big circle in the center),
@@ -38,17 +41,32 @@ if(first()||dupefinished()||Chair:driver() == noentity()){
 
     Sizes["BCircle",vector2] = vec2(20,20)
     Sizes["ICircle",vector2] = vec2(10,10)
-    Sizes["TVBPost",vector] = vec2(EGPSIZE:y()/2,20,5)
-    Sizes["TVTPost",vector] = vec2(EGPSIZE:y()/2,20,5)
-    Sizes["THLPost",vector] = vec2(EGPSIZE:x()/2,20,5)
-    Sizes["THRPost",vector] = vec2(EGPSIZE:x()/2,20,5)
+    Sizes["TVBPost",vector] = vec(EGPSIZE:y()/2,20,5)
+    Sizes["TVTPost",vector] = vec(EGPSIZE:y()/2,20,5)
+    Sizes["THLPost",vector] = vec(EGPSIZE:x()/2,20,5)
+    Sizes["THRPost",vector] = vec(EGPSIZE:x()/2,20,5)
     Sizes["TVBFPost",vector2] = vec2(EGPSIZE:y()/2,20)
     Sizes["TVTFPost",vector2] = vec2(EGPSIZE:y()/2,20)
     Sizes["THLFPost",vector2] = vec2(EGPSIZE:x()/2,20)
     Sizes["THRFPost",vector2] = vec2(EGPSIZE:x()/2,20)
 
-    Colors["Crosshairs",vector4] = vec4(255,0,0,255)
-    Positions["CircleCenters",vector2] = vec2(0,0)
+    Colors["BCircle",vector4] = vec4(255,0,0,255)
+    Colors["ICircle",vector4] = vec4(255,0,0,255)
+    Colors["HLine",vector4] = vec4(255,0,0,255)
+    Colors["VLine",vector4] = vec4(255,0,0,255)
+    Colors["TVBPost",vector4] = vec4(255,0,0,255)
+    Colors["TVTPost",vector4] = vec4(255,0,0,255)
+    Colors["THLPost",vector4] = vec4(255,0,0,255)
+    Colors["THRPost",vector4] = vec4(255,0,0,255)
+    Colors["TVBFPost",vector4] = vec4(255,0,0,255)
+    Colors["TVTFPost",vector4] = vec4(255,0,0,255)
+    Colors["THLFPost",vector4] = vec4(255,0,0,255)
+    Colors["THRFPost",vector4] = vec4(255,0,0,255)
+
+    Positions["BCircle",vector2] = vec2(0,0)
+    Positions["ICircle",vector2] = vec2(0,0)
+    Positions["HLine",vector4] = vec4(-EGPSIZE:x(),EGPSIZE:y()/2,EGPSIZE:x(),EGPSIZE:y()/2)
+    Positions["VLine",vector4] = vec4(EGPSIZE:x()/2,-EGPSIZE:y(),EGPSIZE:x()/2,EGPSIZE:y())
     Positions["TVBPost",vector4] = vec4(0,EGPSIZE:y()/2,0,Sizes["TVBPost",vector]:y())
     Positions["TVTPost",vector4] = vec4(0,-EGPSIZE:y()/2,0,-Sizes["TVTPost",vector]:y())
     Positions["THLPost",vector4] = vec4(-EGPSIZE:x()/2,0,-Sizes["THLPost",vector]:y(),0)
@@ -64,14 +82,13 @@ if(first()||dupefinished()||Chair:driver() == noentity()){
     CamPos = vec(0,0,CamHeight)
     True = 1
     False = 0
-
-    function vector2 centerEGPOBJ(TheEgp:wirelink,Pos:vector2){
-        local EGPCENTER = TheEgp:egpSize()/2
-        return Pos+EGPCENTER
+    function vector2 centerToEgp(Dreever:entity,Positan:vector2){
+      return Positan+(egpScrSize(Dreever)/2)
     }
 }
 
 Driver = Chair:driver()
+EGPSIZE = egpScrSize(Driver)
 Active = Driver != noentity()
 runOnKeys(Driver,Active)
 
@@ -155,41 +172,44 @@ if(!Inactive){
     local TypesSelected = Type["Crosshair",string]:lower():explode(" ")
 
     foreach(K,V:string=TypesSelected){
-      if(V == "BCircle"){
-      local Positron = Positions["CircleCenters",vector2]
-      EGP:egpCircleOutline(1,centerEGPOBJ(EGP,Positron))
+      if(V == "bcircle"){
+        local Positron = Positions["BCircle",vector2]
+        local Sizotron = Sizes["BCircle",vector2]
+        local Colorinos = Colors["BCircle",vector4]
+        EGP:egpCircleOutline(1,centerToEgp(Driver,Positron),Sizotron)
+        EGP:egpColor(1,Colorinos)
       }
-      if(V == "ICircle"){
+      if(V == "icircle"){
 
       }
-      if(V == "HLine"){
+      if(V == "hline"){
 
       }
-      if(V == "VLine"){
+      if(V == "vline"){
 
       }
-      if(V == "TVBPost"){
+      if(V == "tvbpost"){
 
       }
-      if(V == "TVTPost"){
+      if(V == "tvtpost"){
 
       }
-      if(V == "THLPost"){
+      if(V == "thlpost"){
 
       }
-      if(V == "THRPost"){
+      if(V == "thrpost"){
 
       }
-      if(V == "TVBFPost"){
+      if(V == "tvbfpost"){
 
       }
-      if(V == "TVTFPost"){
+      if(V == "tvtfpost"){
 
       }
-      if(V == "THLFPost"){
+      if(V == "thlfpost"){
 
       }
-      if(V == "THRFPost"){
+      if(V == "thrfpost"){
 
       }
     }

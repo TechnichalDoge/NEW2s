@@ -1,0 +1,39 @@
+@name Logica's Homebrew Wallbrew
+@inputs EGP:wirelink
+@outputs
+@persist A:vector
+@trigger 
+
+runOnDisconnect(1)
+runOnChat(1)
+
+runOnConnect(1)
+#runOnTick(1)
+if(changed(EGP)|first()|connectClk()|disconnectClk()){
+    EGP:egpClear()
+    foreach(I,PlayT:entity=players()){
+      
+        local Ib = I +40
+        local Ic = I +80
+        local Id = I + 120
+        #if(Ib>900)
+        #{
+        #    print(1)
+        #}
+        EGP:egp3DTracker(I,vec(0)) #changed pos to vec(0)
+        EGP:egpParent(I,PlayT)
+        #removed redundant set pos line 
+        EGP:egpBoxOutline(Ib,vec2(0),vec2(20,20)) #set pos to 0
+        EGP:egpParent(Ib,I)
+        EGP:egpText(Ic,PlayT:name(),vec2(0))
+        EGP:egpColor(Ic,teamColor(PlayT:team()))
+        EGP:egpParent(Ic,I)
+        if(PlayT:playerIsInPvp()){A=vec(255,0,0)}else{A=vec(0,255,0)}
+        EGP:egpBox(Id,vec2(0),vec2(10,10))           
+        EGP:egpColor(Id,A)
+        EGP:egpAlpha(100)
+        EGP:egpParent(Id,I)
+         #removed redundant egpPos line
+    }
+}
+    
