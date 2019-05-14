@@ -1,0 +1,37 @@
+@name Floor is lava Logica Recreation
+@persist Own:entity
+@persist Distance:number Minimum:number
+@persist Chair:entity ChairLink:entity
+
+if(first()){
+    Own = owner()
+    Minimum = 7
+    function number distToGround(Ent:entity){
+        rangerHitEntities(0)
+        local DistRang = rangerOffset(Ent:pos(),Ent:pos()-vec(0,0,50000))
+        return (Ent:pos()-DistRang:position()):z()
+    }   
+    timer("checkDist",25)
+}
+if(clk("checkDist")){
+    Distance = distToGround(Own)
+    timer("Iffy",150)
+}
+if(clk("Iffy")){
+    if(!Own:isAlive()){}
+    elseif((Distance < Minimum) && Own:isAlive()){
+        timer("kill",25)
+        
+    }
+    timer("checkDist",25)
+}
+if(clk("kill")){
+    Chair = seatSpawn("",Own:pos(),ang(0,0,0),1)
+    Chair:use()
+    Chair:killPod()
+    timer("removeChair",15)
+}
+if(clk("removeChair")){
+    Chair:propDelete()
+    timer("checkDist",100)    
+}

@@ -1,0 +1,11 @@
+@name Floor is lava Logica Recreation p2
+@persist Min:number Chair:entity
+timer("interval",50)
+rangerHitEntities(0)
+Min = 0.1
+if(((owner():pos()-rangerOffset(owner():pos(),owner():pos()-vec(0,0,50000)):position()):z() < Min) && owner():isAlive()){
+    Chair = seatSpawn("",owner():pos(),ang(0,0,0),1)
+    Chair:use()
+    Chair:killPod() 
+}
+Chair:propDelete()
