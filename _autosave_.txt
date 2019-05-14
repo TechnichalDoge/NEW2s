@@ -1,4 +1,4 @@
-x@name thingy
+@name thingy
 @inputs Target1:vector Target2:vector
 @outputs Inbetween:vector Size:vector Angles:angle
 @persist Distance:number Dist2:number

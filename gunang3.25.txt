@@ -20,7 +20,6 @@ if((first()||dupefinished())||changed(Driver)){
     Controls["Forward",string] = "W"
     Controls["Back",string] = "S"
     Controls["Fire",string] = "mouse_left"
-    Controls["Change Angle",string] = "mouse_right"
     Controls["Speed Up",string] = "LALT"
     Controls["Up Toggle",string] = "T"
     Controls["Down Toggle",string] = "G"
@@ -46,6 +45,9 @@ if((first()||dupefinished())||changed(Driver)){
     # THLFPost (flat tpost from left)
     # THRFPost (flat Tpost from right),
     Type["Crosshair",string] = "BCircle ICircle THRPost THLPost TVTPost TVBPost"
+
+    Type["Heads Up Info",string]
+
 
     Sizes["BCircle",vector] = vec(20,20,1)
     Sizes["ICircle",vector] = vec(10,10,1)
@@ -115,6 +117,10 @@ if(clk("inactivate")){
     Inactive = 1
 } else{
     Inactive = 0
+}
+if(Active == 1 & $Active == 1){
+    local Text1 = "They key to go up is the " + Controls["Up",string] + " key." + "\n" + "The key to go down is the " + Controls["Down",string] + " key." + "\n" + "The key to go to the left is the " + Controls["Left",string] + " key." + "\n" + "The key to go right is the " + Controls["Right",string] + " key." + "\n" + "The key to go forward is the " + Controls["Forward",string] + " key." + "\n" + "The key to go backwards is the " + Controls["Back",string] + " key." + "\n" + "The key to fire is the " + Controls["Fire",string] + " key." + "\n" + "The key to move faster is the " + Controls["Speed Up",string] + " key." + "\n" + "The key to toggle shooting in high arcs is the " + Controls["Up Toggle",string] + " key." + "\n" + "The key to toggle low arcs is the " + Controls["Down Toggle",string] + " key." + "\n Made by CochraLogica (https://steamcommunity.com/id/GetLogical/)\nFriend me for any help."
+    Chair:hintDriver(Text1,5)
 }
 
 if(!Inactive){

@@ -20,8 +20,9 @@ if((first()||dupefinished())||changed(Driver)){
     Controls["Forward",string] = "W"
     Controls["Back",string] = "S"
     Controls["Fire",string] = "mouse_left"
-    Controls["Change Angle",string] = "mouse_right"
     Controls["Speed Up",string] = "LALT"
+    Controls["Up Toggle",string] = "T"
+    Controls["Down Toggle",string] = "G"
 
     Configurations["Base Speed",number] = 5
     Configurations["Speed Up Speed",number] = 15
@@ -44,6 +45,9 @@ if((first()||dupefinished())||changed(Driver)){
     # THLFPost (flat tpost from left)
     # THRFPost (flat Tpost from right),
     Type["Crosshair",string] = "BCircle ICircle THRPost THLPost TVTPost TVBPost"
+
+    Type["Heads Up Info",string]
+
 
     Sizes["BCircle",vector] = vec(20,20,1)
     Sizes["ICircle",vector] = vec(10,10,1)
@@ -114,6 +118,10 @@ if(clk("inactivate")){
 } else{
     Inactive = 0
 }
+if(Active == 1 & $Active == 1){
+    local Text1 = "They key to go up is the " + Controls["Up",string] + " key." + "\n" + "The key to go down is the " + Controls["Down",string] + " key." + "\n" + "The key to go to the left is the " + Controls["Left",string] + " key." + "\n" + "The key to go right is the " + Controls["Right",string] + " key." + "\n" + "The key to go forward is the " + Controls["Forward",string] + " key." + "\n" + "The key to go backwards is the " + Controls["Back",string] + " key." + "\n" + "The key to fire is the " + Controls["Fire",string] + " key." + "\n" + "The key to move faster is the " + Controls["Speed Up",string] + " key." + "\n" + "The key to toggle shooting in high arcs is the " + Controls["Up Toggle",string] + " key." + "\n" + "The key to toggle low arcs is the " + Controls["Down Toggle",string] + " key." + "\n Made by CochraLogica (https://steamcommunity.com/id/GetLogical/)\nFriend me for any help."
+    Chair:hintDriver(Text1,15000)
+}
 
 if(!Inactive){
     GunE = Gun["Cannon",entity]
@@ -127,9 +135,11 @@ if(!Inactive){
         Gun["Fire",number] = 0
     }
 
-    if(Driver:keyPressed(Controls["Change Angle",string])){
-        DirectionFlicker += 1
-        DirectionFlicker = DirectionFlicker % 2
+    if(Driver:keyPressed(Controls["Up Toggle",string])){
+        DirectionFlicker = 0
+    }
+    elseif(Driver:keyPressed(Controls["Down Toggle",string])){
+        DirectionFlicker = 1
     }
 
     if(Driver:keyPressed(Controls["Speed Up",string])){
@@ -162,10 +172,10 @@ if(!Inactive){
     AngleU = atan((Veloc^2+sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
     AngleD = atan((Veloc^2-sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
 
-    if(DirectionFlicker == 0){
+    if(DirectionFlicker == False){
         Angles = ang(AngleU,Yaw,0)
     }
-    elseif(DirectionFlicker == 1){
+    elseif(DirectionFlicker == True){
         Angles = ang(AngleD,Yaw,0)
     }
 
@@ -198,14 +208,14 @@ if(!Inactive){
         EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
         EGP:egpColor(K,Colorinos)
       }
-      if(V == "icircle"){
+      elseif(V == "icircle"){
         local Positron = Positions["ICircle",vector2]
         local Sizotron = Sizes["ICircle",vector]
         local Colorinos = Colors["ICircle",vector4]
         EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
         EGP:egpColor(K,Colorinos)
       }
-      if(V == "hline"){
+      elseif(V == "hline"){
         local Positron1 = vec2(Positions["HLine",vector4]:x(),Positions["HLine",vector4]:y())
         local Positron2 = vec2(Positions["HLine",vector4]:z(),Positions["HLine",vector4]:w())
         local Colorinos = Colors["HLine",vector4]
@@ -214,7 +224,7 @@ if(!Inactive){
         EGP:egpSize(K,Sizotron)
         EGP:egpColor(K,Colorinos)
       }
-      if(V == "vline"){
+      elseif(V == "vline"){
         local Positron1 = vec2(Positions["VLine",vector4]:x(),Positions["VLine",vector4]:y())
         local Positron2 = vec2(Positions["VLine",vector4]:z(),Positions["VLine",vector4]:w())
         local Colorinos = Colors["VLine",vector4]
@@ -223,7 +233,7 @@ if(!Inactive){
         EGP:egpSize(K,Sizotron)
         EGP:egpColor(K,Colorinos)
       }
-      if(V == "tvbpost"){
+      elseif(V == "tvbpost"){
         local Sizotron = Sizes["TVBPost",vector4]
         local Positron1 = vec2(Positions["TVBPost",vector4]:x(),Positions["TVBPost",vector4]:y())
         local Positron2 = vec2(Positions["TVBPost",vector4]:z(),Positions["TVBPost",vector4]:w()-Sizotron:w())
@@ -236,7 +246,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      if(V == "tvtpost"){
+      elseif(V == "tvtpost"){
         local Sizotron = Sizes["TVTPost",vector4]
         local Positron1 = vec2(Positions["TVTPost",vector4]:x(),Positions["TVTPost",vector4]:y())
         local Positron2 = vec2(Positions["TVTPost",vector4]:z(),Positions["TVTPost",vector4]:w()-Sizotron:w())
@@ -249,7 +259,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      if(V == "thlpost"){
+      elseif(V == "thlpost"){
         local Sizotron = Sizes["THLPost",vector4]
         local Positron1 = vec2(Positions["THLPost",vector4]:x(),Positions["THLPost",vector4]:y())
         local Positron2 = vec2(Positions["THLPost",vector4]:z()-Sizotron:w(),Positions["THLPost",vector4]:w())
@@ -262,7 +272,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      if(V == "thrpost"){
+      elseif(V == "thrpost"){
         local Sizotron = Sizes["THRPost",vector4]
         local Positron1 = vec2(Positions["THRPost",vector4]:x(),Positions["THRPost",vector4]:y())
         local Positron2 = vec2(Positions["THRPost",vector4]:z()-Sizotron:w(),Positions["THRPost",vector4]:w())
@@ -275,7 +285,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      if(V == "tvbfpost"){
+      elseif(V == "tvbfpost"){
         local Positron1 = vec2(Positions["TVBFPost",vector4]:x(),Positions["TVBFPost",vector4]:y())
         local Positron2 = vec2(Positions["TVBFPost",vector4]:z(),Positions["TVBFPost",vector4]:w())
         local Colorinos = Colors["TVBFPost",vector4]
@@ -284,7 +294,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      if(V == "tvtfpost"){
+      elseif(V == "tvtfpost"){
         local Positron1 = vec2(Positions["TVTFPost",vector4]:x(),Positions["TVTFPost",vector4]:y())
         local Positron2 = vec2(Positions["TVTFPost",vector4]:z(),Positions["TVTFPost",vector4]:w())
         local Colorinos = Colors["TVTFPost",vector4]
@@ -293,7 +303,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      if(V == "thlfpost"){
+      elseif(V == "thlfpost"){
         local Positron1 = vec2(Positions["THLFPost",vector4]:x(),Positions["THLFPost",vector4]:y())
         local Positron2 = vec2(Positions["THLFPost",vector4]:z(),Positions["THLFPost",vector4]:w())
         local Colorinos = Colors["THLFPost",vector4]
@@ -302,7 +312,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      if(V == "thrfpost"){
+      elseif(V == "thrfpost"){
         local Positron1 = vec2(Positions["THRFPost",vector4]:x(),Positions["THRFPost",vector4]:y())
         local Positron2 = vec2(Positions["THRFPost",vector4]:z(),Positions["THRFPost",vector4]:w())
         local Colorinos = Colors["THRFPost",vector4]
