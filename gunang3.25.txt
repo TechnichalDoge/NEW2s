@@ -46,7 +46,34 @@ if((first()||dupefinished())||changed(Driver)){
     # THRFPost (flat Tpost from right),
     Type["Crosshair",string] = "BCircle ICircle THRPost THLPost TVTPost TVBPost"
 
-    Type["Heads Up Info",string]
+
+    #options are
+    # XTPos Your aimpoint's x position
+    # YTPos Your aimpoint's y position
+    # ZTPos Your aimpoint's z position
+    # XPPos
+    # YPPos
+    # ZPPos
+    # RXTPos
+    # RYTPos
+    # RZTPos
+    # MaxDistance
+    # CurDistance
+    # WantedPitchNum
+    # CurrentPitchNum
+    # LowPitchNum
+    # HighPitchNum
+    # WantedPitchVis
+    # CurrentPitchVis
+    # LowPitchVis
+    # HighPitchVis
+    # TargetInAreaList
+    # TargetInAreaVis
+    # WantedYawNum
+    # CurrentYawNum
+    # WantedYawVis
+    # CurrentYawVis
+    Type["Heads Up Info",string] = ""
 
 
     Sizes["BCircle",vector] = vec(20,20,1)
