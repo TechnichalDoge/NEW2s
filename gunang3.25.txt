@@ -46,34 +46,35 @@ if((first()||dupefinished())||changed(Driver)){
     # THRFPost (flat Tpost from right),
     Type["Crosshair",string] = "BCircle ICircle THRPost THLPost TVTPost TVBPost"
 
-
+#/**
     #options are
     # XTPos Your aimpoint's x position
     # YTPos Your aimpoint's y position
     # ZTPos Your aimpoint's z position
-    # XPPos
-    # YPPos
-    # ZPPos
-    # RXTPos
-    # RYTPos
-    # RZTPos
-    # MaxDistance
-    # CurDistance
-    # WantedPitchNum
-    # CurrentPitchNum
-    # LowPitchNum
-    # HighPitchNum
-    # WantedPitchVis
-    # CurrentPitchVis
-    # LowPitchVis
-    # HighPitchVis
-    # TargetInAreaList
-    # TargetInAreaVis
-    # WantedYawNum
-    # CurrentYawNum
-    # WantedYawVis
-    # CurrentYawVis
-    Type["Heads Up Info",string] = ""
+    # XPPos The Gun's X position
+    # YPPos The Gun's Y position
+    # ZPPos The Gun's Z position
+    # RXTPos The Aimpoint's x position relative to the gun
+    # RYTPos The Aimpoint's y position relative to the gun
+    # RZTPos The Aimpoint's z position relative to the gun
+    # MaxDistance The Gun's Max Distance
+    # CurDistance The Aimpoint's current distance from the gun
+    # WantedPitchNum The wanted pitch
+    # CurrentPitchNum The current pitch
+    # LowPitchNum The pitch wanted if it was low arcs
+    # HighPitchNum The Pitch wanted if it was high arcs
+    # WantedPitchVis The wanted pitch, but visually
+    # CurrentPitchVis The current pitch but visually
+    # LowPitchVis The low arc pitch but visual
+    # HighPitchVis The high arc pitch but visual
+    # TargetInAreaList The List of targets in an area around aimpoint
+    # TargetInAreaVis The targets in area shown visually.
+    # WantedYawNum The wanted yaw
+    # CurrentYawNum the current yaw
+    # WantedYawVis the wanted yaw but visually
+    # CurrentYawVis The Current Yaw but visually.
+#*/
+    Type["Heads Up Info",string] = "XTPos YTPos ZTPos XPPos"
 
 
     Sizes["BCircle",vector] = vec(20,20,1)
@@ -228,21 +229,21 @@ if(!Inactive){
     local TypesSelected = Type["Crosshair",string]:lower():explode(" ")
 
     foreach(K,V:string=TypesSelected){
-      if(V == "bcircle"){
+      if(V == "BCircle":lower()){
         local Positron = Positions["BCircle",vector2]
         local Sizotron = Sizes["BCircle",vector]
         local Colorinos = Colors["BCircle",vector4]
         EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
         EGP:egpColor(K,Colorinos)
       }
-      elseif(V == "icircle"){
+      elseif(V == "ICircle":lower()){
         local Positron = Positions["ICircle",vector2]
         local Sizotron = Sizes["ICircle",vector]
         local Colorinos = Colors["ICircle",vector4]
         EGP:egpCircleOutline(K,centerToEgp(Driver,Positron),vec2(Sizotron))
         EGP:egpColor(K,Colorinos)
       }
-      elseif(V == "hline"){
+      elseif(V == "HLine":lower()){
         local Positron1 = vec2(Positions["HLine",vector4]:x(),Positions["HLine",vector4]:y())
         local Positron2 = vec2(Positions["HLine",vector4]:z(),Positions["HLine",vector4]:w())
         local Colorinos = Colors["HLine",vector4]
@@ -251,7 +252,7 @@ if(!Inactive){
         EGP:egpSize(K,Sizotron)
         EGP:egpColor(K,Colorinos)
       }
-      elseif(V == "vline"){
+      elseif(V == "VLine":lower()){
         local Positron1 = vec2(Positions["VLine",vector4]:x(),Positions["VLine",vector4]:y())
         local Positron2 = vec2(Positions["VLine",vector4]:z(),Positions["VLine",vector4]:w())
         local Colorinos = Colors["VLine",vector4]
@@ -260,7 +261,7 @@ if(!Inactive){
         EGP:egpSize(K,Sizotron)
         EGP:egpColor(K,Colorinos)
       }
-      elseif(V == "tvbpost"){
+      elseif(V == "TVBPost":lower()){
         local Sizotron = Sizes["TVBPost",vector4]
         local Positron1 = vec2(Positions["TVBPost",vector4]:x(),Positions["TVBPost",vector4]:y())
         local Positron2 = vec2(Positions["TVBPost",vector4]:z(),Positions["TVBPost",vector4]:w()-Sizotron:w())
@@ -273,7 +274,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      elseif(V == "tvtpost"){
+      elseif(V == "TVTPost":lower()){
         local Sizotron = Sizes["TVTPost",vector4]
         local Positron1 = vec2(Positions["TVTPost",vector4]:x(),Positions["TVTPost",vector4]:y())
         local Positron2 = vec2(Positions["TVTPost",vector4]:z(),Positions["TVTPost",vector4]:w()-Sizotron:w())
@@ -286,7 +287,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      elseif(V == "thlpost"){
+      elseif(V == "THLPost":lower()){
         local Sizotron = Sizes["THLPost",vector4]
         local Positron1 = vec2(Positions["THLPost",vector4]:x(),Positions["THLPost",vector4]:y())
         local Positron2 = vec2(Positions["THLPost",vector4]:z()-Sizotron:w(),Positions["THLPost",vector4]:w())
@@ -299,7 +300,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      elseif(V == "thrpost"){
+      elseif(V == "THRPost":lower()){
         local Sizotron = Sizes["THRPost",vector4]
         local Positron1 = vec2(Positions["THRPost",vector4]:x(),Positions["THRPost",vector4]:y())
         local Positron2 = vec2(Positions["THRPost",vector4]:z()-Sizotron:w(),Positions["THRPost",vector4]:w())
@@ -312,7 +313,7 @@ if(!Inactive){
         EGP:egpTriangle(K*TypesSelected:count()+K,TPositron[1,vector2],TPositron[2,vector2],TPositron[3,vector2])
         EGP:egpColor(K*TypesSelected:count()+K,Colorinos)
       }
-      elseif(V == "tvbfpost"){
+      elseif(V == "TVBFPost":lower()){
         local Positron1 = vec2(Positions["TVBFPost",vector4]:x(),Positions["TVBFPost",vector4]:y())
         local Positron2 = vec2(Positions["TVBFPost",vector4]:z(),Positions["TVBFPost",vector4]:w())
         local Colorinos = Colors["TVBFPost",vector4]
@@ -321,7 +322,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      elseif(V == "tvtfpost"){
+      elseif(V == "TVTFPost":lower()){
         local Positron1 = vec2(Positions["TVTFPost",vector4]:x(),Positions["TVTFPost",vector4]:y())
         local Positron2 = vec2(Positions["TVTFPost",vector4]:z(),Positions["TVTFPost",vector4]:w())
         local Colorinos = Colors["TVTFPost",vector4]
@@ -330,7 +331,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      elseif(V == "thlfpost"){
+      elseif(V == "THLFPost":lower()){
         local Positron1 = vec2(Positions["THLFPost",vector4]:x(),Positions["THLFPost",vector4]:y())
         local Positron2 = vec2(Positions["THLFPost",vector4]:z(),Positions["THLFPost",vector4]:w())
         local Colorinos = Colors["THLFPost",vector4]
@@ -339,7 +340,7 @@ if(!Inactive){
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
       }
-      elseif(V == "thrfpost"){
+      elseif(V == "THRFPost":lower()){
         local Positron1 = vec2(Positions["THRFPost",vector4]:x(),Positions["THRFPost",vector4]:y())
         local Positron2 = vec2(Positions["THRFPost",vector4]:z(),Positions["THRFPost",vector4]:w())
         local Colorinos = Colors["THRFPost",vector4]
@@ -347,6 +348,95 @@ if(!Inactive){
         EGP:egpLine(K,centerToEgp(Driver,Positron1),centerToEgp(Driver,Positron2))
         EGP:egpColor(K,Colorinos)
         EGP:egpSize(K,Sizotron:z())
+      }
+    }
+#----------------------------EGP 2-------------------------#
+    EGP:egpDrawTopLeft(False)
+
+    local TypesSelected = Type["Heads Up Info",string]:lower():explode(" ")
+
+    foreach(K,V:string=TypesSelected){
+      if(V == "XTPos":lower()){
+XTPos
+
+      }
+      elseif(V == "YTPos":lower()){
+YTPos
+
+      }
+      elseif(V == "ZTPos":lower()){
+ZTPos
+
+      }
+      elseif(V == "XPPos":lower()){
+XPPos
+
+      }
+      elseif(V == "YPPos":lower()){
+YPPos
+
+      }
+      elseif(V == "ZPPos":lower()){
+ZPPos
+
+      }
+      elseif(V == "RXTPos":lower()){
+RXTPos
+
+      }
+      elseif(V == "RYTPos":lower()){
+RYTPos
+      }
+      elseif(V == "RZTPos":lower()){
+RZTPos
+      }
+      elseif(V == "MaxDistance":lower()){
+MaxDistance
+      }
+      elseif(V == "CurDistance":lower()){
+CurDistance
+      }
+      elseif(V == "WantedPitchNum":lower()){
+WantedPitchNum
+      }
+      elseif(V == "CurrentPitchNum":lower()){
+CurrentPitchNum
+      }
+      elseif(V == "LowPitchNum":lower()){
+LowPitchNum
+      }
+      elseif(V == "HighPitchNum":lower()){
+HighPitchNum
+      }
+      elseif(V == "WantedPitchVis":lower()){
+WantedPitchVis
+      }
+      elseif(V == "CurrentPitchVis":lower()){
+CurrentPitchVis
+      }
+      elseif(V == "LowPitchVis":lower()){
+LowPitchVis
+      }
+      elseif(V == "HighPitchVis":lower()){
+HighPitchVis
+      }
+      elseif(V == "TargetInAreaList":lower()){
+TargetInAreaList
+      }
+      elseif(V == "TargetInAreaVis":lower()){
+TargetInAreaVis
+      }
+      elseif(V == "WantedYawNum":lower()){
+WantedYawNum
+      }
+      elseif(V == "CurrentYawNum":lower()){
+CurrentYawNum
+      }
+      elseif(V == "WantedYawVis":lower()){
+WantedYawVis
+      }
+      elseif(V == "CurrentYawVis":lower()){
+CurrentYawVis
       }
     }
 }

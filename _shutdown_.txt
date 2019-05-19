@@ -1,8 +1,26 @@
-@name 
-@inputs 
-@outputs 
-@persist H:vector2
-@trigger 
+@name thingy
+@inputs Target1:vector Target2:vector
+@outputs Inbetween:vector Size:vector Angles:angle
+@persist Distance:number Dist2:number
+@persist Locality:vector
 
-H = vec2(45,90)
-cos(H)
+Locality = Target2 - Target1 # get the local position to Target1 
+Distance = Locality:length() # get the distance between the two by getting the length (uses the pythagorean therom on all the values of the vector https://github.com/wiremod/wire/blob/master/lua/entities/gmod_wire_expression2/core/vector.lua#L52) 
+# of the local vector
+Dist2 = vec2(Locality):length() # gets the distance in only the x and y points by getting the length of the vector 2 form of the vector ( doing vec2(vector) drops the z value)
+
+Size = vec(15,15,Distance) #We know the distance between the two, we would like the holo or whatever to span that distance ( if rotated )
+
+Angles = ang( atan(Locality:z()/Dist2)#[gets the arc tangent of the tangent of the Distance between x and y and the local z]#, atan(Locality:y()/Locality:x())#[gets the arc tangent of the tangent of the local x and y]#,0)
+
+#[
+arctangent is the inverse of tangent
+tangent(angle) = y/x
+arctangent(y/x) = angle
+
+atan(Locality:z()/Dist2)
+
+
+
+https://www.khanacademy.org/math/trigonometry
+]# 
