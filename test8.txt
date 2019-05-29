@@ -1,0 +1,12 @@
+@name test8
+@inputs 
+@outputs Out:number Out2:number Array:array Table:table Out3:number Out4:number
+runOnTick(1)
+Array = array(5,124,34,21,65)
+for(I = 1, Array:count()){
+    Table[I,number] = Array[I,number]
+}
+Out = Array:firstNumber()
+Out2 = Array:lastNumber()
+Out3 = Table:firstNumber()
+Out4 = Table:lastNumber()

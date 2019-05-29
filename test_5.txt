@@ -1,0 +1,6 @@
+@name test 5
+runOnTick(1)
+while(perf()) {
+    findInSphere(entity():pos(),5000000)
+    findToArray()
+}

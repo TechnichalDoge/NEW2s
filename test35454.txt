@@ -1,0 +1,18 @@
+@name 
+@inputs Ent:entity Ent2:entity Ent3:entity
+@outputs Eangs:angle Eangs2:angle
+@persist Eangs:angle Eangs2:angle
+@trigger 
+runOnTick(1)
+Eangs = entity():angles():setPitch(90):setRoll(0):setYaw(entity():angles():yaw()+90)
+Eangs2 = entity():angles():setRoll(entity():angles():roll())
+timer("setang",25)
+if(clk("setpos")){
+Ent:setFairPos(entity():pos()+entity():up()*50)
+timer("setang",25)
+}
+if(clk("setang")){
+Ent:setFairAng(Eangs)
+Ent2:setFairAng(Eangs2)
+timer("setang",25)
+}

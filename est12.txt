@@ -1,0 +1,19 @@
+@name est12
+@inputs Button:number Ent1:entity Ent2:entity Ent3:entity Ent4:entity
+@outputs Pos:vector
+@persist 
+@trigger 
+
+local OnS = "hahayoufool.wav"
+local OffS = "common/wpn_select.wav"
+local OnM = "models/XQM//Deg360"
+local OffM = "models/XQM//Deg360"
+local Arr = array(Ent1,Ent2,Ent3,Ent4)
+runOnTick(1)
+if(Button){
+    fadeDoor(Arr,1,OnS,OffS,155,225, 25, 0)
+}
+elseif(!Button){
+    fadeDoor(Arr,0,OnS,OffS,155,225, 25, 0)
+}
+Pos = vec()

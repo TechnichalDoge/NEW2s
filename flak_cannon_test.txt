@@ -8,7 +8,7 @@ interval(125)
 beamPoint(1,entity():pos())
 beamPoint(2,entity():pos()+entity():up()*entity():pos():distance(Target:pos()))
 
-Time2 = MagicFlakNumber	* entity():pos():distance(Target:pos())
+Time2 = MagicFlakNumber * entity():pos():distance(Target:pos())
 
 findIncludeClass("prop_physics")
 findIncludeClass("player")

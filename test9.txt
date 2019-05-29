@@ -1,0 +1,10 @@
+@name test9
+@inputs 
+@outputs Out:array
+@persist 
+@trigger 
+runOnTick(1)
+Out = getWorldSizeYZ()
+print(Out)
+holoCreate(1,vec())
+holoScale(1,-vec(50,50,50))

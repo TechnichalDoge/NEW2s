@@ -1,0 +1,11 @@
+@name puls
+@outputs I
+timer("start",25)
+if(clk("start")){
+    I = 1
+    timer("unstart",25)
+}
+if(clk("unstart")){
+    I = 0    
+    timer("start",25)
+}

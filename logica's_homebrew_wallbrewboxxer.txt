@@ -28,7 +28,7 @@ if(changed(EGP)|first()|connectClk()|disconnectClk()){
         EGP:egpText(Ic,PlayT:name(),vec2(0))
         EGP:egpColor(Ic,teamColor(PlayT:team()))
         EGP:egpParent(Ic,I)
-        if(PlayT:playerIsInPvp()){A=vec(255,0,0)}else{A=vec(0,255,0)}
+        #if(PlayT:playerIsInPvp()){A=vec(255,0,0)}else{A=vec(0,255,0)}
         EGP:egpBox(Id,vec2(0),vec2(10,10))           
         EGP:egpColor(Id,A)
         EGP:egpAlpha(100)

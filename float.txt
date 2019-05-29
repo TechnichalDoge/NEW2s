@@ -1,0 +1,20 @@
+@name float
+@inputs 
+@outputs 
+@persist E:entity Target:entity Vec:vector
+if(first()|dupefinished()|duped()){
+    E=entity():isConstrainedTo()
+    E:setColor(vec(255,0,0),255)
+    holoCreate(1)
+    runOnTick(1)
+}
+R=ranger(90)
+holoPos( 1 , R:pos() )
+holoScaleUnits( 1 , vec(5,5,15) )
+holoModel( 1 , "hqcone" )
+holoAng( 1 , ang( 180 , 0 , 0 ) ) 
+Target = R:entity()
+Target:applyForce(((E:pos()+vec(0,0,70)-Target:pos())*20-Target:vel())*Target:mass())
+Target:applyTorque(vec(999,9,9))
+
+

@@ -128,9 +128,9 @@ if((first()||dupefinished())||changed(Driver)){
 }
 
 Driver = Chair:driver()
-
+if(clk("reset")){reset()}
 if(Chair:driver() == noentity()){
-    reset()
+    timer("reset",25)
     EGP:egpClear()
 }
 
@@ -180,12 +180,12 @@ if(!Inactive){
         FB = (Driver:keyPressed(Controls["Forward",string]) - Driver:keyPressed(Controls["Back",string])) * Configurations["Base Speed",number]
         LR = (Driver:keyPressed(Controls["Right",string]) - Driver:keyPressed(Controls["Left",string])) * Configurations["Base Speed",number]
     }
-    if(!((CamPos + Chair:pos()):isInWorld()) || CamController["Trace",ranger]:distance() > 50000){
-        CamPos = CamPos + vec(0,0,100)
-    }
-    else{
+    #if(!((CamPos + Chair:pos()):isInWorld()) || CamController["Trace",ranger]:distance() > 50000){
+    #    CamPos = CamPos + vec(0,0,100)
+    #}
+    #else{
         CamPos = CamPos + vec(LR,FB,UD)
-    }
+    #}
 
     CamController["Activated",number] = Active
     CamController["Angle",angle] = ang(90,90,0)
@@ -229,6 +229,7 @@ if(!Inactive){
     local TypesSelected = Type["Crosshair",string]:lower():explode(" ")
 
     foreach(K,V:string=TypesSelected){
+        if(!perf()){break}
       if(V == "BCircle":lower()){
         local Positron = Positions["BCircle",vector2]
         local Sizotron = Sizes["BCircle",vector]
@@ -357,86 +358,86 @@ if(!Inactive){
 
     foreach(K,V:string=TypesSelected){
       if(V == "XTPos":lower()){
-XTPos
+#XTPos
 
       }
       elseif(V == "YTPos":lower()){
-YTPos
+#YTPos
 
       }
       elseif(V == "ZTPos":lower()){
-ZTPos
+#ZTPos
 
       }
       elseif(V == "XPPos":lower()){
-XPPos
+#XPPos
 
       }
       elseif(V == "YPPos":lower()){
-YPPos
+#YPPos
 
       }
       elseif(V == "ZPPos":lower()){
-ZPPos
+#ZPPos
 
       }
       elseif(V == "RXTPos":lower()){
-RXTPos
+#RXTPos
 
       }
       elseif(V == "RYTPos":lower()){
-RYTPos
+#RYTPos
       }
       elseif(V == "RZTPos":lower()){
-RZTPos
+#RZTPos
       }
       elseif(V == "MaxDistance":lower()){
-MaxDistance
+#MaxDistance
       }
       elseif(V == "CurDistance":lower()){
-CurDistance
+#CurDistance
       }
       elseif(V == "WantedPitchNum":lower()){
-WantedPitchNum
+#WantedPitchNum
       }
       elseif(V == "CurrentPitchNum":lower()){
-CurrentPitchNum
+##CurrentPitchNum
       }
       elseif(V == "LowPitchNum":lower()){
-LowPitchNum
+#LowPitchNum
       }
       elseif(V == "HighPitchNum":lower()){
-HighPitchNum
+#HighPitchNum
       }
       elseif(V == "WantedPitchVis":lower()){
-WantedPitchVis
+#WantedPitchVis
       }
       elseif(V == "CurrentPitchVis":lower()){
-CurrentPitchVis
+#CurrentPitchVis
       }
       elseif(V == "LowPitchVis":lower()){
-LowPitchVis
+#LowPitchVis
       }
       elseif(V == "HighPitchVis":lower()){
-HighPitchVis
+#HighPitchVis
       }
       elseif(V == "TargetInAreaList":lower()){
-TargetInAreaList
+#TargetInAreaList
       }
       elseif(V == "TargetInAreaVis":lower()){
-TargetInAreaVis
+#TargetInAreaVis
       }
       elseif(V == "WantedYawNum":lower()){
-WantedYawNum
+#WantedYawNum
       }
       elseif(V == "CurrentYawNum":lower()){
-CurrentYawNum
+#CurrentYawNum
       }
       elseif(V == "WantedYawVis":lower()){
-WantedYawVis
+#WantedYawVis
       }
       elseif(V == "CurrentYawVis":lower()){
-CurrentYawVis
+#CurrentYawVis
       }
     }
 }

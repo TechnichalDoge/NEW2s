@@ -1,0 +1,8 @@
+@name test4
+@inputs 
+@outputs V1:vector V2:vector
+@persist 
+@trigger 
+
+V1 = vec(3,6,9)
+V2 = V1:reOrder(3,1,2)

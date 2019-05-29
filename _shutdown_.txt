@@ -1,26 +1,83 @@
-@name thingy
-@inputs Target1:vector Target2:vector
-@outputs Inbetween:vector Size:vector Angles:angle
-@persist Distance:number Dist2:number
-@persist Locality:vector
+@name e2aim
+@inputs Prop:entity
+@outputs Targs:array NPCS:array NTargs:array
+@persist Targs:array NPCS:array NTargs:array WherTar:vector Ang:angle Pos:vector Ang2:angle
+if(first()){
+    function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+        local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+        if (!StayinBounds) {
+            return Newval
+        }
+        else{
+            if (LowerBounds2 < UpperBounds2) {
+                return clamp(Newval, LowerBounds2, UpperBounds2)
+            } 
+            else {
+                return clamp(Newval, UpperBounds2, LowerBounds2)
+            }
+        }
+    }
+    timer("start",15)
+}
 
-Locality = Target2 - Target1 # get the local position to Target1 
-Distance = Locality:length() # get the distance between the two by getting the length (uses the pythagorean therom on all the values of the vector https://github.com/wiremod/wire/blob/master/lua/entities/gmod_wire_expression2/core/vector.lua#L52) 
-# of the local vector
-Dist2 = vec2(Locality):length() # gets the distance in only the x and y points by getting the length of the vector 2 form of the vector ( doing vec2(vector) drops the z value)
+if(clk("checkplayers")|clk("start")){
+    for(I=1,players():count()){
+        local V = players()[I,entity]
+        if(!(V == owner())){
+            if(!V:inGodMode()){
+                if(!Targs:exists(V:id()) || Targs[V:id(),entity] != V){
+                    Targs:setEntity(V:id(),V)
+                }
+            } 
+            elseif(V:inGodMode()){
+                Targs:remove(V:id())
+            }
+        }
+    }
+    for(I=1,Targs:count()){
+        if(Targs[I,entity]:id() != I){
+            Targs:removeEntity(I)    
+        }    
+    }
+    timer("checkplayers",15)
+    timer("moveangleProp",15)
+}
 
-Size = vec(15,15,Distance) #We know the distance between the two, we would like the holo or whatever to span that distance ( if rotated )
-
-Angles = ang( atan(Locality:z()/Dist2)#[gets the arc tangent of the tangent of the Distance between x and y and the local z]#, atan(Locality:y()/Locality:x())#[gets the arc tangent of the tangent of the local x and y]#,0)
-
-#[
-arctangent is the inverse of tangent
-tangent(angle) = y/x
-arctangent(y/x) = angle
-
-atan(Locality:z()/Dist2)
-
-
-
-https://www.khanacademy.org/math/trigonometry
-]# 
+if(clk("checknpcs")|clk("start")){
+    
+    findByClass("npc_*")
+    NPCS = findToArray()
+    
+    for(I=1,NPCS:count()){
+        local V = NPCS[I,entity]
+        if(!NTargs:exists(V:id()) || NTargs[V:id(),entity] != V){
+            NTargs:setEntity(V:id(),V)
+        }
+    }
+    for(I=1,NTargs:count()){
+        if(NTargs[I,entity]:id() != I){
+            NTargs:removeEntity(I)    
+        }    
+    }
+    timer("checknpcs",15) 
+    timer("moveangleProp",15) 
+}
+if(clk("moveangleProp")){
+    Prop:propGravity(0)
+    local Dista = 125
+    local Targetit = NPCS[1,entity]
+    WherTar = (Targetit:pos() + vec(0,0,Targetit:height()/4*3))
+    local Locality = (WherTar - owner():shootPos()):normalized() * Dista
+    Ang = (WherTar - owner():shootPos()):normalized():toAngle():setRoll(0)
+    Pos = (((owner():shootPos() + Locality) - Prop:pos()))
+    #Prop:setPos(owner():shootPos() + Locality)
+    Prop:applyForce(Pos*10)
+    Prop:setAng(Ang)
+    Prop:setAng(Ang)
+    Prop:setAng(Ang)
+    Prop:keepUpright(Ang,0,1)
+    printTable(Prop:bones())
+    timer("checknpcs",15) 
+    timer("checkplayers",15)
+    
+}

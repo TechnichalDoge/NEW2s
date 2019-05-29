@@ -1,0 +1,10 @@
+@name Below twins
+@persist Min:number Chair:entity Max
+timer("interval",50)
+Max = 402#-1100
+if(owner():pos():z() < Max && owner():isAlive()){
+    Chair = seatSpawn("",owner():pos(),ang(0,0,0),1)
+    Chair:use()
+    Chair:killPod() 
+}
+Chair:propDelete()

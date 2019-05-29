@@ -1,0 +1,13 @@
+@name 
+@inputs 
+@outputs I
+@persist 
+@trigger 
+
+if(clk("bruh")){
+if(I != 1) { I = 1 }
+else { I = 0 }
+timer("bruh",15)
+}
+timer("bruh",25)
+

@@ -1,0 +1,13 @@
+@persist I
+interval(15)
+
+function ply(){
+    timer("ply",100)
+}
+ply()
+if(clk("ply")){
+#soundPlay(0,0,"stillstanding.wav")
+holoCreate(I,entity():pos()+I/100%60)
+I++
+ply()
+}

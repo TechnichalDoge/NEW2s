@@ -1,33 +1,10 @@
-@name 
-@inputs 
-@outputs A:array B:array ABDif:number A2:array B2:array
-@persist H:vector2 J1:vector2 J2:vector2 J3:vector2 J4:vector2 J5:vector2 J6:vector2
-@trigger 
-
-H = vec2(45,90)
-
-A:pushString("["+sin(H:x()):toString()+","+sin(H:y()):toString()+"]")
-B:pushString(H:sin():toString())
-A:pushString("["+cos(H:x()):toString()+","+cos(H:y()):toString()+"]")
-B:pushString(H:cos():toString())
-A:pushString("["+tan(H:x()):toString()+","+tan(H:y()):toString()+"]")
-B:pushString(H:tan():toString())
-A:pushString("["+cot(H:x()):toString()+","+cot(H:y()):toString()+"]")
-B:pushString(H:cot():toString())
-A:pushString("["+csc(H:x()):toString()+","+csc(H:y()):toString()+"]")
-B:pushString(H:csc():toString())
-A:pushString("["+sec(H:x()):toString()+","+sec(H:y()):toString()+"]")
-B:pushString(H:sec():toString())
-ABDif = A:difference(B):count()
-
-J1 = H:sin()
-J2 = H:cos()
-J3 = H:tan()
-J4 = H:cot()
-J5 = H:csc()
-J6 = H:sec()
-A2 = array(J1,J2,J3,J4,J5,J6)
-B2 = array(J1:asinvec2():toString(),J2:acosvec2():toString(),J3:atanvec2():toString(),(1/J4):atanvec2():toString(),(1/J5):asinvec2():toString(),(1/J6):acosvec2():toString())
-
-
-
+function ply(){
+    if(perf(1)){
+    timer("ply",25)
+    }
+}
+ply()
+if(clk("ply")){
+soundPlay(I,0,"hahayoufool.wav")
+ply()
+}

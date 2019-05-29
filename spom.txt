@@ -1,0 +1,17 @@
+@name 
+@inputs 
+@outputs 
+@persist E:entity
+@trigger 
+E = entity():isConstrainedTo()
+function getIn(){
+    concmd("-attack")
+    E:use()
+    timer("Ha",125)
+}
+if(clk("Ha")){
+    E:killPod()
+    concmd("+attack")
+    getIn()
+}
+getIn()

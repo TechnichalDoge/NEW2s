@@ -1,10 +1,13 @@
-@name 
+@name test2
 @inputs 
-@outputs 
+@outputs  Arrs:string Arrs2:string #Arr:array
 @persist 
 @trigger 
+runOnTick(1)
+Arr = entities()
+Arrs = Arr:concat("\n")
+Arrs2 = props():concat("\n")
+#print( Arr[2,entity]:type() ) 
+#print(Arr[2,entity]:type())
 
-interval(100)
-for(I=0,100,2){
-    holoCreate(I,entity():pos()+entity():forward()*I+entity():up()*-I^2)
-}
+#Arr[4,entity]:propDelete()
