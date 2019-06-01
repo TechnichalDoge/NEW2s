@@ -5,7 +5,7 @@
 @persist DesiredVector:vector Origin:vector RemainingLength I
 @trigger 
 
-if (first()|dupefinished()){
+if ((first()|dupefinished())&&Input){
     runOnTick(1000)    
     
     TotalLength = 50000
@@ -80,6 +80,7 @@ if (first()|dupefinished()){
         StatusDone = 1
     }
 }
+#else{reset()}
 #if(Input==1){
 
 if(Status == "init"){

@@ -1,6 +1,6 @@
 @name e2aim
 @inputs Prop:entity
-@outputs Targs:array T2:array
+@outputs Targs:array
 @persist Targs:array WherTar:vector Ang:angle Pos:vector Ang2:angle
 if(first()){
     timer("start",15)
@@ -15,16 +15,20 @@ if(first()){
     }
 }
 if(clk("checkplayers")|clk("start")){
-    for(I=1,getPvpers():count()){
-        local V = getPvpers()[I,entity]
-        if(!(V == owner())){
-                if(!Targs:exists(V:id()) || Targs[V:id(),entity] != V){
-                    Targs:setEntity(V:id(),V)
-                }
+    findByClass("npc_*")
+    local NPCS = findToArray()
+    #for(I=1,getPvpers():count()){
+    for(I=1,NPCS:count()){
+        local V = NPCS[I,entity]
+        #local V = getPvpers()[I,entity]
+        #if(!(V == owner())){
+            if(!Targs:exists(V:id()) || Targs[V:id(),entity] != V){
+                Targs:setEntity(V:id(),V)
+            }
             elseif(!V:isAlive()){
                 Targs:remove(V:id())
             }
-        }
+        #}
     }
     for(I=1,Targs:count()){
         if(Targs[I,entity]:id() != I){
@@ -41,13 +45,13 @@ if(clk("moveangleProp")){
     WherTar = (Targetit:shootPos())
     local Locality = (WherTar - owner():shootPos()):normalized() * Dista
     Ang = (WherTar - owner():shootPos()):normalized():toAngle():setRoll(0) + ang(0,0,0)
-    Pos = (((owner():shootPos() + Locality) - Prop:pos()))
-    #Prop:setPos(owner():shootPos() + Locality)
-    Prop:applyForce(Pos*10)
+    #Pos = (((owner():shootPos() + Locality) - Prop:pos()))
+    Pos = (owner():shootPos() + Locality)
+    Prop:setPos(Pos)
+    #Prop:applyForce(Pos*10)
     Prop:setAng(Ang)
-    Prop:setAng(Ang)
-    Prop:setAng(Ang)
-    Prop:keepUpright(Ang,0,1)
+    #Prop:setAng(Ang)
+    #Prop:setAng(Ang)
+    #Prop:keepUpright(Ang,0,1)
     timer("checkplayers",15)
-    T2 = removeEmptEnt(Targs)
 }

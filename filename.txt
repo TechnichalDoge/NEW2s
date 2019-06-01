@@ -5,6 +5,6 @@ function ply(){
 }
 ply()
 if(clk("ply")){
-soundPlay(I,0,"hahayoufool.wav")
+soundPlay(1,0,"hahayoufool.wav")
 ply()
 }

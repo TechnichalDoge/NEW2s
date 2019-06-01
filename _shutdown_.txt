@@ -1,83 +1,116 @@
-@name e2aim
-@inputs Prop:entity
-@outputs Targs:array NPCS:array NTargs:array
-@persist Targs:array NPCS:array NTargs:array WherTar:vector Ang:angle Pos:vector Ang2:angle
-if(first()){
-    function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
-        local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
-        if (!StayinBounds) {
-            return Newval
-        }
-        else{
-            if (LowerBounds2 < UpperBounds2) {
-                return clamp(Newval, LowerBounds2, UpperBounds2)
-            } 
-            else {
-                return clamp(Newval, UpperBounds2, LowerBounds2)
+@name laser
+@inputs Input
+@outputs I HitPlayer
+@persist MaxLength Color:vector TotalLength PreviousI Status:string StatusDone
+@persist DesiredVector:vector Origin:vector RemainingLength I
+@trigger 
+
+if ((first()|dupefinished())&&Input){
+    runOnTick(1000)    
+    
+    TotalLength = 50000
+    MaxLength = 500 #the maximum length a holo can be #admin only command wire_holograms_size_max controls this
+    Color = randvec(vec(0,0,0), vec(255,255,255))
+    
+    ScanIgnore = array()
+    ScanIgnore:pushEntity(entity())
+    ScanIgnore:pushEntity(holoEntity(1))
+    rangerFilter(ScanIgnore)
+
+    Status = "init"
+    
+    function init(){
+        DesiredVector = entity():up()
+        Origin = entity():pos()
+        
+        #DesiredVector = entity():owner():eye()
+        #Origin = entity():owner():shootPos() + DesiredVector*20
+        
+        RemainingLength = TotalLength
+        I = 0
+        StatusDone = 1
+    }
+    
+    function bounce(){
+        while(RemainingLength > 0){
+            if(perf()){
+                StatusDone = 1
+            }else{
+                StatusDone = 0
+                break
+            }
+            
+            I++
+               
+            RangerData = rangerOffset(MaxLength, Origin, DesiredVector)
+            Length = RangerData:distance()
+
+
+            holoCreate(I)
+#            holoVisible(I,players(),0)
+            holoAng(I, DesiredVector:toAngle() + ang(90,0,0))
+            holoModel(I, "hq_cylinder")
+            holoScaleUnits(I, vec(1, 1, Length))
+            holoPos(I, Origin + DesiredVector*Length/2)
+            holoColor(I, Color)
+            holoAlpha(I, 150)
+            
+            HitNormal = RangerData:hitNormal()
+            DesiredVector =  DesiredVector - 2*(DesiredVector:dot(HitNormal))*HitNormal
+            DesiredVector = DesiredVector:normalized()
+            Origin = RangerData:pos()
+            
+            if (RangerData:entity():isPlayer()){
+                RemainingLength = 0
+                HitPlayer = 1
+            }else{
+                HitPlayer = 0
+                RemainingLength -= Length
             }
         }
     }
-    timer("start",15)
+    
+    function cleanup(){
+        #get rid of any extra holos laying around
+        for(J = I + 1, PreviousI){
+            holoDelete(J)
+        }
+        
+        PreviousI = I
+        StatusDone = 1
+    }
+}
+#else{reset()}
+#if(Input==1){
+
+if(Status == "init"){
+    if (StatusDone == 1){
+        StatusDone = 0
+        Status = "bounce"
+    }else{
+        init()
+    }
 }
 
-if(clk("checkplayers")|clk("start")){
-    for(I=1,players():count()){
-        local V = players()[I,entity]
-        if(!(V == owner())){
-            if(!V:inGodMode()){
-                if(!Targs:exists(V:id()) || Targs[V:id(),entity] != V){
-                    Targs:setEntity(V:id(),V)
-                }
-            } 
-            elseif(V:inGodMode()){
-                Targs:remove(V:id())
-            }
-        }
+if(Status == "bounce"){
+    if (StatusDone == 1){
+        StatusDone = 0
+        Status = "cleanup"
+    }else{
+        bounce()
     }
-    for(I=1,Targs:count()){
-        if(Targs[I,entity]:id() != I){
-            Targs:removeEntity(I)    
-        }    
-    }
-    timer("checkplayers",15)
-    timer("moveangleProp",15)
 }
 
-if(clk("checknpcs")|clk("start")){
-    
-    findByClass("npc_*")
-    NPCS = findToArray()
-    
-    for(I=1,NPCS:count()){
-        local V = NPCS[I,entity]
-        if(!NTargs:exists(V:id()) || NTargs[V:id(),entity] != V){
-            NTargs:setEntity(V:id(),V)
-        }
+if (Status == "cleanup"){
+    if (StatusDone == 1){
+        StatusDone = 0
+        Status = "init"
+    }else{
+        cleanup()
     }
-    for(I=1,NTargs:count()){
-        if(NTargs[I,entity]:id() != I){
-            NTargs:removeEntity(I)    
-        }    
-    }
-    timer("checknpcs",15) 
-    timer("moveangleProp",15) 
 }
-if(clk("moveangleProp")){
-    Prop:propGravity(0)
-    local Dista = 125
-    local Targetit = NPCS[1,entity]
-    WherTar = (Targetit:pos() + vec(0,0,Targetit:height()/4*3))
-    local Locality = (WherTar - owner():shootPos()):normalized() * Dista
-    Ang = (WherTar - owner():shootPos()):normalized():toAngle():setRoll(0)
-    Pos = (((owner():shootPos() + Locality) - Prop:pos()))
-    #Prop:setPos(owner():shootPos() + Locality)
-    Prop:applyForce(Pos*10)
-    Prop:setAng(Ang)
-    Prop:setAng(Ang)
-    Prop:setAng(Ang)
-    Prop:keepUpright(Ang,0,1)
-    printTable(Prop:bones())
-    timer("checknpcs",15) 
-    timer("checkplayers",15)
+#}
+if(!Input){
+    holoDeleteAll()   
     
 }

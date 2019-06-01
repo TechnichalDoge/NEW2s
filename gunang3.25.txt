@@ -9,7 +9,7 @@
 runOnTick(1)
 
 if((first()||dupefinished())||changed(Driver)){
-
+    DirectionFlicker = 0
     Driver = Chair:driver()
 
     #Controls
@@ -196,7 +196,7 @@ if(!Inactive){
 
     Locality = (vec2(FireLocation) - vec2(EPos))
     Dists = vec2( sqrt(Locality:x()^2+Locality:y()^2) , FireLocation:z() - EPos:z() )
-    Yaw = atan(Locality:y(),Locality:x())+180
+    Yaw = wrap(atan(Locality:y(),Locality:x())+180,180)
     AngleU = atan((Veloc^2+sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
     AngleD = atan((Veloc^2-sqrt(Veloc^4 - Grav*(Grav*Dists:x()^2+2*Dists:y()*Veloc^2)))/(Grav*Dists:x()))-90
 
@@ -206,19 +206,24 @@ if(!Inactive){
     elseif(DirectionFlicker == True){
         Angles = ang(AngleD,Yaw,0)
     }
-
-    if(GunE:angles():yaw() < Angles:yaw()){
+    
+    
+    
+    print(Angles:yaw()-GunE:angles():yaw())
+    if(Angles:yaw()-GunE:angles():yaw() < 0){
         GunMeanAngles += ang(0,0.3,0)
     }
-    if(GunE:angles():yaw() > Angles:yaw()){
+    elseif(Angles:yaw()-GunE:angles():yaw() > 0){
         GunMeanAngles += ang(0,-0.3,0)
     }
     if(GunE:angles():pitch() < Angles:pitch()){
         GunMeanAngles += ang(0.1,0,0)
     }
-    if(GunE:angles():pitch() > Angles:pitch()){
+    elseif(GunE:angles():pitch() > Angles:pitch()){
         GunMeanAngles += ang(-0.1,0,0)
     }
+    
+    ###fix the yaw
 
     GunE:setAng(GunMeanAngles)
 

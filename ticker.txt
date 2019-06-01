@@ -1,0 +1,14 @@
+@name Ticker
+@inputs On:number
+@outputs Tickey:number
+timer("start",15)
+if(clk("start")|clk("off")){
+    Tickey = 0
+    timer("on",15)    
+}
+if(clk("on")){
+    if(On != 0){
+        Tickey = 1    
+    }    
+    timer("off",15)
+}
