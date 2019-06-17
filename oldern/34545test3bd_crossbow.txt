@@ -1,0 +1,53 @@
+@name 34545test3Bd Crossbow
+@inputs 
+@outputs 
+@persist 
+@trigger 
+interval(100)
+function holo (Ent:entity,Ang:angle,I:number){
+    local Pos = Ent:pos()
+    local Length = 1250
+    holoCreate(I,Pos)
+    #holoAng(I,Ang+(ang(90,0,0)))
+    holoAng(I,Ang+(ang(0,0,0)))
+   #holoModel(I,"models/props_lab/cactus.mdl")
+    #holoModel(I,"models/Items/AR2_Grenade.mdl")
+    holoModel(I,"models/maxofs2d/companion_doll.mdl")
+    #holoModel(I,"models/Items/hevsuit.mdl")
+        #holoModel(I,"models/Humans/Group03/male_07.mdl")
+    #holoModel(I,"models/props_c17/doll01.mdl")
+    #holoModel(I,"models/Gibs/HGIBS.mdl")
+    
+        #holoModel(I,"models/props_c17/doll01.mdl")    
+                #holoModel(I,"models/props_phx/trains/fsd-overrun2.mdl")  
+    #holoScaleUnits(I,vec(Length/3,Length/3,Length))
+    holoScaleUnits(I,vec(Length/3,Length,Length))
+    #holoScaleUnits(I,vec(Length,Length,Length))    
+    holoClip(I,Pos,-Ent:forward(),1)
+    holoParent(I,Ent)
+    
+}
+    findIncludeClass("crossbow_bolt")
+    findIncludeClass("prop_combine_ball")
+    findIncludeClass("grenade_ar2")
+    findIncludeClass("rpg_missile")
+    findIncludeClass("npc_grenade")    
+    findInSphere(entity():pos(),100000)
+Array=findToArray()
+
+    holoCreate(2)
+    holoCreate(3)
+    holoCreate(4)
+    
+    
+    for(I=1,Array:count()){
+    local TempEnt = Array[I,entity]        
+    local TempPewPewVector = Array[I,entity]:pos()
+    local Vel = Array[I,entity]:vel()/16
+    holo(TempEnt,TempEnt:angles(),I)
+#    timer("del",7500)
+    }
+    if(Array:count()==0|clk("del")){
+     holoDeleteAll()   
+    }
+    

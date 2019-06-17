@@ -6,8 +6,7 @@ function ply(){
 }
 ply()
 if(clk("ply")){
-#soundPlay(0,0,"stillstanding.wav")
-holoCreate(I,entity():pos()+I/100%60)
+soundPlay(0,0,"stillstanding.wav")
 I++
 ply()
 }

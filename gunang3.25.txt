@@ -208,12 +208,10 @@ if(!Inactive){
     }
     
     
-    
-    print(Angles:yaw()-GunE:angles():yaw())
-    if(Angles:yaw()-GunE:angles():yaw() < 0){
+    if(vec(Angles):y() > vec(GunE:angles()):y()){
         GunMeanAngles += ang(0,0.3,0)
     }
-    elseif(Angles:yaw()-GunE:angles():yaw() > 0){
+    elseif(vec(Angles):y() < vec(GunE:angles()):y()){
         GunMeanAngles += ang(0,-0.3,0)
     }
     if(GunE:angles():pitch() < Angles:pitch()){

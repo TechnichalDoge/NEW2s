@@ -1,116 +1,98 @@
-@name laser
-@inputs Input
-@outputs I HitPlayer
-@persist MaxLength Color:vector TotalLength PreviousI Status:string StatusDone
-@persist DesiredVector:vector Origin:vector RemainingLength I
-@trigger 
+@name minecrafte2
+@persist BlockSize BlockModel:string BlockWeapons:table Blocks:table CurBlock:string CurMaterial:string CurColor:vector State:string CurAlpha CurBlockNum:number
 
-if ((first()|dupefinished())&&Input){
-    runOnTick(1000)    
-    
-    TotalLength = 50000
-    MaxLength = 500 #the maximum length a holo can be #admin only command wire_holograms_size_max controls this
-    Color = randvec(vec(0,0,0), vec(255,255,255))
-    
-    ScanIgnore = array()
-    ScanIgnore:pushEntity(entity())
-    ScanIgnore:pushEntity(holoEntity(1))
-    rangerFilter(ScanIgnore)
-
-    Status = "init"
-    
-    function init(){
-        DesiredVector = entity():up()
-        Origin = entity():pos()
-        
-        #DesiredVector = entity():owner():eye()
-        #Origin = entity():owner():shootPos() + DesiredVector*20
-        
-        RemainingLength = TotalLength
-        I = 0
-        StatusDone = 1
+if(first()){
+    BlockModel = "models/sprops/cuboids/height48/size_1/cube_48x48x48.mdl"  
+    BlockSize = 48
+    timer("scanFor",15) 
+    timer("ownerTick",15)
+    CurBlockNum = 1
+    Blocks = table()
+    Blocks[1,array] = array(1,"Grass","phoenix_storms/ps_grass",vec(12,255,25),255,"solid")
+    Blocks[2,array] = array(2,"Glass","models/dog/eyeglass",vec(12,225,255),225,"solid")
+    Blocks[3,array] = array(3,"Stone","models/dog/eyeglass",vec(12,255,25),255,"solid")
+    Blocks[4,array] = array(4,"Wood","phoenix_storms/wood_dome",vec(255,255,255),255,"solid")
+    Blocks[5,array] = array(5,"Cobblestone","models/dog/eyeglass",vec(12,255,25),255,"solid")
+    Blocks[6,array] = array(6,"Trunk","sprops/trans/misc/tracks_wood",vec(255,255,255),255,"tree|sprops/textures/sprops_wood1")
+    Blocks[7,array] = array(7,"Magma","models/dog/eyeglass",vec(12,255,25),255,"solid")
+    Blocks[8,array] = array(8,"Lava","models/dog/eyeglass",vec(12,255,25),255,"liquid")
+    Blocks[9,array] = array(9,"Dirt","models/props_wasteland/dirtwall001a",vec(125,125,125),255,"solid")
+    BlockWeapons["all",string] = "remotecontroller"#"pac_pistol"
+    runOnKeys(owner(),1)
+}
+if(clk("scanFor")){
+    CurBlock = Blocks[CurBlockNum,array][2,string]
+    CurAlpha = Blocks[CurBlockNum,array][5,number]
+    CurColor = Blocks[CurBlockNum,array][4,vector]
+    CurMaterial = Blocks[CurBlockNum,array][3,string]
+    State = Blocks[CurBlockNum,array][6,string]
+    timer("scanFor",15)
+}
+if(keyClk() == owner() || clk("ownerTick")){
+    if(owner():keyAttack1()&&changed(owner():keyAttack1())){
+        timer("placeBlock",15)
     }
-    
-    function bounce(){
-        while(RemainingLength > 0){
-            if(perf()){
-                StatusDone = 1
-            }else{
-                StatusDone = 0
-                break
+    if(owner():keyAttack2()&&changed(owner():keyAttack2())){
+        if(BlockWeapons:values():concat("|"):find(owner():weapon():type())){
+            holoDelete(owner():eyeTrace():entity():id())
+            owner():eyeTrace():entity():propDelete()  
+        }
+    }
+    if(owner():keyPressed("E")&&changed(owner():keyPressed("E"))){
+        if(BlockWeapons["all",string] == owner():weapon():type()){
+            if(clamp(CurBlockNum-1,1,Blocks:count()) == CurBlockNum-1){
+                print("Block is " + Blocks[CurBlockNum-1,array][2,string])
             }
-            
-            I++
-               
-            RangerData = rangerOffset(MaxLength, Origin, DesiredVector)
-            Length = RangerData:distance()
-
-
-            holoCreate(I)
-#            holoVisible(I,players(),0)
-            holoAng(I, DesiredVector:toAngle() + ang(90,0,0))
-            holoModel(I, "hq_cylinder")
-            holoScaleUnits(I, vec(1, 1, Length))
-            holoPos(I, Origin + DesiredVector*Length/2)
-            holoColor(I, Color)
-            holoAlpha(I, 150)
-            
-            HitNormal = RangerData:hitNormal()
-            DesiredVector =  DesiredVector - 2*(DesiredVector:dot(HitNormal))*HitNormal
-            DesiredVector = DesiredVector:normalized()
-            Origin = RangerData:pos()
-            
-            if (RangerData:entity():isPlayer()){
-                RemainingLength = 0
-                HitPlayer = 1
-            }else{
-                HitPlayer = 0
-                RemainingLength -= Length
+            CurBlockNum = clamp(CurBlockNum-1,1,Blocks:count())
+        }
+    }
+    if(owner():keyPressed("R")&&changed(owner():keyPressed("R"))){
+        if(BlockWeapons["all",string] == owner():weapon():type()){
+            if(clamp(CurBlockNum+1,1,Blocks:count()) == CurBlockNum+1){
+                print("Block is " + Blocks[CurBlockNum+1,array][2,string])
+            }
+            CurBlockNum = clamp(CurBlockNum+1,1,Blocks:count())
+        }
+    }
+    timer("ownerTick",15)
+}
+if(clk("placeBlock")){
+    if(BlockWeapons:values():concat("|"):find(owner():weapon():type())){
+        local Offset = vec(0,0,20)
+        local PlayerHitPos = owner():eyeTrace():pos()    
+        local Snapped = round((PlayerHitPos-Offset)/BlockSize)*BlockSize+Offset
+        local Ang = owner():eyeTrace():hitNormal():toAngle() + ang(90,0,0)
+        findIncludeClass("prop_physics")
+        findInSphere(Snapped,1)
+        if(Snapped != findToArray()[1,entity]:pos()){
+            local E = propSpawn(BlockModel,Snapped,ang(0,0,0),1)
+            E:setMaterial(CurMaterial)
+            E:setColor(CurColor)
+            E:setAlpha(CurAlpha)
+            if(State == "liquid"){
+                E:setNoCollideAll()
+            }
+            if(State:explode("|")[1,string] == "tree"){
+                local InnerMat = State:explode("|")[2,string]
+                holoCreate(E:id(),Snapped)
+                holoAng(E:id(),Ang)
+                holoMaterial(E:id(),InnerMat)
+                holoScaleUnits(E:id(),vec(BlockSize-5,BlockSize-5,BlockSize+1))
             }
         }
     }
-    
-    function cleanup(){
-        #get rid of any extra holos laying around
-        for(J = I + 1, PreviousI){
-            holoDelete(J)
-        }
-        
-        PreviousI = I
-        StatusDone = 1
-    }
-}
-#else{reset()}
-#if(Input==1){
-
-if(Status == "init"){
-    if (StatusDone == 1){
-        StatusDone = 0
-        Status = "bounce"
-    }else{
-        init()
-    }
 }
 
-if(Status == "bounce"){
-    if (StatusDone == 1){
-        StatusDone = 0
-        Status = "cleanup"
-    }else{
-        bounce()
-    }
-}
 
-if (Status == "cleanup"){
-    if (StatusDone == 1){
-        StatusDone = 0
-        Status = "init"
-    }else{
-        cleanup()
-    }
-}
-#}
-if(!Input){
-    holoDeleteAll()   
-    
-}
+
+
+
+
+
+
+
+
+
+
+
+

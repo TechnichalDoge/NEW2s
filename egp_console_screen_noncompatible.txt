@@ -1,0 +1,96 @@
+@name EGP Console Screen nonCompatible
+@inputs XCursor:number YCursor:number Clk:number Value:string 
+@outputs OutValue:string
+@persist EGP:wirelink SizeX SizeY Memory:array LoopMax LoopStart
+@persist SelectedIndex:number
+
+if(first()){
+    EGP = entity():isConstrainedTo():wirelink()
+    EGP:egpClear()
+    SizeX = 32
+    SizeY = 16 
+    
+
+    function number findIndex(XPos,YPos){
+        return YPos * (SizeX) + XPos
+    }
+    function vector2 findPos(Index:number){
+        return vec2(Index%SizeX,floor(Index/SizeX))
+    }
+    #[
+        Code from p5.js
+            https://github.com/processing/p5.js/blob/master/src/math/calculation.js#L465
+        Converted to E2 by Logica
+            https://steamcommunity.com/id/GetLogical/
+    ]#
+    function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+        local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+        if (!StayinBounds) {
+            return Newval
+        }
+        else{
+            if (LowerBounds2 < UpperBounds2) {
+                return clamp(Newval, LowerBounds2, UpperBounds2)
+            } 
+            else {
+                return clamp(Newval, UpperBounds2, LowerBounds2)
+            }
+        }
+    }
+    LoopMax = findIndex(SizeX,SizeY)
+    LoopStart = 0
+    timer("loopnext",1)
+}
+
+if (clk("loopnext")) #legokidlogam
+{
+    if (LoopMax - LoopStart > 10)
+    {
+        for (I = LoopStart, LoopStart + 10)
+        {
+            Memory[I,string] = " "
+            EGP:egpText(I+1,Memory[I,string],vec2(mapNum(findPos(I):x(),0,SizeX,0,EGP:egpSize():x(),0),mapNum(findPos(I):y(),0,SizeY,0,EGP:egpSize():y(),0)))
+        }
+        LoopStart += 11
+        timer("loopnext",1)
+    }
+    elseif (LoopMax - LoopStart < 1)
+    {
+        timer("run",25)
+    }
+    else
+    {
+        for (I = LoopStart, LoopMax)
+        {
+            Memory[I,string] = " "
+            EGP:egpText(I+1,Memory[I,string],vec2(mapNum(findPos(I):x(),0,SizeX,0,EGP:egpSize():x(),0),mapNum(findPos(I):y(),0,SizeY,0,EGP:egpSize():y(),0)))
+        }
+        LoopStart = LoopMax + 1
+        timer("loopnext",1)
+    }
+}
+
+#print(vec2(5,10))
+#print(findIndex(5,10))
+#print(findPos(findIndex(5,10)))
+
+if(clk("run")){
+    SelectedIndex = findIndex(XCursor,YCursor)
+    timer("cursorAnim1",450)
+    OutValue = Memory[SelectedIndex,string]
+    if(Clk){
+        Memory[SelectedIndex,string] = Value   
+        EGP:egpSetText(SelectedIndex+1,Value) 
+    }
+    EGP:egpSetText(SelectedIndex+1,Memory[SelectedIndex,string])
+    timer("run",25)
+}
+
+if(clk("cursorAnim1")){
+    EGP:egpSetText(SelectedIndex+1,"|")
+    timer("cursorAnim2",25)
+}
+
+if(clk("cursorAnim2")){
+    EGP:egpSetText(SelectedIndex+1,Memory[SelectedIndex,string])
+}

@@ -1,7 +1,7 @@
-@name Below twins 2
+@name Below -11140
 @persist Min:number Chair:entity Max
 timer("interval",50)
-Max = 402#-1100
+Max = -11140#-1100
 if(owner():pos():z() < Max && owner():isAlive()){
     Chair = seatSpawn("",owner():pos(),ang(0,0,0),1)
     Chair:use()

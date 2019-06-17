@@ -1,0 +1,86 @@
+@name Plane E2 Logica
+@persist Controls:table ActiveControls:table Chair:entity Driver:entity Settings:table CurrentProperties:table
+@outputs Controls:table ActiveControls:table Chair:entity Driver:entity Settings:table CurrentProperties:table
+
+if(first()){
+    Chair = entity():isConstrainedTo()
+    Controls["PitchUp",string] = "S"   
+    Controls["PitchDown",string] = "w"   
+    Controls["RollLeft",string] = "a"   
+    Controls["RollRight",string] = "d"   
+    Controls["YawLeft",string] = "q"   
+    Controls["YawRight",string] = "e"
+     
+    Controls["SpeedUp",string] = "space"   
+    Controls["SpeedDown",string] = "LSHIFT" 
+    
+    Settings["MaxSpeed",number] = 100   
+    Settings["MaxAngSpeed",number] = 25 
+    Settings["MinAngSpeed",number] = 5     
+    
+    CurrentProperties["speed",number] = 0
+    CurrentProperties["Position",vector] = Chair:pos()
+    CurrentProperties["angles",angle] = Chair:angles()
+    CurrentProperties["pitch",number] = Chair:angles():pitch()
+    CurrentProperties["yaw",number] = Chair:angles():yaw()
+    CurrentProperties["roll",number] = Chair:angles():roll()
+    CurrentProperties["angspeed",number] = Settings["MinAngSpeed",number]
+    #[
+        Code from p5.js
+            https://github.com/processing/p5.js/blob/master/src/math/calculation.js#L465
+        Converted to E2 by Logica
+            https://steamcommunity.com/id/GetLogical/
+    ]#
+    function number mapNum(Input:number, LowerBounds1:number, UpperBounds1:number, LowerBounds2:number, UpperBounds2:number, StayinBounds) {
+        local Newval = (Input - LowerBounds1) / (UpperBounds1 - LowerBounds1) * (UpperBounds2 - LowerBounds2) + LowerBounds2
+        if (!StayinBounds) {
+            return Newval
+        }
+        else{
+            if (LowerBounds2 < UpperBounds2) {
+                return clamp(Newval, LowerBounds2, UpperBounds2)
+            } 
+            else {
+                return clamp(Newval, UpperBounds2, LowerBounds2)
+            }
+        }
+    }    
+}
+timer("checkKeys",15)
+timer("moveClk",20)
+timer("ClampNumbers",15)
+if(clk("checkKeys")){
+    Driver = Chair:driver()
+    foreach(I,K:string = Controls){
+        ActiveControls[I,number] = Driver:keyPressed(Controls[I,string])
+    }
+    ActiveControls["Pitch",number] = ActiveControls["PitchDown",number] - ActiveControls["PitchUp",number] 
+    ActiveControls["Roll",number] = ActiveControls["RollRight",number] - ActiveControls["RollLeft",number]   
+    ActiveControls["Yaw",number] = ActiveControls["YawRight",number] - ActiveControls["YawLeft",number]
+    ActiveControls["Speed",number] = ActiveControls["SpeedUp",number] - ActiveControls["SpeedDown",number]
+    
+    timer("checkKeys",15)
+}
+if(clk("ClampNumbers")){
+    CurrentProperties["speed",number] = clamp(CurrentProperties["speed",number],0,Settings["MaxSpeed",number])
+    timer("ClampNumbers",20)
+}
+if(clk("moveClk")){
+    CurrentProperties["speed",number] = CurrentProperties["speed",number] + ActiveControls["Speed",number]
+    CurrentProperties["pitch",number] = ActiveControls["Pitch",number]
+    CurrentProperties["yaw",number] = ActiveControls["Yaw",number]
+    CurrentProperties["roll",number] = ActiveControls["Roll",number]
+    CurrentProperties["angles",angle] = Chair:toWorld(ang(CurrentProperties["pitch",number],CurrentProperties["yaw",number],CurrentProperties["roll",number]))
+    CurrentProperties["Position",vector] = Chair:pos() + (CurrentProperties["angles",angle]:forward() * CurrentProperties["speed",number])
+        #Boxtrot: Base:toWorld() converts local to world 
+    CurrentProperties["angspeed",number] = mapNum(CurrentProperties["speed",number], 0, Settings["MaxSpeed",number], Settings["MinAngSpeed",number], Settings["MaxAngSpeed",number], 1)
+    if(CurrentProperties["Position",vector]:isInWorld()){
+        Chair:setPos(CurrentProperties["Position",vector])
+    }
+    Chair:setAng(CurrentProperties["angles",angle] * CurrentProperties["angspeed",number] )
+        
+#holoCreate(1,CurrentProperties["Position",vector])
+timer("moveClk",25)
+}
+
+

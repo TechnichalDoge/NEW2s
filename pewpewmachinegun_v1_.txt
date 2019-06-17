@@ -1,0 +1,36 @@
+@name PewPEwMachinegun v1 
+@inputs Fire
+@persist CannonName:string Delay:number InaccuracyAng:number
+@persist PewGun:entity PWire:wirelink
+
+if(first()){
+    CannonName = "Particle Beam"#"Beam laser" #"Plasma Cannon" #"Flak Cannon"    
+    timer("A",15)
+    Delay = 60
+    InaccuracyAng = 25
+}
+if(clk("A")){
+    if(Fire){
+        PewGun = pewCreate(CannonName,"models/props_junk/PopCan01a.mdl",entity():pos()+entity():up()*10,entity():angles() + ang(randint(-InaccuracyAng/2,InaccuracyAng/2),randint(-InaccuracyAng/2,InaccuracyAng/2),randint(-InaccuracyAng/2,InaccuracyAng/2)))
+        #PWire = PewGun:wirelink()
+    }
+    timer("B",Delay/4)
+}
+if(clk("B")){
+    if(PewGun:isValid()){
+        #PWire["Lifetime",number] = randint(0.5,2)
+    }
+    timer("C",Delay/4)
+}
+if(clk("C")){
+    if(PewGun:isValid()){
+        PewGun:pewFire(1)
+    }
+    timer("D",Delay/4)
+}
+if(clk("D")){
+    if(PewGun:isValid()){ 
+        PewGun:propDelete()
+    }
+    timer("A",Delay/4)
+}

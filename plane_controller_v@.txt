@@ -1,0 +1,34 @@
+@name Plane Controller V@
+@inputs Chair:entity KeyBoardActiveKeys:array 
+@persist M1 M2 Base:entity Speed AngSpeed MaxSpeed SHIFT SPACE StrKeys:string
+@outputs M1 M2 Base:entity Speed AngSpeed MaxSpeed StrKeys:string
+
+if(first()){
+    Base = entity():isConstrainedTo()
+    timer("checkKeys",15)   
+    timer("ApplyAppropriateThings",15)
+    AngSpeed = 60000
+    MaxSpeed = 100
+    runOnTick(1)
+}
+if(clk("checkKeys")){
+    StrKeys = KeyBoardActiveKeys:concat("|")
+    Driver = Chair:driver()
+    SHIFT = clamp(StrKeys:find("154"),0,1)
+    SPACE = clamp(StrKeys:find("32"),0,1)
+    M1 = Driver:keyPressed("mouse_left")
+    M2 = Driver:keyPressed("mouse_right")  
+    timer("checkKeys",15)  
+}
+if(clk("ApplyAppropriateThings")){
+    if(SHIFT & Speed < MaxSpeed){
+        Speed+=1  
+    }
+    if(SPACE  & Speed > 0){
+        Speed-=1
+    } 
+    timer("ApplyAppropriateThings",15)  
+}
+
+Base:applyAngForce(ang((Driver:keyPressed("W")-Driver:keyPressed("S"))*AngSpeed - 200000 * 1-Speed, (Driver:keyPressed("Q")-Driver:keyPressed("E"))*AngSpeed, (Driver:keyPressed("A")-Driver:keyPressed("D"))*AngSpeed) - Base:angVel()*5)
+Base:applyForce(Base:forward()*Speed*350 - Base:vel()*5)

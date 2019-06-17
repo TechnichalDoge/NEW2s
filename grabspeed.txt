@@ -1,0 +1,6 @@
+@name GrabSpeed
+@inputs Cannon:entity
+@outputs Speed:number
+@trigger Cannon
+interval(125)
+Speed = Cannon:bcfSpeed()/tickInterval()

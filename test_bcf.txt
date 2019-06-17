@@ -1,0 +1,14 @@
+@name 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+runOnTick(1)
+findByClass("bcf_bullet")
+local Arr = findToArray()
+foreach(I,K:entity = Arr){
+    holoCreate(I,K:pos())
+    holoScale(I,vec(10,10,10))    
+}
+holoDeleteAll()

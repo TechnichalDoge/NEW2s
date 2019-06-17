@@ -1,0 +1,15 @@
+@name 
+@inputs Chair:entity
+@outputs Shift Space
+@persist 
+@trigger 
+
+timer("start",15)
+if(clk("start")){
+    if(Chair:driver():keyPressed("lshift")) {Shift = 1} else {Shift = 0}
+    timer("start2",15)   
+}
+if(clk("start2")){
+    if(Chair:driver():keyPressed("space")) {Space = 1} else {Space = 0}
+    timer("start",15)   
+}

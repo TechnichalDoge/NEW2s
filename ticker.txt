@@ -1,14 +1,15 @@
 @name Ticker
 @inputs On:number
 @outputs Tickey:number
-timer("start",15)
+local DelPerStage = 1500
+timer("start",DelPerStage)
 if(clk("start")|clk("off")){
     Tickey = 0
-    timer("on",15)    
+    timer("on",DelPerStage)    
 }
 if(clk("on")){
     if(On != 0){
         Tickey = 1    
     }    
-    timer("off",15)
+    timer("off",DelPerStage)
 }

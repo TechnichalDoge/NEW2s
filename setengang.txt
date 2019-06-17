@@ -1,0 +1,5 @@
+@name setengang
+@inputs Ent:entity #Ang:angle
+runOnTick(1)
+local Ang = ang(0,0,0)
+    Ent:setAng(Ang+ang(0,0,0))

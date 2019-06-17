@@ -1,0 +1,83 @@
+@name SeatTeleporter
+@persist Chair:entity TargetEnt:entity PreviousLocation:vector
+if(first()){
+    runOnChat(1)   
+    PreviousLocation = owner():pos()
+}
+if(clk("delet")){
+    Chair:ejectPod()
+    Chair:propDelete()
+    timer("chat",575)
+}
+if(clk("chat")){
+    concmd("say /me Teleported to " + TargetEnt:name() + " !")
+}
+
+if(clk("delet2")){
+    Chair:ejectPod()
+    Chair:propDelete()
+    timer("chat2",575)
+}
+if(clk("chat2")){
+    concmd("say /me Returned to previous location!")
+}
+
+if(chatClk()){
+    if(owner():lastSaid():explode(" ")[1,string] == "1tp" & curtime() - owner():lastSaidWhen() < 0.1){
+        hideChat(1)
+        TargetEnt = findPlayerByName( owner():lastSaid():explode(" ")[2,string] )
+        local TEPos = TargetEnt:pos()
+        local Dist = 45
+        local LeftV = TEPos + vec(-Dist,0,0)
+        local RightV = TEPos + vec(Dist,0,0)
+        local ForwardV = TEPos + vec(Dist,0,0)
+        local BackV = TEPos + vec(-Dist,0,0)
+        if(!Chair:isValid()){
+            if(TargetEnt == owner()){
+                print("You tried to tp to yourself!")    
+            }
+            elseif(LeftV:isInWorld()){
+                Chair = seatSpawn("models/props_junk/PopCan01a.mdl",LeftV,ang(0,0,0),1)
+                PreviousLocation = owner():pos()
+                Chair:use()
+                timer("delet",15)  
+            }
+            elseif(RightV:isInWorld()){
+                Chair = seatSpawn("models/props_junk/PopCan01a.mdl",RightV,ang(0,0,0),1)
+                PreviousLocation = owner():pos()
+                Chair:use()
+                timer("delet",15)
+            }
+            elseif(ForwardV:isInWorld()){
+                Chair = seatSpawn("models/props_junk/PopCan01a.mdl",ForwardV,ang(0,0,0),1)
+                PreviousLocation = owner():pos()
+                Chair:use()
+                timer("delet",15)
+            }
+            elseif(BackV:isInWorld()){
+                Chair = seatSpawn("models/props_junk/PopCan01a.mdl",BackV,ang(0,0,0),1)
+                PreviousLocation = owner():pos()
+                Chair:use()
+                timer("delet",15)
+            }
+            else{
+                print("Cannot Teleport You!")  
+            }
+        }
+    }
+    if(owner():lastSaid():explode(" ")[1,string] == "1ret" & curtime() - owner():lastSaidWhen() < 0.1){
+        hideChat(1)
+        local TEPos = PreviousLocation
+        if(!Chair:isValid()){
+            if(TEPos:isInWorld()){
+                Chair = seatSpawn("models/props_junk/PopCan01a.mdl",TEPos,ang(0,0,0),1)
+                TEPos = owner():pos()
+                Chair:use()
+                timer("delet2",15)  
+            }
+            else{
+                print("Cannot Return You!")  
+            }
+        }
+    }
+}

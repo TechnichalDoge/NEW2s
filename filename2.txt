@@ -1,0 +1,11 @@
+@name 
+@inputs Chair:entity
+@outputs Mleft
+@persist 
+@trigger 
+
+timer("start",15)
+if(clk("start")){
+    if(Chair:driver():keyPressed("mouse_left")) {Mleft = 1} else {Mleft = 0}
+    timer("start",15)   
+}
