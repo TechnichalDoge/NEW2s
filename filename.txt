@@ -1,10 +1,13 @@
-function ply(){
-    if(perf(1)){
-    timer("ply",25)
-    }
-}
-ply()
-if(clk("ply")){
-soundPlay(1,0,"hahayoufool.wav")
-ply()
+@name 
+@inputs 
+@outputs 
+@persist A:array
+@trigger 
+findByClass("prop_physics")
+local P = findToArray()
+
+foreach(I,L:entity=P){
+    if(L:owner() == owner()){
+        L:propFreeze(0)
+    }    
 }

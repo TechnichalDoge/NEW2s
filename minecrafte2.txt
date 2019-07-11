@@ -70,7 +70,7 @@ if(clk("placeBlock")){
             E:setColor(CurColor)
             E:setAlpha(CurAlpha)
             if(State == "liquid"){
-                E:setNoCollideAll()
+                noCollideAll(E,1)
             }
             if(State:explode("|")[1,string] == "tree"){
                 local InnerMat = State:explode("|")[2,string]
